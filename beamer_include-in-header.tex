@@ -1,0 +1,72 @@
+
+%------------------------------------- Packages ----------------
+\usepackage[babel]{csquotes}
+\usepackage{xspace}
+%------------------------------------- Packages ----------------
+
+%------------------------------------- Beamer Settings ----------------
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{bibliography item}[book]
+
+% Default: 128mm x 96mm => 120mm text width
+\setbeamersize{text margin left=4mm}
+\setbeamersize{text margin right=4mm}
+%------------------------------------- Beamer Settings ---------------------
+
+%------------------------------------- Fonts and Colors ---------------------
+\definecolor{dkgreen}{rgb}{0,0.6,0} % needs xcolor (included by beamer)
+\definecolor{dkred}{rgb}{0.6,0,0} % needs xcolor (included by beamer)
+\definecolor{dkblue}{rgb}{0,0,0.6} % needs xcolor (included by beamer)
+\definecolor{gray}{rgb}{0.7,0.7,0.7} % needs xcolor (included by beamer)
+\definecolor{lightgray}{rgb}{0.9,0.9,0.9} % needs xcolor (included by beamer)
+\xdefinecolor{headcolor}{rgb}{0,0,0.5} % needs xcolor (included by beamer)         
+\definecolor{listinggray}{gray}{0.92} % needs xcolor (included by beamer)
+\definecolor{commentgray}{gray}{0.6} % needs xcolor (included by beamer)
+\definecolor{quellengray}{gray}{0.8} % needs xcolor (included by beamer)
+\definecolor{midnightblue}{rgb}{0.2,0.2,0.7} % needs xcolor (included by beamer)
+
+\setbeamercolor{normal text}{fg=black!70,bg=white}
+
+\setbeamercolor*{structure}{fg=midnightblue!90}
+\setbeamercolor*{palette primary}{use=structure,fg=structure.fg}
+\setbeamercolor*{palette secondary}{use=structure,fg=structure.fg!95!black}
+\setbeamercolor*{palette tertiary}{use=structure,fg=structure.fg!90!black}
+\setbeamercolor*{palette quaternary}{use=structure,fg=structure.fg!95!black,bg=black!80}
+
+\setbeamercolor*{framesubtitle}{fg=white}
+
+\usefonttheme{professionalfonts} 
+\setmainfont{Cabin}  % needs xelatex
+\setsansfont{Cabin}  % needs xelatex
+\setbeamerfont{quote}{shape=\upshape}
+%------------------------------------- Fonts and Colors ---------------------
+
+%------------------------------------- CMDs ---------------------
+\newcommand{\bsp}[1]{\vfill\hfill\beamerbutton{#1}}
+\newcommand{\Alert}[1]{\alert{\textbf{#1}}\xspace}
+\newcommand{\blueArrow}{{\color{midnightblue}$\pmb{\Rightarrow}$}\xspace}
+
+\newcommand{\columnsbegin}{\begin{columns}}
+\newcommand{\columnsend}{\end{columns}}
+\newcommand{\minipagebegin}{\begin{minipage}}
+\newcommand{\minipageend}{\end{minipage}}
+\newcommand{\centerbegin}{\begin{center}}
+\newcommand{\centerend}{\end{center}}
+
+\newsavebox{\mycolorbox}
+\newenvironment{mycbox}{\begin{lrbox}{\mycolorbox}}{\end{lrbox}\begin{center}\fcolorbox{blue}{listinggray}{\usebox{\mycolorbox}}\end{center}}
+\newcommand{\cboxbegin}{\begin{mycbox}}
+\newcommand{\cboxend}{\end{mycbox}}
+%------------------------------------- CMDs ---------------------
+
+%------------------------------------- Listings ---------------------
+%\usepackage{listings}  %% Pandoc-Option --listings
+
+\lstset{basicstyle=\small\ttfamily\mdseries, xleftmargin=\bigskipamount, keywordstyle=\bfseries\color{dkblue}, identifierstyle=\ttfamily, commentstyle=\bfseries\color{gray}\textsl, stringstyle=\color{magenta}\upshape, emphstyle=\color{red}, emphstyle={[2]\color{blue}}, texcl=false, showspaces=false, showstringspaces=false, numbers=left, numberstyle=\footnotesize, breaklines=true, tabsize=4, backgroundcolor=\color{listinggray}, frame=shadowbox}
+
+\newcommand{\code}[1]{\textcolor{dkgreen}{\texttt{\textbf{#1}}}\xspace}
+%------------------------------------- Listings ---------------------
+
+
+
+
