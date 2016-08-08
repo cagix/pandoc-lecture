@@ -5,9 +5,6 @@
 %------------------------------------- Packages ----------------
 
 %------------------------------------- Beamer Settings ----------------
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{bibliography item}[book]
-
 % Default: 128mm x 96mm => 120mm text width
 \setbeamersize{text margin left=4mm}
 \setbeamersize{text margin right=4mm}
@@ -24,21 +21,6 @@
 \definecolor{commentgray}{gray}{0.6} % needs xcolor (included by beamer)
 \definecolor{quellengray}{gray}{0.8} % needs xcolor (included by beamer)
 \definecolor{midnightblue}{rgb}{0.2,0.2,0.7} % needs xcolor (included by beamer)
-
-\setbeamercolor{normal text}{fg=black!70,bg=white}
-
-\setbeamercolor*{structure}{fg=midnightblue!90}
-\setbeamercolor*{palette primary}{use=structure,fg=structure.fg}
-\setbeamercolor*{palette secondary}{use=structure,fg=structure.fg!95!black}
-\setbeamercolor*{palette tertiary}{use=structure,fg=structure.fg!90!black}
-\setbeamercolor*{palette quaternary}{use=structure,fg=structure.fg!95!black,bg=black!80}
-
-\setbeamercolor*{framesubtitle}{fg=white}
-
-\usefonttheme{professionalfonts} 
-\setmainfont{Cabin}  % needs xelatex
-\setsansfont{Cabin}  % needs xelatex
-\setbeamerfont{quote}{shape=\upshape}
 %------------------------------------- Fonts and Colors ---------------------
 
 %------------------------------------- CMDs ---------------------
@@ -58,14 +40,6 @@
 \newcommand{\cboxbegin}{\begin{mycbox}}
 \newcommand{\cboxend}{\end{mycbox}}
 %------------------------------------- CMDs ---------------------
-
-%------------------------------------- Listings ---------------------
-%\usepackage{listings}  %% Pandoc-Option --listings
-
-\lstset{basicstyle=\small\ttfamily\mdseries, xleftmargin=\bigskipamount, keywordstyle=\bfseries\color{dkblue}, identifierstyle=\ttfamily, commentstyle=\bfseries\color{gray}\textsl, stringstyle=\color{magenta}\upshape, emphstyle=\color{red}, emphstyle={[2]\color{blue}}, texcl=false, showspaces=false, showstringspaces=false, numbers=left, numberstyle=\footnotesize, breaklines=true, tabsize=4, backgroundcolor=\color{listinggray}, frame=shadowbox}
-
-\newcommand{\code}[1]{\textcolor{dkgreen}{\texttt{\textbf{#1}}}\xspace}
-%------------------------------------- Listings ---------------------
 
 
 
