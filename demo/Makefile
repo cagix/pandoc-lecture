@@ -47,7 +47,7 @@ PDFOPTIONS += -V geometry:left=1.5cm -V geometry:right=1.5cm -V geometry:top=1.5
 PDFOPTIONS += --standalone --smart --number-sections --toc --toc-depth=1
 PDFOPTIONS += --include-in-header=${PREFIX}/beamer.tex
 PDFOPTIONS += --include-in-header=${PREFIX}/handout.tex
-PDFOPTIONS += --listings --highlight-style=tango
+#PDFOPTIONS += --listings --highlight-style=tango
 PDFOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
