@@ -1,0 +1,36 @@
+
+%------------------------------------- Handout Settings ----------------
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth0.4\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight0.4\textheight\else\Gin@nat@height\fi}
+\makeatother
+
+\makeatletter
+\def\@listI{\leftmargin\leftmargini
+    \parsep 0pt
+    \topsep 5\p@   \@plus3\p@ \@minus5\p@
+    \itemsep0pt}
+\let\@listi=\@listI
+
+\let\origstartsection=\@startsection
+\def\@startsection#1#2#3#4#5#6{%
+    \origstartsection{#1}{#2}{#3}{#4}{#5}{#6\normalfont\sffamily\color{blue!50!black}\selectfont}}
+\makeatother
+%------------------------------------- Handout Settings ---------------------
+
+%------------------------------------- CMDs ---------------------
+\renewcommand{\bsp}[1]{\vfill\hfill\fcolorbox{blue}{listinggray}{#1}}
+
+\renewcommand{\vspace}[1]{}
+\renewcommand{\vfill}{}
+\renewcommand{\smallskip}{}
+\renewcommand{\medskip}{}
+\renewcommand{\bigskip}{}
+
+\renewcommand{\alert}[1]{\textcolor{dkred}{#1}} % \Alert follows automatically
+%------------------------------------- CMDs ---------------------
+
+
+
+
+
