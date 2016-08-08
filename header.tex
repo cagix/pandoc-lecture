@@ -1,0 +1,27 @@
+
+%------------------------------------- Custom Header ----------------
+\pagestyle{headandfoot}
+\headrule
+\ifprintanswers
+    \header{}{\textcolor{dkred}{\textbf{\Huge MUSTER}}}{\hslogoscaled{12mm}}
+\else
+    \header{Name:}{Matrikelnummer:}{\hslogoscaled{12mm}}
+\fi
+\footrule
+\footer{$LVKURZ$}{Klausur $PART$\xspace$NR$, $SEMESTER$}{Seite \thepage\ von \numpages}
+%------------------------------------- Custom Header ---------------------
+
+%------------------------------------- Questions --------------------------------
+\providecommand{\theMyQuestionTitle}{}
+\providecommand{\myQuestion}[2][0]{\vskip11pt\renewcommand{\theMyQuestionTitle}{#2}\question[#1]{\ }\vskip5pt}
+\providecommand{\myBonusQuestion}[2][0]{\vskip11pt\renewcommand{\theMyQuestionTitle}{#2}\bonusquestion[#1]{\ }\vskip5pt}
+\qformat{\textbf{\Large $PART$.\thequestion: \theMyQuestionTitle\hfill \fbox{\thepoints}}}  % add only question points
+\bonusqformat{\textbf{\Large $PART$.\thequestion: \theMyQuestionTitle\hfill \fbox{\thepoints}}}  % question parts don't work w/ bonus?!
+\boxedpoints    % no effect w/ qformat
+\pointpoints{Punkt}{Punkte}
+\bonuspointpoints{Punkt (Bonus)}{Punkte (Bonus)}
+%------------------------------------- Questions --------------------------------
+
+
+
+
