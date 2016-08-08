@@ -1,0 +1,135 @@
+
+%------------------------------------- Packages ----------------
+\usepackage[babel]{csquotes}
+\usepackage{xspace}
+\usepackage{xcolor}
+\usepackage[absolute]{textpos}
+\usepackage{colortbl}
+\usepackage{wasysym}    % \Square
+%------------------------------------- Packages ----------------
+
+%------------------------------------- Fonts and Colors ---------------------
+\definecolor{headcolor}{rgb}{0,0,0.5}             
+
+\definecolor{midnightblue}{rgb}{0.2,0.2,0.7}
+
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{dkred}{rgb}{0.6,0,0}
+
+\definecolor{listinggray}{gray}{0.92}
+%------------------------------------- Fonts and Colors ---------------------
+
+%------------------------------------- Settings ---------------------
+\extrawidth{.5in}
+%------------------------------------- Settings ---------------------
+
+%------------------------------------- CMDs ---------------------
+\newcommand{\hsfont}    {\fontfamily{phv}\fontseries{m}\fontshape{n}\selectfont}
+\newcommand{\hsheadfont}{\fontfamily{phv}\fontseries{b}\fontshape{n}\selectfont}
+
+\newcommand{\hslogo}{figs/front_fh-bielefeld}
+\newcommand{\hslogoscaled}[1]{{\mbox{\includegraphics[width=#1]\hslogo}}}
+
+\newcommand{\centerbegin}{\begin{center}}
+\newcommand{\centerend}{\end{center}}
+
+\newcommand{\hinweis}{\smallskip\emph{Hinweis}:\xspace}
+\newcommand{\x}[1]{\ifprintanswers{\color{red}\bfseries#1\xspace}\fi}
+
+%\newcommand{\Fortsetzung}{\vfill\centerline{\textsl{\textbf{Fortsetzung nächste Seite}}}\clearpage}
+\newcommand{\Fortsetzung}{\begin{textblock*}{54mm}(80mm,276mm)\textsl{\textbf{Fortsetzung nächste Seite}}\end{textblock*}}
+\newcommand{\Leerseite}{\newpage\centerline{\textsl{\textbf{Leerseite}}}}
+%------------------------------------- CMDs ---------------------
+
+%------------------------------------- Listings ---------------------
+%% settings for pandoc option `--listings`
+\usepackage{listings}  
+\lstset{basicstyle=\footnotesize\ttfamily\mdseries, xleftmargin=\bigskipamount, keywordstyle=\bfseries\color{dkblue}, identifierstyle=\ttfamily, commentstyle=\bfseries\color{gray}\textsl, stringstyle=\color{magenta}\upshape, emphstyle=\color{red}, emphstyle={[2]\color{blue}}, texcl=false, showspaces=false, showstringspaces=false, numbers=left, numberstyle=\footnotesize, breaklines=true, tabsize=4, backgroundcolor=\color{listinggray}, frame=shadowbox}
+
+\newcommand{\code}[1]{\textcolor{dkgreen}{\texttt{\textbf{#1}}}\xspace}
+%------------------------------------- Listings ---------------------
+
+%------------------------------------- Tables (left column gray background) --------------------------------
+\newenvironment{streifenenv}
+{
+    \smallskip
+    \begin{tabular}{>{\columncolor{gray}}p{1pt}p{0.94\textwidth}}
+        &
+        \begin{minipage}{0.94\textwidth}
+}
+{
+        \end{minipage}
+    \end{tabular}
+    \smallskip
+}
+\newcommand{\streifenbegin}{\begin{streifenenv}}
+\newcommand{\streifenend}{\end{streifenenv}}
+
+
+\newenvironment{streifenSolution}[1][10mm]%
+{
+    \streifenbegin
+    \begin{solution}[#1]
+}
+{
+    \end{solution}
+    \streifenend
+}
+\newcommand{\solutionbegin}{\begin{streifenSolution}}
+\newcommand{\solutionend}{\end{streifenSolution}}
+
+
+\newenvironment{streifenMC}[2]
+{
+    \streifenbegin
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabular}{ccp{0.82\textwidth}}
+    \textbf{#1} & \textbf{#2} \\
+}
+{
+    \end{tabular}
+    \renewcommand{\arraystretch}{1.0}
+    \streifenend
+}
+\newcommand{\antwort}{\ifprintanswers \ensuremath{\blacksquare} \else \ensuremath{\Box} \fi}
+\newcommand{\wahr}{\antwort & \ensuremath{\Box} & }
+\newcommand{\falsch}{\ensuremath{\Box} & \antwort & }
+
+
+\newenvironment{streifenTabular}[1]
+{
+    \streifenbegin
+    \ifprintanswers \renewcommand{\arraystretch}{0.4} \else \renewcommand{\arraystretch}{1.2} \fi
+    \begin{tabular}{#1}
+}
+{
+    \end{tabular}
+    \renewcommand{\arraystretch}{1.0}
+    \streifenend
+}
+%------------------------------------- Tables (left column gray background) --------------------------------
+
+%------------------------------------- Answers --------------------------------
+\CorrectChoiceEmphasis{\color{red}\bfseries}
+\checkboxchar{\ensuremath{\Box}}
+\checkedchar{\ensuremath{\blacksquare}}
+\shadedsolutions
+\definecolor{SolutionColor}{rgb}{0.9,0.8,0.8}
+%------------------------------------- Answers --------------------------------
+
+%------------------------------------- Grading Table --------------------------------
+\hqword{\textbf{Aufgabe}}
+\hpword{\textbf{Punkte}}
+\hsword{\raisebox{-1mm}[6mm][4mm]{\textbf{Erreicht}}}
+%\htword{\raisebox{-2mm}[6mm][4mm]{\textcolor{headcolor}{\Huge\ensuremath{\;\;\;\pmb{\Sigma}\;\;\;}}}}
+\htword{\raisebox{-1mm}[6mm][4mm]{\textcolor{headcolor}{\LARGE\ensuremath{\;\;\;\pmb{\Sigma}\;\;\;}}}}
+%------------------------------------- Grading Table --------------------------------
+
+%------------------------------------- Custom Title Page ----------------
+\renewcommand{\maketitle}{} % we use "coverpage" from the exam package instead
+\renewcommand{\tableofcontents}{} % we have to use --toc to compile the exam twice, but we do not want really a toc
+%------------------------------------- Custom Title Page ----------------
+
+
+
