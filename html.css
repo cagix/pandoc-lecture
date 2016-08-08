@@ -1,0 +1,68 @@
+<style type="text/css">
+
+body { margin: 5%; text-align: justify; font-size: medium; }
+code { font-family: monospace; }
+h1 { text-align: left; }
+h2 { text-align: left; }
+h3 { text-align: left; }
+h4 { text-align: left; }
+h5 { text-align: left; }
+h6 { text-align: left; }
+h1.title { }
+h2.author { }
+h3.date { }
+ol.toc { padding: 0; margin-left: 1em; }
+ol.toc li { list-style-type: none; margin: 0; padding: 0; }
+
+body {
+    font-family: Verdana, sans-serif;
+    text-align: left;
+}
+
+p {
+  text-align: left;
+  margin-bottom: 7px;
+}
+
+h1 {
+    font-size: 200%;
+    font-weight: bold;
+    margin-top: 3ex;
+    margin-bottom: 2ex;
+    text-align: left;
+    color: #3f3f9f; 	     
+}
+
+h2 {
+    font-size: 150%;
+    font-weight: bold;
+    margin-top: 2ex;
+    margin-bottom: 1ex;
+    text-align: left;
+    color: #3f3f9f; 	     
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 120%;
+    text-align: left;
+    color: #3f3f9f; 	     
+}
+
+h1 a, h2 a, h3 a { 
+    text-decoration: none;
+    color: #3f3f9f; 
+}
+
+
+/* definitions to match corresponding TeX macros */
+.alert { color:#ff3333; }
+.Alert { color:#ff3333; font-weight:bold; }
+.blueArrow { color:#3f3f9f; font-family:monospace; font-weight:bold; }
+.code { color:#00cc00; font-family:monospace; }
+.bsp { padding:0.05cm; border-width:0.05cm; border-style:solid; border-color:#3f3f9f; }
+.cbox { padding:0.1cm; border-width:0.1cm; border-style:solid; border-color:#3f3f9f; }
+
+</style>
+
+
