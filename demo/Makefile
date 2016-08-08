@@ -45,7 +45,6 @@ PDFOPTIONS += -V documentclass=scrartcl -V beamerarticle
 PDFOPTIONS += -V fontsize=9pt -V papersize=a4
 PDFOPTIONS += -V geometry:left=1.5cm -V geometry:right=1.5cm -V geometry:top=1.5cm -V geometry:bottom=2.5cm
 PDFOPTIONS += --standalone --smart --number-sections --toc --toc-depth=1
-PDFOPTIONS += --filter ${PREFIX}/texnotes.py 
 PDFOPTIONS += --include-in-header=${PREFIX}/beamer.tex
 PDFOPTIONS += --include-in-header=${PREFIX}/handout.tex
 PDFOPTIONS += --listings --highlight-style=tango
