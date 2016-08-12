@@ -13,7 +13,7 @@ LANG    = -V lang=de-DE -M lang=de-DE
 
 SRC    = $(addprefix md/, bla.md blub.md wuppie.md fluppie.md)
 
-PDF    = klausur.pdf muster.pdf
+PDF    = exam.pdf solution.pdf
 TMP1   = __header.filled.tex
 TMP2   = __titlepage.filled.tex
 
@@ -45,16 +45,16 @@ all:	$(PDF)
 pdf:	clean $(PDF)
 
 
-klausur.pdf: klausur.md $(SRC) ${PREFIX}/header.tex ${PREFIX}/titlepage.tex
-	pandoc --standalone --template ${PREFIX}/header.tex -o ${TMP1} klausur.md
-	pandoc --standalone --template ${PREFIX}/titlepage.tex -o ${TMP2} klausur.md
-	pandoc ${PDFOPTIONS} -o $@ klausur.md $(SRC)
+exam.pdf: exam.md $(SRC) ${PREFIX}/header.tex ${PREFIX}/titlepage.tex
+	pandoc --standalone --template ${PREFIX}/header.tex -o ${TMP1} exam.md
+	pandoc --standalone --template ${PREFIX}/titlepage.tex -o ${TMP2} exam.md
+	pandoc ${PDFOPTIONS} -o $@ exam.md $(SRC)
 	rm -f ${TMP1} ${TMP2}
 
-muster.pdf: klausur.md $(SRC) ${PREFIX}/header.tex ${PREFIX}/titlepage.tex
-	pandoc --standalone --template ${PREFIX}/header.tex -o ${TMP1} klausur.md
-	pandoc --standalone --template ${PREFIX}/titlepage.tex -o ${TMP2} klausur.md
-	pandoc ${PDFOPTIONS} -V classoption=answers -o $@ klausur.md $(SRC)
+solution.pdf: exam.md $(SRC) ${PREFIX}/header.tex ${PREFIX}/titlepage.tex
+	pandoc --standalone --template ${PREFIX}/header.tex -o ${TMP1} exam.md
+	pandoc --standalone --template ${PREFIX}/titlepage.tex -o ${TMP2} exam.md
+	pandoc ${PDFOPTIONS} -V classoption=answers -o $@ exam.md $(SRC)
 	rm -f ${TMP1} ${TMP2}
 
 
