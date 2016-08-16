@@ -31,6 +31,7 @@ PDFOPTIONS += -V fontsize=10pt -V papersize=a4
 PDFOPTIONS += -V geometry:left=2cm -V geometry:right=2cm -V geometry:top=2cm -V geometry:bottom=2.5cm
 PDFOPTIONS += --standalone --smart --number-sections
 PDFOPTIONS += --include-in-header=${PREFIX}/homework.tex
+PDFOPTIONS += --filter ${PREFIX}/addpoints.py 
 #PDFOPTIONS += --listings --highlight-style=tango
 PDFOPTIONS += ${LANG} --data-dir=${DATADIR}
 
