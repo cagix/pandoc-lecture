@@ -35,8 +35,17 @@ Thus we can use a variable "points" in the pandoc template, which provides
 access to the total number of points for the given homework sheet.
 """
 
-from pandocfilters import toJSONFilter, Str, Space, Header, RawInline
+from pandocfilters import walk, Str, Space, Header, RawInline
 import re
+
+
+import codecs
+import io
+import json
+import os
+import sys
+
+
 
 points = 0
 
@@ -57,10 +66,32 @@ def addpoints(key, value, format, meta):
                     field["c"] = [Str(str(points)),]
                 elif "MetaString" in field["t"]:
                     field["c"] = Str(str(points))  
-                 
+            sys.stderr.write(str(meta) + '\n\n')
+                    
         return Header(level, [ident,classes,keyvals], content)    
 
 
+def toJSONFilters(action):
+    try:
+        input_stream = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
+    except AttributeError:
+        input_stream = codecs.getreader("utf-8")(sys.stdin)
+
+    doc = json.loads(input_stream.read())
+    if len(sys.argv) > 1:
+        format = sys.argv[1]
+    else:
+        format = ""
+
+    altered = walk(doc, action, format, doc[0]['unMeta'])
+
+    global points
+    sys.stderr.write(str(altered[0]['unMeta']['points']) + '\n\n')
+    altered[0]['unMeta']['points'] = {'t':'MetaInlines', 'c':[Str(str(points)),]}
+    
+    json.dump(altered, sys.stdout)
+
+
 if __name__ == "__main__":
-    toJSONFilter(addpoints)
+    toJSONFilters(addpoints)
     
