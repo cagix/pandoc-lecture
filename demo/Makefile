@@ -45,7 +45,7 @@ pdf:	clean $(PDF)
 
 
 ${ID}_%.pdf: %.md ${PREFIX}/titlepage.tex
-	pandoc --standalone --template ${PREFIX}/titlepage.tex -o ${TMP} $<
+	pandoc --standalone --filter ${PREFIX}/addpoints.py --template ${PREFIX}/titlepage.tex -o ${TMP} $<
 	pandoc ${PDFOPTIONS} --include-in-header=${TMP} -o $@ $<
 	rm -f ${TMP}
 
