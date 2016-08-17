@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
 """
-Pandoc filter to calculate the total number of points in homework sheets. 
+Pandoc filter to calculate the total number of points in homework sheets.
 This mimics the behaviour of the LaTeX exam class to some extend.
 
-To create questions, we use level 1 or 2 headers (like the `\titledquestion` 
-in the exam class). The number of points for a task or question are assigned 
-as key-value-pair in the header attributes, where the key would be the string 
+To create questions, we use level 1 or 2 headers (like the `\titledquestion`
+in the exam class). The number of points for a task or question are assigned
+as key-value-pair in the header attributes, where the key would be the string
 "punkte" and the value the number of points (integer value).
 
 Example:
@@ -16,7 +16,7 @@ Example:
 Blablabla
 ```
 
-shall be equivalent to 
+shall be equivalent to
 
 ```latex
 \titledquestion{Task A}[42]
@@ -28,10 +28,10 @@ when using the exam class.
 This filter searches all headers for a "punkte"/int pair. If found, it will
 a.  append the string " (<int> Punkte)" to the header,
 b.  add the total number of points (so far), and
-c.  in case there is a meta field named "points", it will set the total number 
+c.  in case there is a meta field named "points", it will set the total number
     of points as value for this field
 
-Thus we can use a variable "points" in the pandoc template, which provides 
+Thus we can use a variable "points" in the pandoc template, which provides
 access to the total number of points for the given homework sheet.
 
 
@@ -49,13 +49,11 @@ itself.
 from pandocfilters import walk, Str, Space, Header, RawInline
 import re
 
-
 import codecs
 import io
 import json
 import os
 import sys
-
 
 
 points = 0
@@ -70,8 +68,8 @@ def addpoints(key, value, format, meta):
             points += p
             content += [Space(), RawInline("tex", "\\hfill"), Space(),
                         Str("("+str(p)), Space(), Str("Punkte)")]
-                    
-        return Header(level, [ident,classes,keyvals], content)    
+
+        return Header(level, [ident,classes,keyvals], content)
 
 
 def setPointsMetadata(document):
@@ -119,4 +117,4 @@ def toJSONFilters(action):
 
 if __name__ == "__main__":
     toJSONFilters(addpoints)
-    
+
