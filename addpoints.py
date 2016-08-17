@@ -101,11 +101,8 @@ def toJSONFilters(action):
         format = ""
 
     altered = walk(doc, action, format, doc[0]['unMeta'])
+    altered = setPointsMetadata(altered)
 
-    global points
-    sys.stderr.write(str(altered[0]['unMeta']['points']) + '\n\n')
-    altered[0]['unMeta']['points'] = {'t':'MetaInlines', 'c':[Str(str(points)),]}
-    
     json.dump(altered, sys.stdout)
 
 
