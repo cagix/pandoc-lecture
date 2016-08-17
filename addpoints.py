@@ -33,6 +33,17 @@ c.  in case there is a meta field named "points", it will set the total number
 
 Thus we can use a variable "points" in the pandoc template, which provides 
 access to the total number of points for the given homework sheet.
+
+
+Note: This filter uses a customized version of the `toJSONFilter` function from
+the pandocfilters package since we need to alter the metadata of the document
+*after* parsing and modifying the document.
+The alternative would be use two runs of the filter and to write the total
+number of points to a temporary file in the first run and reading it in the
+second run of the filter.
+Changing the metadata during the `walk` function (i.e. changing the `meta`
+parameter within an action function) doesn't have any impact on the document
+itself.
 """
 
 from pandocfilters import walk, Str, Space, Header, RawInline
