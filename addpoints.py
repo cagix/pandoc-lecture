@@ -57,8 +57,8 @@ def addpoints(key, value, format, meta):
         if p:
             p = reduce(lambda x,y: x+y, p)
             points += p
-            
-            content += [Space(), RawInline("tex", "\\hfill"), Space(), Str("("+str(p)+" Punkte)")]
+            content += [Space(), RawInline("tex", "\\hfill"), Space(),
+                        Str("("+str(p)), Space(), Str("Punkte)")]
                     
         return Header(level, [ident,classes,keyvals], content)    
 
