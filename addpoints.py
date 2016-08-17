@@ -59,14 +59,6 @@ def addpoints(key, value, format, meta):
             points += p
             
             content += [Space(), RawInline("tex", "\\hfill"), Space(), Str("("+str(p)+" Punkte)")]
-            
-            field = meta.get("points", {})
-            if field:
-                if "MetaInlines" in field["t"]:
-                    field["c"] = [Str(str(points)),]
-                elif "MetaString" in field["t"]:
-                    field["c"] = Str(str(points))  
-            sys.stderr.write(str(meta) + '\n\n')
                     
         return Header(level, [ident,classes,keyvals], content)    
 
