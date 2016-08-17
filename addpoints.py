@@ -63,6 +63,16 @@ def addpoints(key, value, format, meta):
         return Header(level, [ident,classes,keyvals], content)    
 
 
+def checkPoints(pstr, points):
+    try:
+        if int(pstr) != points:
+            sys.stderr.write('\n\n' + "Expected " + pstr + " points.\n")
+            sys.stderr.write("Found " + str(points) + " points!" + '\n\n\n')
+    except ValueError:
+        # pstr did not contain a number ... do nothing
+        pass
+
+
 def toJSONFilters(action):
     try:
         input_stream = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
