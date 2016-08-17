@@ -63,6 +63,21 @@ def addpoints(key, value, format, meta):
         return Header(level, [ident,classes,keyvals], content)    
 
 
+def setPointsMetadata(document):
+    global points
+
+    field = document[0]['unMeta'].get("points", {})
+    if field and field["t"]:
+        if "MetaInlines" in field["t"]:
+            checkPoints(field["c"][0]["c"], points)
+            field["c"] = [Str(str(points)),]
+        elif "MetaString" in field["t"]:
+            checkPoints(field["c"], points)
+            field["c"] = str(points)
+
+    return document
+
+
 def checkPoints(pstr, points):
     try:
         if int(pstr) != points:
