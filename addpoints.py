@@ -34,6 +34,10 @@ c.  in case there is a meta field named "points", it will set the total number
 Thus we can use a variable "points" in the pandoc template, which provides
 access to the total number of points for the given homework sheet.
 
+The contents of the headers together with the resp. points will be collected in
+a list and written to the meta data field `questions`. This allows to access
+the questions from templates.
+
 
 Note: This filter uses a customized version of the `toJSONFilter` function from
 the pandocfilters package since we need to alter the metadata of the document
@@ -57,6 +61,7 @@ import sys
 
 
 points = 0
+questions = []
 
 def addpoints(key, value, format, meta):
     global points
@@ -66,6 +71,7 @@ def addpoints(key, value, format, meta):
         if p:
             p = reduce(lambda x,y: x+y, p)
             points += p
+            questions.append(content + [Space(), Str("("+str(p)+"P)")])
             content += [Space(), RawInline("tex", "\\hfill"), Space(),
                         Str("("+str(p)), Space(), Str("Punkte)")]
 
@@ -83,6 +89,17 @@ def setPointsMetadata(document):
         elif "MetaString" in field["t"]:
             checkPoints(field["c"], points)
             field["c"] = str(points)
+
+    return document
+
+
+def setQuestionMetadata(document):
+    global questions
+
+    if document[0]['unMeta'].get("questions", {}):
+        # in case there is a question meta data field: replace it ...
+        q = [{"t":"MetaInlines","c":c} for c in questions]
+        document[0]['unMeta']["questions"] = {"t":"MetaList","c":q}
 
     return document
 
@@ -111,10 +128,12 @@ def toJSONFilters(action):
 
     altered = walk(doc, action, format, doc[0]['unMeta'])
     altered = setPointsMetadata(altered)
+    altered = setQuestionMetadata(altered)
 
     json.dump(altered, sys.stdout)
 
 
 if __name__ == "__main__":
     toJSONFilters(addpoints)
+
 
