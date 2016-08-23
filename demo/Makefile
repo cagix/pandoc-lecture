@@ -16,7 +16,9 @@ SRC   ?= $(wildcard b*.md)
 ID    ?= pm
 
 PDF    = $(SRC:%.md=${ID}_%.pdf)
-TMP    = __titlepage.filled.tex
+EVAL   = $(SRC:%.md=${ID}_%_eval.pdf)
+TMP1   = __titlepage.filled.tex
+TMP2   = __questions.filled.md
 
 TARGETDIR = ../distr/
 
@@ -24,30 +26,41 @@ TARGETDIR = ../distr/
 
 ## Homework options
 
-PDFOPTIONS  = -f markdown --latex-engine=xelatex
-PDFOPTIONS += --default-image-extension=pdf
-PDFOPTIONS += -V documentclass=scrartcl
-PDFOPTIONS += -V fontsize=10pt -V papersize=a4
+OPTIONS  = -f markdown --latex-engine=xelatex
+OPTIONS += --default-image-extension=pdf
+OPTIONS += -V documentclass=scrartcl
+OPTIONS += --standalone --smart --number-sections
+OPTIONS += --include-in-header=${PREFIX}/homework.tex
+OPTIONS += --include-in-header=${TMP1}
+OPTIONS += ${LANG} --data-dir=${DATADIR}
+
+PDFOPTIONS =  -V fontsize=10pt -V papersize=a4
 PDFOPTIONS += -V geometry:left=2cm -V geometry:right=2cm -V geometry:top=2cm -V geometry:bottom=2.5cm
-PDFOPTIONS += --standalone --smart --number-sections
-PDFOPTIONS += --include-in-header=${PREFIX}/homework.tex
-PDFOPTIONS += --filter ${PREFIX}/addpoints.py 
 #PDFOPTIONS += --listings --highlight-style=tango
-PDFOPTIONS += ${LANG} --data-dir=${DATADIR}
+
+EVALOPTIONS =  -V fontsize=9pt -V papersize=a4
+EVALOPTIONS += -V geometry:left=1cm -V geometry:right=1cm -V geometry:top=1.5cm -V geometry:bottom=1.5cm
 
 
 
 ## Targets
 
-all:	$(PDF) 
-
+all:	$(PDF) $(EVAL)
 pdf:	clean $(PDF)
+eval:	clean $(EVAL)
 
 
 ${ID}_%.pdf: %.md ${PREFIX}/titlepage.tex
-	pandoc --standalone --filter ${PREFIX}/addpoints.py --template ${PREFIX}/titlepage.tex -o ${TMP} $<
-	pandoc ${PDFOPTIONS} --include-in-header=${TMP} -o $@ $<
-	rm -f ${TMP}
+	pandoc --standalone --filter ${PREFIX}/addpoints.py --template ${PREFIX}/titlepage.tex -o ${TMP1} $<
+	pandoc ${OPTIONS} ${PDFOPTIONS} -o $@ $<
+	rm -f ${TMP1}
+
+
+${ID}_%_eval.pdf: %.md ${PREFIX}/titlepage.tex ${PREFIX}/evaluation.md
+	pandoc --standalone --filter ${PREFIX}/addpoints.py --template ${PREFIX}/titlepage.tex -o ${TMP1} $<
+	pandoc --standalone --filter ${PREFIX}/addpoints.py --template ${PREFIX}/evaluation.md -o ${TMP2} $<
+	pandoc ${OPTIONS} ${EVALOPTIONS} -o $@ ${TMP2}
+	rm -f ${TMP1} ${TMP2}
 
 	
 install: $(TARGETDIR) $(PDF) 
@@ -58,7 +71,7 @@ $(TARGETDIR):
 
 
 clean:
-	rm -f $(PDF) ${TMP}
+	rm -f $(PDF) ${EVAL} ${TMP1} ${TMP2}
 	
 
 .PHONY: clean
