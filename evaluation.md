@@ -35,6 +35,8 @@ Bewertet durch:
     \multicolumn{3}{|r|}{\textbf{Summe Formale Bewertung}} & \\[11pt]\hline
 \end{tabular}
 
+Anmerkung: Code compiliert: max. -10P; Code compiliert **nicht**: max. -14P
+
 
 
 
