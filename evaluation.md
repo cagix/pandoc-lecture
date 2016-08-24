@@ -44,13 +44,12 @@ Anmerkung: Code compiliert: max. -10P; Code compiliert **nicht**: max. -14P
 $if(questions)$
 $for(questions)$
 
-##  Aufgabe "$questions$"
-
-\begin{tabular}{|l|p{107mm}|l|}\hline
-    Kriterium & Notiz & Punkte \\\hline\hline
+\begin{tabular}{|p{58mm}|p{107mm}|l|}\hline
+    \textbf{$questions$} & Notiz & Punkte \\\hline\hline
     Testsuite: Alles OK? Tests rot (welche)? & & \\
     Code-Review (Befunde) & & \\
-    Bemerkungen & & \\[22pt]\hline
+    Bemerkungen & & \\[5pt]
+    && \\[22pt]\hline
     Nachfragen für Abnahme & & \\[22pt]\hline
 \end{tabular}
 
