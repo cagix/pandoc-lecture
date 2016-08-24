@@ -7,14 +7,22 @@ title: "Evaluation"
 
 # Gruppeninformationen
 
-\begin{center}
-\begin{tabular}{cp{6cm}p{6cm}}\hline
+\begin{minipage}{118mm}
+\begin{tabular}{cp{52mm}p{36mm}}\hline
     Nr. & Name & Vorname \\\hline
     1.  &&\\[11pt]
     2.  &&\\[11pt]
     3.  &&\\[11pt]\hline
 \end{tabular}
-\end{center}
+\end{minipage}
+\begin{minipage}{70mm}
+\begin{tabular}{|l|l|}\hline
+    Teil & Summe \\\hline\hline
+    Formale Bewertung (max. -14P) & \\[11pt]
+    Inhaltliche Bewertung (max. $if(points)$ ($points$P)$endif$) & \\[11pt]\hline
+    \textbf{GESAMT} (min. 0P) & \\[11pt]\hline
+\end{tabular}
+\end{minipage}
 
 \bigskip
 Bewertet durch: 
@@ -57,18 +65,6 @@ $endfor$
 $endif$
 
 
-
-
-# Gesamt-Summe
-
-\begin{center}
-\begin{tabular}{|lp{10mm}|l|}\hline
-    Teil && Summe \\\hline\hline
-    Formale Bewertung (max. -14P) && \\[11pt]
-    Inhaltliche Bewertung (max. $if(points)$ ($points$P)$endif$) && \\[11pt]\hline
-    \textbf{GESAMT} (min. 0P) && \\[11pt]\hline
-\end{tabular}
-\end{center}
 
 
 
