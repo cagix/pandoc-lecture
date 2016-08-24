@@ -32,7 +32,7 @@ Bewertet durch:
 
 # Formale Bewertung
 
-\begin{tabular}{|l|l|p{68mm}|l|}\hline
+\begin{tabular}{|l|l|p{69mm}|l|}\hline
     Kriterium & bis zu & Notiz & Abzüge \\\hline\hline
     Einheitliche Formatierung des gesamten Codes (zB. K\&R) & -2P &&\\[11pt]\hline
     Doxygen-Dokumentation gemäß VL01/Orga & -4P &&\\[11pt]\hline
