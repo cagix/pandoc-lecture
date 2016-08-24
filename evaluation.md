@@ -24,19 +24,20 @@ Bewertet durch:
 
 # Formale Bewertung
 
-*   Einheitliche Formatierung des gesamten Codes (zB. K&R): bis zu -2P \dotfill [ \qquad ]
+\begin{tabular}{|l|l|p{68mm}|l|}\hline
+    Kriterium & bis zu & Notiz & Abzüge \\\hline\hline
+    Einheitliche Formatierung des gesamten Codes (zB. K\&R) & -2P &&\\[11pt]\hline
+    Doxygen-Dokumentation gemäß VL01/Orga & -4P &&\\[11pt]\hline
+    Makefile mit Standard-Targets gemäß VL01/Orga & -2P &&\\[11pt]\hline
+    Compiler: Warnungen/Fehler bei `-std=` (vgl. Vorgabe) & -2P &&\\[11pt]
+    Compiler: Warnungen/Fehler bei `-Wall -pedantic -Werror` & -2P &&\\[11pt]
+    Compiler: Code lässt sich nicht compilieren & -2P &&\\[11pt]\hline
+    \multicolumn{3}{|r|}{\textbf{Summe Formale Bewertung}} & \\[11pt]\hline
+\end{tabular}
 
-*   Doxygen-Dokumentation gemäß VL01/Orga: bis zu -4P \dotfill [ \qquad ]
-
-*   Makefile mit (funktionierenden) Standard-Targets gemäß VL01/Orga: bis zu -2P \dotfill [ \qquad ]
-
-*   Compiler (Abzüge kumulieren: nicht compilierfähiger Code: -6P):
-
-    -   Warnungen/Fehler bei Aktivierung des geforderten Standards (zB. C11): bis zu -2P \dotfill [ \qquad ]
-
-    -   Warnungen/Fehler bei `-Wall -pedantic -Werror`: bis zu -2P \dotfill [ \qquad ]
-
-    -   Code lässt sich nicht compilieren: bis zu -2P \dotfill [ \qquad ]
+Hinweis: Abzüge bzgl. Compiler kumulieren! 
+Beispiele: Nicht compilierfähiger Code: -6P (schliesst `-std=` und `-Wall ...`
+ein), Warnungen bei `-Wall ...`: -4P (schliesst `-std=` ein).
 
 
 
