@@ -32,7 +32,6 @@ Bewertet durch:
     Code lässt sich nicht kompilieren & -6P &&\\[11pt]
     Warnungen bei `-std=` (vgl. Vorgabe) & -2P && \\
     und `-Wall -pedantic` (\textbf{nur falls Code kompilierbar}) &&&\\[5pt]\hline
-    \multicolumn{3}{|r|}{\textbf{Summe Formale Bewertung}} & \\[11pt]\hline
 \end{tabular}
 
 Anmerkung: Code compiliert: max. -10P; Code compiliert **nicht**: max. -14P
@@ -53,7 +52,6 @@ $for(questions)$
     Code-Review (Befunde) & & \\
     Bemerkungen & & \\[22pt]\hline
     Nachfragen für Abnahme & & \\[22pt]\hline
-    \multicolumn{2}{|r|}{\textbf{Summe "$questions$"}} & \\[11pt]\hline
 \end{tabular}
 
 $endfor$
