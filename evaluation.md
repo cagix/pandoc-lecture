@@ -29,15 +29,11 @@ Bewertet durch:
     Einheitliche Formatierung des gesamten Codes (zB. K\&R) & -2P &&\\[11pt]\hline
     Doxygen-Dokumentation gemäß VL01/Orga & -4P &&\\[11pt]\hline
     Makefile mit Standard-Targets gemäß VL01/Orga & -2P &&\\[11pt]\hline
-    Compiler: Warnungen/Fehler bei `-std=` (vgl. Vorgabe) & -2P &&\\[11pt]
-    Compiler: Warnungen/Fehler bei `-Wall -pedantic -Werror` & -2P &&\\[11pt]
-    Compiler: Code lässt sich nicht compilieren & -2P &&\\[11pt]\hline
+    Code lässt sich nicht kompilieren & -6P &&\\[11pt]
+    Warnungen bei `-std=` (vgl. Vorgabe) & -2P && \\
+    und `-Wall -pedantic` (\textbf{nur falls Code kompilierbar}) &&&\\[5pt]\hline
     \multicolumn{3}{|r|}{\textbf{Summe Formale Bewertung}} & \\[11pt]\hline
 \end{tabular}
-
-Hinweis: Abzüge bzgl. Compiler kumulieren! 
-Beispiele: Nicht compilierfähiger Code: -6P (schliesst `-std=` und `-Wall ...`
-ein), Warnungen bei `-Wall ...`: -4P (schliesst `-std=` ein).
 
 
 
