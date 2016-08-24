@@ -66,12 +66,14 @@ $endif$
 
 # Gesamt-Summe
 
-
-| Teil                                                          | Summe      |
-|:--------------------------------------------------------------|:-----------|
-| Formale Bewertung (max. -14P)                                 | [ \qquad ] |
-| Inhaltliche Bewertung (max. $if(points)$ ($points$P)$endif$)  | [ \qquad ] |
-| **GESAMT**                                                    | [ \qquad ] |
+\begin{center}
+\begin{tabular}{|lp{10mm}|l|}\hline
+    Teil && Summe \\\hline\hline
+    Formale Bewertung (max. -14P) && \\[11pt]
+    Inhaltliche Bewertung (max. $if(points)$ ($points$P)$endif$) && \\[11pt]\hline
+    \textbf{GESAMT} && \\[11pt]\hline
+\end{tabular}
+\end{center}
 
 
 
