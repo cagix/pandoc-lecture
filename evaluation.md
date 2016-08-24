@@ -51,10 +51,10 @@ $for(questions)$
 
 \begin{tabular}{|l|p{107mm}|l|}\hline
     Kriterium & Notiz & Punkte \\\hline\hline
-    Testsuite: Alles OK? Tests rot (welche)? & & \\[11pt]\hline
-    Code-Review (Befunde) & & \\[22pt]\hline
-    Bemerkungen, Nachfragen für Abnahme & & \\[22pt]\hline
-    Vorstellung in Abnahme & & \\[11pt]\hline
+    Testsuite: Alles OK? Tests rot (welche)? & & \\
+    Code-Review (Befunde) & & \\
+    Bemerkungen & & \\[22pt]\hline
+    Nachfragen für Abnahme & & \\[22pt]\hline
     \multicolumn{2}{|r|}{\textbf{Summe "$questions$"}} & \\[11pt]\hline
 \end{tabular}
 
