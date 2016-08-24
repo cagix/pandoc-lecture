@@ -7,19 +7,17 @@ title: "Evaluation"
 
 # Gruppeninformationen
 
-1.  Name, Vorname: ...
+\begin{center}
+\begin{tabular}{cp{6cm}p{6cm}}\hline
+    Nr. & Name & Vorname \\\hline
+    1.  &&\\[11pt]
+    2.  &&\\[11pt]
+    3.  &&\\[11pt]\hline
+\end{tabular}
+\end{center}
 
 \bigskip
-
-2.  Name, Vorname: ...
-
-\bigskip
-
-3.  Name, Vorname: ...
-
-\bigskip
-
-Bewertet durch: ...
+Bewertet durch: 
 
 
 
