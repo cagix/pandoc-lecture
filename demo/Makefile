@@ -73,6 +73,7 @@ EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
 # `mathjax` (nutzt John MacFarlane; geht scheinbar nur für epub3)
 EPUBOPTIONS += --mathjax
 #EPUBOPTIONS += --mathml  # funktioniert mit Calibre Ebook-Viewer (auch offline), aber nicht mit "echten" Readern
+#EPUBOPTIONS += --mathjax  # funktioniert mit Calibre Ebook-Viewer (auch offline), aber nicht mit "echten" Readern
 EPUBOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
