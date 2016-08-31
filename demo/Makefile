@@ -59,6 +59,7 @@ HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
 # Mathe mit `mathml` (einzige funktionierende Variante für html; laut Doku geht mathjax nicht fuer self-contained!)
 #HTMLOPTIONS += --mathml  # funktioniert mit Firefox (auch offline), aber nicht mit Chrome
 #HTMLOPTIONS += --mathjax  # funktioniert mit allen Browsern, aber nicht self-contained/offline
+HTMLOPTIONS += --webtex  # sollte immer funktionieren (leichte Darstellungsfehler); beim Erstellen Online wg. Webzugriff (Beispiel: 113 KiB)
 HTMLOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
