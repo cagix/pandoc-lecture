@@ -74,6 +74,7 @@ EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
 EPUBOPTIONS += --mathjax
 #EPUBOPTIONS += --mathml  # funktioniert mit Calibre Ebook-Viewer (auch offline), aber nicht mit "echten" Readern
 #EPUBOPTIONS += --mathjax  # funktioniert mit Calibre Ebook-Viewer (auch offline), aber nicht mit "echten" Readern
+EPUBOPTIONS += --webtex  # sollte immer funktionieren (leichte Darstellungsfehler); beim Erstellen Online wg. Webzugriff
 EPUBOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
