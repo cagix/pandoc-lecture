@@ -57,7 +57,7 @@ HTMLOPTIONS += --standalone --self-contained --smart --toc --toc-depth=1
 HTMLOPTIONS += --filter ${PREFIX}/textohtml.py
 HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
 # Mathe mit `mathml` (einzige funktionierende Variante für html; laut Doku geht mathjax nicht fuer self-contained!)
-HTMLOPTIONS += --mathml
+#HTMLOPTIONS += --mathml  # funktioniert mit Firefox (auch offline), aber nicht mit Chrome
 HTMLOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
