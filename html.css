@@ -3,7 +3,8 @@
 body {
     font-size: small;
     font-family: Optima, Arial, Helvetica, sans-serif;
-    text-align: left;
+    text-align: justify;
+    margin: 0px; padding: 0px;
 }
 
 code { font-family: monospace; }
@@ -12,23 +13,27 @@ h1 {
     font-size: 1.5em;
     font-weight: bold;
     color: #4070a0; 	     
+    text-align: left;
 }
 
 h2 {
     font-size: 1.2em;
     font-weight: bold;
     color: #4070a0; 	     
+    text-align: left;
 }
 
 h3 {
     font-size: 1.0em;
     font-weight: bold;
     color: #4070a0; 	     
+    text-align: left;
 }
 
 h4 {
     font-size: 1.0em;
     color: #4070a0; 	     
+    text-align: left;
 }
 
 h1 a, h2 a, h3 a, h4 a { 
