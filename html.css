@@ -9,26 +9,25 @@ body {
 code { font-family: monospace; }
 
 h1 {
-    font-size: 2.0em;
-    font-weight: 200;
+    font-size: 1.5em;
+    font-weight: bold;
     color: #4070a0; 	     
 }
 
 h2 {
-    font-size: 1.5em;
-    font-weight: 200;
+    font-size: 1.2em;
+    font-weight: bold;
     color: #4070a0; 	     
 }
 
 h3 {
-    font-size: 1.2em;
-    font-weight: 200;
+    font-size: 1.0em;
+    font-weight: bold;
     color: #4070a0; 	     
 }
 
 h4 {
     font-size: 1.0em;
-    font-weight: 200;
     color: #4070a0; 	     
 }
 
@@ -43,11 +42,11 @@ a {
 
 /* Pandoc: title information */
 h1.title {
-    font-size: 2.2em;
+    font-size: 2.0em;
 }
 h1.subtitle {
     font-weight: normal;
-    font-size: 1.2em;
+    font-size: 1.0em;
 }
 h2.author {
     font-weight: normal;
