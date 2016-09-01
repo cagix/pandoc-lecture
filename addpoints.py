@@ -96,10 +96,9 @@ def setPointsMetadata(document):
 def setQuestionMetadata(document):
     global questions
 
-    if document[0]['unMeta'].get("questions", {}):
-        # in case there is a question meta data field: replace it ...
-        q = [{"t":"MetaInlines","c":c} for c in questions]
-        document[0]['unMeta']["questions"] = {"t":"MetaList","c":q}
+    # add a question meta data field ...
+    q = [{"t":"MetaInlines","c":c} for c in questions]
+    document[0]['unMeta']["questions"] = {"t":"MetaList","c":q}
 
     return document
 
