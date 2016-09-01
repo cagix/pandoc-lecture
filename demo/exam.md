@@ -1,8 +1,8 @@
 ---
 LV: "Modulenumber Moduletitle"
 LVKURZ: "Modulenumber Moduleshort"
-author: "AUTHOR, INSTITUTE"
-NR: "MODULENUMBER"
+author: "Author, Institute"
+NR: "Exam No."
 SEMESTER: "SoSe 2016"
 ...
 
