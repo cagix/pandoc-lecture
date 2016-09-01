@@ -6,6 +6,12 @@ body {
     text-align: justify;
     margin: 0px; padding: 0px;
 }
+@media (min-width: 800px) {
+body {
+    width: 700px; margin: 20px auto
+}
+}
+
 
 code { font-family: monospace; }
 
