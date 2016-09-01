@@ -4,8 +4,10 @@
     \begin{minipage}[c]{0.75\textwidth}
         \parindent0pt
         \textcolor{headcolor}{\large\scshape{$LV$}}\\[1ex] 
-        \textcolor{headcolor}{\Large\textbf{Klausur $PART$ \xspace $NR$, $SEMESTER$}}\\[2ex]
+        \textcolor{headcolor}{\Large\textbf{Klausur $if(PART)$$PART$ \xspace$endif$ $NR$$if(SEMESTER)$, $SEMESTER$$endif$}}\\[2ex]
+        $if(TAG)$
         \textbf{$TAG$}\\[2ex]
+        $endif$
         \parindent0pt
         $author$
         \ifprintanswers
