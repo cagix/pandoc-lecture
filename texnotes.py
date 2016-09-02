@@ -9,6 +9,73 @@ handout. This filter removes the commands and the content in between.
 
 The begin and end "commands" need to be separated from the text by blank lines
 before and after the "command".
+
+If you don't start a new block (paragraph, bullet point list, ...) in the notes
+environment (any inline elements from [pandocfilters](https://github.com/jgm/pandocfilters.git)
+should work), the start and end commands need not to appear on their own
+paragraph.
+
+
+Examples:
+
+```
+This should work
+----------------
+
+*   Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+*   sed diam nonumy eirmod tempor invidunt ut labore et dolore
+    \notesbegin
+    HERE IS AN EXTRA NOTE (appearing in the same paragraph)
+    \notesend
+    continuing same paragraph (bullet point)
+*   magna aliquyam erat, sed diam voluptua.
+
+Well, inline code like `int main()` works too :)
+
+\notesbegin
+
+Text between `\notesbegin` and `\notesend` will not appear in slides,
+but in the handout (HTML, EPUB, PDF).
+
+You can use here Markdown and/or LaTeX :)
+
+
+Even sections will work.
+------------------------
+
+Told you :)
+
+### Section Level 3
+
+wuppie fluppie
+
+#### Section Level 4
+
+foo bar ...
+
+[www.fh-bielefeld.de](http://www.fh-bielefeld.de)
+
+\notesend
+
+\bsp{Eclipse}
+```
+
+```
+This probably won't work
+------------------------
+
+*   Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+*   sed diam nonumy eirmod tempor invidunt ut labore et dolore
+    \notesbegin
+    HERE IS AN EXTRA NOTE (appearing in the same paragraph)
+
+    start something new, i.e. a paragraph ... WON'T WORK!
+    \notesend
+    continuing same paragraph (bullet point)
+*   magna aliquyam erat, sed diam voluptua.
+
+```
+
 """
 
 from pandocfilters import toJSONFilter
