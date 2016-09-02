@@ -76,8 +76,7 @@ EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
 # Optionen werden von Pandoc 1.17.2 ignoriert: Es wird anscheinend immer mathml genutzt?!
 #EPUBOPTIONS += --mathml  # funktioniert mit Calibre Ebook-Viewer (auch offline), aber nicht mit "echten" Readern
 #EPUBOPTIONS += --mathjax  # funktioniert mit Calibre Ebook-Viewer (auch offline), aber nicht mit "echten" Readern
-EPUBOPTIONS += --webtex  # sollte immer funktionieren (leichte Darstellungsfehler); beim Erstellen Online wg. Webzugriff
-#EPUBOPTIONS += --katex
+#EPUBOPTIONS += --webtex  # sollte immer funktionieren (leichte Darstellungsfehler); beim Erstellen Online wg. Webzugriff
 EPUBOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
