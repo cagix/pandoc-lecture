@@ -14,29 +14,20 @@
     \thispagestyle{empty}
 
     \parindent=0pt
-    \par\hrulefill\par
-    \vspace{1ex}
-
-    \parindent=0pt
     \begin{minipage}[c]{0.72\textwidth}
         \parindent=0pt
         \textcolor{headcolor}{\large\scshape{$subtitle$}}\\[1ex] 
-        \textcolor{headcolor}{\Large\textbf{$title$ $if(points)$ ($points$ Punkte)$endif$}}\\[2ex]
-        $if(ilias)$
-            \textbf{Praktikum: $date$}\\[1ex]
-            \textbf{Abgabe ILIAS: $ilias$}\\[2ex]
-        $else$
-            \textbf{Praktikum: $date$}\\[2ex]
-        $endif$
-        \parindent0pt
+        \textcolor{headcolor}{\Large\textbf{$title$ $if(points)$ ($points$ Punkte)$endif$}}\\[1ex]
         $author$
     \end{minipage}
+    \hfill
     \begin{minipage}[c]{0.28\textwidth}
-        \hfill
+        \parindent=0pt
         $if(ilias)$
-            \mbox{\includegraphics[width=40mm]{figs/logo}}
+            \textbf{Praktikum: $date$}\\[1ex]
+            \textbf{Abgabe ILIAS: $ilias$}
         $else$
-            \mbox{\includegraphics[width=34mm]{figs/logo}}
+            \textbf{Praktikum: $date$}
         $endif$
     \end{minipage}
 
