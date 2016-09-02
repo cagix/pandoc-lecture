@@ -15,6 +15,8 @@ environment (any inline elements from [pandocfilters](https://github.com/jgm/pan
 should work), the start and end commands need not to appear on their own
 paragraph.
 
+Also `\notes` will toggle the notes environment, i.e. open or close notes.
+
 
 Examples:
 
@@ -83,6 +85,7 @@ import re
 
 notesStart = re.compile('\\\\notesbegin')
 notesEnd   = re.compile('\\\\notesend')
+notes      = re.compile('\\\\notes')
 
 content = False
 
@@ -113,6 +116,9 @@ def filternotes(value):
             return []
         elif notesEnd.search(s):
             content = False
+            return []
+        elif notes.search(s):
+            content = not content
             return []
 
     return returncontent()
