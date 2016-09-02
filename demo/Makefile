@@ -62,6 +62,7 @@ HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
 #HTMLOPTIONS += --mathjax  # funktioniert mit allen Browsern, aber nicht self-contained/offline
 HTMLOPTIONS += --webtex  # sollte immer funktionieren (leichte Darstellungsfehler); beim Erstellen Online wg. Webzugriff (Beispiel: 113 KiB)
 #HTMLOPTIONS += --katex  # funktioniert mit allen Browsern (auch offline); sehr langsam beim Erstellen (Online!) u. riesige HTML-Datei (Beispiel: 3.3 MiB)
+HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJax; replace outcome with MathJax include line using sed
 HTMLOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
@@ -95,6 +96,10 @@ ${ID}_%_slides.pdf:	%.md
 
 ${ID}_%_handout.html: %.md
 	pandoc ${HTMLOPTIONS} -o $@ $<
+	sed '/<script src="/s!data:application/x-javascript;base64,Ozs7Cg==!https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full"!' -i $@
+# ';;;' in dummy.js results in '<script src="data:application/x-javascript;base64,Ozs7Cg==" type="text/javascript"></script>' (line 47 in output)
+# we need to replace this with the mathjax include line as pandoc 1.17.2 would generate it:
+# '<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>'
 
 ${ID}_%_handout.epub: %.md
 	pandoc ${EPUBOPTIONS} -o $@ $<
