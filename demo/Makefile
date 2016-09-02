@@ -100,6 +100,7 @@ ${ID}_%_handout.html: %.md
 ${ID}_%_handout.epub: %.md
 	pandoc ${HTMLOPTIONS} --webtex -o ${TMP1} $<
 	pandoc ${EPUBOPTIONS} -o $@ ${TMP1}
+	rm -f ${TMP1}
 	
 ${ID}_%_handout.pdf: %.md
 	pandoc ${PDFOPTIONS} -o $@ $<
@@ -116,7 +117,7 @@ $(TARGETDIR):
 
 
 clean:
-	rm -f $(SLIDES) $(HTML) $(EPUB) $(PDF) 
+	rm -f $(SLIDES) $(HTML) $(EPUB) $(PDF) ${TMP1}
 	
 
 .PHONY: clean
