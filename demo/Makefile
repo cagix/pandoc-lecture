@@ -74,9 +74,6 @@ EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
 # `mathml` (war einzige funktionierende Variante für epub; geht auch für epub3)
 # `mathjax` (nutzt John MacFarlane; geht scheinbar nur für epub3)
 # Optionen werden von Pandoc 1.17.2 ignoriert: Es wird anscheinend immer mathml genutzt?!
-#EPUBOPTIONS += --mathml  # funktioniert mit Calibre Ebook-Viewer (auch offline), aber nicht mit "echten" Readern
-#EPUBOPTIONS += --mathjax  # funktioniert mit Calibre Ebook-Viewer (auch offline), aber nicht mit "echten" Readern
-#EPUBOPTIONS += --webtex  # sollte immer funktionieren (leichte Darstellungsfehler); beim Erstellen Online wg. Webzugriff
 EPUBOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
