@@ -32,7 +32,9 @@ c.  in case there is a meta field named "points", it will set the total number
     of points as value for this field
 
 Thus we can use a variable "points" in the pandoc template, which provides
-access to the total number of points for the given homework sheet.
+access to the total number of points for the given homework sheet. If the
+variable does not exist in the document, its value won't be set by this filter,
+and the template won't show the string "(0 Punkte)" ...
 
 The contents of the headers together with the resp. points will be collected in
 a list and written to the meta data field `questions`. This allows to access
