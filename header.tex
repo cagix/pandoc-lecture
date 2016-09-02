@@ -15,11 +15,8 @@
 \providecommand{\theMyQuestionTitle}{}
 \providecommand{\myQuestion}[2][0]{\vskip11pt\renewcommand{\theMyQuestionTitle}{#2}\question[#1]{\ }\vskip5pt}
 \qformat{\textbf{\textcolor{headcolor}{\Large $if(PART)$$PART$.$endif$\thequestion: \theMyQuestionTitle\hfill \fbox{\thepoints}}}}  % add only question points
-\providecommand{\myBonusQuestion}[2][0]{\vskip11pt\renewcommand{\theMyQuestionTitle}{#2}\bonusquestion[#1]{\ }\vskip5pt}
-\bonusqformat{\textbf{\Large $if(PART)$$PART$.$endif$\thequestion: \theMyQuestionTitle\hfill \fbox{\thepoints}}}  % question parts don't work w/ bonus?!
 \boxedpoints    % no effect w/ qformat
 \pointpoints{Punkt}{Punkte}
-\bonuspointpoints{Punkt (Bonus)}{Punkte (Bonus)}
 %------------------------------------- Questions --------------------------------
 
 
