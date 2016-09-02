@@ -19,6 +19,7 @@ SLIDES = $(SRC:%.md=${ID}_%_slides.pdf)
 HTML   = $(SRC:%.md=${ID}_%_handout.html)
 EPUB   = $(SRC:%.md=${ID}_%_handout.epub)
 PDF    = $(SRC:%.md=${ID}_%_handout.pdf)
+TMP1   = __html.filled.html
 
 TARGETDIR = ../distr/
 
