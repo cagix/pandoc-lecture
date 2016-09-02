@@ -16,6 +16,8 @@
 \definecolor{dkred}{rgb}{0.6,0,0}
 
 \definecolor{listinggray}{gray}{0.92}
+
+\definecolor{headcolor}{rgb}{0.25,0.44,0.63}  % #4070a0 as in html.css
 %------------------------------------- Fonts and Colors ---------------------
 
 %------------------------------------- CMDs ---------------------
@@ -41,6 +43,10 @@
 
 \newcommand{\code}[1]{\textcolor{dkgreen}{\texttt{\textbf{#1}}}\xspace}
 %------------------------------------- Listings ---------------------
+
+%------------------------------------- Use color in headers ---------------------
+\addtokomafont{disposition}{\color{headcolor}}  % works only for KOMA script
+%------------------------------------- Use color in headers ---------------------
 
 
 

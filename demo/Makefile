@@ -32,6 +32,7 @@ OPTIONS += -V documentclass=scrartcl
 OPTIONS += --standalone --smart --number-sections
 OPTIONS += --include-in-header=${PREFIX}/homework.tex
 OPTIONS += --include-in-header=${TMP1}
+OPTIONS += -V colorlinks -V urlcolor=headcolor  # use same color for URLs as for headers
 OPTIONS += ${LANG} --data-dir=${DATADIR}
 
 PDFOPTIONS =  -V fontsize=10pt -V papersize=a4
