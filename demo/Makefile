@@ -67,7 +67,7 @@ HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJa
 HTMLOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
-EPUBOPTIONS  = -t epub3 -f markdown
+EPUBOPTIONS  = -t epub3 -f html
 EPUBOPTIONS += --default-image-extension=png
 EPUBOPTIONS += --standalone --smart --toc --toc-depth=1
 EPUBOPTIONS += --filter ${PREFIX}/textohtml.py
