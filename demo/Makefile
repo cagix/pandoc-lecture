@@ -98,7 +98,7 @@ ${ID}_%_handout.html: %.md
 # '<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>'
 
 ${ID}_%_handout.epub: %.md
-	pandoc ${HTMLOPTIONS} --webtex -o ${TMP1} $<
+	pandoc ${HTMLOPTIONS} --webtex -o ${TMP1} $<  # needs online access
 	pandoc ${EPUBOPTIONS} -o $@ ${TMP1}
 	rm -f ${TMP1}
 	
