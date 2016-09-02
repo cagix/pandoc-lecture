@@ -36,7 +36,7 @@ OPTIONS += -V colorlinks -V urlcolor=headcolor  # use same color for URLs as for
 OPTIONS += ${LANG} --data-dir=${DATADIR}
 
 PDFOPTIONS =  -V fontsize=10pt -V papersize=a4
-PDFOPTIONS += -V geometry:left=2cm -V geometry:right=2cm -V geometry:top=2cm -V geometry:bottom=2.5cm
+PDFOPTIONS += -V geometry:left=2cm -V geometry:right=2cm -V geometry:top=2cm -V geometry:bottom=2cm
 PDFOPTIONS += --filter ${PREFIX}/addpoints.py
 #PDFOPTIONS += --listings --highlight-style=tango
 
