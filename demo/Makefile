@@ -70,7 +70,6 @@ HTMLOPTIONS += ${LANG} --data-dir=${DATADIR}
 EPUBOPTIONS  = -t epub3 -f html
 EPUBOPTIONS += --default-image-extension=png
 EPUBOPTIONS += --standalone --smart --toc --toc-depth=1
-EPUBOPTIONS += --filter ${PREFIX}/textohtml.py
 EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
 # `mathml` (war einzige funktionierende Variante für epub; geht auch für epub3)
 # `mathjax` (nutzt John MacFarlane; geht scheinbar nur für epub3)
