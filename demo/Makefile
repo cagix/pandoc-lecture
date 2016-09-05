@@ -11,7 +11,10 @@ LANG    = -V lang=de-DE -M lang=de-DE
 
 ## Source file and lecture prefix
 
-SRC    = $(addprefix md/, bla.md blub.md wuppie.md fluppie.md)
+# Files as defined in Excel sheet
+XLS    = bla.md blub.md wuppie.md fluppie.md
+
+SRC    = $(addprefix md/, $(XLS))
 
 PDF    = exam.pdf solution.pdf
 TMP1   = __header.filled.tex
