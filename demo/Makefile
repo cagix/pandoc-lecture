@@ -49,7 +49,7 @@ PDFOPTIONS += --standalone --smart --number-sections --toc --toc-depth=1
 PDFOPTIONS += --include-in-header=${PREFIX}/beamer.tex
 PDFOPTIONS += --include-in-header=${PREFIX}/handout.tex
 #PDFOPTIONS += --listings --highlight-style=tango
-PDFOPTIONS += -V colorlinks -V urlcolor=headcolor  # use same color for URLs as for headers
+PDFOPTIONS += -V colorlinks -V linkcolor=headcolor -V citecolor=headcolor -V urlcolor=headcolor  # use same color for URLs as for headers
 PDFOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
