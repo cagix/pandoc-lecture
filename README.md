@@ -111,7 +111,7 @@ Installing and running
 
 3.  Clone the pandoc templates repo using `git clone https://github.com/jgm/pandoc-templates templates`.
 
-4.  Clone this repo using `git clone git@github.com:cagix/pandoc-lecture.git lecture`.
+4.  Clone this repo using `git clone https://github.com/cagix/pandoc-lecture lecture`.
 
 5.  Change to the `lecture/` subdirectory. Adapt the `DATADIR` variable in the
     makefile: It should point to the working directory of the project, i.e. to
