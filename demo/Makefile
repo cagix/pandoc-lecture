@@ -52,16 +52,11 @@ all:	$(PDF)
 pdf:	clean $(PDF)
 
 
-exam.pdf: exam.md $(SRC) ${PREFIX}/header.tex ${PREFIX}/titlepage.tex
+solution.pdf: PDFOPTIONS += -V classoption=answers
+exam.pdf solution.pdf: exam.md $(SRC) ${PREFIX}/header.tex ${PREFIX}/titlepage.tex
 	pandoc --standalone --template ${PREFIX}/header.tex -o ${TMP1} exam.md
 	pandoc --standalone --template ${PREFIX}/titlepage.tex -o ${TMP2} exam.md
 	pandoc ${PDFOPTIONS} -o $@ exam.md $(SRC)
-	rm -f ${TMP1} ${TMP2}
-
-solution.pdf: exam.md $(SRC) ${PREFIX}/header.tex ${PREFIX}/titlepage.tex
-	pandoc --standalone --template ${PREFIX}/header.tex -o ${TMP1} exam.md
-	pandoc --standalone --template ${PREFIX}/titlepage.tex -o ${TMP2} exam.md
-	pandoc ${PDFOPTIONS} -V classoption=answers -o $@ exam.md $(SRC)
 	rm -f ${TMP1} ${TMP2}
 
 
