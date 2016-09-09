@@ -43,7 +43,7 @@ PDFOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 ## Targets
 
-all:	$(PDF) 
+all:	$(PDF)
 
 pdf:	clean $(PDF)
 
