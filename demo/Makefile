@@ -6,8 +6,9 @@
 
 ## Path to pandoc templates/includes and language settings
 
-DATADIR = /home/cagix/.pandoc/
-PREFIX  = ${DATADIR}/homework/
+DATADIR   = /home/cagix/.pandoc/
+PREFIX    = ${DATADIR}/homework/
+TEMPLATES = ${DATADIR}/templates/
 
 LANG    = -V lang=de-DE -M lang=de-DE
 
@@ -31,6 +32,7 @@ TARGETDIR = ../distr/
 ## Homework options
 
 OPTIONS  = -f markdown --latex-engine=xelatex
+OPTIONS += --template=${TEMPLATES}/default.latex
 OPTIONS += --default-image-extension=pdf
 OPTIONS += -V documentclass=scrartcl
 OPTIONS += --standalone --smart --number-sections
@@ -41,7 +43,7 @@ OPTIONS += ${LANG} --data-dir=${DATADIR}
 
 PDFOPTIONS =  -V fontsize=10pt -V papersize=a4
 PDFOPTIONS += -V geometry:left=2cm -V geometry:right=2cm -V geometry:top=2cm -V geometry:bottom=2cm
-PDFOPTIONS += --filter ${PREFIX}/addpoints.py
+PDFOPTIONS += --filter=${PREFIX}/addpoints.py
 #PDFOPTIONS += --listings --highlight-style=tango
 
 EVALOPTIONS =  -V fontsize=9pt -V papersize=a4
@@ -57,14 +59,14 @@ eval:	clean $(EVAL)
 
 
 ${ID}_%.pdf: %.md ${PREFIX}/titlepage.tex
-	pandoc --standalone --filter ${PREFIX}/addpoints.py --template ${PREFIX}/titlepage.tex -o ${TMP1} $<
+	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/titlepage.tex -o ${TMP1} $<
 	pandoc ${OPTIONS} ${PDFOPTIONS} -o $@ $<
 	rm -f ${TMP1}
 
 
 ${ID}_%_eval.pdf: %.md ${PREFIX}/titlepage.tex ${PREFIX}/evaluation.md
-	pandoc --standalone --filter ${PREFIX}/addpoints.py --template ${PREFIX}/titlepage.tex -o ${TMP1} $<
-	pandoc --standalone --filter ${PREFIX}/addpoints.py --template ${PREFIX}/evaluation.md -o ${TMP2} $<
+	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/titlepage.tex -o ${TMP1} $<
+	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/evaluation.md -o ${TMP2} $<
 	pandoc ${OPTIONS} ${EVALOPTIONS} -o $@ ${TMP2}
 	rm -f ${TMP1} ${TMP2}
 
