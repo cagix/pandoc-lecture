@@ -41,7 +41,7 @@ BEAMEROPTIONS += -V theme:metropolis
 BEAMEROPTIONS += -V themeoptions:numbering=none -V themeoptions:progressbar=foot
 BEAMEROPTIONS += -V fontsize=smaller
 BEAMEROPTIONS += --standalone --smart --slide-level=2
-BEAMEROPTIONS += --filter ${PREFIX}/texnotes.py
+BEAMEROPTIONS += --filter=${PREFIX}/texnotes.py
 BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
 BEAMEROPTIONS += ${LANG} --data-dir=${DATADIR}
 
@@ -64,7 +64,7 @@ HTMLOPTIONS  = -t html5 -f markdown
 HTMLOPTIONS += --template=${TEMPLATES}/default.html5
 HTMLOPTIONS += --default-image-extension=png
 HTMLOPTIONS += --standalone --self-contained --smart --toc --toc-depth=1
-HTMLOPTIONS += --filter ${PREFIX}/textohtml.py
+HTMLOPTIONS += --filter=${PREFIX}/textohtml.py
 HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
 # Mathe mit `mathml` (einzige funktionierende Variante für html; laut Doku geht mathjax nicht fuer self-contained!)
 #HTMLOPTIONS += --mathml  # funktioniert mit Firefox (auch offline), aber nicht mit Chrome
