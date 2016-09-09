@@ -55,10 +55,17 @@ Notes on Pandoc Filter
 ----------------------
 
 Since LaTeX is still used as back end when creating slides, all TeX macros
-could be used. To create HTML output, the TeX code needs to be replaced by
-appropriate HTML code. This can be achieved by writing and using custom
-filters, which transform the AST created by pandoc parsing the input document
-before pandoc converts it to the specified output format.
+could be used.
+
+To create HTML output, the TeX code needs to be replaced with appropriate HTML
+code. This is achieved by the filter `textohtml.py`, which transforms the AST
+created by pandoc parsing the input document before pandoc converts it to the
+specified output format.
+
+To remove the lecture notes from the beamer slides, the filter `texnotes.py`
+is used. It is inspired by the example filter `comments.py` in the
+[pandocfilter](https://github.com/jgm/pandocfilters) project (see credits
+in `texnotes.py`).
 
 
 Notes on TeX Math
