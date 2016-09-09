@@ -6,8 +6,9 @@
 
 ## Path to pandoc templates/includes and language settings
 
-DATADIR = /home/cagix/.pandoc/
-PREFIX  = ${DATADIR}/exam/
+DATADIR   = /home/cagix/.pandoc/
+PREFIX    = ${DATADIR}/exam/
+TEMPLATES = ${DATADIR}/templates/
 
 LANG    = -V lang=de-DE -M lang=de-DE
 
@@ -29,6 +30,7 @@ TMP2   = __titlepage.filled.tex
 ## Exam options
 
 PDFOPTIONS  = -f markdown --latex-engine=xelatex
+PDFOPTIONS += --template=${TEMPLATES}/default.latex
 PDFOPTIONS += --default-image-extension=pdf
 PDFOPTIONS += -V documentclass=exam -V classoption=addpoints
 PDFOPTIONS += -V fontsize=11pt -V papersize=a4
@@ -54,8 +56,8 @@ pdf:	clean $(PDF)
 
 solution.pdf: PDFOPTIONS += -V classoption=answers
 exam.pdf solution.pdf: exam.md $(SRC) ${PREFIX}/header.tex ${PREFIX}/titlepage.tex
-	pandoc --standalone --template ${PREFIX}/header.tex -o ${TMP1} exam.md
-	pandoc --standalone --template ${PREFIX}/titlepage.tex -o ${TMP2} exam.md
+	pandoc --standalone --template=${PREFIX}/header.tex -o ${TMP1} exam.md
+	pandoc --standalone --template=${PREFIX}/titlepage.tex -o ${TMP2} exam.md
 	pandoc ${PDFOPTIONS} -o $@ exam.md $(SRC)
 	rm -f ${TMP1} ${TMP2}
 
