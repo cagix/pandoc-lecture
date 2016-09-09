@@ -3,8 +3,8 @@
 """
 Pandoc filter to remove lecture notes from beamer slides.
 
-In my beamer slides I use the `\notesbegin` and `\notesend` "commands" to 
-declare content, which should not be included in the slide deck but in the 
+In my beamer slides I use the `\notesbegin` and `\notesend` "commands" to
+declare content, which should not be included in the slide deck but in the
 handout. This filter removes the commands and the content in between.
 
 The begin and end "commands" need to be separated from the text by blank lines
@@ -134,4 +134,4 @@ def returncontent():
 
 if __name__ == "__main__":
     toJSONFilter(texnotes)
-    
+

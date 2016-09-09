@@ -27,7 +27,7 @@ TARGETDIR = ../distr/
 
 ## Lecture options
 
-BEAMEROPTIONS  = -t beamer -f markdown --latex-engine=xelatex 
+BEAMEROPTIONS  = -t beamer -f markdown --latex-engine=xelatex
 BEAMEROPTIONS += --default-image-extension=pdf
 # needs: xetex/xelatex, beamer (latex-package), metropolis (beamer-theme), fira sans und fira mono (font)
 BEAMEROPTIONS += -V theme:metropolis
@@ -35,7 +35,7 @@ BEAMEROPTIONS += -V theme:metropolis
 BEAMEROPTIONS += -V themeoptions:numbering=none -V themeoptions:progressbar=foot
 BEAMEROPTIONS += -V fontsize=smaller
 BEAMEROPTIONS += --standalone --smart --slide-level=2
-BEAMEROPTIONS += --filter ${PREFIX}/texnotes.py 
+BEAMEROPTIONS += --filter ${PREFIX}/texnotes.py
 BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
 BEAMEROPTIONS += ${LANG} --data-dir=${DATADIR}
 
@@ -80,7 +80,7 @@ EPUBOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 ## Targets
 
-all:	$(SLIDES) $(HTML) $(EPUB) $(PDF) 
+all:	$(SLIDES) $(HTML) $(EPUB) $(PDF)
 
 slides:	clean $(SLIDES)
 html:	clean $(HTML)
@@ -106,7 +106,7 @@ ${ID}_%_handout.pdf: %.md
 	pandoc ${PDFOPTIONS} -o $@ $<
 	
 	
-install: $(TARGETDIR) $(SLIDES) $(HTML) $(EPUB) $(PDF) 
+install: $(TARGETDIR) $(SLIDES) $(HTML) $(EPUB) $(PDF)
 	mv ${SLIDES} $(TARGETDIR)
 	mv ${HTML} $(TARGETDIR)
 	mv ${EPUB} $(TARGETDIR)

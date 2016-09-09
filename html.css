@@ -18,37 +18,37 @@ code { font-family: monospace; }
 h1 {
     font-size: 1.5em;
     font-weight: bold;
-    color: #4070a0; 	     
+    color: #4070a0;
     text-align: left;
 }
 
 h2 {
     font-size: 1.2em;
     font-weight: bold;
-    color: #4070a0; 	     
+    color: #4070a0;
     text-align: left;
 }
 
 h3 {
     font-size: 1.0em;
     font-weight: bold;
-    color: #4070a0; 	     
+    color: #4070a0;
     text-align: left;
 }
 
 h4 {
     font-size: 1.0em;
-    color: #4070a0; 	     
+    color: #4070a0;
     text-align: left;
 }
 
-h1 a, h2 a, h3 a, h4 a { 
+h1 a, h2 a, h3 a, h4 a {
     text-decoration: none;
-    color: #4070a0; 
+    color: #4070a0;
 }
 
-a { 
-    color: #4070a0; 
+a {
+    color: #4070a0;
 }
 
 /* Pandoc: title information */
@@ -62,12 +62,12 @@ h1.subtitle {
 h2.author {
     font-weight: normal;
     font-size: 1.0em;
-    color: #000000; 	     
+    color: #000000;
 }
 h3.date {
     font-weight: normal;
     font-size: 1.0em;
-    color: #000000; 	     
+    color: #000000;
 }
 #TOC {
     background-color: rgba(64, 112, 160, 0.1);
