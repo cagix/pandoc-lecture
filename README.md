@@ -33,7 +33,7 @@ However, there are a few drawbacks:
     but the resulting HTML is not really satisfying, and EPUB generation
     is not even supported.
 
-Using [Pandoc Markdown](http://pandoc.org/MANUAL.html>) most of the standard
+Using [Pandoc Markdown](http://pandoc.org/MANUAL.html) most of the standard
 TeX structures can be written in a much shorter way. Since pandoc does not
 parse Markdown contained in TeX environments, the `\begin{XXX}` and `\end{XXX}`
 commands need to be replaced using redefinitions like
