@@ -94,7 +94,7 @@ Installing and running
     *   [make](https://www.gnu.org/software/make/)
     *   [pandoc](http://pandoc.org/installing.html) 1.17.2 (or newer)
     *   [pandoc templates](https://github.com/jgm/pandoc-templates) (`master`
-        branch: commit https://github.com/jgm/pandoc-templates/commit/35c788701551f5b5094d230f33a7668072124655
+        branch, commit https://github.com/jgm/pandoc-templates/commit/35c788701551f5b5094d230f33a7668072124655
         or newer)
     *   [pandoc filter](https://github.com/jgm/pandocfilters)
     *   [TeX Live](http://www.tug.org/texlive/) including the
@@ -104,7 +104,7 @@ Installing and running
 
 3.  Clone the pandoc templates repo using `git clone https://github.com/jgm/pandoc-templates templates`.
 
-4.  Clone this repo using `git git@github.com:cagix/pandoc-lectures.git lecture`.
+4.  Clone this repo using `git git@github.com:cagix/pandoc-lecture.git lecture`.
 
 5.  Change to the `lecture/` subdirectory. Adapt the `DATADIR` variable in the
     makefile: It should point to the working directory of the project, i.e. to
