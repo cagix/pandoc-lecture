@@ -2,7 +2,7 @@ Pandoc Markdown lecture template
 ================================
 
 This project defines a skeleton repo for creating lecture slides and handouts
-including lecture notes out of [Pandoc Markdown](http://pandoc.org/MANUAL.html>)
+including lecture notes out of [Pandoc Markdown](http://pandoc.org/MANUAL.html)
 using a single source approach.
 
 
