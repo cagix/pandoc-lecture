@@ -96,8 +96,8 @@ ${ID}_%_slides.pdf:	%.md
 
 ${ID}_%_handout.html: %.md
 	pandoc ${HTMLOPTIONS} -o $@ $<
-	sed '/<script src="/s!data:application/x-javascript;base64,Ozs7Cg==!https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full"!' -i $@
-# ';;;' in dummy.js results in '<script src="data:application/x-javascript;base64,Ozs7Cg==" type="text/javascript"></script>' (line 47 in output)
+	sed '/<script src="/s!data:application/x-javascript;base64,PCEtLQpBdXRob3I6IENhcnN0ZW4gR2lwcyA8Y2Fyc3Rlbi5naXBzQGZoLWJpZWxlZmVsZC5kZT4KQ29weXJpZ2h0OiAoYykgMjAxNiBDYXJzdGVuIEdpcHMKTGljZW5zZTogTUlUCi0tPgoKOzs7Cgo8LS0hIERPIE5PVCBDSEFOR0UgVEhJUyBGSUxFIC0tPgoK!https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full!' -i $@
+# content in dummy.js results in '<script src="data:application/x-javascript;base64,PCEtLQpBdXRob3I6IENhcnN0ZW4gR2lwcyA8Y2Fyc3Rlbi5naXBzQGZoLWJpZWxlZmVsZC5kZT4KQ29weXJpZ2h0OiAoYykgMjAxNiBDYXJzdGVuIEdpcHMKTGljZW5zZTogTUlUCi0tPgoKOzs7Cgo8LS0hIERPIE5PVCBDSEFOR0UgVEhJUyBGSUxFIC0tPgoK" type="text/javascript"></script>' (line 47 in output)
 # we need to replace this with the mathjax include line as pandoc 1.17.2 would generate it:
 # '<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>'
 
