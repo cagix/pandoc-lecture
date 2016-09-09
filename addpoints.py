@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+# Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
+# Copyright: (c) 2016 Carsten Gips
+# License: MIT
+
+
 """
 Pandoc filter to calculate the total number of points in homework sheets.
 This mimics the behaviour of the LaTeX exam class to some extend.
