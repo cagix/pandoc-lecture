@@ -65,7 +65,7 @@ ${ID}_%_eval.pdf: %.md ${PREFIX}/titlepage.tex ${PREFIX}/evaluation.md
 	rm -f ${TMP1} ${TMP2}
 
 	
-install: $(TARGETDIR) $(PDF) 
+install: $(TARGETDIR) $(PDF)
 	mv ${PDF} $(TARGETDIR)
 
 $(TARGETDIR):

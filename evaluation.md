@@ -25,7 +25,7 @@ title: "Evaluation"
 \end{minipage}
 
 \bigskip
-Bewertet durch: 
+Bewertet durch:
 
 
 
