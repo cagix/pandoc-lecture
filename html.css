@@ -59,22 +59,29 @@ a {
 }
 
 /* Pandoc: title information */
-h1.title {
+.title {
     font-size: 2.0em;
+    font-weight: bold;
+    color: #4070a0;
+    text-align: left;
 }
-h1.subtitle {
+.subtitle {
     font-weight: normal;
     font-size: 1.0em;
+    color: #4070a0;
+    text-align: left;
 }
-h2.author {
+.author {
     font-weight: normal;
     font-size: 1.0em;
     color: #000000;
+    text-align: left;
 }
-h3.date {
+.date {
     font-weight: normal;
     font-size: 1.0em;
     color: #000000;
+    text-align: left;
 }
 #TOC {
     background-color: rgba(64, 112, 160, 0.1);
