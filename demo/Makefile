@@ -86,6 +86,18 @@ EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
 EPUBOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
+EPUB2OPTIONS  = -t epub -f markdown
+EPUB2OPTIONS += --template=${TEMPLATES}/default.epub
+EPUB2OPTIONS += --default-image-extension=png
+EPUB2OPTIONS += --standalone --self-contained --smart --toc --toc-depth=1
+EPUB2OPTIONS += --filter=${PREFIX}/textohtml.py
+EPUB2OPTIONS += --include-in-header=${PREFIX}/html.css
+# https://github.com/jgm/pandoc-templates/pull/219#issuecomment-250673689
+# JGM: In EPUB3, mathml is part of the spec, so we use that. In EPUB2, you can use --webtex.
+EPUB2OPTIONS += --webtex  # needs online access
+EPUB2OPTIONS += ${LANG} --data-dir=${DATADIR}
+
+
 
 ## Targets
 
@@ -111,6 +123,9 @@ ${ID}_%_handout.epub: %.md
 	pandoc ${EPUBOPTIONS} -o $@ ${TMP1}
 	rm -f ${TMP1}
 	
+%.epub: %.md
+	pandoc ${EPUB2OPTIONS} -o $@ $<  # needs online access
+
 ${ID}_%_handout.pdf: %.md
 	pandoc ${PDFOPTIONS} -o $@ $<
 	
