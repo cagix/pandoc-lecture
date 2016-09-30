@@ -24,7 +24,6 @@ SLIDES = $(SRC:%.md=${ID}_%_slides.pdf)
 HTML   = $(SRC:%.md=${ID}_%_handout.html)
 EPUB   = $(SRC:%.md=${ID}_%_handout.epub)
 PDF    = $(SRC:%.md=${ID}_%_handout.pdf)
-TMP1   = __html.filled.html
 
 TARGETDIR = ../distr/
 
@@ -75,27 +74,16 @@ HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJa
 HTMLOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
-EPUBOPTIONS  = -t epub3 -f html
-EPUBOPTIONS += --template=${TEMPLATES}/default.epub3
+EPUBOPTIONS  = -t epub -f markdown
+EPUBOPTIONS += --template=${TEMPLATES}/default.epub
 EPUBOPTIONS += --default-image-extension=png
-EPUBOPTIONS += --standalone --self-contained --smart
+EPUBOPTIONS += --standalone --smart --toc --toc-depth=1
+EPUBOPTIONS += --filter=${PREFIX}/textohtml.py
 EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
 # https://github.com/jgm/pandoc-templates/pull/219#issuecomment-250673689
 # JGM: In EPUB3, mathml is part of the spec, so we use that. In EPUB2, you can use --webtex.
-# => Umweg über temporäres HTML (containing already the TOC)
+EPUBOPTIONS += --webtex  # needs online access
 EPUBOPTIONS += ${LANG} --data-dir=${DATADIR}
-
-
-EPUB2OPTIONS  = -t epub -f markdown
-EPUB2OPTIONS += --template=${TEMPLATES}/default.epub
-EPUB2OPTIONS += --default-image-extension=png
-EPUB2OPTIONS += --standalone --self-contained --smart --toc --toc-depth=1
-EPUB2OPTIONS += --filter=${PREFIX}/textohtml.py
-EPUB2OPTIONS += --include-in-header=${PREFIX}/html.css
-# https://github.com/jgm/pandoc-templates/pull/219#issuecomment-250673689
-# JGM: In EPUB3, mathml is part of the spec, so we use that. In EPUB2, you can use --webtex.
-EPUB2OPTIONS += --webtex  # needs online access
-EPUB2OPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
 
@@ -119,12 +107,7 @@ ${ID}_%_handout.html: %.md
 # '<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>'
 
 ${ID}_%_handout.epub: %.md
-	pandoc ${HTMLOPTIONS} --webtex -o ${TMP1} $<  # needs online access
-	pandoc ${EPUBOPTIONS} -o $@ ${TMP1}
-	rm -f ${TMP1}
-	
-%.epub: %.md
-	pandoc ${EPUB2OPTIONS} -o $@ $<  # needs online access
+	pandoc ${EPUBOPTIONS} -o $@ $<  # needs online access
 
 ${ID}_%_handout.pdf: %.md
 	pandoc ${PDFOPTIONS} -o $@ $<
@@ -141,7 +124,7 @@ $(TARGETDIR):
 
 
 clean:
-	rm -f $(SLIDES) $(HTML) $(EPUB) $(PDF) ${TMP1}
+	rm -f $(SLIDES) $(HTML) $(EPUB) $(PDF)
 	
 
 .PHONY: clean
