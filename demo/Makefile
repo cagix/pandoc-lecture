@@ -80,9 +80,9 @@ EPUBOPTIONS += --template=${TEMPLATES}/default.epub3
 EPUBOPTIONS += --default-image-extension=png
 EPUBOPTIONS += --standalone --smart
 EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
-# `mathml` (war einzige funktionierende Variante für epub; geht auch für epub3)
-# `mathjax` (nutzt John MacFarlane; geht scheinbar nur für epub3)
-# Optionen werden von Pandoc 1.17.2 ignoriert: Es wird anscheinend immer mathml genutzt?! => Umweg über temporäres HTML
+# https://github.com/jgm/pandoc-templates/pull/219#issuecomment-250673689
+# JGM: In EPUB3, mathml is part of the spec, so we use that. In EPUB2, you can use --webtex.
+# => Umweg über temporäres HTML
 EPUBOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
