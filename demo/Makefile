@@ -78,7 +78,7 @@ HTMLOPTIONS += ${LANG} --data-dir=${DATADIR}
 EPUBOPTIONS  = -t epub3 -f html
 EPUBOPTIONS += --template=${TEMPLATES}/default.epub3
 EPUBOPTIONS += --default-image-extension=png
-EPUBOPTIONS += --standalone --smart
+EPUBOPTIONS += --standalone --self-contained --smart
 EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
 # https://github.com/jgm/pandoc-templates/pull/219#issuecomment-250673689
 # JGM: In EPUB3, mathml is part of the spec, so we use that. In EPUB2, you can use --webtex.
