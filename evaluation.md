@@ -25,7 +25,7 @@ title: "Evaluation"
 \begin{tabular}{|l|l|}\hline
     Teil & Summe \\\hline\hline
     Formale Bewertung (max. -14P) & \\[11pt]
-    Inhaltliche Bewertung (max. $if(points)$ ($points$P)$endif$) & \\[11pt]\hline
+    Inhaltliche Bewertung $if(points)$(max. $points$P)$endif$ & \\[11pt]\hline
     \textbf{GESAMT} (min. 0P) & \\[11pt]\hline
 \end{tabular}
 \end{minipage}
