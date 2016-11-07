@@ -41,14 +41,13 @@ Bewertet durch:
 \begin{tabular}{|l|l|p{69mm}|l|}\hline
     Kriterium & bis zu & Notiz & Abzüge \\\hline\hline
     Einheitliche Formatierung des gesamten Codes (zB. K\&R) & -2P &&\\[11pt]\hline
-    Doxygen-Dokumentation gemäß VL01/Orga & -4P &&\\[11pt]\hline
-    Makefile mit Standard-Targets gemäß VL01/Orga & -2P &&\\[11pt]\hline
-    Code lässt sich nicht kompilieren & -6P &&\\[11pt]
-    Warnungen bei `-std=` (vgl. Vorgabe) & -2P && \\
-    und `-Wall -pedantic` (\textbf{nur falls Code kompilierbar}) &&&\\[5pt]\hline
+    Doxygen-Dokumentation gemäß VL01/Orga vorhanden & -4P &&\\[11pt]\hline
+    Makefile mit Standard-Targets gemäß VL01/Orga vorhanden & -2P &&\\[11pt]\hline
+    Code lässt sich nicht kompilieren (`make all`) & -6P &&\\[11pt]
+    \qquad Warnungen bei `-std=` (vgl. Vorgabe) & -2P && \\
+    \qquad und `-Wall -pedantic` (\textbf{nur falls Code kompilierbar}) &&&\\[11pt]
+    \qquad Test kompilieren nicht (\textbf{nur falls Code kompilierbar}) & -4P &&\\[5pt]\hline
 \end{tabular}
-
-Anmerkung: Code compiliert: max. -10P; Code compiliert **nicht**: max. -14P
 
 
 
