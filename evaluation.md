@@ -24,7 +24,7 @@ title: "Evaluation"
 \begin{minipage}{70mm}
 \begin{tabular}{|l|l|}\hline
     Teil & Summe \\\hline\hline
-    Formale Bewertung (max. -14P) & \\[11pt]
+    Formale Bewertung (max. -10P) & \\[11pt]
     Inhaltliche Bewertung $if(points)$(max. $points$P)$endif$ & \\[11pt]\hline
     \textbf{GESAMT} (min. 0P) & \\[11pt]\hline
 \end{tabular}
@@ -48,6 +48,8 @@ Bewertet durch:
     \qquad und `-Wall -pedantic` (\textbf{nur falls Code kompilierbar}) &&&\\[11pt]
     \qquad Test kompilieren nicht (\textbf{nur falls Code kompilierbar}) & -4P &&\\[5pt]\hline
 \end{tabular}
+
+Anmerkung: Cut-Off bei 10P: max. -10P Abzug
 
 
 
