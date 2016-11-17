@@ -91,6 +91,8 @@ EPUBOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 all:	$(SLIDES) $(HTML) $(EPUB) $(PDF)
 
+$(SRC:.md=): %: ${ID}_%_slides.pdf ${ID}_%_handout.html
+
 slides:	clean $(SLIDES)
 html:	clean $(HTML)
 epub:	clean $(EPUB)
