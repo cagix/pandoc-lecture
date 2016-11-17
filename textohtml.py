@@ -44,7 +44,8 @@ def textohtml(key, value, format, meta):
                 return RawInline("html", "</span>")
             if image.match(s):
                 m = image.match(s)
-                return Image([Str("description")], [m.group(1),""])  # works only for pandocfilters < 1.3.0
+#                return Image([Str("description")], [m.group(1),""])  # works only for pandocfilters < 1.3.0
+                return Image(['', [], []], [Str("description")], [m.group(1), ""]) # should work for pandocfilter >= 1.3.0
 
 if __name__ == "__main__":
     toJSONFilter(textohtml)
