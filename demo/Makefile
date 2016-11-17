@@ -57,6 +57,8 @@ all:	$(PDF) $(EVAL)
 pdf:	clean $(PDF)
 eval:	clean $(EVAL)
 
+$(SRC:.md=): %: ${ID}_%.pdf ${ID}_%_eval.pdf
+
 
 ${ID}_%.pdf: %.md ${PREFIX}/titlepage.tex
 	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/titlepage.tex -o ${TMP1} $<
