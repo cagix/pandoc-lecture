@@ -124,7 +124,7 @@ def addpoints(key, value, format, meta):
 def setPointsMetadata(document):
     global points
 
-    field = document[0]['unMeta'].get("points", {})
+    field = document['meta'].get("points", {})
     if field and field["t"]:
         if "MetaInlines" in field["t"]:
             checkPoints(field["c"][0]["c"], points)
@@ -141,7 +141,7 @@ def setQuestionMetadata(document):
 
     # add a question meta data field ...
     q = [{"t":"MetaInlines","c":c} for c in questions]
-    document[0]['unMeta']["questions"] = {"t":"MetaList","c":q}
+    document['meta']["questions"] = {"t":"MetaList","c":q}
 
     return document
 
@@ -168,7 +168,7 @@ def toJSONFilters(action):
     else:
         format = ""
 
-    altered = walk(doc, action, format, doc[0]['unMeta'])
+    altered = walk(doc, action, format, doc['meta'])
     altered = setPointsMetadata(altered)
     altered = setQuestionMetadata(altered)
 
