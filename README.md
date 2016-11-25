@@ -106,6 +106,7 @@ Installing and running
     *   [pandoc filter](https://github.com/jgm/pandocfilters)
     *   [TeX Live](http://www.tug.org/texlive/) including the
         [beamer class](https://www.ctan.org/pkg/beamer)
+    *   [beamer theme: Metropolis](https://github.com/matze/mtheme) (for building the examples)
 
 2.  Create a working directory for your project and change into it.
 
