@@ -10,6 +10,14 @@
 %------------------------------------- Two blank pages at the end of the exam sheet ----------
 \Leerseite
 \Leerseite
+
+%% if the last page is a front side, lets use the back side also as "Leerseite"
+\checkoddpage
+\ifoddpage
+    \Leerseite
+\else
+    % 
+\fi
 %------------------------------------- Two blank pages at the end of the exam sheet ----------
 
 

@@ -10,6 +10,7 @@
 \usepackage[absolute]{textpos}
 \usepackage{colortbl}
 \usepackage{wasysym}    % \Square
+\usepackage{ifoddpage}
 %------------------------------------- Packages ----------------
 
 %------------------------------------- Fonts and Colors ---------------------
@@ -41,7 +42,7 @@
 \newcommand{\x}[1]{\ifprintanswers{\color{red}\bfseries#1\xspace}\fi}
 
 \newcommand{\Fortsetzung}{\begin{textblock*}{54mm}(80mm,276mm)\textsl{\textbf{Fortsetzung nächste Seite}}\end{textblock*}}
-\newcommand{\Leerseite}{\newpage\centerline{\textsl{\textbf{Leerseite}}}}
+\newcommand{\Leerseite}{\newpage\centerline{\textsl{\textbf{Leerseite}}}\newpage}
 %------------------------------------- CMDs ---------------------
 
 %------------------------------------- Listings ---------------------
