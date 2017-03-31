@@ -32,7 +32,7 @@ TARGETDIR = ../distr/
 ## Homework options
 
 OPTIONS  = -f markdown --latex-engine=xelatex
-OPTIONS += --template=${TEMPLATES}/default.latex
+#OPTIONS += --template=${TEMPLATES}/default.latex
 OPTIONS += --default-image-extension=pdf
 OPTIONS += -V documentclass=scrartcl
 OPTIONS += --standalone --smart --number-sections
