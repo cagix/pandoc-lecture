@@ -30,7 +30,7 @@ TMP2   = __titlepage.filled.tex
 ## Exam options
 
 PDFOPTIONS  = -f markdown --latex-engine=xelatex
-PDFOPTIONS += --template=${TEMPLATES}/default.latex
+#PDFOPTIONS += --template=${TEMPLATES}/default.latex
 PDFOPTIONS += --default-image-extension=pdf
 PDFOPTIONS += -V documentclass=exam -V classoption=addpoints
 PDFOPTIONS += -V fontsize=11pt -V papersize=a4
