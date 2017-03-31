@@ -32,7 +32,7 @@ TARGETDIR = ../distr/
 ## Lecture options
 
 BEAMEROPTIONS  = -t beamer -f markdown --latex-engine=xelatex
-BEAMEROPTIONS += --template=${TEMPLATES}/default.beamer
+#BEAMEROPTIONS += --template=${TEMPLATES}/default.beamer
 BEAMEROPTIONS += --default-image-extension=pdf
 # needs: xetex/xelatex, beamer (latex-package), metropolis (beamer-theme), fira sans und fira mono (font)
 BEAMEROPTIONS += -V theme:metropolis
@@ -46,7 +46,7 @@ BEAMEROPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
 PDFOPTIONS  = -f markdown --latex-engine=xelatex
-PDFOPTIONS += --template=${TEMPLATES}/default.latex
+#PDFOPTIONS += --template=${TEMPLATES}/default.latex
 PDFOPTIONS += --default-image-extension=pdf
 PDFOPTIONS += -V documentclass=scrartcl -V beamerarticle
 PDFOPTIONS += -V fontsize=9pt -V papersize=a4
@@ -60,7 +60,7 @@ PDFOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
 HTMLOPTIONS  = -t html5 -f markdown
-HTMLOPTIONS += --template=${TEMPLATES}/default.html5
+#HTMLOPTIONS += --template=${TEMPLATES}/default.html5
 HTMLOPTIONS += --default-image-extension=png
 HTMLOPTIONS += --standalone --self-contained --smart --toc --toc-depth=1
 HTMLOPTIONS += --filter=${PREFIX}/textohtml.py
@@ -75,7 +75,7 @@ HTMLOPTIONS += ${LANG} --data-dir=${DATADIR}
 
 
 EPUBOPTIONS  = -t epub -f markdown
-EPUBOPTIONS += --template=${TEMPLATES}/default.epub
+#EPUBOPTIONS += --template=${TEMPLATES}/default.epub
 EPUBOPTIONS += --default-image-extension=png
 EPUBOPTIONS += --standalone --smart --toc --toc-depth=1
 EPUBOPTIONS += --filter=${PREFIX}/textohtml.py
