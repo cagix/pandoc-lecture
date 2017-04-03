@@ -14,6 +14,8 @@ corresponding HTML markup.
 
 Note, that the `html.css` must also be included in the template for proper
 rendering.
+
+This filter will also remove HTML comments (like `<!-- ... -->`) from the AST.
 """
 
 from pandocfilters import toJSONFilter, attributes, Span, Str, Space, RawInline, Image
@@ -27,6 +29,7 @@ trans = [{'class': 'blueArrow', 're': re.compile('\\\\blueArrow'), 'cont': "=>",
 cboxStart = re.compile('\\\\cboxbegin')
 cboxEnd   = re.compile('\\\\cboxend')
 image     = re.compile('\\\\includegraphics.*?\{(.*)\}$')
+comment   = re.compile('<!--(.*)-->', re.MULTILINE | re.DOTALL)
 
 def textohtml(key, value, format, meta):
     if key == 'RawInline':
@@ -46,6 +49,13 @@ def textohtml(key, value, format, meta):
                 m = image.match(s)
 #                return Image([Str("description")], [m.group(1),""])  # works only for pandocfilters < 1.3.0
                 return Image(['', [], []], [Str("description")], [m.group(1), ""]) # should work for pandocfilter >= 1.3.0
+    if key == 'RawBlock':
+        fmt, s = value
+        if fmt == "html":
+            if comment.match(s):
+                return []
+
+
 
 if __name__ == "__main__":
     toJSONFilter(textohtml)
