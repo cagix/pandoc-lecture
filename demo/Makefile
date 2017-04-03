@@ -103,10 +103,11 @@ ${ID}_%_slides.pdf:	%.md
 
 ${ID}_%_handout.html: %.md
 	pandoc ${HTMLOPTIONS} -o $@ $<
-	sed '/<script src="/s!data:application/x-javascript;base64,PCEtLQpBdXRob3I6IENhcnN0ZW4gR2lwcyA8Y2Fyc3Rlbi5naXBzQGZoLWJpZWxlZmVsZC5kZT4KQ29weXJpZ2h0OiAoYykgMjAxNiBDYXJzdGVuIEdpcHMKTGljZW5zZTogTUlUCi0tPgoKOzs7Cgo8LS0hIERPIE5PVCBDSEFOR0UgVEhJUyBGSUxFIC0tPgoK!https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full!' -i $@
+	sed '/<script src="/s!data:application/x-javascript;base64,PCEtLQpBdXRob3I6IENhcnN0ZW4gR2lwcyA8Y2Fyc3Rlbi5naXBzQGZoLWJpZWxlZmVsZC5kZT4KQ29weXJpZ2h0OiAoYykgMjAxNiBDYXJzdGVuIEdpcHMKTGljZW5zZTogTUlUCi0tPgoKOzs7Cgo8LS0hIERPIE5PVCBDSEFOR0UgVEhJUyBGSUxFIC0tPgoK!https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML-full!' -i $@
 # content in dummy.js results in '<script src="data:application/x-javascript;base64,PCEtLQpBdXRob3I6IENhcnN0ZW4gR2lwcyA8Y2Fyc3Rlbi5naXBzQGZoLWJpZWxlZmVsZC5kZT4KQ29weXJpZ2h0OiAoYykgMjAxNiBDYXJzdGVuIEdpcHMKTGljZW5zZTogTUlUCi0tPgoKOzs7Cgo8LS0hIERPIE5PVCBDSEFOR0UgVEhJUyBGSUxFIC0tPgoK" type="text/javascript"></script>' (line 47 in output)
-# we need to replace this with the mathjax include line as pandoc 1.17.2 would generate it:
-# '<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>'
+# we need to replace this with the mathjax include line as pandoc would generate it:
+# '<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>'
+# new URL: https://github.com/jgm/pandoc/commit/8761d5775075b8a0eb12be2ded8c931156b09a18
 
 ${ID}_%_handout.epub: %.md
 	pandoc ${EPUBOPTIONS} -o $@ $<  # needs online access
