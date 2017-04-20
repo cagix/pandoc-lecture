@@ -27,11 +27,11 @@
     \hfill
     \begin{minipage}[c]{0.24\textwidth}
         \parindent=0pt
-        $if(ilias)$
+        $if(date)$
             \textbf{Praktikum: $date$}\\[1ex]
+        $endif$
+        $if(ilias)$
             \textbf{ILIAS: $ilias$}
-        $else$
-            \textbf{Praktikum: $date$}
         $endif$
     \end{minipage}
 
