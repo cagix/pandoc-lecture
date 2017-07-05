@@ -60,15 +60,15 @@ eval:	clean $(EVAL)
 $(SRC:.md=): %: ${ID}_%.pdf ${ID}_%_eval.pdf
 
 
-${ID}_%.pdf: %.md ${PREFIX}/titlepage.tex
-	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/titlepage.tex -o ${TMP1} $<
+${ID}_%.pdf: %.md ${PREFIX}/titlepage.tex metadata.yaml
+	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/titlepage.tex -o ${TMP1} $^
 	pandoc ${OPTIONS} ${PDFOPTIONS} -o $@ $<
 	rm -f ${TMP1}
 
 
-${ID}_%_eval.pdf: %.md ${PREFIX}/titlepage.tex ${PREFIX}/evaluation.md
-	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/titlepage.tex -o ${TMP1} $<
-	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/evaluation.md -o ${TMP2} $<
+${ID}_%_eval.pdf: %.md ${PREFIX}/titlepage.tex ${PREFIX}/evaluation.md metadata.yaml
+	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/titlepage.tex -o ${TMP1} $^
+	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/evaluation.md -o ${TMP2} $^
 	pandoc ${OPTIONS} ${EVALOPTIONS} -o $@ ${TMP2}
 	rm -f ${TMP1} ${TMP2}
 
