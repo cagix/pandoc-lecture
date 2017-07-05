@@ -10,8 +10,6 @@ DATADIR   = /home/cagix/.pandoc/
 PREFIX    = ${DATADIR}/lecture/
 TEMPLATES = ${DATADIR}/templates/
 
-LANG    = -V lang=de-DE -M lang=de-DE
-
 
 
 ## Source file and lecture prefix
@@ -42,7 +40,7 @@ BEAMEROPTIONS += -V fontsize=smaller
 BEAMEROPTIONS += --standalone --smart --slide-level=2
 BEAMEROPTIONS += --filter=${PREFIX}/texnotes.py
 BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
-BEAMEROPTIONS += ${LANG} --data-dir=${DATADIR}
+BEAMEROPTIONS += --data-dir=${DATADIR}
 
 
 PDFOPTIONS  = -f markdown --latex-engine=xelatex
@@ -56,7 +54,7 @@ PDFOPTIONS += --include-in-header=${PREFIX}/beamer.tex
 PDFOPTIONS += --include-in-header=${PREFIX}/handout.tex
 #PDFOPTIONS += --listings --highlight-style=tango
 PDFOPTIONS += -V colorlinks -V linkcolor=headcolor -V citecolor=headcolor -V urlcolor=headcolor  # use same color for URLs as for headers
-PDFOPTIONS += ${LANG} --data-dir=${DATADIR}
+PDFOPTIONS += --data-dir=${DATADIR}
 
 
 HTMLOPTIONS  = -t html5 -f markdown
@@ -71,7 +69,7 @@ HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
 #HTMLOPTIONS += --webtex  # sollte immer funktionieren (leichte Darstellungsfehler); beim Erstellen Online wg. Webzugriff (Beispiel: 113 KiB)
 #HTMLOPTIONS += --katex  # funktioniert mit allen Browsern (auch offline); sehr langsam beim Erstellen (Online!) u. riesige HTML-Datei (Beispiel: 3.3 MiB)
 HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJax; replace outcome with MathJax include line using sed
-HTMLOPTIONS += ${LANG} --data-dir=${DATADIR}
+HTMLOPTIONS += --data-dir=${DATADIR}
 
 
 EPUBOPTIONS  = -t epub -f markdown
@@ -83,7 +81,7 @@ EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
 # https://github.com/jgm/pandoc-templates/pull/219#issuecomment-250673689
 # JGM: In EPUB3, mathml is part of the spec, so we use that. In EPUB2, you can use --webtex.
 EPUBOPTIONS += --webtex  # needs online access
-EPUBOPTIONS += ${LANG} --data-dir=${DATADIR}
+EPUBOPTIONS += --data-dir=${DATADIR}
 
 
 
