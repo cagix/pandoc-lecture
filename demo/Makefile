@@ -10,8 +10,6 @@ DATADIR   = /home/cagix/.pandoc/
 PREFIX    = ${DATADIR}/homework/
 TEMPLATES = ${DATADIR}/templates/
 
-LANG    = -V lang=de-DE -M lang=de-DE
-
 
 
 ## Source file and lecture prefix
@@ -39,7 +37,7 @@ OPTIONS += --standalone --smart --number-sections
 OPTIONS += --include-in-header=${PREFIX}/homework.tex
 OPTIONS += --include-in-header=${TMP1}
 OPTIONS += -V colorlinks -V linkcolor=headcolor -V citecolor=headcolor -V urlcolor=headcolor  # use same color for URLs as for headers
-OPTIONS += ${LANG} --data-dir=${DATADIR}
+OPTIONS += --data-dir=${DATADIR}
 
 PDFOPTIONS =  -V fontsize=10pt -V papersize=a4
 PDFOPTIONS += -V geometry:left=1.6cm -V geometry:right=1.6cm -V geometry:top=2cm -V geometry:bottom=1.6cm
