@@ -55,10 +55,10 @@ pdf:	clean $(PDF)
 
 
 solution.pdf: PDFOPTIONS += -V classoption=answers
-exam.pdf solution.pdf: exam.md $(SRC) ${PREFIX}/header.tex ${PREFIX}/titlepage.tex
-	pandoc --standalone --template=${PREFIX}/header.tex -o ${TMP1} exam.md
-	pandoc --standalone --template=${PREFIX}/titlepage.tex -o ${TMP2} exam.md
-	pandoc ${PDFOPTIONS} -o $@ exam.md $(SRC)
+exam.pdf solution.pdf: metadata.yaml $(SRC) ${PREFIX}/header.tex ${PREFIX}/titlepage.tex
+	pandoc --standalone --template=${PREFIX}/header.tex -o ${TMP1} metadata.yaml
+	pandoc --standalone --template=${PREFIX}/titlepage.tex -o ${TMP2} metadata.yaml
+	pandoc ${PDFOPTIONS} -o $@ $(SRC)
 	rm -f ${TMP1} ${TMP2}
 
 
