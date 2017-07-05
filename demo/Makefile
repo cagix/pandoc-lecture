@@ -10,8 +10,6 @@ DATADIR   = /home/cagix/.pandoc/
 PREFIX    = ${DATADIR}/exam/
 TEMPLATES = ${DATADIR}/templates/
 
-LANG    = -V lang=de-DE -M lang=de-DE
-
 
 
 ## Source file and lecture prefix
@@ -43,7 +41,7 @@ PDFOPTIONS += --include-before-body=${PREFIX}/exam_begin.tex
 PDFOPTIONS += --include-after-body=${PREFIX}/exam_end.tex
 PDFOPTIONS += --listings --highlight-style=tango
 PDFOPTIONS += --toc  # to compile twice
-PDFOPTIONS += ${LANG} --data-dir=${DATADIR}
+PDFOPTIONS += --data-dir=${DATADIR}
 
 
 
