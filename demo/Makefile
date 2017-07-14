@@ -56,7 +56,7 @@ solution.pdf: PDFOPTIONS += -V classoption=answers
 exam.pdf solution.pdf: metadata.yaml $(SRC) ${PREFIX}/header.tex ${PREFIX}/titlepage.tex
 	pandoc --standalone --template=${PREFIX}/header.tex -o ${TMP1} metadata.yaml
 	pandoc --standalone --template=${PREFIX}/titlepage.tex -o ${TMP2} metadata.yaml
-	pandoc ${PDFOPTIONS} -o $@ $(SRC)
+	pandoc ${PDFOPTIONS} -o $@ $(SRC) metadata.yaml
 	rm -f ${TMP1} ${TMP2}
 
 
