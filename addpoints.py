@@ -116,7 +116,7 @@ def addpoints(key, value, format, meta):
             points += p
             questions.append(content + [Space(), Str("("+str(p)+"P)")])
             content += [Space(), RawInline("tex", "\\hfill"), Space(),
-                        Str("("+str(p)), Space(), Str("Punkte)")]
+                        Str("("+str(p)), Space(), Str("Punkt)" if p==1 else "Punkte)")]
 
         return Header(level, [ident,classes,keyvals], content)
 
