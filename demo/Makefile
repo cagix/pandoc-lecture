@@ -20,8 +20,6 @@ ID    ?= pm
 
 SLIDES = $(SRC:%.md=${ID}_%_slides.pdf)
 HTML   = $(SRC:%.md=${ID}_%_handout.html)
-EPUB   = $(SRC:%.md=${ID}_%_handout.epub)
-PDF    = $(SRC:%.md=${ID}_%_handout.pdf)
 
 TARGETDIR = ../distr/
 
@@ -43,20 +41,6 @@ BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
 BEAMEROPTIONS += --data-dir=${DATADIR}
 
 
-PDFOPTIONS  = -f markdown --latex-engine=xelatex
-#PDFOPTIONS += --template=${TEMPLATES}/default.latex
-PDFOPTIONS += --default-image-extension=pdf
-PDFOPTIONS += -V documentclass=scrartcl -V beamerarticle
-PDFOPTIONS += -V fontsize=9pt -V papersize=a4
-PDFOPTIONS += -V geometry:left=1.5cm -V geometry:right=1.5cm -V geometry:top=1.5cm -V geometry:bottom=2.5cm
-PDFOPTIONS += --standalone --smart --number-sections --toc --toc-depth=1
-PDFOPTIONS += --include-in-header=${PREFIX}/beamer.tex
-PDFOPTIONS += --include-in-header=${PREFIX}/handout.tex
-#PDFOPTIONS += --listings --highlight-style=tango
-PDFOPTIONS += -V colorlinks -V linkcolor=headcolor -V citecolor=headcolor -V urlcolor=headcolor  # use same color for URLs as for headers
-PDFOPTIONS += --data-dir=${DATADIR}
-
-
 HTMLOPTIONS  = -t html5 -f markdown
 #HTMLOPTIONS += --template=${TEMPLATES}/default.html5
 HTMLOPTIONS += --default-image-extension=png
@@ -72,29 +56,15 @@ HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJa
 HTMLOPTIONS += --data-dir=${DATADIR}
 
 
-EPUBOPTIONS  = -t epub -f markdown
-#EPUBOPTIONS += --template=${TEMPLATES}/default.epub
-EPUBOPTIONS += --default-image-extension=png
-EPUBOPTIONS += --standalone --smart --toc --toc-depth=1
-EPUBOPTIONS += --filter=${PREFIX}/textohtml.py
-EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
-# https://github.com/jgm/pandoc-templates/pull/219#issuecomment-250673689
-# JGM: In EPUB3, mathml is part of the spec, so we use that. In EPUB2, you can use --webtex.
-EPUBOPTIONS += --webtex  # needs online access
-EPUBOPTIONS += --data-dir=${DATADIR}
-
-
 
 ## Targets
 
-all:	$(SLIDES) $(HTML) $(EPUB) $(PDF)
+all:	$(SLIDES) $(HTML)
 
 $(SRC:.md=): %: ${ID}_%_slides.pdf ${ID}_%_handout.html
 
 slides:	clean $(SLIDES)
 html:	clean $(HTML)
-epub:	clean $(EPUB)
-pdf:	clean $(PDF)
 
 ${ID}_%_slides.pdf:	%.md metadata.yaml
 	pandoc ${BEAMEROPTIONS} -o $@ $^
@@ -106,26 +76,18 @@ ${ID}_%_handout.html: %.md metadata.yaml
 # we need to replace this with the mathjax include line as pandoc would generate it:
 # '<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>'
 # new URL: https://github.com/jgm/pandoc/commit/8761d5775075b8a0eb12be2ded8c931156b09a18
-
-${ID}_%_handout.epub: %.md metadata.yaml
-	pandoc ${EPUBOPTIONS} -o $@ $^  # needs online access
-
-${ID}_%_handout.pdf: %.md metadata.yaml
-	pandoc ${PDFOPTIONS} -o $@ $^
 	
 	
-install: $(TARGETDIR) $(SLIDES) $(HTML) $(EPUB) $(PDF)
+install: $(TARGETDIR) $(SLIDES) $(HTML)
 	mv ${SLIDES} $(TARGETDIR)
 	mv ${HTML} $(TARGETDIR)
-	mv ${EPUB} $(TARGETDIR)
-	mv ${PDF} $(TARGETDIR)
 
 $(TARGETDIR):
 	mkdir $@
 
 
 clean:
-	rm -f $(SLIDES) $(HTML) $(EPUB) $(PDF)
+	rm -f $(SLIDES) $(HTML)
 	
 
 .PHONY: clean
