@@ -4,11 +4,9 @@
 
 
 
-## Path to pandoc templates/includes and language settings
+## Path to this repository (used as git sub-module)
 
-DATADIR   = /home/cagix/.pandoc/
-PREFIX    = ${DATADIR}/lecture/
-TEMPLATES = ${DATADIR}/templates/
+PREFIX    = .pandoc/
 
 
 
@@ -18,8 +16,8 @@ TEMPLATES = ${DATADIR}/templates/
 SRC   ?= $(wildcard vl*.md)
 ID    ?= pm
 
-SLIDES = $(SRC:%.md=${ID}_%_slides.pdf)
-HTML   = $(SRC:%.md=${ID}_%_handout.html)
+SLIDES = $(SRC:%.md=${ID}_%.pdf)
+HTML   = $(SRC:%.md=${ID}_%.html)
 
 TARGETDIR = ../distr/
 
@@ -28,7 +26,6 @@ TARGETDIR = ../distr/
 ## Lecture options
 
 BEAMEROPTIONS  = -t beamer -f markdown --latex-engine=xelatex
-#BEAMEROPTIONS += --template=${TEMPLATES}/default.beamer
 BEAMEROPTIONS += --default-image-extension=pdf
 # needs: xetex/xelatex, beamer (latex-package), metropolis (beamer-theme), fira sans und fira mono (font)
 BEAMEROPTIONS += -V theme:metropolis
@@ -38,11 +35,9 @@ BEAMEROPTIONS += -V fontsize=smaller
 BEAMEROPTIONS += --standalone --smart --slide-level=2
 BEAMEROPTIONS += --filter=${PREFIX}/texnotes.py
 BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
-BEAMEROPTIONS += --data-dir=${DATADIR}
 
 
-HTMLOPTIONS  = -t html5 -f markdown
-#HTMLOPTIONS += --template=${TEMPLATES}/default.html5
+HTMLOPTIONS  = -t html -f markdown
 HTMLOPTIONS += --default-image-extension=png
 HTMLOPTIONS += --standalone --self-contained --smart --toc --toc-depth=1
 HTMLOPTIONS += --filter=${PREFIX}/textohtml.py
@@ -53,7 +48,6 @@ HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
 #HTMLOPTIONS += --webtex  # sollte immer funktionieren (leichte Darstellungsfehler); beim Erstellen Online wg. Webzugriff (Beispiel: 113 KiB)
 #HTMLOPTIONS += --katex  # funktioniert mit allen Browsern (auch offline); sehr langsam beim Erstellen (Online!) u. riesige HTML-Datei (Beispiel: 3.3 MiB)
 HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJax; replace outcome with MathJax include line using sed
-HTMLOPTIONS += --data-dir=${DATADIR}
 
 
 
@@ -61,15 +55,15 @@ HTMLOPTIONS += --data-dir=${DATADIR}
 
 all:	$(SLIDES) $(HTML)
 
-$(SRC:.md=): %: ${ID}_%_slides.pdf ${ID}_%_handout.html
+$(SRC:.md=): %: ${ID}_%.pdf ${ID}_%.html
 
 slides:	clean $(SLIDES)
 html:	clean $(HTML)
 
-${ID}_%_slides.pdf:	%.md metadata.yaml
+${ID}_%.pdf:	%.md metadata.yaml
 	pandoc ${BEAMEROPTIONS} -o $@ $^
 
-${ID}_%_handout.html: %.md metadata.yaml
+${ID}_%.html: %.md metadata.yaml
 	pandoc ${HTMLOPTIONS} -o $@ $^
 	sed '/<script src="/s!data:application/x-javascript;base64,PCEtLQpBdXRob3I6IENhcnN0ZW4gR2lwcyA8Y2Fyc3Rlbi5naXBzQGZoLWJpZWxlZmVsZC5kZT4KQ29weXJpZ2h0OiAoYykgMjAxNiBDYXJzdGVuIEdpcHMKTGljZW5zZTogTUlUCi0tPgoKOzs7Cgo8LS0hIERPIE5PVCBDSEFOR0UgVEhJUyBGSUxFIC0tPgoK!https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML-full!' -i $@
 # content in dummy.js results in '<script src="data:application/x-javascript;base64,PCEtLQpBdXRob3I6IENhcnN0ZW4gR2lwcyA8Y2Fyc3Rlbi5naXBzQGZoLWJpZWxlZmVsZC5kZT4KQ29weXJpZ2h0OiAoYykgMjAxNiBDYXJzdGVuIEdpcHMKTGljZW5zZTogTUlUCi0tPgoKOzs7Cgo8LS0hIERPIE5PVCBDSEFOR0UgVEhJUyBGSUxFIC0tPgoK" type="text/javascript"></script>' (line 47 in output)
