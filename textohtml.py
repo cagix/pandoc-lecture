@@ -28,7 +28,6 @@ trans = [{'class': 'blueArrow', 're': re.compile('\\\\blueArrow'), 'cont': "=>",
          {'class': 'bsp', 're': re.compile('\\\\bsp\{(.*)\}$'), 'cont': 1, 'key': 'Grp'}]
 cboxStart = re.compile('\\\\cboxbegin')
 cboxEnd   = re.compile('\\\\cboxend')
-image     = re.compile('\\\\includegraphics.*?\{(.*)\}$')
 comment   = re.compile('<!--(.*)-->', re.MULTILINE | re.DOTALL)
 
 def textohtml(key, value, format, meta):
@@ -45,10 +44,6 @@ def textohtml(key, value, format, meta):
                 return RawInline("html", "<span class='cbox'>")
             if cboxEnd.match(s):
                 return RawInline("html", "</span>")
-            if image.match(s):
-                m = image.match(s)
-#                return Image([Str("description")], [m.group(1),""])  # works only for pandocfilters < 1.3.0
-                return Image(['', [], []], [Str("description")], [m.group(1), ""]) # should work for pandocfilter >= 1.3.0
     if key == 'RawBlock':
         fmt, s = value
         if fmt == "html":
