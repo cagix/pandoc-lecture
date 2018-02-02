@@ -32,14 +32,14 @@ BEAMEROPTIONS += -V theme:metropolis
 # needs adapted beamer template (see https://github.com/jgm/pandoc-templates/pull/211)
 BEAMEROPTIONS += -V themeoptions:numbering=none -V themeoptions:progressbar=foot
 BEAMEROPTIONS += -V fontsize=smaller
-BEAMEROPTIONS += --standalone --smart --slide-level=2
+BEAMEROPTIONS += --standalone --slide-level=2
 BEAMEROPTIONS += --filter=${PREFIX}/texnotes.py
 BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
 
 
 HTMLOPTIONS  = -t html -f markdown
 HTMLOPTIONS += --default-image-extension=png
-HTMLOPTIONS += --standalone --self-contained --smart --toc --toc-depth=1
+HTMLOPTIONS += --standalone --self-contained --toc --toc-depth=1
 HTMLOPTIONS += --filter=${PREFIX}/textohtml.py
 HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
 # Mathe mit `mathml` (einzige funktionierende Variante für html; laut Doku geht mathjax nicht fuer self-contained!)
