@@ -93,6 +93,8 @@ a {
     align-content: center;
     text-align: center;
 }
+.notes {
+}
 
 /* definitions to match corresponding TeX macros */
 .alert { color: #ff3333; }
