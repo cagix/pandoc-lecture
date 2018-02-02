@@ -25,7 +25,7 @@ TARGETDIR = ../distr/
 
 ## Lecture options
 
-BEAMEROPTIONS  = -t beamer -f markdown --latex-engine=xelatex
+BEAMEROPTIONS  = -t beamer -f markdown --pdf-engine=xelatex
 BEAMEROPTIONS += --default-image-extension=pdf
 # needs: xetex/xelatex, beamer (latex-package), metropolis (beamer-theme), fira sans und fira mono (font)
 BEAMEROPTIONS += -V theme:metropolis
