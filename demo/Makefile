@@ -33,7 +33,6 @@ BEAMEROPTIONS += -V theme:metropolis
 BEAMEROPTIONS += -V themeoptions:numbering=none -V themeoptions:progressbar=foot
 BEAMEROPTIONS += -V fontsize=smaller
 BEAMEROPTIONS += --standalone --slide-level=2
-BEAMEROPTIONS += --filter=${PREFIX}/texnotes.py
 BEAMEROPTIONS += --lua-filter=${PREFIX}/tex.lua
 BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
 
