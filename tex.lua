@@ -11,11 +11,6 @@ function center(el)
 end
 
 
--- there is a Note class in Pandoc Lua ... (inline class)
-function notes(el)
-    return {}
-end
-
 -- remove inline notes: `[...]{.notes}` ... (Span class)
 function inlineNotes(el)
     if el.classes[1] == "notes" then
