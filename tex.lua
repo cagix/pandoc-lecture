@@ -26,5 +26,16 @@ function blockNotes(el)
 end
 
 
-return {{Div = center}, {Note = notes, Span = inlineNotes, Div = blockNotes}}
+-- handling of  `[...]{.alert}` ... (Span class)
+function alert(el)
+    if el.classes[1] == "alert" then
+        local erg = el.content
+        table.insert(erg, 1,      pandoc.RawInline("latex","\\alert{"))
+        table.insert(erg, #erg+1, pandoc.RawInline("latex","}"))
+        return erg
+    end
+end
+
+
+return {{Div = center}, {Note = notes, Span = inlineNotes, Div = blockNotes}, {Span = alert}}
 
