@@ -41,7 +41,7 @@ HTMLOPTIONS  = -t html -f markdown
 HTMLOPTIONS += --default-image-extension=png
 HTMLOPTIONS += --standalone --self-contained --toc --toc-depth=1
 HTMLOPTIONS += --strip-comments
-HTMLOPTIONS += --filter=${PREFIX}/textohtml.py
+HTMLOPTIONS += --lua-filter=${PREFIX}/html.lua
 HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
 # Mathe mit `mathml` (einzige funktionierende Variante für html; laut Doku geht mathjax nicht fuer self-contained!)
 #HTMLOPTIONS += --mathml  # funktioniert mit Firefox (auch offline), aber nicht mit Chrome
