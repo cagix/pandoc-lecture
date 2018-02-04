@@ -3,7 +3,7 @@
 -- License: MIT
 
 
--- handling of `::: center ... :::`
+-- handling of `::: center ... :::` ... (Div class)
 function center(el)
     if el.classes[1] == "center" then
         return {pandoc.RawBlock("latex","\\begin{center}"), el, pandoc.RawBlock("latex","\\end{center}")}
