@@ -19,8 +19,7 @@ rendering.
 from pandocfilters import toJSONFilter, attributes, Span, Str, Space, RawInline, Image
 import re
 
-trans = [{'class': 'blueArrow', 're': re.compile('\\\\blueArrow'), 'cont': "=>", 'key': 'Str'},
-         {'class': 'code', 're': re.compile('\\\\code\{(.*)\}$'), 'cont': 1, 'key': 'Grp'}]
+trans = [{'class': 'blueArrow', 're': re.compile('\\\\blueArrow'), 'cont': "=>", 'key': 'Str'}]
 cboxStart = re.compile('\\\\cboxbegin')
 cboxEnd   = re.compile('\\\\cboxend')
 
