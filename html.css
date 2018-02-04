@@ -111,7 +111,11 @@ a {
     border-style: solid;
     border-color: #4070a0;
 }
-.blueArrow { color: #4070a0; font-family: monospace; font-weight: bold; }
+.blueArrow {
+    color: #4070a0;
+    font-family: monospace;
+    font-weight: bold;
+}
 
 </style>
 
