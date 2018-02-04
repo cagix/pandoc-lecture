@@ -20,8 +20,6 @@ from pandocfilters import toJSONFilter, attributes, Span, Str, Space, RawInline,
 import re
 
 trans = [{'class': 'blueArrow', 're': re.compile('\\\\blueArrow'), 'cont': "=>", 'key': 'Str'}]
-cboxStart = re.compile('\\\\cboxbegin')
-cboxEnd   = re.compile('\\\\cboxend')
 
 def textohtml(key, value, format, meta):
     if key == 'RawInline':
@@ -33,11 +31,6 @@ def textohtml(key, value, format, meta):
                     return [Span(attributes({'class': x['class']}),
                                  [Str( x['cont'] if x['key']=='Str' else m.group(x['cont']) )]),
                             Space()]
-            if cboxStart.match(s):
-                return RawInline("html", "<span class='cbox'>")
-            if cboxEnd.match(s):
-                return RawInline("html", "</span>")
-
 
 
 if __name__ == "__main__":
