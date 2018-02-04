@@ -20,8 +20,7 @@ from pandocfilters import toJSONFilter, attributes, Span, Str, Space, RawInline,
 import re
 
 trans = [{'class': 'blueArrow', 're': re.compile('\\\\blueArrow'), 'cont': "=>", 'key': 'Str'},
-         {'class': 'code', 're': re.compile('\\\\code\{(.*)\}$'), 'cont': 1, 'key': 'Grp'},
-         {'class': 'bsp', 're': re.compile('\\\\bsp\{(.*)\}$'), 'cont': 1, 'key': 'Grp'}]
+         {'class': 'code', 're': re.compile('\\\\code\{(.*)\}$'), 'cont': 1, 'key': 'Grp'}]
 cboxStart = re.compile('\\\\cboxbegin')
 cboxEnd   = re.compile('\\\\cboxend')
 
