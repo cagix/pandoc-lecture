@@ -37,5 +37,16 @@ function alert(el)
 end
 
 
-return {{Div = center}, {Note = notes, Span = inlineNotes, Div = blockNotes}, {Span = alert}}
+-- handling of  `[...]{.bsp}` ... (Span class)
+function alert(el)
+    if el.classes[1] == "bsp" then
+        local erg = el.content
+        table.insert(erg, 1,      pandoc.RawInline("latex","\\bsp{"))
+        table.insert(erg, #erg+1, pandoc.RawInline("latex","}"))
+        return erg
+    end
+end
+
+
+return {{Div = center}, {Note = notes, Span = inlineNotes, Div = blockNotes}, {Span = alert}, {Span = bsp}}
 
