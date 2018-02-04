@@ -48,5 +48,16 @@ function alert(el)
 end
 
 
-return {{Div = center}, {Note = notes, Span = inlineNotes, Div = blockNotes}, {Span = alert}, {Span = bsp}}
+-- handling of  `[...]{.cbox}` ... (Span class)
+function cbox(el)
+    if el.classes[1] == "cbox" then
+        local erg = el.content
+        table.insert(erg, 1,      pandoc.RawInline("latex","\\cboxbegin"))
+        table.insert(erg, #erg+1, pandoc.RawInline("latex","\\cboxend"))
+        return erg
+    end
+end
+
+
+return {{Div = center}, {Note = notes, Span = inlineNotes, Div = blockNotes}, {Span = alert}, {Span = bsp}, {Span = cbox}}
 
