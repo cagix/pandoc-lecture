@@ -38,7 +38,7 @@ end
 
 
 -- handling of  `[...]{.bsp}` ... (Span class)
-function alert(el)
+function bsp(el)
     if el.classes[1] == "bsp" then
         local erg = el.content
         table.insert(erg, 1,      pandoc.RawInline("latex","\\bsp{"))
