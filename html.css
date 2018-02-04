@@ -105,8 +105,13 @@ a {
     border-style: solid;
     border-color: #4070a0;
 }
+.cbox {
+    padding: 0.2cm;
+    border-width: 0.1cm;
+    border-style: solid;
+    border-color: #4070a0;
+}
 .blueArrow { color: #4070a0; font-family: monospace; font-weight: bold; }
-.cbox { padding: 0.3cm; border-width: 0.1cm; border-style: solid; border-color: #4070a0; }
 
 </style>
 
