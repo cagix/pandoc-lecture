@@ -27,7 +27,7 @@ However, there are a few drawbacks:
     impossible.
 *   Most students would read the handout using a tablet or an e-book reader,
     so PDF is not really a suitable format for handouts. HTML or even EPUB
-    would be a much more suitable choice for this task. There are a number
+    would be a much more appropriate choice for this task. There are a number
     of projects addressing this (e.g. [LaTeX2HTML](http://www.latex2html.org/),
     [Hyperlatex](http://hyperlatex.sourceforge.net/), [TeX4ht](http://www.tug.org/tex4ht/)),
     but the resulting HTML is not really satisfying, and EPUB generation
@@ -35,15 +35,15 @@ However, there are a few drawbacks:
 
 Using [Pandoc Markdown](http://pandoc.org/MANUAL.html) most of the standard
 TeX structures can be written in a much shorter way. Since pandoc does not
-parse Markdown contained in TeX environments, the `\begin{XXX}` and `\end{XXX}`
+parse Markdown contained in TeX environments, all `\begin{XXX}` and `\end{XXX}`
 commands need to be replaced using redefinitions like
 `\newcommand{\XXXbegin}{\begin{XXX}}`.
 
-Also by introducing a `\notesbegin` and `\notesend` command in combination with
-a custom pandoc filter, the lecture notes can be placed freely at any location
-in the material. Using the filter the lecture notes do not appear in the slides
-but in the handout. The lecture notes can contain any valid Markdown or TeX
-code, even further (sub-) sections.
+Also by introducing a notes block/inline (using the new Pandoc fenced Divs) in
+combination with a custom pandoc filter, the lecture notes can be placed freely
+at any location in the material. Using the filter the lecture notes do not
+appear in the slides but in the handout. The lecture notes can contain any
+valid Markdown or TeX code, even further (sub-) sections.
 
 Pandoc can convert Markdown also to HTML and EPUB. Thus a single source can
 be used to create lecture slides (PDF) and handouts (HTML/EPUB). Even slide
@@ -58,14 +58,15 @@ Since LaTeX is still used as back end when creating slides, all TeX macros
 could be used.
 
 To create HTML output, the TeX code needs to be replaced with appropriate HTML
-code. This is achieved by the filter `textohtml.py`, which transforms the AST
+code. This is achieved by the filter `html.lua`, which transforms the AST
 created by pandoc parsing the input document before pandoc converts it to the
 specified output format.
 
-To remove the lecture notes from the beamer slides, the filter `texnotes.py`
-is used. It is inspired by the example filter `comments.py` in the
-[pandocfilter](https://github.com/jgm/pandocfilters) project (see credits
-in `texnotes.py`).
+To remove the lecture notes from the beamer slides and to transform fenced Divs
+and inline Spans to TeX macros, the filter `tex.lua` is used.
+
+Pandoc 2.x includes a Lua interpreter, thus there is no need anymore to install
+a separate (matching!) python filter module.
 
 
 Notes on TeX Math
@@ -85,7 +86,9 @@ To deal with TeX math, a number of options exist:
     embedding KaTeX yields in rather huge files.
 
 Currently, [MathJax](https://www.mathjax.org/) is used for HTML output in
-this project.
+this project (option `--mathjax`). To prevent pandoc from incorporating MathJax
+into the generated self-contained HTML document (it is quite large and it won't
+work properly this way), the URL to MathJax is included via a separate file.
 
 Since most current e-book readers do not support MathML and are usually used
 without Internet connectivity, math is converted to embedded images using
@@ -99,35 +102,31 @@ Installing and running
 
     *   [git](https://git-scm.com/)
     *   [make](https://www.gnu.org/software/make/)
-    *   [pandoc](http://pandoc.org/installing.html) 1.17.2 (or newer)
-    *   [pandoc templates](https://github.com/jgm/pandoc-templates) (`master`
-        branch, commit https://github.com/jgm/pandoc-templates/commit/35c788701551f5b5094d230f33a7668072124655
-        or newer)
-    *   [pandoc filter](https://github.com/jgm/pandocfilters)
+    *   [pandoc](http://pandoc.org/installing.html) 2.1.1 (or newer)
     *   [TeX Live](http://www.tug.org/texlive/) including the
         [beamer class](https://www.ctan.org/pkg/beamer)
     *   [beamer theme: Metropolis](https://github.com/matze/mtheme) (for building the examples)
 
 2.  Create a working directory for your project and change into it.
 
-3.  Clone the pandoc templates repo using `git clone https://github.com/jgm/pandoc-templates templates`.
-
-4.  Clone this repo using `git clone https://github.com/cagix/pandoc-lecture lecture`.
+3.  Clone this repo using `git clone https://github.com/cagix/pandoc-lecture lecture`
+    (or add it as git submodule to your project).
 
 5.  Change to the `lecture/` subdirectory. Adapt the `DATADIR` variable in the
-    makefile: It should point to the working directory of the project, i.e. to
-    the folder containing the two subfolders `templates` and `lecture`.
+    makefile (`demo` subdir): It should point to the root directory of this
+    project, i.e. to the folder containing the subfolders `filters`, `resources`
+    and `demo`.
 
     Build the demo using `make`.
 
     Have a look at the example `lecture/demo/vl01.md`. Some of the features
-    are demonstrated here.
+    are demonstrated and explained in the markdown source.
 
 
 Notes and Versions
 ------------------
 
-This project is supposed to be used with pandoc 1.19.x.
+This project is supposed to be used with pandoc 2.1.x.
 
 
 ---
@@ -135,7 +134,7 @@ This project is supposed to be used with pandoc 1.19.x.
 License
 -------
 
-Copyright (c) 2016-2017, Carsten Gips
+Copyright (c) 2016-2018, Carsten Gips
 
 [MIT licensed](http://opensource.org/licenses/MIT)
 
