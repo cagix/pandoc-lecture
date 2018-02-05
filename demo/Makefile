@@ -7,7 +7,8 @@
 ## Path to this repository (used as git sub-module)
 
 DATADIR      = ..
-PREFIX    = .pandoc/
+FILTERDIR    = $(DATADIR)/filters
+RESOURCEDIR  = $(DATADIR)/resources
 RESOURCEPATH = .:./figs:$(DATADIR)
 
 
@@ -36,6 +37,7 @@ BEAMEROPTIONS += -V fontsize=smaller
 BEAMEROPTIONS += --standalone --slide-level=2
 BEAMEROPTIONS += --lua-filter=${PREFIX}/tex.lua
 BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
+BEAMEROPTIONS += --data-dir=${DATADIR}
 BEAMEROPTIONS += --resource-path=${RESOURCEPATH}
 
 
@@ -46,6 +48,7 @@ HTMLOPTIONS += --strip-comments
 HTMLOPTIONS += --lua-filter=${PREFIX}/html.lua
 HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
 HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJax; replace outcome with MathJax include line using sed
+HTMLOPTIONS += --data-dir=${DATADIR}
 HTMLOPTIONS += --resource-path=${RESOURCEPATH}
 
 
