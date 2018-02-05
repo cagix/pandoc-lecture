@@ -48,7 +48,11 @@ HTMLOPTIONS += --toc --toc-depth=1
 HTMLOPTIONS += --strip-comments
 HTMLOPTIONS += --lua-filter=${FILTERDIR}/html.lua
 HTMLOPTIONS += --css=${RESOURCEDIR}/html.css
-HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJax; replace outcome with MathJax include line using sed
+# insert `<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript" data-external="1"></script>`
+# with data-external="1" to prevent incorporating MathJax into the generated HTML document when using --self-contained
+HTMLOPTIONS += --include-in-header=${RESOURCEDIR}/mathjaxurl.js
+# use MathJax; URL points to dummy document to prevent incorporating MathJax into the generated HTML document when using --self-contained
+HTMLOPTIONS += --mathjax=${RESOURCEDIR}/mathjaxurl.js
 HTMLOPTIONS += --data-dir=${DATADIR}
 HTMLOPTIONS += --resource-path=${RESOURCEPATH}
 
@@ -68,11 +72,6 @@ ${ID}_%.pdf:	%.md metadata.yaml
 
 ${ID}_%.html: %.md metadata.yaml
 	pandoc ${HTMLOPTIONS} -o $@ $^
-	sed '/<script src="/s!data:application/x-javascript;base64,PCEtLQpBdXRob3I6IENhcnN0ZW4gR2lwcyA8Y2Fyc3Rlbi5naXBzQGZoLWJpZWxlZmVsZC5kZT4KQ29weXJpZ2h0OiAoYykgMjAxNiBDYXJzdGVuIEdpcHMKTGljZW5zZTogTUlUCi0tPgoKOzs7Cgo8LS0hIERPIE5PVCBDSEFOR0UgVEhJUyBGSUxFIC0tPgoK!https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML-full!' -i $@
-# content in dummy.js results in '<script src="data:application/x-javascript;base64,PCEtLQpBdXRob3I6IENhcnN0ZW4gR2lwcyA8Y2Fyc3Rlbi5naXBzQGZoLWJpZWxlZmVsZC5kZT4KQ29weXJpZ2h0OiAoYykgMjAxNiBDYXJzdGVuIEdpcHMKTGljZW5zZTogTUlUCi0tPgoKOzs7Cgo8LS0hIERPIE5PVCBDSEFOR0UgVEhJUyBGSUxFIC0tPgoK" type="text/javascript"></script>' (line 47 in output)
-# we need to replace this with the mathjax include line as pandoc would generate it:
-# '<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>'
-# new URL: https://github.com/jgm/pandoc/commit/8761d5775075b8a0eb12be2ded8c931156b09a18
 	
 	
 install: $(TARGETDIR) $(SLIDES) $(HTML)
