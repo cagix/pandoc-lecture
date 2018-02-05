@@ -45,11 +45,6 @@ HTMLOPTIONS += --standalone --self-contained --toc --toc-depth=1
 HTMLOPTIONS += --strip-comments
 HTMLOPTIONS += --lua-filter=${PREFIX}/html.lua
 HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
-# Mathe mit `mathml` (einzige funktionierende Variante für html; laut Doku geht mathjax nicht fuer self-contained!)
-#HTMLOPTIONS += --mathml  # funktioniert mit Firefox (auch offline), aber nicht mit Chrome
-#HTMLOPTIONS += --mathjax  # funktioniert mit allen Browsern, aber nicht self-contained/offline
-#HTMLOPTIONS += --webtex  # sollte immer funktionieren (leichte Darstellungsfehler); beim Erstellen Online wg. Webzugriff (Beispiel: 113 KiB)
-#HTMLOPTIONS += --katex  # funktioniert mit allen Browsern (auch offline); sehr langsam beim Erstellen (Online!) u. riesige HTML-Datei (Beispiel: 3.3 MiB)
 HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJax; replace outcome with MathJax include line using sed
 HTMLOPTIONS += --resource-path=${RESOURCEPATH}
 
