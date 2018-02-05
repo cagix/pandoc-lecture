@@ -30,9 +30,7 @@ TARGETDIR = ../distr/
 BEAMEROPTIONS  = -f markdown -t beamer
 BEAMEROPTIONS += --pdf-engine=pdflatex
 BEAMEROPTIONS += --default-image-extension=pdf
-# needs: xetex/xelatex, beamer (latex-package), metropolis (beamer-theme), fira sans und fira mono (font)
 BEAMEROPTIONS += -V theme:metropolis
-# needs adapted beamer template (see https://github.com/jgm/pandoc-templates/pull/211)
 BEAMEROPTIONS += -V themeoptions:numbering=none -V themeoptions:progressbar=foot
 BEAMEROPTIONS += -V fontsize=smaller
 BEAMEROPTIONS += --standalone --slide-level=2
