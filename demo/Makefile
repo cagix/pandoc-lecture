@@ -6,7 +6,9 @@
 
 ## Path to this repository (used as git sub-module)
 
+DATADIR      = ..
 PREFIX    = .pandoc/
+RESOURCEPATH = .:./figs:$(DATADIR)
 
 
 
@@ -35,6 +37,7 @@ BEAMEROPTIONS += -V fontsize=smaller
 BEAMEROPTIONS += --standalone --slide-level=2
 BEAMEROPTIONS += --lua-filter=${PREFIX}/tex.lua
 BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
+BEAMEROPTIONS += --resource-path=${RESOURCEPATH}
 
 
 HTMLOPTIONS  = -t html -f markdown
@@ -49,6 +52,7 @@ HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
 #HTMLOPTIONS += --webtex  # sollte immer funktionieren (leichte Darstellungsfehler); beim Erstellen Online wg. Webzugriff (Beispiel: 113 KiB)
 #HTMLOPTIONS += --katex  # funktioniert mit allen Browsern (auch offline); sehr langsam beim Erstellen (Online!) u. riesige HTML-Datei (Beispiel: 3.3 MiB)
 HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJax; replace outcome with MathJax include line using sed
+HTMLOPTIONS += --resource-path=${RESOURCEPATH}
 
 
 
