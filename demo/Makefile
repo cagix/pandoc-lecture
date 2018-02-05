@@ -35,8 +35,8 @@ BEAMEROPTIONS += -V theme:metropolis
 BEAMEROPTIONS += -V themeoptions:numbering=none -V themeoptions:progressbar=foot
 BEAMEROPTIONS += -V fontsize=smaller
 BEAMEROPTIONS += --slide-level=2
-BEAMEROPTIONS += --lua-filter=${PREFIX}/tex.lua
-BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
+BEAMEROPTIONS += --lua-filter=${FILTERDIR}/tex.lua
+BEAMEROPTIONS += --include-in-header=${RESOURCEDIR}/beamer.tex
 BEAMEROPTIONS += --data-dir=${DATADIR}
 BEAMEROPTIONS += --resource-path=${RESOURCEPATH}
 
@@ -46,8 +46,8 @@ HTMLOPTIONS += --default-image-extension=png
 HTMLOPTIONS += --standalone --self-contained
 HTMLOPTIONS += --toc --toc-depth=1
 HTMLOPTIONS += --strip-comments
-HTMLOPTIONS += --lua-filter=${PREFIX}/html.lua
-HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
+HTMLOPTIONS += --lua-filter=${FILTERDIR}/html.lua
+HTMLOPTIONS += --css=${RESOURCEDIR}/html.css
 HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJax; replace outcome with MathJax include line using sed
 HTMLOPTIONS += --data-dir=${DATADIR}
 HTMLOPTIONS += --resource-path=${RESOURCEPATH}
