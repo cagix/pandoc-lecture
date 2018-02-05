@@ -43,7 +43,8 @@ BEAMEROPTIONS += --resource-path=${RESOURCEPATH}
 
 HTMLOPTIONS  = -f markdown -t html
 HTMLOPTIONS += --default-image-extension=png
-HTMLOPTIONS += --standalone --self-contained --toc --toc-depth=1
+HTMLOPTIONS += --standalone --self-contained
+HTMLOPTIONS += --toc --toc-depth=1
 HTMLOPTIONS += --strip-comments
 HTMLOPTIONS += --lua-filter=${PREFIX}/html.lua
 HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
