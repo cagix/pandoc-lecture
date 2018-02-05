@@ -27,7 +27,8 @@ TARGETDIR = ../distr/
 
 ## Lecture options
 
-BEAMEROPTIONS  = -t beamer -f markdown --pdf-engine=pdflatex
+BEAMEROPTIONS  = -f markdown -t beamer
+BEAMEROPTIONS += --pdf-engine=pdflatex
 BEAMEROPTIONS += --default-image-extension=pdf
 # needs: xetex/xelatex, beamer (latex-package), metropolis (beamer-theme), fira sans und fira mono (font)
 BEAMEROPTIONS += -V theme:metropolis
@@ -40,7 +41,7 @@ BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
 BEAMEROPTIONS += --resource-path=${RESOURCEPATH}
 
 
-HTMLOPTIONS  = -t html -f markdown
+HTMLOPTIONS  = -f markdown -t html
 HTMLOPTIONS += --default-image-extension=png
 HTMLOPTIONS += --standalone --self-contained --toc --toc-depth=1
 HTMLOPTIONS += --strip-comments
