@@ -1,14 +1,15 @@
 # Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
-# Copyright: (c) 2016 Carsten Gips
+# Copyright: (c) 2016-2018 Carsten Gips
 # License: MIT
 
 
 
-## Path to pandoc templates/includes and language settings
+## Path to this repository (to be used as git sub-module)
 
-DATADIR   = /home/cagix/.pandoc/
-PREFIX    = ${DATADIR}/lecture/
-TEMPLATES = ${DATADIR}/templates/
+DATADIR      = ..
+FILTERDIR    = $(DATADIR)/filters
+RESOURCEDIR  = $(DATADIR)/resources
+RESOURCEPATH = .:./figs:$(DATADIR)
 
 
 
@@ -18,10 +19,8 @@ TEMPLATES = ${DATADIR}/templates/
 SRC   ?= $(wildcard vl*.md)
 ID    ?= pm
 
-SLIDES = $(SRC:%.md=${ID}_%_slides.pdf)
-HTML   = $(SRC:%.md=${ID}_%_handout.html)
-EPUB   = $(SRC:%.md=${ID}_%_handout.epub)
-PDF    = $(SRC:%.md=${ID}_%_handout.pdf)
+SLIDES = $(SRC:%.md=${ID}_%.pdf)
+HTML   = $(SRC:%.md=${ID}_%.html)
 
 TARGETDIR = ../distr/
 
@@ -29,106 +28,62 @@ TARGETDIR = ../distr/
 
 ## Lecture options
 
-BEAMEROPTIONS  = -t beamer -f markdown --latex-engine=xelatex
-#BEAMEROPTIONS += --template=${TEMPLATES}/default.beamer
+BEAMEROPTIONS  = -f markdown -t beamer
+BEAMEROPTIONS += --pdf-engine=pdflatex
 BEAMEROPTIONS += --default-image-extension=pdf
-# needs: xetex/xelatex, beamer (latex-package), metropolis (beamer-theme), fira sans und fira mono (font)
 BEAMEROPTIONS += -V theme:metropolis
-# needs adapted beamer template (see https://github.com/jgm/pandoc-templates/pull/211)
 BEAMEROPTIONS += -V themeoptions:numbering=none -V themeoptions:progressbar=foot
 BEAMEROPTIONS += -V fontsize=smaller
-BEAMEROPTIONS += --standalone --smart --slide-level=2
-BEAMEROPTIONS += --filter=${PREFIX}/texnotes.py
-BEAMEROPTIONS += --include-in-header=${PREFIX}/beamer.tex
+BEAMEROPTIONS += --slide-level=2
+BEAMEROPTIONS += --lua-filter=${FILTERDIR}/tex.lua
+BEAMEROPTIONS += --include-in-header=${RESOURCEDIR}/beamer.tex
 BEAMEROPTIONS += --data-dir=${DATADIR}
+BEAMEROPTIONS += --resource-path=${RESOURCEPATH}
 
 
-PDFOPTIONS  = -f markdown --latex-engine=xelatex
-#PDFOPTIONS += --template=${TEMPLATES}/default.latex
-PDFOPTIONS += --default-image-extension=pdf
-PDFOPTIONS += -V documentclass=scrartcl -V beamerarticle
-PDFOPTIONS += -V fontsize=9pt -V papersize=a4
-PDFOPTIONS += -V geometry:left=1.5cm -V geometry:right=1.5cm -V geometry:top=1.5cm -V geometry:bottom=2.5cm
-PDFOPTIONS += --standalone --smart --number-sections --toc --toc-depth=1
-PDFOPTIONS += --include-in-header=${PREFIX}/beamer.tex
-PDFOPTIONS += --include-in-header=${PREFIX}/handout.tex
-#PDFOPTIONS += --listings --highlight-style=tango
-PDFOPTIONS += -V colorlinks -V linkcolor=headcolor -V citecolor=headcolor -V urlcolor=headcolor  # use same color for URLs as for headers
-PDFOPTIONS += --data-dir=${DATADIR}
-
-
-HTMLOPTIONS  = -t html5 -f markdown
-#HTMLOPTIONS += --template=${TEMPLATES}/default.html5
+HTMLOPTIONS  = -f markdown -t html
 HTMLOPTIONS += --default-image-extension=png
-HTMLOPTIONS += --standalone --self-contained --smart --toc --toc-depth=1
-HTMLOPTIONS += --filter=${PREFIX}/textohtml.py
-HTMLOPTIONS += --include-in-header=${PREFIX}/html.css
-# Mathe mit `mathml` (einzige funktionierende Variante für html; laut Doku geht mathjax nicht fuer self-contained!)
-#HTMLOPTIONS += --mathml  # funktioniert mit Firefox (auch offline), aber nicht mit Chrome
-#HTMLOPTIONS += --mathjax  # funktioniert mit allen Browsern, aber nicht self-contained/offline
-#HTMLOPTIONS += --webtex  # sollte immer funktionieren (leichte Darstellungsfehler); beim Erstellen Online wg. Webzugriff (Beispiel: 113 KiB)
-#HTMLOPTIONS += --katex  # funktioniert mit allen Browsern (auch offline); sehr langsam beim Erstellen (Online!) u. riesige HTML-Datei (Beispiel: 3.3 MiB)
-HTMLOPTIONS += --mathjax=${PREFIX}/dummy.js  # insert dummy JS instead of MathJax; replace outcome with MathJax include line using sed
+HTMLOPTIONS += --standalone --self-contained
+HTMLOPTIONS += --toc --toc-depth=1
+HTMLOPTIONS += --strip-comments
+HTMLOPTIONS += --lua-filter=${FILTERDIR}/html.lua
+HTMLOPTIONS += --css=${RESOURCEDIR}/html.css
+# insert `<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript" data-external="1"></script>`
+# with data-external="1" to prevent incorporating MathJax into the generated HTML document when using --self-contained
+HTMLOPTIONS += --include-in-header=${RESOURCEDIR}/mathjaxurl.js
+# use MathJax; URL points to blank dummy document to prevent incorporating MathJax into the generated HTML document when using --self-contained
+HTMLOPTIONS += --mathjax=${RESOURCEDIR}/dummy.js
 HTMLOPTIONS += --data-dir=${DATADIR}
-
-
-EPUBOPTIONS  = -t epub -f markdown
-#EPUBOPTIONS += --template=${TEMPLATES}/default.epub
-EPUBOPTIONS += --default-image-extension=png
-EPUBOPTIONS += --standalone --smart --toc --toc-depth=1
-EPUBOPTIONS += --filter=${PREFIX}/textohtml.py
-EPUBOPTIONS += --include-in-header=${PREFIX}/html.css
-# https://github.com/jgm/pandoc-templates/pull/219#issuecomment-250673689
-# JGM: In EPUB3, mathml is part of the spec, so we use that. In EPUB2, you can use --webtex.
-EPUBOPTIONS += --webtex  # needs online access
-EPUBOPTIONS += --data-dir=${DATADIR}
+HTMLOPTIONS += --resource-path=${RESOURCEPATH}
 
 
 
 ## Targets
 
-all:	$(SLIDES) $(HTML) $(EPUB) $(PDF)
+all:	$(SLIDES) $(HTML)
 
-$(SRC:.md=): %: ${ID}_%_slides.pdf ${ID}_%_handout.html
+$(SRC:.md=): %: ${ID}_%.pdf ${ID}_%.html
 
-slides:	clean $(SLIDES)
-html:	clean $(HTML)
-epub:	clean $(EPUB)
-pdf:	clean $(PDF)
-
-${ID}_%_slides.pdf:	%.md metadata.yaml
+${ID}_%.pdf:	%.md metadata.yaml
 	pandoc ${BEAMEROPTIONS} -o $@ $^
 
-${ID}_%_handout.html: %.md metadata.yaml
+${ID}_%.html: %.md metadata.yaml
 	pandoc ${HTMLOPTIONS} -o $@ $^
-	sed '/<script src="/s!data:application/x-javascript;base64,PCEtLQpBdXRob3I6IENhcnN0ZW4gR2lwcyA8Y2Fyc3Rlbi5naXBzQGZoLWJpZWxlZmVsZC5kZT4KQ29weXJpZ2h0OiAoYykgMjAxNiBDYXJzdGVuIEdpcHMKTGljZW5zZTogTUlUCi0tPgoKOzs7Cgo8LS0hIERPIE5PVCBDSEFOR0UgVEhJUyBGSUxFIC0tPgoK!https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML-full!' -i $@
-# content in dummy.js results in '<script src="data:application/x-javascript;base64,PCEtLQpBdXRob3I6IENhcnN0ZW4gR2lwcyA8Y2Fyc3Rlbi5naXBzQGZoLWJpZWxlZmVsZC5kZT4KQ29weXJpZ2h0OiAoYykgMjAxNiBDYXJzdGVuIEdpcHMKTGljZW5zZTogTUlUCi0tPgoKOzs7Cgo8LS0hIERPIE5PVCBDSEFOR0UgVEhJUyBGSUxFIC0tPgoK" type="text/javascript"></script>' (line 47 in output)
-# we need to replace this with the mathjax include line as pandoc would generate it:
-# '<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>'
-# new URL: https://github.com/jgm/pandoc/commit/8761d5775075b8a0eb12be2ded8c931156b09a18
 
-${ID}_%_handout.epub: %.md metadata.yaml
-	pandoc ${EPUBOPTIONS} -o $@ $^  # needs online access
 
-${ID}_%_handout.pdf: %.md metadata.yaml
-	pandoc ${PDFOPTIONS} -o $@ $^
-	
-	
-install: $(TARGETDIR) $(SLIDES) $(HTML) $(EPUB) $(PDF)
+install: $(TARGETDIR) $(SLIDES) $(HTML)
 	mv ${SLIDES} $(TARGETDIR)
 	mv ${HTML} $(TARGETDIR)
-	mv ${EPUB} $(TARGETDIR)
-	mv ${PDF} $(TARGETDIR)
 
 $(TARGETDIR):
 	mkdir $@
 
 
 clean:
-	rm -f $(SLIDES) $(HTML) $(EPUB) $(PDF)
-	
+	rm -f $(SLIDES) $(HTML)
 
-.PHONY: clean
+
+.PHONY: all install clean
 
 
 

@@ -1,11 +1,9 @@
-<!--
+/*
 Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
-Copyright: (c) 2016 Carsten Gips
+Copyright: (c) 2016-2018 Carsten Gips
 License: MIT
--->
+*/
 
-
-<style type="text/css">
 
 body {
     font-size: small;
@@ -89,14 +87,33 @@ a {
     text-align: left
 }
 
-/* definitions to match corresponding TeX macros */
-.alert { color: #ff3333; }
-.Alert { color: #ff3333; font-weight: bold; }
-.blueArrow { color: #4070a0; font-family: monospace; font-weight: bold; }
-.code { color: #00cc00; font-family: monospace; }
-.bsp { padding: 0.05cm; border-width: 0.05cm; border-style: solid; border-color: #4070a0; }
-.cbox { padding: 0.3cm; border-width: 0.1cm; border-style: solid; border-color: #4070a0; }
+/* definitions to match corresponding TeX macros and LUA filters */
+.center {
+    align-content: center;
+    text-align: center;
+}
+.notes {
+}
+.alert {
+    color: #ff3333;
+}
+.bsp {
+    padding: 0.05cm;
+    border-width: 0.05cm;
+    border-style: solid;
+    border-color: #4070a0;
+}
+.cbox {
+    padding: 0.2cm;
+    border-width: 0.1cm;
+    border-style: solid;
+    border-color: #4070a0;
+}
+.blueArrow {
+    color: #4070a0;
+    font-family: monospace;
+    font-weight: bold;
+}
 
-</style>
 
 
