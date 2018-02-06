@@ -59,5 +59,5 @@ function cbox(el)
 end
 
 
-return {{Div = center}, {Note = notes, Span = inlineNotes, Div = blockNotes}, {Span = alert}, {Span = bsp}, {Span = cbox}}
+return {{Div = center}, {Span = inlineNotes, Div = blockNotes}, {Span = alert}, {Span = bsp}, {Span = cbox}}
 
