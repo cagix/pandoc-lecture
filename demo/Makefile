@@ -83,7 +83,7 @@ clean:
 	rm -f $(SLIDES) $(HTML)
 
 
-.PHONY: clean
+.PHONY: all install clean
 
 
 
