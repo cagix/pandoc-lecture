@@ -4,7 +4,7 @@
 
 
 
-## Path to this repository (used as git sub-module)
+## Path to this repository (to be used as git sub-module)
 
 DATADIR      = ..
 FILTERDIR    = $(DATADIR)/filters
@@ -72,8 +72,8 @@ ${ID}_%.pdf:	%.md metadata.yaml
 
 ${ID}_%.html: %.md metadata.yaml
 	pandoc ${HTMLOPTIONS} -o $@ $^
-	
-	
+
+
 install: $(TARGETDIR) $(SLIDES) $(HTML)
 	mv ${SLIDES} $(TARGETDIR)
 	mv ${HTML} $(TARGETDIR)
@@ -84,7 +84,7 @@ $(TARGETDIR):
 
 clean:
 	rm -f $(SLIDES) $(HTML)
-	
+
 
 .PHONY: clean
 
