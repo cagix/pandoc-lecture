@@ -64,9 +64,6 @@ all:	$(SLIDES) $(HTML)
 
 $(SRC:.md=): %: ${ID}_%.pdf ${ID}_%.html
 
-slides:	clean $(SLIDES)
-html:	clean $(HTML)
-
 ${ID}_%.pdf:	%.md metadata.yaml
 	pandoc ${BEAMEROPTIONS} -o $@ $^
 
