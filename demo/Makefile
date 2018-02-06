@@ -51,8 +51,8 @@ HTMLOPTIONS += --css=${RESOURCEDIR}/html.css
 # insert `<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript" data-external="1"></script>`
 # with data-external="1" to prevent incorporating MathJax into the generated HTML document when using --self-contained
 HTMLOPTIONS += --include-in-header=${RESOURCEDIR}/mathjaxurl.js
-# use MathJax; URL points to dummy document to prevent incorporating MathJax into the generated HTML document when using --self-contained
-HTMLOPTIONS += --mathjax=${RESOURCEDIR}/mathjaxurl.js
+# use MathJax; URL points to blank dummy document to prevent incorporating MathJax into the generated HTML document when using --self-contained
+HTMLOPTIONS += --mathjax=${RESOURCEDIR}/dummy.js
 HTMLOPTIONS += --data-dir=${DATADIR}
 HTMLOPTIONS += --resource-path=${RESOURCEPATH}
 
