@@ -38,7 +38,7 @@ OPTIONS     += -V papersize=a4
 # use same color for URLs as for headers
 OPTIONS     += -V colorlinks -V linkcolor=headcolor -V citecolor=headcolor -V urlcolor=headcolor
 OPTIONS     += --number-sections
-OPTIONS     += --include-in-header=${RESOURCEDIR}/homework.tex
+OPTIONS     += --include-in-header=${RESOURCEDIR}/definitions.tex
 OPTIONS     += --data-dir=${DATADIR}
 OPTIONS     += --resource-path=${RESOURCEPATH}
 
