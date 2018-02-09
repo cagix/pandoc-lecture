@@ -10,11 +10,16 @@
 
 %------------------------------------- CMDs ---------------------
 \newcommand{\alert}[1]{\textcolor{dkred}{#1}}  % `[...]{.alert}` in document will be converted by `tex.lua` filter to `\alert{...}`
+
+%% TODO to be replaced by some fenced Div or inline Span and lua filter %%%%%%%%%%%%%%%
+%% may be `:::columns```, which a filter could convert to minipages?
 \newcommand{\minipagebegin}{\begin{minipage}}
 \newcommand{\minipageend}{\end{minipage}}
-
+%% instead of `\hinweis ...` we could use `[...]{.hinweis}` plus some lua filter ...
 \newcommand{\hinweis}{\smallskip\emph{Hinweis}:\xspace}
+%% instead of `\thema ...` we could use `[...]{.thema}` plus some lua filter ...
 \newcommand{\thema}{\medskip\textbf{Thema}:\xspace}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\xmas}{\vfill\begin{center}\LARGE\textcolor{dkred}{Frohe Weihnachten und einen guten Start ins nächste Jahr!}\end{center}}
 %------------------------------------- CMDs ---------------------
