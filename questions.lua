@@ -8,7 +8,7 @@ questions = {}
 
 
 -- generate table of all question headers
-function questionHeaders(el)
+function collectQuestionHeaders(el)
     local p = tonumber(el.attributes["punkte"]) or 0
     local c = el.content
 
@@ -29,5 +29,5 @@ function setQuestionMetadata(meta)
 end
 
 
-return {{Header = questionHeaders}, {Meta = setQuestionMetadata}}
+return {{Header = collectQuestionHeaders }, {Meta = setQuestionMetadata}}
 
