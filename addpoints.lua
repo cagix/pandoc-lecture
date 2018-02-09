@@ -13,22 +13,6 @@ function addPoints(el)
 end
 
 
--- add some TeX code to headers with `{punkte=42}`
-function extendHeaders(el)
-    local p = tonumber(el.attributes["punkte"]) or 0
-    if p > 0 then
-        table.insert(el.content, pandoc.Space())
-        table.insert(el.content, pandoc.RawInline("latex","\\hfill"))
-        table.insert(el.content, pandoc.Space())
-        table.insert(el.content, pandoc.Str("(" .. p))
-        table.insert(el.content, pandoc.Space())
-        table.insert(el.content, pandoc.Str("Punkt" .. (p>1 and "e" or "") .. ")"))
-    end
-
-    return el
-end
-
-
 -- set `points` field in global metadata
 function setPointsMetadata(meta)
     if tonumber(meta["points"]) ~= points then
@@ -44,5 +28,5 @@ function setPointsMetadata(meta)
 end
 
 
-return {{Header = addPoints}, {Header = extendHeaders}, {Meta = setPointsMetadata}}
+return {{Header = addPoints}, {Meta = setPointsMetadata}}
 
