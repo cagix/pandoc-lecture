@@ -15,7 +15,7 @@ end
 
 -- set `points` field in global metadata
 function setPointsMetadata(meta)
-    if tonumber(meta["points"]) ~= points then
+    if meta["points"] and tonumber(meta["points"]) ~= points then
         -- check expectation and real value
         io.stderr:write("\n\n" .. "Expected " .. (meta["points"] or "NO") .. " points.\n")
         io.stderr:write("Found " .. points .. " points!" .. '\n\n\n')
