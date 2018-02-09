@@ -60,12 +60,12 @@ all: $(PDF) $(EVAL)
 $(SRC:.md=): %: ${ID}_%.pdf ${ID}_%_eval.pdf
 
 ${ID}_%.pdf: %.md metadata.yaml
-	pandoc --lua-filter=${FILTERDIR}/addpoints.lua --template=${RESOURCEDIR}/titlepage.tex -o ${TMP1} $^
+	pandoc --lua-filter=${FILTERDIR}/addpoints.lua --template=${RESOURCEDIR}/homework.tex -o ${TMP1} $^
 	pandoc ${PDFOPTIONS} --include-in-header=${TMP1} -o $@ $^
 	rm -f ${TMP1}
 
 ${ID}_%_eval.pdf: %.md metadata.yaml
-	pandoc --lua-filter=${FILTERDIR}/addpoints.lua --template=${RESOURCEDIR}/titlepage.tex -o ${TMP1} $^
+	pandoc --lua-filter=${FILTERDIR}/addpoints.lua --template=${RESOURCEDIR}/homework.tex -o ${TMP1} $^
 	pandoc --lua-filter=${FILTERDIR}/questions.lua --template=${RESOURCEDIR}/evaluation.md -o ${TMP2} $^
 	pandoc ${EVALOPTIONS} --include-in-header=${TMP1} -o $@ ${TMP2} metadata.yaml
 	rm -f ${TMP1} ${TMP2}
