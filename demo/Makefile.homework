@@ -45,6 +45,7 @@ OPTIONS     += --resource-path=${RESOURCEPATH}
 PDFOPTIONS   = -V fontsize=10pt
 PDFOPTIONS  += -V geometry:left=1.6cm -V geometry:right=1.6cm -V geometry:top=2cm -V geometry:bottom=1.6cm
 PDFOPTIONS  += --lua-filter=${FILTERDIR}/headertotask.lua
+PDFOPTIONS  += --lua-filter=${FILTERDIR}/tex.lua
 PDFOPTIONS  += $(OPTIONS)
 
 EVALOPTIONS  = -V fontsize=9pt
