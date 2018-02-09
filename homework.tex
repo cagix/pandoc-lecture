@@ -1,0 +1,55 @@
+% Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
+% Copyright: (c) 2016 Carsten Gips
+% License: MIT
+
+
+%------------------------------------- Packages ----------------
+\usepackage[babel]{csquotes}
+\usepackage{xspace}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+%------------------------------------- Packages ----------------
+
+%------------------------------------- Fonts and Colors ---------------------
+\definecolor{midnightblue}{rgb}{0.2,0.2,0.7}
+
+\definecolor{dkblue}{rgb}{0,0,0.6}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{dkred}{rgb}{0.6,0,0}
+
+\definecolor{listinggray}{gray}{0.92}
+
+\definecolor{headcolor}{rgb}{0.25,0.44,0.63}  % #4070a0 as in html.css
+%------------------------------------- Fonts and Colors ---------------------
+
+%------------------------------------- CMDs ---------------------
+\newcommand{\alert}[1]{\textcolor{dkred}{#1}}
+\newcommand{\Alert}[1]{\alert{\textbf{#1}}\xspace}
+\newcommand{\blueArrow}{{\color{midnightblue}$\pmb{\Rightarrow}$}\xspace}
+
+\newcommand{\minipagebegin}{\begin{minipage}}
+\newcommand{\minipageend}{\end{minipage}}
+\newcommand{\centerbegin}{\begin{center}}
+\newcommand{\centerend}{\end{center}}
+
+\newcommand{\hinweis}{\smallskip\emph{Hinweis}:\xspace}
+\newcommand{\thema}{\medskip\textbf{Thema}:\xspace}
+
+\newcommand{\xmas}{\vfill\begin{center}\LARGE\textcolor{dkred}{Frohe Weihnachten und einen guten Start ins nächste Jahr!}\end{center}}
+%------------------------------------- CMDs ---------------------
+
+%------------------------------------- Listings ---------------------
+%% settings for pandoc option `--listings`
+\usepackage{listings}
+\lstset{basicstyle=\small\ttfamily\mdseries, xleftmargin=\bigskipamount, keywordstyle=\bfseries\color{dkblue}, identifierstyle=\ttfamily, commentstyle=\bfseries\color{gray}\textsl, stringstyle=\color{magenta}\upshape, emphstyle=\color{red}, emphstyle={[2]\color{blue}}, texcl=false, showspaces=false, showstringspaces=false, numbers=left, numberstyle=\footnotesize, breaklines=true, tabsize=4, backgroundcolor=\color{listinggray}, frame=shadowbox}
+
+\newcommand{\code}[1]{\textcolor{dkgreen}{\texttt{\textbf{#1}}}\xspace}
+%------------------------------------- Listings ---------------------
+
+%------------------------------------- Use color in headers ---------------------
+\addtokomafont{disposition}{\color{headcolor}}  % works only for KOMA script
+%------------------------------------- Use color in headers ---------------------
+
+
+
+
