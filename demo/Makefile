@@ -16,13 +16,13 @@ RESOURCEPATH = .:./figs:$(DATADIR)
 ## Source file and lecture prefix
 ## either defined here (all files) or given at cmd line like `make SRC=vl02.md`
 
-SRC   ?= $(wildcard vl*.md)
-ID    ?= pm
+SRC         ?= $(wildcard vl*.md)
+ID          ?= pm
 
-SLIDES = $(SRC:%.md=${ID}_%.pdf)
-HTML   = $(SRC:%.md=${ID}_%.html)
+SLIDES       = $(SRC:%.md=${ID}_%.pdf)
+HTML         = $(SRC:%.md=${ID}_%.html)
 
-TARGETDIR = ../distr/
+TARGETDIR    = ../distr/
 
 
 
@@ -41,30 +41,30 @@ BEAMEROPTIONS += --data-dir=${DATADIR}
 BEAMEROPTIONS += --resource-path=${RESOURCEPATH}
 
 
-HTMLOPTIONS  = -f markdown -t html
-HTMLOPTIONS += --default-image-extension=png
-HTMLOPTIONS += --standalone --self-contained
-HTMLOPTIONS += --toc --toc-depth=1
-HTMLOPTIONS += --strip-comments
-HTMLOPTIONS += --lua-filter=${FILTERDIR}/html.lua
-HTMLOPTIONS += --css=${RESOURCEDIR}/html.css
+HTMLOPTIONS    = -f markdown -t html
+HTMLOPTIONS   += --default-image-extension=png
+HTMLOPTIONS   += --standalone --self-contained
+HTMLOPTIONS   += --toc --toc-depth=1
+HTMLOPTIONS   += --strip-comments
+HTMLOPTIONS   += --lua-filter=${FILTERDIR}/html.lua
+HTMLOPTIONS   += --css=${RESOURCEDIR}/html.css
 # insert `<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript" data-external="1"></script>`
 # with data-external="1" to prevent incorporating MathJax into the generated HTML document when using --self-contained
-HTMLOPTIONS += --include-in-header=${RESOURCEDIR}/mathjaxurl.html
+HTMLOPTIONS   += --include-in-header=${RESOURCEDIR}/mathjaxurl.html
 # use MathJax; URL points to blank dummy document to prevent incorporating MathJax into the generated HTML document when using --self-contained
-HTMLOPTIONS += --mathjax=${RESOURCEDIR}/dummy.js
-HTMLOPTIONS += --data-dir=${DATADIR}
-HTMLOPTIONS += --resource-path=${RESOURCEPATH}
+HTMLOPTIONS   += --mathjax=${RESOURCEDIR}/dummy.js
+HTMLOPTIONS   += --data-dir=${DATADIR}
+HTMLOPTIONS   += --resource-path=${RESOURCEPATH}
 
 
 
 ## Targets
 
-all:	$(SLIDES) $(HTML)
+all: $(SLIDES) $(HTML)
 
 $(SRC:.md=): %: ${ID}_%.pdf ${ID}_%.html
 
-${ID}_%.pdf:	%.md metadata.yaml
+${ID}_%.pdf: %.md metadata.yaml
 	pandoc ${BEAMEROPTIONS} -o $@ $^
 
 ${ID}_%.html: %.md metadata.yaml
