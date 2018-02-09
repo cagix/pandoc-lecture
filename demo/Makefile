@@ -1,78 +1,79 @@
 # Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
-# Copyright: (c) 2016 Carsten Gips
+# Copyright: (c) 2016-2018 Carsten Gips
 # License: MIT
 
 
 
-## Path to pandoc templates/includes and language settings
+## Path to this repository (to be used as git sub-module)
 
-DATADIR   = /home/cagix/.pandoc/
-PREFIX    = ${DATADIR}/homework/
-TEMPLATES = ${DATADIR}/templates/
+DATADIR      = ..
+FILTERDIR    = $(DATADIR)/filters
+RESOURCEDIR  = $(DATADIR)/resources
+RESOURCEPATH = .:./figs:$(DATADIR)
 
 
 
 ## Source file and lecture prefix
-## either defined here (all files) or given at cmd line like `make SRC=b02.md`
+## either defined here (all files) or given at cmd line like `make SRC=b01.md`
 
-SRC   ?= $(wildcard b*.md)
-ID    ?= pm
+SRC         ?= $(wildcard b*.md)
+ID          ?= pm
 
-PDF    = $(SRC:%.md=${ID}_%.pdf)
-EVAL   = $(SRC:%.md=${ID}_%_eval.pdf)
-TMP1   = __titlepage.filled.tex
-TMP2   = __questions.filled.md
+PDF          = $(SRC:%.md=${ID}_%.pdf)
+EVAL         = $(SRC:%.md=${ID}_%_eval.pdf)
+TMP1         = __titlepage.filled.tex
+TMP2         = __questions.filled.md
 
-TARGETDIR = ../distr/
+TARGETDIR    = ../distr/
 
 
 
 ## Homework options
 
-OPTIONS  = -f markdown --latex-engine=xelatex
-#OPTIONS += --template=${TEMPLATES}/default.latex
-OPTIONS += --default-image-extension=pdf
-OPTIONS += -V documentclass=scrartcl
-OPTIONS += --standalone --smart --number-sections
-OPTIONS += --include-in-header=${PREFIX}/homework.tex
-OPTIONS += --include-in-header=${TMP1}
-OPTIONS += -V colorlinks -V linkcolor=headcolor -V citecolor=headcolor -V urlcolor=headcolor  # use same color for URLs as for headers
-OPTIONS += --data-dir=${DATADIR}
+OPTIONS      = -f markdown
+OPTIONS     += --pdf-engine=pdflatex
+OPTIONS     += --default-image-extension=pdf
+OPTIONS     += -V documentclass=scrartcl
+OPTIONS     += -V papersize=a4
+# use same color for URLs as for headers
+OPTIONS     += -V colorlinks -V linkcolor=headcolor -V citecolor=headcolor -V urlcolor=headcolor
+OPTIONS     += --number-sections
+OPTIONS     += --include-in-header=${RESOURCEDIR}/homework.tex
+OPTIONS     += --data-dir=${DATADIR}
+OPTIONS     += --resource-path=${RESOURCEPATH}
 
-PDFOPTIONS =  -V fontsize=10pt -V papersize=a4
-PDFOPTIONS += -V geometry:left=1.6cm -V geometry:right=1.6cm -V geometry:top=2cm -V geometry:bottom=1.6cm
-PDFOPTIONS += --filter=${PREFIX}/addpoints.py
-#PDFOPTIONS += --listings --highlight-style=tango
+PDFOPTIONS   = -V fontsize=10pt
+PDFOPTIONS  += -V geometry:left=1.6cm -V geometry:right=1.6cm -V geometry:top=2cm -V geometry:bottom=1.6cm
+PDFOPTIONS  += --lua-filter=${FILTERDIR}/headertotask.lua
+PDFOPTIONS  += $(OPTIONS)
 
-EVALOPTIONS =  -V fontsize=9pt -V papersize=a4
+EVALOPTIONS  = -V fontsize=9pt
 EVALOPTIONS += -V geometry:left=1cm -V geometry:right=1cm -V geometry:top=1.5cm -V geometry:bottom=1.5cm
+EVALOPTIONS += $(OPTIONS)
 
 
 
 ## Targets
 
-all:	$(PDF) $(EVAL)
-pdf:	clean $(PDF)
-eval:	clean $(EVAL)
+all: $(PDF) $(EVAL)
 
 $(SRC:.md=): %: ${ID}_%.pdf ${ID}_%_eval.pdf
 
-
-${ID}_%.pdf: %.md ${PREFIX}/titlepage.tex metadata.yaml
-	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/titlepage.tex -o ${TMP1} $^
-	pandoc ${OPTIONS} ${PDFOPTIONS} -o $@ $< metadata.yaml
+${ID}_%.pdf: %.md metadata.yaml
+	pandoc --lua-filter=${FILTERDIR}/addpoints.lua --template=${RESOURCEDIR}/titlepage.tex -o ${TMP1} $^
+	pandoc ${PDFOPTIONS} --include-in-header=${TMP1} -o $@ $^
 	rm -f ${TMP1}
 
-
-${ID}_%_eval.pdf: %.md ${PREFIX}/titlepage.tex ${PREFIX}/evaluation.md metadata.yaml
-	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/titlepage.tex -o ${TMP1} $^
-	pandoc --standalone --filter=${PREFIX}/addpoints.py --template=${PREFIX}/evaluation.md -o ${TMP2} $^
-	pandoc ${OPTIONS} ${EVALOPTIONS} -o $@ ${TMP2} metadata.yaml
+${ID}_%_eval.pdf: %.md metadata.yaml
+	pandoc --lua-filter=${FILTERDIR}/addpoints.lua --template=${RESOURCEDIR}/titlepage.tex -o ${TMP1} $^
+	pandoc --lua-filter=${FILTERDIR}/questions.lua --template=${RESOURCEDIR}/evaluation.md -o ${TMP2} $^
+	pandoc ${EVALOPTIONS} --include-in-header=${TMP1} -o $@ ${TMP2} metadata.yaml
 	rm -f ${TMP1} ${TMP2}
 
-	
-install: $(TARGETDIR) $(PDF)
+
+install: $(TARGETDIR) $(PDF) $(EVAL)
 	mv ${PDF} $(TARGETDIR)
+	mv ${EVAL} $(TARGETDIR)
 
 $(TARGETDIR):
 	mkdir $@
@@ -80,9 +81,9 @@ $(TARGETDIR):
 
 clean:
 	rm -f $(PDF) ${EVAL} ${TMP1} ${TMP2}
-	
 
-.PHONY: clean
+
+.PHONY: all install clean
 
 
 
