@@ -1,13 +1,16 @@
-Pandoc Markdown lecture template
+Pandoc Markdown Lecture Template
 ================================
 
-This project defines a skeleton repo for creating lecture slides and handouts
-including lecture notes out of [Pandoc Markdown](http://pandoc.org/MANUAL.html)
-using a single source approach.
+This project defines a skeleton repo for creating lecture material, i.e. slides and
+handouts including lecture notes as well as homework sheets plus the corresponding
+evaluation sheets, out of [Pandoc Markdown](http://pandoc.org/MANUAL.html) using a
+single source approach.
 
 
 History
 -------
+
+### Slides and Handouts
 
 Originally [TeX Live](https://www.tug.org/texlive/) and the
 [beamer class](https://www.ctan.org/pkg/beamer) were used to produce
@@ -34,15 +37,15 @@ However, there are a few drawbacks:
     is not even supported.
 
 Using [Pandoc Markdown](http://pandoc.org/MANUAL.html) most of the standard
-TeX structures can be written in a much shorter way. Since pandoc does not
+TeX structures can be written in a much shorter way. Since Pandoc does not
 parse Markdown contained in TeX environments, all `\begin{XXX}` and `\end{XXX}`
 commands need to be replaced using redefinitions like
 `\newcommand{\XXXbegin}{\begin{XXX}}`.
 
-Also by introducing a notes block/inline (using the new Pandoc fenced Divs) in
-combination with a custom pandoc filter, the lecture notes can be placed freely
-at any location in the material. Using the filter the lecture notes do not
-appear in the slides but in the handout. The lecture notes can contain any
+Also by introducing a notes block/inline (using fenced Divs, new in Pandoc 2.x)
+in combination with a custom Pandoc filter, the lecture notes can be placed
+freely at any location in the material. Using the filter the lecture notes do
+not appear in the slides but in the handout. The lecture notes can contain any
 valid Markdown or TeX code, even further (sub-) sections.
 
 Pandoc can convert Markdown also to HTML and EPUB. Thus a single source can
@@ -51,22 +54,81 @@ desks in HTML using e.g. [reveal.js](http://lab.hakim.se/reveal-js/) would
 be possible.
 
 
-Notes on Pandoc Filter
-----------------------
+### Homework Sheets
+
+Originally [TeX Live](https://www.tug.org/texlive/) and the
+[exam class](https://www.ctan.org/pkg/exam) were used to produce
+homework sheets in PDF format.
+
+However, there are a few drawbacks:
+
+*   The overhead stemming from the `exam` class is quite high in this scenario.
+*   Generating an evaluation sheet from the homework sheet is not supported by
+    the `exam` class.
+
+Much of the code required by the `exam` class (and also quite some TeX code)
+can be omitted by using [Pandoc Markdown](http://pandoc.org/MANUAL.html). Thus
+the homework sheets can be written in a much simpler way, saving quite some time.
+
+Deriving an evaluation sheet from the homework sheet can be done by using
+Pandoc in combination with a customised template.
+
+A Pandoc filter adds up all points (like the functionality provided
+by the `exam` class).
+
+Since LaTeX is still used as back end, all TeX macros could be used.
+
+
+Notes on Pandoc Filters
+-----------------------
 
 Since LaTeX is still used as back end when creating slides, all TeX macros
 could be used.
 
+Pandoc 2.x includes a Lua interpreter, thus there is no need anymore to install
+a separate (matching!) python filter module.
+
+
+### Slides and Handouts
+
 To create HTML output, the TeX code needs to be replaced with appropriate HTML
 code. This is achieved by the filter `html.lua`, which transforms the AST
-created by pandoc parsing the input document before pandoc converts it to the
+created by Pandoc parsing the input document before Pandoc converts it to the
 specified output format.
 
 To remove the lecture notes from the beamer slides and to transform fenced Divs
 and inline Spans to TeX macros, the filter `tex.lua` is used.
 
-Pandoc 2.x includes a Lua interpreter, thus there is no need anymore to install
-a separate (matching!) python filter module.
+
+### Homework Sheets
+
+The filter `addpoints.lua` is used to calculate the overall sum of points.
+
+It searches for any header having a "`punkte`"/`value` pair in its attribute
+list. The `value` will be added to the overall sum.
+
+Example for a task with 2 points:
+```markdown
+    # Task A {punkte=2}
+```
+
+If there is a meta variable `points` available in the documents meta data, the
+calculated sum will be compared to the value of the meta variable. If there is
+any difference, a warning will be issued.
+
+Example for a homework sheet with an expected overall sum of 10 points:
+```markdown
+    ---
+    title: "Blatt 1: Short Summary"
+    author: "Author, Institute"
+    points: 10
+    ...
+```
+
+The filter `questions.lua` collects all headers with a "`punkte`"/`value` attribute
+and writes this list to the meta data of the document (meta variable `questions`).
+This list is used in the evaluation sheet template to generate the appropriate
+structures.
 
 
 Notes on TeX Math
@@ -82,17 +144,17 @@ To deal with TeX math, a number of options exist:
 *   JavaScript libraries like [MathJax](https://www.mathjax.org/) or
     [KaTeX](https://github.com/Khan/KaTeX) can be used to render math
     within the browser. However, you would need Internet connectivity, as
-    currently pandoc can not embed MathJax into the generated output and
+    currently Pandoc can not embed MathJax into the generated output and
     embedding KaTeX yields in rather huge files.
 
 Currently, [MathJax](https://www.mathjax.org/) is used for HTML output in
-this project (option `--mathjax`). To prevent pandoc from incorporating MathJax
+this project (option `--mathjax`). To prevent Pandoc from incorporating MathJax
 into the generated self-contained HTML document (it is quite large and it won't
 work properly this way), the URL to MathJax is included via a separate file.
 
 Since most current e-book readers do not support MathML and are usually used
 without Internet connectivity, math is converted to embedded images using
-the `--webtex` option of pandoc for EPUB output.
+the `--webtex` option of Pandoc for EPUB output.
 
 
 Installing and running
@@ -117,16 +179,17 @@ Installing and running
     project, i.e. to the folder containing the subfolders `filters`, `resources`
     and `demo`.
 
-    Build the demo using `make`.
+    Build the demo using `make -f Makefile.lecture` (slides and handout)
+    or `make -f Makefile.homework` (homework sheet).
 
-    Have a look at the example `lecture/demo/vl01.md`. Some of the features
+    Have a look at the examples in `lecture/demo/`. Some of the features
     are demonstrated and explained in the markdown source.
 
 
 Notes and Versions
 ------------------
 
-This project is supposed to be used with pandoc 2.1.x.
+This project is supposed to be used with Pandoc 2.1.x.
 
 
 ---

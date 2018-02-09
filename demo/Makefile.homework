@@ -1,0 +1,91 @@
+# Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
+# Copyright: (c) 2016-2018 Carsten Gips
+# License: MIT
+
+
+
+## Path to this repository (to be used as git sub-module)
+
+DATADIR      = ..
+FILTERDIR    = $(DATADIR)/filters
+RESOURCEDIR  = $(DATADIR)/resources
+RESOURCEPATH = .:./figs:$(DATADIR)
+
+
+
+## Source file and lecture prefix
+## either defined here (all files) or given at cmd line like `make SRC=b01.md`
+
+SRC         ?= $(wildcard b*.md)
+ID          ?= pm
+
+PDF          = $(SRC:%.md=${ID}_%.pdf)
+EVAL         = $(SRC:%.md=${ID}_%_eval.pdf)
+TMP1         = __titlepage.filled.tex
+TMP2         = __questions.filled.md
+
+TARGETDIR    = ../distr/
+
+
+
+## Homework options
+
+OPTIONS      = -f markdown
+OPTIONS     += --pdf-engine=pdflatex
+OPTIONS     += --default-image-extension=pdf
+OPTIONS     += -V documentclass=scrartcl
+OPTIONS     += -V papersize=a4
+# use same color for URLs as for headers
+OPTIONS     += -V colorlinks -V linkcolor=headcolor -V citecolor=headcolor -V urlcolor=headcolor
+OPTIONS     += --number-sections
+OPTIONS     += --include-in-header=${RESOURCEDIR}/definitions.tex
+OPTIONS     += --data-dir=${DATADIR}
+OPTIONS     += --resource-path=${RESOURCEPATH}
+
+PDFOPTIONS   = -V fontsize=10pt
+PDFOPTIONS  += -V geometry:left=1.6cm -V geometry:right=1.6cm -V geometry:top=2cm -V geometry:bottom=1.6cm
+PDFOPTIONS  += --lua-filter=${FILTERDIR}/headertotask.lua
+PDFOPTIONS  += --lua-filter=${FILTERDIR}/tex.lua
+PDFOPTIONS  += $(OPTIONS)
+
+EVALOPTIONS  = -V fontsize=9pt
+EVALOPTIONS += -V geometry:left=1cm -V geometry:right=1cm -V geometry:top=1.5cm -V geometry:bottom=1.5cm
+EVALOPTIONS += $(OPTIONS)
+
+
+
+## Targets
+
+all: $(PDF) $(EVAL)
+
+$(SRC:.md=): %: ${ID}_%.pdf ${ID}_%_eval.pdf
+
+${ID}_%.pdf: %.md metadata.yaml
+	pandoc --lua-filter=${FILTERDIR}/addpoints.lua --template=${RESOURCEDIR}/homework.tex -o ${TMP1} $^
+	pandoc ${PDFOPTIONS} --include-in-header=${TMP1} -o $@ $^
+	rm -f ${TMP1}
+
+${ID}_%_eval.pdf: %.md metadata.yaml
+	pandoc --lua-filter=${FILTERDIR}/addpoints.lua --template=${RESOURCEDIR}/homework.tex -o ${TMP1} $^
+	pandoc --lua-filter=${FILTERDIR}/questions.lua --template=${RESOURCEDIR}/evaluation.md -o ${TMP2} $^
+	pandoc ${EVALOPTIONS} --include-in-header=${TMP1} -o $@ ${TMP2} metadata.yaml
+	rm -f ${TMP1} ${TMP2}
+
+
+install: $(TARGETDIR) $(PDF) $(EVAL)
+	mv ${PDF} $(TARGETDIR)
+	mv ${EVAL} $(TARGETDIR)
+
+$(TARGETDIR):
+	mkdir $@
+
+
+clean:
+	rm -f $(PDF) ${EVAL} ${TMP1} ${TMP2}
+
+
+.PHONY: all install clean
+
+
+
+

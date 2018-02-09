@@ -1,0 +1,71 @@
+% Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
+% Copyright: (c) 2016-2018 Carsten Gips
+% License: MIT
+
+
+%------------------------------------- Packages ----------------
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+%------------------------------------- Packages ----------------
+
+%------------------------------------- CMDs ---------------------
+\newcommand{\alert}[1]{\textcolor{dkred}{#1}}  % `[...]{.alert}` in document will be converted by `tex.lua` filter to `\alert{...}`
+
+%% TODO to be replaced by some fenced Div or inline Span and lua filter %%%%%%%%%%%%%%%
+%% may be `:::columns```, which a filter could convert to minipages?
+\newcommand{\minipagebegin}{\begin{minipage}}
+\newcommand{\minipageend}{\end{minipage}}
+%% instead of `\hinweis ...` we could use `[...]{.hinweis}` plus some lua filter ...
+\newcommand{\hinweis}{\smallskip\emph{Hinweis}:\xspace}
+%% instead of `\thema ...` we could use `[...]{.thema}` plus some lua filter ...
+\newcommand{\thema}{\medskip\textbf{Thema}:\xspace}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\xmas}{\vfill\begin{center}\LARGE\textcolor{dkred}{Frohe Weihnachten und einen guten Start ins nächste Jahr!}\end{center}}
+%------------------------------------- CMDs ---------------------
+
+%------------------------------------- Use color in headers ---------------------
+\addtokomafont{disposition}{\color{headcolor}}  % works only for KOMA script
+%------------------------------------- Use color in headers ---------------------
+
+%------------------------------------- Custom Header ----------------
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyhead[RO,RE]{$subtitle$ $title$ \quad \thepage} % more general than rhead
+%\rhead{$subtitle$ $title$ \quad \thepage} % in case there are any problems with fancyhead
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}  % no separating line
+\renewcommand{\footrulewidth}{0pt}  % no separating line
+%------------------------------------- Custom Header ---------------------
+
+%------------------------------------- Custom Title Page ----------------
+\renewcommand{\maketitle}{
+\thispagestyle{empty}
+
+\parindent=0pt
+\begin{minipage}[c]{0.72\textwidth}
+    \parindent=0pt
+    \textcolor{headcolor}{\large\scshape{$subtitle$}}\\[1ex]
+    \textcolor{headcolor}{\Large\textbf{$title$ $if(points)$ ($points$ Punkte)$endif$}}\\[1ex]
+    $author$
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.24\textwidth}
+    \parindent=0pt
+    $if(date)$
+    \textbf{Praktikum: $date$}\\[1ex]
+    $endif$
+    $if(ilias)$
+    \textbf{ILIAS: $ilias$}
+    $endif$
+\end{minipage}
+
+\parindent=0pt
+\par\hrulefill\par
+\vspace{2ex}
+}
+%------------------------------------- Custom Title Page ----------------
+
+
+
+
