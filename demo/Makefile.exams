@@ -11,6 +11,8 @@ FILTERDIR    = $(DATADIR)/filters
 RESOURCEDIR  = $(DATADIR)/resources
 RESOURCEPATH = .:./figs:$(DATADIR)
 
+PANDOC       = pandoc-2.1.1
+
 
 
 ## Source file and lecture prefix
@@ -53,9 +55,9 @@ all:	$(PDF)
 
 solution.pdf: PDFOPTIONS += -V classoption=answers
 exam.pdf solution.pdf: metadata.yaml $(SRC)
-	pandoc --template=${RESOURCEDIR}/exam.tex -o ${TMP1} $<
-	pandoc --template=${RESOURCEDIR}/exam_begin.tex -o ${TMP2} $<
-	pandoc ${PDFOPTIONS} --include-in-header=${TMP1} --include-before-body=${TMP2} -o $@ $^
+	$(PANDOC) --template=${RESOURCEDIR}/exam.tex -o ${TMP1} $<
+	$(PANDOC) --template=${RESOURCEDIR}/exam_begin.tex -o ${TMP2} $<
+	$(PANDOC) ${PDFOPTIONS} --include-in-header=${TMP1} --include-before-body=${TMP2} -o $@ $^
 	rm -f ${TMP1} ${TMP2}
 
 

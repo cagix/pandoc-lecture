@@ -11,6 +11,8 @@ FILTERDIR    = $(DATADIR)/filters
 RESOURCEDIR  = $(DATADIR)/resources
 RESOURCEPATH = .:./figs:$(DATADIR)
 
+PANDOC       = pandoc-2.1.1
+
 
 
 ## Source file and lecture prefix
@@ -67,10 +69,10 @@ all: $(SLIDES) $(HTML)
 $(SRC:.md=): %: ${ID}_%.pdf ${ID}_%.html
 
 ${ID}_%.pdf: %.md metadata.yaml
-	pandoc ${BEAMEROPTIONS} -o $@ $^
+	$(PANDOC) ${BEAMEROPTIONS} -o $@ $^
 
 ${ID}_%.html: %.md metadata.yaml
-	pandoc ${HTMLOPTIONS} -o $@ $^
+	$(PANDOC) ${HTMLOPTIONS} -o $@ $^
 
 
 install: $(TARGETDIR) $(SLIDES) $(HTML)
