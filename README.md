@@ -79,8 +79,7 @@ by the `exam` class).
 Since LaTeX is still used as back end, all TeX macros could be used.
 
 
-Exams
------
+### Exams
 
 Originally [TeX Live](https://www.tug.org/texlive/) and the
 [exam class](https://www.ctan.org/pkg/exam) were used to produce
