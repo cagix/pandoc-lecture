@@ -1,0 +1,70 @@
+# Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
+# Copyright: (c) 2016-2018 Carsten Gips
+# License: MIT
+
+
+
+## Path to this repository (to be used as git sub-module)
+
+DATADIR      = ..
+FILTERDIR    = $(DATADIR)/filters
+RESOURCEDIR  = $(DATADIR)/resources
+RESOURCEPATH = .:./figs:$(DATADIR)
+
+
+
+## Source file and lecture prefix
+## either defined here (all files) or given at cmd line like `make SRC=b01.md`
+
+# Files as defined in Excel sheet
+XLS    = bla.md blub.md wuppie.md fluppie.md
+
+SRC    = $(addprefix md/, $(XLS))
+
+PDF    = exam.pdf solution.pdf
+TMP1   = __header.filled.tex
+TMP2   = __titlepage.filled.tex
+
+
+
+## Exam options
+
+PDFOPTIONS  = -f markdown
+PDFOPTIONS += --pdf-engine=pdflatex
+PDFOPTIONS += --default-image-extension=pdf
+PDFOPTIONS += -V documentclass=exam
+PDFOPTIONS += -V classoption=addpoints
+PDFOPTIONS += -V fontsize=11pt -V papersize=a4
+PDFOPTIONS += -V geometry:left=2cm -V geometry:right=2cm -V geometry:top=2cm -V geometry:bottom=2.5cm
+# --toc: to compile twice
+PDFOPTIONS += --number-sections --toc
+PDFOPTIONS += --listings --highlight-style=tango
+PDFOPTIONS += --include-in-header=${RESOURCEDIR}/definitions.tex
+PDFOPTIONS += --include-in-header=${RESOURCEDIR}/definitions_obsolete.tex
+PDFOPTIONS += --include-after-body=${RESOURCEDIR}/exam_end.tex
+PDFOPTIONS += --data-dir=${DATADIR}
+PDFOPTIONS += --resource-path=${RESOURCEPATH}
+
+
+
+## Targets
+
+all:	$(PDF)
+
+solution.pdf: PDFOPTIONS += -V classoption=answers
+exam.pdf solution.pdf: metadata.yaml $(SRC)
+	pandoc --template=${RESOURCEDIR}/exam.tex -o ${TMP1} $<
+	pandoc --template=${RESOURCEDIR}/exam_begin.tex -o ${TMP2} $<
+	pandoc ${PDFOPTIONS} --include-in-header=${TMP1} --include-before-body=${TMP2} -o $@ $^
+	rm -f ${TMP1} ${TMP2}
+
+
+clean:
+	rm -f $(PDF) ${TMP1} ${TMP2}
+
+
+.PHONY: all clean
+
+
+
+

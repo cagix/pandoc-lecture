@@ -1,6 +1,11 @@
 ---
+# used for lecture slides and homework sheets
 subtitle: "Modulenumber Moduletitle, Year"
 author: "Author, Institute"
 lang: de-DE
+
+# additional entries for exams
+LVKURZ: "Modulenumber ModuleSHORT, Year"
+NR: "Exam No."
 ...
 
