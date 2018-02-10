@@ -2,9 +2,9 @@ Pandoc Markdown Lecture Template
 ================================
 
 This project defines a skeleton repo for creating lecture material, i.e. slides and
-handouts including lecture notes as well as homework sheets plus the corresponding
-evaluation sheets, out of [Pandoc Markdown](http://pandoc.org/MANUAL.html) using a
-single source approach.
+handouts including lecture notes, homework sheets plus the corresponding evaluation
+sheets and exams plus solution sheets out of [Pandoc Markdown](http://pandoc.org/MANUAL.html)
+using a single source approach.
 
 
 History
@@ -76,6 +76,18 @@ Pandoc in combination with a customised template.
 A Pandoc filter adds up all points (like the functionality provided
 by the `exam` class).
 
+Since LaTeX is still used as back end, all TeX macros could be used.
+
+
+Exams
+-----
+
+Originally [TeX Live](https://www.tug.org/texlive/) and the
+[exam class](https://www.ctan.org/pkg/exam) were used to produce
+exams and corresponding solution sheets in PDF format.
+
+Using [Pandoc Markdown](http://pandoc.org/MANUAL.html) the task of
+creating exams with the `exam` class can be simplified.
 Since LaTeX is still used as back end, all TeX macros could be used.
 
 
@@ -165,22 +177,24 @@ Installing and running
     *   [git](https://git-scm.com/)
     *   [make](https://www.gnu.org/software/make/)
     *   [pandoc](http://pandoc.org/installing.html) 2.1.1 (or newer)
-    *   [TeX Live](http://www.tug.org/texlive/) including the
-        [beamer class](https://www.ctan.org/pkg/beamer)
+    *   [TeX Live](http://www.tug.org/texlive/)
+    *   [beamer class](https://www.ctan.org/pkg/beamer) (slides only)
     *   [beamer theme: Metropolis](https://github.com/matze/mtheme) (for building the examples)
-
+    *   [exam class](https://www.ctan.org/pkg/exam) (exams only)
+    
 2.  Create a working directory for your project and change into it.
 
 3.  Clone this repo using `git clone https://github.com/cagix/pandoc-lecture lecture`
     (or add it as git submodule to your project).
 
 5.  Change to the `lecture/` subdirectory. Adapt the `DATADIR` variable in the
-    makefile (`demo` subdir): It should point to the root directory of this
+    makefiles (`demo` subdir): It should point to the root directory of this
     project, i.e. to the folder containing the subfolders `filters`, `resources`
     and `demo`.
 
     Build the demo using `make -f Makefile.lecture` (slides and handout)
-    or `make -f Makefile.homework` (homework sheet).
+    or `make -f Makefile.homework` (homework sheet) or `make -f Makefile.exams`
+    (exams).
 
     Have a look at the examples in `lecture/demo/`. Some of the features
     are demonstrated and explained in the markdown source.
