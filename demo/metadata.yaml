@@ -2,5 +2,10 @@
 subtitle: "Modulenumber Moduletitle, Year"
 author: "Author, Institute"
 lang: de-DE
+
+LV: "Modulenumber Moduletitle"
+LVKURZ: "Modulenumber Moduleshort"
+NR: "Exam No."
+SEMESTER: "Year"
 ...
 
