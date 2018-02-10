@@ -39,6 +39,7 @@ OPTIONS     += -V papersize=a4
 OPTIONS     += -V colorlinks -V linkcolor=headcolor -V citecolor=headcolor -V urlcolor=headcolor
 OPTIONS     += --number-sections
 OPTIONS     += --include-in-header=${RESOURCEDIR}/definitions.tex
+OPTIONS     += --include-in-header=${RESOURCEDIR}/definitions_obsolete.tex
 OPTIONS     += --data-dir=${DATADIR}
 OPTIONS     += --resource-path=${RESOURCEPATH}
 

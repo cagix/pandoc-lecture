@@ -20,15 +20,6 @@
 \newcommand{\hsheadfont}{\fontfamily{phv}\fontseries{b}\fontshape{n}\selectfont}
 
 %% TODO to be replaced by some fenced Div or inline Span and lua filter %%%%%%%%%%%%%%%
-%% may be `:::columns```, which a filter could convert to minipages?
-\newcommand{\minipagebegin}{\begin{minipage}}
-\newcommand{\minipageend}{\end{minipage}}
-%% use `:::center``` plus filter from lectures
-\newcommand{\centerbegin}{\begin{center}}
-\newcommand{\centerend}{\end{center}}
-
-%% instead of `\hinweis ...` we could use `[...]{.hinweis}` plus some lua filter ...
-\newcommand{\hinweis}{\emph{Hinweis}:\xspace}
 %% instead of `\x{...}` we could use `[...]{.x}` plus some lua filter ...
 \newcommand{\x}[1]{\ifprintanswers{\color{red}\bfseries#1\xspace}\fi}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
