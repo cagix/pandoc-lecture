@@ -4,9 +4,9 @@
 
 Here goes the question ...
 
-\centerbegin
+::: center
 ![nice figure](figs/somefig){width=60mm}\
-\centerend
+:::
 
 For multiple choice questions use the `streifenMC` environment, which is a
 customized LaTeX table with a gray bar on the left side. The parameters are
