@@ -58,5 +58,21 @@ function cbox(el)
 end
 
 
-return {{Div = center}, {Span = inlineNotes, Div = blockNotes}, {Span = alert}, {Span = bsp}, {Span = cbox}}
+-- handling of  `[...]{.hinweis}` ... (Span class)
+function hinweis(el)
+    if el.classes[1] == "hinweis" then
+        return insertLatexEnvInline(el.content, "\\hinweis{", "}")
+    end
+end
+
+
+-- handling of  `[...]{.thema}` ... (Span class)
+function thema(el)
+    if el.classes[1] == "thema" then
+        return insertLatexEnvInline(el.content, "\\thema{", "}")
+    end
+end
+
+
+return {{Div = center}, {Span = inlineNotes, Div = blockNotes}, {Span = alert}, {Span = bsp}, {Span = cbox}, {Span = hinweis}, {Span = thema}}
 
