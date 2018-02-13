@@ -15,8 +15,6 @@ PANDOC       = pandoc-2.1.1
 
 
 
-## Source file and lecture prefix
-
 # Files as defined in Excel sheet
 XLS    = bla.md blub.md wuppie.md fluppie.md
 
