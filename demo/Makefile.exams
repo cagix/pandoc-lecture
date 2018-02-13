@@ -16,7 +16,6 @@ PANDOC       = pandoc-2.1.1
 
 
 ## Source file and lecture prefix
-## either defined here (all files) or given at cmd line like `make SRC=b01.md`
 
 # Files as defined in Excel sheet
 XLS    = bla.md blub.md wuppie.md fluppie.md
