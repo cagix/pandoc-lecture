@@ -53,7 +53,7 @@ end
 -- handling of  `[...]{.cbox}` ... (Span class)
 function cbox(el)
     if el.classes[1] == "cbox" then
-        return insertLatexEnvInline(el.content, "\\cboxbegin", "\\cboxend")
+        return insertLatexEnvInline(el.content, "\\cboxbegin ", " \\cboxend")
     end
 end
 
