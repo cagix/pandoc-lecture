@@ -13,20 +13,17 @@ function addPoints(el)
 end
 
 
--- set `points` field in global metadata
-function setPointsMetadata(meta)
-    if meta["points"] and tonumber(meta["points"]) ~= points then
-        -- check expectation and real value
-        io.stderr:write("\n\n" .. "Expected " .. (meta["points"] or "NO") .. " points.\n")
-        io.stderr:write("Found " .. points .. " points!" .. '\n\n\n')
+-- check `points` field in global metadata
+function checkPoints(meta)
+    if meta["points"] or points > 0 then
+        if tonumber(meta["points"]) ~= points then
+            -- check expectation and real value
+            io.stderr:write("\n\n" .. "Expected " .. (meta["points"] or "NO") .. " points.\n")
+            io.stderr:write("Found " .. points .. " points!" .. '\n\n\n')
+        end
     end
-
-    -- set metadata (parameter needs to be a string)
-    meta["points"] = pandoc.MetaString("" .. points)
-
-    return meta
 end
 
 
-return {{Header = addPoints}, {Meta = setPointsMetadata}}
+return { { Header = addPoints }, { Meta = checkPoints } }
 
