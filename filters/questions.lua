@@ -29,5 +29,5 @@ function setQuestionMetadata(meta)
 end
 
 
-return {{Header = collectQuestionHeaders }, {Meta = setQuestionMetadata}}
+return { { Header = collectQuestionHeaders }, { Meta = setQuestionMetadata } }
 

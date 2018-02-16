@@ -5,8 +5,8 @@
 
 -- helper function to insert two string as RawInline into a table
 local function insertLatexEnvInline(tab, strBegin, strEnd)
-    table.insert(tab, 1,      pandoc.RawInline("latex",strBegin))
-    table.insert(tab, #tab+1, pandoc.RawInline("latex",strEnd))
+    table.insert(tab, 1, pandoc.RawInline("latex", strBegin))
+    table.insert(tab, #tab + 1, pandoc.RawInline("latex", strEnd))
     return tab
 end
 
@@ -14,7 +14,7 @@ end
 -- handling of `::: center ... :::` ... (Div class)
 function center(el)
     if el.classes[1] == "center" then
-        return {pandoc.RawBlock("latex","\\begin{center}"), el, pandoc.RawBlock("latex","\\end{center}")}
+        return { pandoc.RawBlock("latex", "\\begin{center}"), el, pandoc.RawBlock("latex", "\\end{center}") }
     end
 end
 
@@ -74,5 +74,5 @@ function thema(el)
 end
 
 
-return {{Div = center}, {Span = inlineNotes, Div = blockNotes}, {Span = alert}, {Span = bsp}, {Span = cbox}, {Span = hinweis}, {Span = thema}}
+return { { Div = center }, { Span = inlineNotes, Div = blockNotes }, { Span = alert }, { Span = bsp }, { Span = cbox }, { Span = hinweis }, { Span = thema } }
 

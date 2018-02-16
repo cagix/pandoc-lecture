@@ -5,7 +5,7 @@
 
 -- helper function to create span for blue arrows
 local function blueArrow()
-    return {pandoc.Span({pandoc.Str("=>")}, pandoc.Attr("", {"blueArrow"})), pandoc.Space()}
+    return { pandoc.Span({ pandoc.Str("=>") }, pandoc.Attr("", { "blueArrow" })), pandoc.Space() }
 end
 
 
@@ -21,7 +21,7 @@ end
 
 -- handling of `\blueArrow` ... (RawBlock, tex)
 function blueArrowBlock(el)
-    if el.format == "tex" or el.format == "latex"  then
+    if el.format == "tex" or el.format == "latex" then
         if string.match(el.text, "\\blueArrow") then
             return pandoc.Plain(blueArrow())
         end
@@ -44,5 +44,5 @@ function blockSlides(el)
 end
 
 
-return {{RawInline = blueArrowInline, RawBlock = blueArrowBlock}, {Span = inlineSlides, Div = blockSlides}}
+return { { RawInline = blueArrowInline, RawBlock = blueArrowBlock }, { Span = inlineSlides, Div = blockSlides } }
 
