@@ -29,5 +29,20 @@ function blueArrowBlock(el)
 end
 
 
-return {{RawInline = blueArrowInline, RawBlock = blueArrowBlock}}
+-- remove inline slides: `[...]{.slides}` ... (Span class)
+function inlineSlides(el)
+    if el.classes[1] == "slides" then
+        return {}
+    end
+end
+
+-- remove block slides: `::: slides ... :::` ... (Div class)
+function blockSlides(el)
+    if el.classes[1] == "slides" then
+        return {}
+    end
+end
+
+
+return {{RawInline = blueArrowInline, RawBlock = blueArrowBlock}, {Span = inlineSlides, Div = blockSlides}}
 
