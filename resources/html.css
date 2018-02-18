@@ -10,9 +10,9 @@ body {
     font-family: Optima, Arial, Helvetica, sans-serif;
     margin: 0px; padding: 0px;
 }
-@media (min-width: 800px) {
+@media (min-width: 1024px) {
 body {
-    width: 700px; margin: 20px auto
+    width: 800px; margin: 20px auto
 }
 }
 
