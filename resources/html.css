@@ -8,7 +8,6 @@ License: MIT
 body {
     font-size: small;
     font-family: Optima, Arial, Helvetica, sans-serif;
-    text-align: justify;
     margin: 0px; padding: 0px;
 }
 @media (min-width: 800px) {
