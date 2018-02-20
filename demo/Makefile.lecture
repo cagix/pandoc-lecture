@@ -42,6 +42,7 @@ BEAMEROPTIONS += -V themeoptions:numbering=none -V themeoptions:progressbar=foot
 BEAMEROPTIONS += -V fontsize=smaller
 BEAMEROPTIONS += --slide-level=2
 BEAMEROPTIONS += --lua-filter=${FILTERDIR}/tex.lua
+BEAMEROPTIONS += --lua-filter=${FILTERDIR}/figsrcinfo.lua
 BEAMEROPTIONS += --include-in-header=${RESOURCEDIR}/definitions.tex
 BEAMEROPTIONS += --include-in-header=${RESOURCEDIR}/beamer.tex
 BEAMEROPTIONS += $(OPTIONS)
@@ -52,6 +53,7 @@ HTMLOPTIONS   += --standalone --self-contained
 HTMLOPTIONS   += --toc --toc-depth=1
 HTMLOPTIONS   += --strip-comments
 HTMLOPTIONS   += --lua-filter=${FILTERDIR}/html.lua
+HTMLOPTIONS   += --lua-filter=${FILTERDIR}/figsrcinfo.lua
 HTMLOPTIONS   += --css=${RESOURCEDIR}/html.css
 # insert `<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript" data-external="1"></script>`
 # with data-external="1" to prevent incorporating MathJax into the generated HTML document when using --self-contained
