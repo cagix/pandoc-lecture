@@ -1,6 +1,21 @@
 
-\clearpage
-\myQuestion[8]{Multiple Choice with "streifenMC" environment}
+# Multiple Choice with "streifenMC" environment {punkte=8}
+
+Instead of using the TeX notation for starting a question you can use
+a markdown header now. It will be transformed into a exam question. Add
+the points as attribute `punkte` to the header.
+
+A level 1 header will be translated into a question with an extra
+`\clearpage` before.
+
+That is, the following markdown code
+```markdown
+# Multiple Choice with streifenMC environment {punkte=8}
+```
+will be transformed by the `exams.lua` filter into
+```latex
+\myQuestion[8]{Multiple Choice with streifenMC environment}
+```
 
 Here goes the question ...
 
