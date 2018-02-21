@@ -5,15 +5,21 @@
 
 -- transform headers to questions
 function headerToQuestion(el)
-    local text = "\\myQuestion[" .. tostring(el.attributes["punkte"]) .. "]{" .. pandoc.utils.stringify(el.content) .. "}"
-    local task = pandoc.RawBlock("latex", text)
+    -- get content of header (list of inlines)
+    local task = el.content
 
+    -- add start of question to the front
+    table.insert(task, 1, pandoc.RawInline("latex", "\\myQuestion[" .. tostring(el.attributes["punkte"]) .. "]{"))
+    -- add end of question to the end
+    table.insert(task, #task + 1, pandoc.RawInline("latex", "}"))
+
+    -- Level 1 header: add extra `\clearpage` to front
     if tonumber(el.level) == 1 then
-        -- Level 1 header: add extra `\clearpage`
-        return { pandoc.RawBlock("latex", "\\clearpage"), task }
-    else
-        return task
+        table.insert(task, 1, pandoc.RawInline("latex", "\\clearpage "))
     end
+
+    -- return result as new Para (needs to be a "block" since the header was "block")
+    return pandoc.Para(task)
 end
 
 
