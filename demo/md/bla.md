@@ -34,8 +34,8 @@ which length depends on the amount of text within this environment.
 
 Also we can use Markdown in there ...
 
-To produce a sample solution, use `\x{}` and provide the solution as parameter.
-This will not be printed in the normal exam :)
+To produce a sample solution, use `\x{...}` or `[...]{.answer}` and provide
+the solution as parameter. This will not be printed in the normal exam :)
 
 
 \streifenbegin
@@ -49,6 +49,8 @@ This will not be printed in the normal exam :)
 *   Zeile 22: \x{X}
 
 \x{je 0.5P (Summe 2P)}
+
+[**je 0.5P** (*Summe 2P*)]{.answer}
 
 \streifenend
 

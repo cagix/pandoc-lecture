@@ -46,5 +46,16 @@ function solution(el)
 end
 
 
-return { { Header = headerToQuestion }, { Div = solution } }
+-- handling of  `[...]{.answer}` ... (Span class)
+function answer(el)
+    if el.classes[1] == "answer" then
+        local content = el.content
+        table.insert(content, 1, pandoc.RawInline("latex", "\\x{"))
+        table.insert(content, #content + 1, pandoc.RawInline("latex", "}"))
+        return content
+    end
+end
+
+
+return { { Header = headerToQuestion }, { Div = solution }, { Span = answer } }
 

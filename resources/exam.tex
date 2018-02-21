@@ -18,10 +18,8 @@
 \newcommand{\hsfont}    {\fontfamily{phv}\fontseries{m}\fontshape{n}\selectfont}
 \newcommand{\hsheadfont}{\fontfamily{phv}\fontseries{b}\fontshape{n}\selectfont}
 
-%% TODO to be replaced by some fenced Div or inline Span and lua filter %%%%%%%%%%%%%%%
-%% instead of `\x{...}` we could use `[...]{.x}` plus some lua filter ...
+%% `[...]{.answer}` will be translated by the lua filter into `\x{...}`
 \newcommand{\x}[1]{\ifprintanswers{\color{red}\bfseries#1\xspace}\fi}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\Fortsetzung}{\begin{textblock*}{54mm}(80mm,276mm)\textsl{\textbf{Fortsetzung nächste Seite}}\end{textblock*}}
 \newcommand{\Leerseite}{\newpage\centerline{\textsl{\textbf{Leerseite}}}\newpage}
