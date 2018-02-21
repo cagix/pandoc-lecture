@@ -17,6 +17,13 @@ will be transformed by the `exams.lua` filter into
 \myQuestion[8]{Multiple Choice with \enquote{streifenMC} environment}
 ```
 
+**Warning**: Don't do any fancy in the header! Results would be unpredictable!
+(Emphasis and question marks should be OK, though. Inline code with backticks
+does NOT work!)
+
+\bigskip
+
+
 Here goes the question ...
 
 ::: center
