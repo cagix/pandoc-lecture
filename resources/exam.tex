@@ -36,7 +36,6 @@
 %------------------------------------- Listings ---------------------
 
 %------------------------------------- Tables (left column gray background) --------------------------------
-%% TODO remove obsolete definitions, use fenced Divs plus lua filter instead of TeX environments(?) %%%%%%%%%%%%%%%
 \newenvironment{streifenenv}
 {
     \smallskip
@@ -49,6 +48,8 @@
     \end{tabular}
     \smallskip
 }
+%% TODO remove obsolete definitions, use fenced Divs plus lua filter instead of TeX environments(?) %%%%%%%%%%%%%%%
+%% DEPRECATED -- use exams.lua and fenced divs ... %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\streifenbegin}{\begin{streifenenv}}
 \newcommand{\streifenend}{\end{streifenenv}}
 
@@ -94,6 +95,7 @@
     \renewcommand{\arraystretch}{1.0}
     \streifenend
 }
+%% DEPRECATED -- use exams.lua and fenced divs ... %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %------------------------------------- Tables (left column gray background) --------------------------------
 
 %------------------------------------- Answers --------------------------------
