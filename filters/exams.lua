@@ -5,6 +5,12 @@
 
 -- transform headers to questions
 function headerToQuestion(el)
+    -- only handle level 1 and level 2 headers
+    local level = tonumber(el.level)
+    if level ~= 1 and level ~= 2 then
+        return el
+    end
+
     -- get content of header (list of inlines)
     local task = el.content
 
@@ -14,7 +20,7 @@ function headerToQuestion(el)
     table.insert(task, #task + 1, pandoc.RawInline("latex", "}"))
 
     -- Level 1 header: add extra `\clearpage` to front
-    if tonumber(el.level) == 1 then
+    if level == 1 then
         table.insert(task, 1, pandoc.RawInline("latex", "\\clearpage "))
     end
 
