@@ -1,5 +1,5 @@
 
-## Space for `anwers` using "streifenbegin" and "streifenend" {punkte=5}
+## Space for *anwers* using "streifenbegin" and "streifenend" {punkte=5}
 
 Instead of using the TeX notation for starting a question you can use
 a markdown header now. It will be transformed into a exam question. Add
@@ -10,11 +10,12 @@ A level 1 header will be translated into a question with an extra
 
 That is, the following markdown code
 ```markdown
-## Space for anwers using streifenbegin and streifenend {punkte=5}
+## Space for *anwers* using "streifenbegin" and "streifenend" {punkte=5}
 ```
 will be transformed by the `exams.lua` filter into
 ```latex
-\myQuestion[5]{Space for anwers using streifenbegin and streifenend}
+\myQuestion[5]{{Space for \emph{anwers} using \enquote{streifenbegin}
+and \enquote{streifenend}}
 ```
 
 

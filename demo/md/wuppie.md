@@ -10,11 +10,11 @@ A level 1 header will be translated into a question with an extra
 
 That is, the following markdown code
 ```markdown
-# Multiple Choice with streifenMC environment {punkte=8}
+# Multiple Choice with "streifenMC" environment {punkte=8}
 ```
 will be transformed by the `exams.lua` filter into
 ```latex
-\myQuestion[8]{Multiple Choice with streifenMC environment}
+\myQuestion[8]{Multiple Choice with \enquote{streifenMC} environment}
 ```
 
 Here goes the question ...
