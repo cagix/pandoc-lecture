@@ -29,5 +29,22 @@ function headerToQuestion(el)
 end
 
 
-return { { Header = headerToQuestion } }
+-- handling of `::: solution ... :::` ... (Div class)
+function solution(el)
+    if el.classes[1] == "solution" then
+        -- length attribute (if available)
+        local length = el.attributes["length"]
+
+        -- if we have a length, then we need to use `\begin{solution}[length] ... \end{solution}`
+        -- otherwise use just empty dummies instead
+        local solbeg = length and ("\\begin{solution}[" .. length .. "]") or ""
+        local solend = length and "\\end{solution}" or ""
+
+        -- return list of blocks
+        return { pandoc.RawBlock("latex", "\\begin{streifenenv}"), pandoc.RawBlock("latex", solbeg), el, pandoc.RawBlock("latex", solend), pandoc.RawBlock("latex", "\\end{streifenenv}") }
+    end
+end
+
+
+return { { Header = headerToQuestion }, { Div = solution } }
 
