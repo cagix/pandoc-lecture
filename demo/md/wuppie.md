@@ -14,6 +14,7 @@ That is, the following markdown code
 ```
 will be transformed by the `exams.lua` filter into
 ```latex
+\clearpage
 \myQuestion[8]{Multiple Choice with \enquote{streifenMC} environment}
 ```
 
