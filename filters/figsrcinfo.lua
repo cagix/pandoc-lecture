@@ -26,8 +26,6 @@ end
 -- add proper source information to figures
 -- use image title (if provided): `![caption string](path/to/image "title string"){.class key=value}`
 function image(img)
-    local quelle = "Quelle: "
-
     -- check for empty title string
     if img.title == "" or img.title == "fig:" then
         return img
@@ -36,9 +34,9 @@ function image(img)
     -- check for figure vs. inline image: figure title string starts with prefix "fig:"
     local title = string.match(img.title, "^fig:(.*)")
     if title == nil then
-        return inlineImage(img, quelle .. img.title)
+        return inlineImage(img, img.title)
     else
-        return figure(img, " [" .. quelle .. title .. "]")
+        return figure(img, " [" .. title .. "]")
     end
 end
 
