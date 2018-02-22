@@ -47,6 +47,7 @@ the solution as parameter. This will not be printed in the normal exam :)
 *   Zeile 21: \x{42}
     \bigskip
 *   Zeile 22: \x{X}
+    \bigskip
 
 \x{je 0.5P (Summe 2P)}
 
@@ -54,6 +55,44 @@ the solution as parameter. This will not be printed in the normal exam :)
 
 \streifenend
 
+
+
+\Fortsetzung
+\clearpage
+
+
+
+### Fenced div with class "solution" without attributes {.unnumbered}
+
+The same as above can be done now using a fenced div of class `solution`:
+
+```markdown
+::: solution
+*   Zeile 19: \x{12}
+    \bigskip
+*   Zeile 20: \x{A}
+    \bigskip
+*   Zeile 21: \x{42}
+    \bigskip
+*   Zeile 22: \x{X}
+    \bigskip
+
+[**je 0.5P** (*Summe 2P*)]{.answer}
+:::
+```
+
+::: solution
+*   Zeile 19: \x{12}
+    \bigskip
+*   Zeile 20: \x{A}
+    \bigskip
+*   Zeile 21: \x{42}
+    \bigskip
+*   Zeile 22: \x{X}
+    \bigskip
+
+[**je 0.5P** (*Summe 2P*)]{.answer}
+:::
 
 \clearpage
 
