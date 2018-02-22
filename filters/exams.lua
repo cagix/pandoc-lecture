@@ -29,6 +29,49 @@ function headerToQuestion(el)
 end
 
 
+-- transform markdown table to simple latex tabular
+local function mdtabletotabular(el)
+    -- returns (list of) `Block` (since `Table` is of type `Block`)
+
+    local function addrow(tab, row)
+        -- a row is a list of cells, a cell is a list of blocks, e.g.pandoc.Plain()
+        for _, cell in pairs(row) do
+            for _, e in pairs(cell) do
+                -- add all elements of current cell to the end
+                table.insert(tab, e)
+            end
+            -- add `&` as end-of-cell marker for tex to the end
+            table.insert(tab, pandoc.RawBlock("latex", " & "))
+        end
+        -- the last cell must not be ended by `&`, so replace it: end row with newline and separator
+        tab[#tab] = pandoc.RawBlock("latex", "\\\\\\hline")
+    end
+
+    -- alignments: pandoc to tex
+    local align = { [pandoc.AlignDefault] = "c", [pandoc.AlignLeft] = "l", [pandoc.AlignRight] = "r", [pandoc.AlignCenter] = "c" }
+
+    -- start of tabular
+    local tabstrt = "\\begin{tabular}{" .. table.concat(el.aligns:map(function(e) return align[e] end), "|") .. "}"
+    local tabular = { pandoc.RawBlock("latex", "\\rowstretch"), pandoc.RawBlock("latex", tabstrt) }
+
+    -- create header
+    addrow(tabular, el.headers)
+
+    -- create rows
+    for _, row in pairs(el.rows) do
+        addrow(tabular, row)
+    end
+    -- the last row should end with plain linebreak
+    tabular[#tabular] = pandoc.RawBlock("latex", "\\\\")
+
+    -- end of tabular
+    table.insert(tabular, pandoc.RawBlock("latex", "\\end{tabular}"))
+    table.insert(tabular, pandoc.RawBlock("latex", "\\rowrelax"))
+
+    return tabular
+end
+
+
 -- handling of `::: solution ... :::` ... (Div class)
 function solution(el)
     if el.classes[1] == "solution" then
@@ -39,6 +82,9 @@ function solution(el)
         -- otherwise use just empty dummies instead
         local solbeg = length and ("\\begin{solution}[" .. length .. "]") or ""
         local solend = length and "\\end{solution}" or ""
+
+        -- transform markdown table to simple latex tabular
+        el = pandoc.walk_block(el, { Table = mdtabletotabular })
 
         -- return list of blocks
         return { pandoc.RawBlock("latex", "\\begin{streifenenv}"), pandoc.RawBlock("latex", solbeg), el, pandoc.RawBlock("latex", solend), pandoc.RawBlock("latex", "\\end{streifenenv}") }
