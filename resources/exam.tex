@@ -18,10 +18,8 @@
 \newcommand{\hsfont}    {\fontfamily{phv}\fontseries{m}\fontshape{n}\selectfont}
 \newcommand{\hsheadfont}{\fontfamily{phv}\fontseries{b}\fontshape{n}\selectfont}
 
-%% TODO to be replaced by some fenced Div or inline Span and lua filter %%%%%%%%%%%%%%%
-%% instead of `\x{...}` we could use `[...]{.x}` plus some lua filter ...
+%% `[...]{.answer}` will be translated by the lua filter into `\x{...}`
 \newcommand{\x}[1]{\ifprintanswers{\color{red}\bfseries#1\xspace}\fi}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\Fortsetzung}{\begin{textblock*}{54mm}(80mm,276mm)\textsl{\textbf{Fortsetzung nächste Seite}}\end{textblock*}}
 \newcommand{\Leerseite}{\newpage\centerline{\textsl{\textbf{Leerseite}}}\newpage}
@@ -31,12 +29,9 @@
 %% settings for pandoc option `--listings`
 \usepackage{listings}  
 \lstset{basicstyle=\footnotesize\ttfamily\mdseries, xleftmargin=\bigskipamount, keywordstyle=\bfseries\color{dkblue}, identifierstyle=\ttfamily, commentstyle=\bfseries\color{gray}\textsl, stringstyle=\color{magenta}\upshape, emphstyle=\color{red}, emphstyle={[2]\color{blue}}, texcl=false, showspaces=false, showstringspaces=false, numbers=left, numberstyle=\footnotesize, breaklines=true, tabsize=4, backgroundcolor=\color{listinggray}, frame=shadowbox}
-
-\newcommand{\code}[1]{\textcolor{dkgreen}{\texttt{\textbf{#1}}}\xspace}
 %------------------------------------- Listings ---------------------
 
 %------------------------------------- Tables (left column gray background) --------------------------------
-%% TODO remove obsolete definitions, use fenced Divs plus lua filter instead of TeX environments(?) %%%%%%%%%%%%%%%
 \newenvironment{streifenenv}
 {
     \smallskip
@@ -49,9 +44,24 @@
     \end{tabular}
     \smallskip
 }
+
+% use more space for table rows in exams to allow students to fill out blank cells
+% use less space in solutions: tables often fills a page, but we need to add grading information to the table
+\newcommand{\rowstretch}{\ifprintanswers \renewcommand{\arraystretch}{0.6} \else \renewcommand{\arraystretch}{2.0} \fi}
+% use a little more space for table rows in multiple choice questions
+\newcommand{\mcstretch}{\renewcommand{\arraystretch}{1.2}}
+% reset the table row settings
+\newcommand{\rowrelax}{\renewcommand{\arraystretch}{1.0}}
+% definitions for multiple choice questions
+\newcommand{\antwort}{\ifprintanswers \ensuremath{\blacksquare} \else \ensuremath{\Box} \fi}
+\newcommand{\wahr}{\antwort & \ensuremath{\Box} & }
+\newcommand{\falsch}{\ensuremath{\Box} & \antwort & }
+
+
+%% TODO remove obsolete definitions, use fenced Divs plus lua filter instead of TeX environments(?) %%%%%%%%%%%%%%%
+%% DEPRECATED -- use exams.lua and fenced divs ... %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\streifenbegin}{\begin{streifenenv}}
 \newcommand{\streifenend}{\end{streifenenv}}
-
 
 \newenvironment{streifenSolution}[1][10mm]%
 {
@@ -65,7 +75,6 @@
 \newcommand{\solutionbegin}{\begin{streifenSolution}}
 \newcommand{\solutionend}{\end{streifenSolution}}
 
-
 \newenvironment{streifenMC}[2]
 {
     \streifenbegin
@@ -78,10 +87,6 @@
     \renewcommand{\arraystretch}{1.0}
     \streifenend
 }
-\newcommand{\antwort}{\ifprintanswers \ensuremath{\blacksquare} \else \ensuremath{\Box} \fi}
-\newcommand{\wahr}{\antwort & \ensuremath{\Box} & }
-\newcommand{\falsch}{\ensuremath{\Box} & \antwort & }
-
 
 \newenvironment{streifenTabular}[1]
 {
@@ -94,6 +99,7 @@
     \renewcommand{\arraystretch}{1.0}
     \streifenend
 }
+%% DEPRECATED -- use exams.lua and fenced divs ... %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %------------------------------------- Tables (left column gray background) --------------------------------
 
 %------------------------------------- Answers --------------------------------
