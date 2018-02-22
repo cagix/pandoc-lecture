@@ -33,17 +33,22 @@ end
 local function mdtabletotabular(el)
     -- returns (list of) `Block` (since `Table` is of type `Block`)
 
-    local function addrow(tab, row)
-        -- a row is a list of cells, a cell is a list of blocks, e.g.pandoc.Plain()
-        for _, cell in pairs(row) do
-            for _, e in pairs(cell) do
-                -- add all elements of current cell to the end
-                table.insert(tab, e)
-            end
-            -- add `&` as end-of-cell marker for tex to the end
-            table.insert(tab, pandoc.RawBlock("latex", " & "))
+    local function addcell(tab, cell)
+        -- a cell is a list of blocks, e.g.pandoc.Plain()
+        for _, e in pairs(cell) do
+            -- add all elements of current cell to the end
+            table.insert(tab, e)
         end
-        -- the last cell must not be ended by `&`, so replace it: end row with newline and separator
+        -- add `&` as end-of-cell marker for tex to the end
+        table.insert(tab, pandoc.RawBlock("latex", " & "))
+    end
+
+    local function addrow(tab, row)
+        -- a row is a list of cells
+        for _, cell in pairs(row) do
+            addcell(tab, cell)
+        end
+        -- the last cell of a row must not be ended by `&`, end row with newline and separator
         tab[#tab] = pandoc.RawBlock("latex", "\\\\\\hline")
     end
 
