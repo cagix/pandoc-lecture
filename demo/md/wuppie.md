@@ -81,7 +81,7 @@ The same as above can be done now using a fenced div of class `mc`:
   [... blablabla.]{.nok}
   [... **wuppie** :)]{.ok}
   [... *fluppie.*]{.nok}
-  [... foobar.]{.nok}
+  [... `foobar`.]{.nok}
 :::
 ```
 
@@ -89,7 +89,7 @@ The same as above can be done now using a fenced div of class `mc`:
   [... blablabla.]{.nok}
   [... **wuppie** :)]{.ok}
   [... *fluppie.*]{.nok}
-  [... foobar.]{.nok}
+  [... `foobar`.]{.nok}
 :::
 
 Using a fenced div you can use markdown formatting inside the answers.

@@ -97,7 +97,7 @@ function solution(el)
 end
 
 
--- handling of  `[...]{.ok}` and `[...]{.nok}` ... (Span class)
+-- handling of  `[...]{.ok}` and `[...]{.nok}` inside a `mc` Div ... (Span class)
 local function mcquestion(el)
     local function createrow(cont, str)
         -- `cont` is a list of inlines
