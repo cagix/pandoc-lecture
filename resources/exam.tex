@@ -52,12 +52,16 @@
 \newcommand{\mcstretch}{\renewcommand{\arraystretch}{1.2}}
 % reset the table row settings
 \newcommand{\rowrelax}{\renewcommand{\arraystretch}{1.0}}
+% definitions for multiple choice questions
+\newcommand{\antwort}{\ifprintanswers \ensuremath{\blacksquare} \else \ensuremath{\Box} \fi}
+\newcommand{\wahr}{\antwort & \ensuremath{\Box} & }
+\newcommand{\falsch}{\ensuremath{\Box} & \antwort & }
+
 
 %% TODO remove obsolete definitions, use fenced Divs plus lua filter instead of TeX environments(?) %%%%%%%%%%%%%%%
 %% DEPRECATED -- use exams.lua and fenced divs ... %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\streifenbegin}{\begin{streifenenv}}
 \newcommand{\streifenend}{\end{streifenenv}}
-
 
 \newenvironment{streifenSolution}[1][10mm]%
 {
@@ -71,7 +75,6 @@
 \newcommand{\solutionbegin}{\begin{streifenSolution}}
 \newcommand{\solutionend}{\end{streifenSolution}}
 
-
 \newenvironment{streifenMC}[2]
 {
     \streifenbegin
@@ -84,10 +87,6 @@
     \renewcommand{\arraystretch}{1.0}
     \streifenend
 }
-\newcommand{\antwort}{\ifprintanswers \ensuremath{\blacksquare} \else \ensuremath{\Box} \fi}
-\newcommand{\wahr}{\antwort & \ensuremath{\Box} & }
-\newcommand{\falsch}{\ensuremath{\Box} & \antwort & }
-
 
 \newenvironment{streifenTabular}[1]
 {
