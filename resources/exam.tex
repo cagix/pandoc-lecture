@@ -48,6 +48,8 @@
 % use more space for table rows in exams to allow students to fill out blank cells
 % use less space in solutions: tables often fills a page, but we need to add grading information to the table
 \newcommand{\rowstretch}{\ifprintanswers \renewcommand{\arraystretch}{0.6} \else \renewcommand{\arraystretch}{2.0} \fi}
+% use a little more space for table rows in multiple choice questions
+\newcommand{\mcstretch}{\renewcommand{\arraystretch}{1.2}}
 % reset the table row settings
 \newcommand{\rowrelax}{\renewcommand{\arraystretch}{1.0}}
 

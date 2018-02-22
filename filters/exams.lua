@@ -97,6 +97,60 @@ function solution(el)
 end
 
 
+-- handling of  `[...]{.ok}` and `[...]{.nok}` ... (Span class)
+local function mcquestion(el)
+    local function createrow(cont, str)
+        -- `cont` is a list of inlines
+        table.insert(cont, 1, pandoc.RawInline("latex", str))
+        table.insert(cont, pandoc.RawInline("latex", " \\\\[5pt] \n"))
+    end
+
+    -- handle class `ok`
+    if el.classes[1] == "ok" then
+        createrow(el.content, "\\wahr ")
+    end
+
+    -- handle class `nok`
+    if el.classes[1] == "nok" then
+        createrow(el.content, "\\falsch ")
+    end
+
+    return el.content
+end
+
+
+-- handling of `::: {.mc ok="correct" nok="wrong" points="each 0.5P"} ... :::` ... (Div class)
+function multiplechoice(el)
+    if el.classes[1] == "mc" then
+
+        -- start of tabular
+        local tabular = { pandoc.RawBlock("latex", "\\begin{streifenenv}"), pandoc.RawBlock("latex", "\\mcstretch"), pandoc.RawBlock("latex", "\\begin{tabular}{ccp{0.82\\textwidth}}") }
+
+        -- create header
+        local ok = tostring(el.attributes["ok"]) or "true"
+        local nok = tostring(el.attributes["nok"]) or "false"
+        table.insert(tabular, pandoc.RawBlock("latex", "\\textbf{" .. ok .. "} & \\textbf{" .. nok .. "} \\\\"))
+
+        -- transform entries to multiple choice questions
+        table.insert(tabular, pandoc.walk_block(el, { Span = mcquestion }))
+
+        -- close mc-tabular
+        table.insert(tabular, pandoc.RawBlock("latex", "\\end{tabular}"))
+        table.insert(tabular, pandoc.RawBlock("latex", "\\rowrelax"))
+
+        -- handle points
+        local points = tostring(el.attributes["points"]) or ""
+        table.insert(tabular, pandoc.RawBlock("latex", "\\x{" .. points .. "}"))
+
+        -- end of solution
+        local points = tostring(el.attributes["points"]) or ""
+        table.insert(tabular, pandoc.RawBlock("latex", "\\end{streifenenv}"))
+
+        return tabular
+    end
+end
+
+
 -- handling of  `[...]{.answer}` ... (Span class)
 function answer(el)
     if el.classes[1] == "answer" then
@@ -108,5 +162,5 @@ function answer(el)
 end
 
 
-return { { Header = headerToQuestion }, { Div = solution }, { Span = answer } }
+return { { Header = headerToQuestion }, { Div = solution }, { Div = multiplechoice }, { Span = answer } }
 
