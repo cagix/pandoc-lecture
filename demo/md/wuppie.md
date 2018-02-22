@@ -42,6 +42,23 @@ Correct answers must be started with `\wahr`, whereas wrong answers start
 with `\falsch`. This will not appear in the normal exam version. In the sample
 solution, all correct answers are marked.
 
+```latex
+\begin{streifenMC}{correct}{wrOng}
+    \falsch \ldots blablabla. \\[5pt]
+    \wahr \ldots wuppie :) \\[5pt]
+    \falsch \ldots fluppie. \\[5pt]
+    \falsch \ldots foobar.
+\end{streifenMC}
+\x{je 0.5P (2P)}
+```
+
+
+
+\Fortsetzung
+\clearpage
+
+
+
 Since this is a LaTeX environment, we cannot use Markdown in here ...
 
 
@@ -52,6 +69,39 @@ Since this is a LaTeX environment, we cannot use Markdown in here ...
     \falsch \ldots foobar.
 \end{streifenMC}
 \x{je 0.5P (2P)}
+
+
+
+### Fenced div with class "mc" {.unnumbered}
+
+The same as above can be done now using a fenced div of class `mc`:
+
+```markdown
+::: {.mc ok="CorrecT" nok="wrOng" points="**je 0.5P** (*Summe 2P*)"}
+  [... blablabla.]{.nok}
+  [... **wuppie** :)]{.ok}
+  [... *fluppie.*]{.nok}
+  [... foobar.]{.nok}
+:::
+```
+
+::: {.mc ok="CorrecT" nok="wrOng" points="**je 0.5P** (*Summe 2P*)"}
+  [... blablabla.]{.nok}
+  [... **wuppie** :)]{.ok}
+  [... *fluppie.*]{.nok}
+  [... foobar.]{.nok}
+:::
+
+Using a fenced div you can use markdown formatting inside the answers.
+
+**Warning**: The `mc` div and all contained `ok`/`nok` spans are translated into a
+LaTeX table. Make sure to **only** use `ok`/`nok` spans inside the `mc` div! Doing
+otherwise will produce TeX errors ...
+
+
+\clearpage
+
+
 
 
 
