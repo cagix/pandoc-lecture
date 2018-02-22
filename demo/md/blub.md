@@ -51,9 +51,9 @@ This text will appear in the exam as well as in the solution ...
 
   Length          Height A        Height B        Class
  --------------  ------------    -------------   --------
-  2.0             2.0             10.0            A
+  2.0             2.0             10.0            \x{A}
   5.0             4.0             40.0            B
-  0.8             0.4             4.5             C
+  0.8             \x{0.4}         4.5             C
   1.4             2.0             15.0            A
 
 :::
@@ -62,19 +62,18 @@ This text will appear in the exam as well as in the solution ...
 ::: {.solution}
 This text will appear in the exam as well as in the solution ...
 
-```
   Length          Height A        Height B        Class
  --------------  ------------    -------------   --------
-  2.0             2.0             10.0            A
+  2.0             2.0             10.0            \x{A}
   5.0             4.0             40.0            B
-  0.8             0.4             4.5             C
+  0.8             \x{0.4}         4.5             C
   1.4             2.0             15.0            A
-```
 
 Unfortunately, Pandoc still uses `longtable`, which cannot be
 used inside a minipage (which is used here to produce the
-gray marker on the left side). Thus we will need to handle
-markdown tables in the filter ...
+gray marker on the left side). Thus we need to handle
+markdown tables in the filter and translate it to simple
+LaTeX `tabular` ...
 
 :::
 
