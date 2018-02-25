@@ -7,7 +7,7 @@
 -- adds extra line of text after inline image
 local function inlineImage(img, str)
     if FORMAT == "html5" or FORMAT == "html4" or FORMAT == "html" then
-        return { img, pandoc.LineBreak(), pandoc.Span(pandoc.Str(str), pandoc.Attr("", { "quelle" })) }
+        return { img, pandoc.LineBreak(), pandoc.Span(pandoc.Str(str), pandoc.Attr("", { "origin" })) }
     elseif FORMAT == "beamer" or FORMAT == "latex" or FORMAT == "tex" then
         return { img, pandoc.LineBreak(), pandoc.RawInline("latex", "\\vspace{-1em} "), pandoc.RawInline("latex", "\\tiny "), pandoc.Str(str), pandoc.RawInline("latex", " \\normalsize") }
     else
