@@ -9,12 +9,18 @@ local function isFormatHtml()
 end
 
 
+-- helper function
+local function isFormatLatex()
+    return FORMAT == "beamer" or FORMAT == "latex" or FORMAT == "tex"
+end
+
+
 -- helper function to handle inline images
 -- adds extra line of text after inline image
 local function inlineImage(img, str)
     if isFormatHtml() then
         return { img, pandoc.LineBreak(), pandoc.Span(pandoc.Str(str), pandoc.Attr("", { "origin" })) }
-    elseif FORMAT == "beamer" or FORMAT == "latex" or FORMAT == "tex" then
+    elseif isFormatLatex() then
         return { img, pandoc.LineBreak(), pandoc.RawInline("latex", "\\vspace{-1em} "), pandoc.RawInline("latex", "\\tiny "), pandoc.Str(str), pandoc.RawInline("latex", " \\normalsize") }
     else
         return img -- some other format, do nothing
