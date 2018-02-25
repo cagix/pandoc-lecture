@@ -53,5 +53,26 @@ function image(img)
 end
 
 
-return { { Image = image } }
+-- handling of  `[...]{.origin}` for inline images... (Span class)
+-- allows for some formatting inside the origin/author/license information
+-- should follow the inline image in the same paragraph/line
+function origin(el)
+    if el.classes[1] == "origin" then
+        if isFormatLatex() then
+            local content = el.content
+            table.insert(content, 1, pandoc.LineBreak())
+            table.insert(content, 1, pandoc.RawInline("latex", "\\vspace{-1em} "))
+            table.insert(content, 1, pandoc.RawInline("latex", "\\tiny "))
+            table.insert(content, #content + 1, pandoc.RawInline("latex", " \\normalsize"))
+            return content
+        elseif isFormatHtml() then
+            return { pandoc.LineBreak(), el }
+        else
+            return el
+        end
+    end
+end
+
+
+return { { Span = origin, Image = image } }
 
