@@ -8,10 +8,15 @@ local function isFormatHtml()
     return FORMAT == "html5" or FORMAT == "html4" or FORMAT == "html"
 end
 
-
 -- helper function
 local function isFormatLatex()
     return FORMAT == "beamer" or FORMAT == "latex" or FORMAT == "tex"
+end
+
+
+-- helper function to add LaTeX formatting to author/origin/license comments
+local function addTexFormatting(content)
+    return { pandoc.LineBreak(), pandoc.RawInline("latex", "\\vspace{-1em} "), pandoc.RawInline("latex", "\\tiny "), content, pandoc.RawInline("latex", " \\normalsize") }
 end
 
 
@@ -21,7 +26,9 @@ local function inlineImage(img, str)
     if isFormatHtml() then
         return { img, pandoc.LineBreak(), pandoc.Span(pandoc.Str(str), pandoc.Attr("", { "origin" })) }
     elseif isFormatLatex() then
-        return { img, pandoc.LineBreak(), pandoc.RawInline("latex", "\\vspace{-1em} "), pandoc.RawInline("latex", "\\tiny "), pandoc.Str(str), pandoc.RawInline("latex", " \\normalsize") }
+        local teximg = addTexFormatting(pandoc.Str(str))
+        table.insert(teximg, 1, img)
+        return teximg
     else
         return img -- some other format, do nothing
     end
@@ -59,12 +66,7 @@ end
 function origin(el)
     if el.classes[1] == "origin" then
         if isFormatLatex() then
-            local content = el.content
-            table.insert(content, 1, pandoc.LineBreak())
-            table.insert(content, 1, pandoc.RawInline("latex", "\\vspace{-1em} "))
-            table.insert(content, 1, pandoc.RawInline("latex", "\\tiny "))
-            table.insert(content, #content + 1, pandoc.RawInline("latex", " \\normalsize"))
-            return content
+            return addTexFormatting(el)
         elseif isFormatHtml() then
             return { pandoc.LineBreak(), el }
         else
