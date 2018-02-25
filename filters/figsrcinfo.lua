@@ -36,7 +36,7 @@ function image(img)
     if title == nil then
         return inlineImage(img, img.title)
     else
-        return figure(img, " [" .. title .. "]")
+        return figure(img, " (" .. title .. ")")
     end
 end
 
