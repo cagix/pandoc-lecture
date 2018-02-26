@@ -42,9 +42,9 @@ This text will appear in the exam as well as in the solution ...
 
   Length          Height A        Height B        Class
  --------------  ------------    -------------   --------
-  2.0             2.0             10.0            \x{A}
+  \x{2.0}         \x{2.0}         10.0            \x{A}
   5.0             4.0             40.0            B
-  0.8             \x{0.4}         4.5             C
+  0.8             \x{0.4}         \x{4.5}         \x{C}
   1.4             2.0             15.0            A
 
 :::
@@ -55,9 +55,9 @@ This text will appear in the exam as well as in the solution ...
 
   Length          Height A        Height B        Class
  --------------  ------------    -------------   --------
-  2.0             2.0             10.0            \x{A}
+  \x{2.0}         \x{2.0}         10.0            \x{A}
   5.0             4.0             40.0            B
-  0.8             \x{0.4}         4.5             C
+  0.8             \x{0.4}         \x{4.5}         \x{C}
   1.4             2.0             15.0            A
 
 Unfortunately, Pandoc still uses `longtable`, which cannot be
