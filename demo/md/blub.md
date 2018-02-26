@@ -1,5 +1,5 @@
 
-\myQuestion[5]{Space for anwers using a fenced div with class "solution"}
+# Space for anwers using a fenced div with class "solution" {punkte=5}
 
 Here goes the question ...
 

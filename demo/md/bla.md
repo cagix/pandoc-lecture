@@ -68,6 +68,5 @@ the solution as parameter/content. This will not be printed in the normal exam :
 :::
 
 
-\clearpage
 
 

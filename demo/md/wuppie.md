@@ -99,7 +99,6 @@ LaTeX table. Make sure to **only** use `ok`/`nok` spans inside the `mc` div! Doi
 otherwise will produce TeX errors ...
 
 
-\clearpage
 
 
 
