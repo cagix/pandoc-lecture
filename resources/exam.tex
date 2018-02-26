@@ -60,18 +60,6 @@
 
 %% TODO remove obsolete definitions, use fenced Divs plus lua filter instead of TeX environments(?) %%%%%%%%%%%%%%%
 %% DEPRECATED -- use exams.lua and fenced divs ... %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newenvironment{streifenSolution}[1][10mm]%
-{
-    \begin{streifenenv}
-    \begin{solution}[#1]
-}
-{
-    \end{solution}
-    \end{streifenenv}
-}
-\newcommand{\solutionbegin}{\begin{streifenSolution}}
-\newcommand{\solutionend}{\end{streifenSolution}}
-
 \newenvironment{streifenMC}[2]
 {
     \begin{streifenenv}
