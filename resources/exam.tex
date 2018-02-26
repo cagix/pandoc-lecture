@@ -56,22 +56,6 @@
 \newcommand{\antwort}{\ifprintanswers \ensuremath{\blacksquare} \else \ensuremath{\Box} \fi}
 \newcommand{\wahr}{\antwort & \ensuremath{\Box} & }
 \newcommand{\falsch}{\ensuremath{\Box} & \antwort & }
-
-
-%% TODO remove obsolete definitions, use fenced Divs plus lua filter instead of TeX environments(?) %%%%%%%%%%%%%%%
-%% DEPRECATED -- use exams.lua and fenced divs ... %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newenvironment{streifenTabular}[1]
-{
-    \begin{streifenenv}
-    \ifprintanswers \renewcommand{\arraystretch}{0.6} \else \renewcommand{\arraystretch}{2.0} \fi
-    \begin{tabular}{#1}
-}
-{
-    \end{tabular}
-    \renewcommand{\arraystretch}{1.0}
-    \end{streifenenv}
-}
-%% DEPRECATED -- use exams.lua and fenced divs ... %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %------------------------------------- Tables (left column gray background) --------------------------------
 
 %------------------------------------- Answers --------------------------------
