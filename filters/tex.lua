@@ -74,5 +74,16 @@ function thema(el)
 end
 
 
-return { { Div = center }, { Span = inlineNotes, Div = blockNotes }, { Span = alert }, { Span = bsp }, { Span = cbox }, { Span = hinweis }, { Span = thema } }
+-- handling of  `[...]{.origin}` for inline images ... (Span class)
+-- allows for some formatting inside the origin/author/license information
+-- should follow the inline image in the same paragraph/line
+function origin(el)
+    if el.classes[1] == "origin" then
+        return insertLatexEnvInline(el.content, "\\colorbox{origin}{\\begin{tiny} ", " \\end{tiny}}")
+    end
+end
+
+
+
+return { { Div = center }, { Span = inlineNotes, Div = blockNotes }, { Span = alert }, { Span = bsp }, { Span = cbox }, { Span = hinweis }, { Span = thema }, { Span = origin } }
 
