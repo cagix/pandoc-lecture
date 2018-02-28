@@ -1,8 +1,8 @@
 
-# Multiple Choice with "streifenMC" environment {punkte=8}
+# Multiple Choice with "mc" div {punkte=8}
 
 Instead of using the TeX notation for starting a question you can use
-a markdown header now. It will be transformed into a exam question. Add
+a markdown header. It will be transformed into a exam question. Add
 the points as attribute `punkte` to the header.
 
 A level 1 header will be translated into a question with an extra
@@ -10,12 +10,12 @@ A level 1 header will be translated into a question with an extra
 
 That is, the following markdown code
 ```markdown
-# Multiple Choice with "streifenMC" environment {punkte=8}
+# Multiple Choice with "mc" div {punkte=8}
 ```
 will be transformed by the `exams.lua` filter into
 ```latex
 \clearpage
-\myQuestion[8]{Multiple Choice with \enquote{streifenMC} environment}
+\myQuestion[8]{Multiple Choice with \enquote{mc} div}
 ```
 
 **Warning**: Don't do any fancy in the header! Results would be unpredictable!
@@ -31,50 +31,17 @@ Here goes the question ...
 ![nice figure](figs/somefig){width=60mm}\
 :::
 
-For multiple choice questions use the `streifenMC` environment, which is a
-customized LaTeX table with a gray bar on the left side. The parameters are
-the column headers for correct and wrong answers/choices.
+For multiple choice questions use a `mc` div, which will be transformed by
+the `exams.lua` filter into a customized LaTeX table with a blue/gray bar
+on the left side. The parameters are the column headers for correct and wrong
+answers/choices.
 
-Each line constitutes a possible answer and needs to be ended with "`\\\\`"
-(remember, it is just a customized LaTeX table).
+Each line constitutes a possible answer. Use a span with class `ok` for
+correct answers and a span with class `nok` for wrong answers. The content
+will not appear in the normal exam version. In the sample solution, all
+correct answers are marked.
 
-Correct answers must be started with `\wahr`, whereas wrong answers start
-with `\falsch`. This will not appear in the normal exam version. In the sample
-solution, all correct answers are marked.
-
-```latex
-\begin{streifenMC}{correct}{wrOng}
-    \falsch \ldots blablabla. \\[5pt]
-    \wahr \ldots wuppie :) \\[5pt]
-    \falsch \ldots fluppie. \\[5pt]
-    \falsch \ldots foobar.
-\end{streifenMC}
-\x{je 0.5P (2P)}
-```
-
-
-
-\Fortsetzung
-\clearpage
-
-
-
-Since this is a LaTeX environment, we cannot use Markdown in here ...
-
-
-\begin{streifenMC}{correct}{wrOng}
-    \falsch \ldots blablabla. \\[5pt]
-    \wahr \ldots wuppie :) \\[5pt]
-    \falsch \ldots fluppie. \\[5pt]
-    \falsch \ldots foobar.
-\end{streifenMC}
-\x{je 0.5P (2P)}
-
-
-
-### Fenced div with class "mc" {.unnumbered}
-
-The same as above can be done now using a fenced div of class `mc`:
+(Keep in mind, in the end it is just a customized LaTeX table).
 
 ```markdown
 ::: {.mc ok="CorrecT" nok="wrOng" points="**je 0.5P** (*Summe 2P*)"}
@@ -99,7 +66,8 @@ LaTeX table. Make sure to **only** use `ok`/`nok` spans inside the `mc` div! Doi
 otherwise will produce TeX errors ...
 
 
-\clearpage
+
+
 
 
 
