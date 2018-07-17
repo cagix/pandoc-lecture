@@ -49,7 +49,7 @@ BEAMEROPTIONS += $(OPTIONS)
 HTMLOPTIONS    = -t html
 HTMLOPTIONS   += --default-image-extension=png
 HTMLOPTIONS   += --standalone --self-contained
-HTMLOPTIONS   += --toc --toc-depth=1
+HTMLOPTIONS   += --toc --toc-depth=2
 HTMLOPTIONS   += --strip-comments
 HTMLOPTIONS   += --lua-filter=${FILTERDIR}/html.lua
 HTMLOPTIONS   += --css=${RESOURCEDIR}/html.css
