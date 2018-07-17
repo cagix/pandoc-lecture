@@ -3,6 +3,7 @@
 subtitle: "Modulenumber Moduletitle, Year"
 author: "Author, Institute"
 lang: de-DE
+bibliography: demo.bib
 
 # additional entries for exams
 LVKURZ: "Modulenumber ModuleSHORT, Year"
