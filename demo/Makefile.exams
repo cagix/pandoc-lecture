@@ -11,7 +11,7 @@ FILTERDIR    = $(DATADIR)/filters
 RESOURCEDIR  = $(DATADIR)/resources
 RESOURCEPATH = .:./figs:$(DATADIR)
 
-PANDOC       = pandoc-2.1.1
+PANDOC       = pandoc-2.2.2
 
 
 
