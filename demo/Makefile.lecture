@@ -59,6 +59,7 @@ HTMLOPTIONS   += --include-in-header=${RESOURCEDIR}/mathjaxurl.html
 # use MathJax; URL points to blank dummy document to prevent incorporating MathJax into the generated HTML document when using --self-contained
 HTMLOPTIONS   += --mathjax=${RESOURCEDIR}/dummy.js
 HTMLOPTIONS   += --filter pandoc-citeproc
+HTMLOPTIONS   += --lua-filter=${FILTERDIR}/fhbib.lua
 HTMLOPTIONS   += $(OPTIONS)
 
 
