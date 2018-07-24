@@ -71,6 +71,7 @@ end
 -- strip scaling information from images attrs
 -- explicit scaling in markdown is used for beamer slides (pdf)
 -- for more predictable results in html we use manually scaled png images
+-- strip also "width" from Div (div.column) to avoid column overlap on small screens
 function stripImageAttrs(el)
     stripAttr(el.attr.attributes, "scale")
     stripAttr(el.attr.attributes, "width")
@@ -80,5 +81,5 @@ function stripImageAttrs(el)
 end
 
 
-return { { RawInline = blueArrowInline, RawBlock = blueArrowBlock }, { Span = inlineNotes, Div = blockNotes }, { Span = inlineSlides, Div = blockSlides }, { Image = stripImageAttrs } }
+return { { RawInline = blueArrowInline, RawBlock = blueArrowBlock }, { Span = inlineNotes, Div = blockNotes }, { Span = inlineSlides, Div = blockSlides }, { Div = stripImageAttrs, Image = stripImageAttrs } }
 
