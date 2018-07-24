@@ -5,18 +5,62 @@ License: MIT
 */
 
 
+/* Screen: body and toc */
 body {
     font-size: small;
     font-family: Optima, Arial, Helvetica, sans-serif;
-    margin: 0px; padding: 0px;
+    max-width: 800px;
+    margin: auto;
+    margin-left: 210px;
+    padding: 1em;
 }
-@media (min-width: 1024px) {
-body {
-    width: 800px; margin: 20px auto
+#TOC {
+    background-color: rgba(64, 112, 160, 0.1);
+    padding: 1em;
+    padding-left: 0em;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 180px;
+    height: 100%;
+    overflow: auto;
 }
+div.column {
+    /* Pandoc uses "top", no option/attribute so far supported to change this */
+    vertical-align: middle;
 }
 
+/* Small screen: just body, toc at top */
+@media screen and (max-width: 1024px) {
+    body {
+        margin-left: initial;
+    }
+    #TOC {
+        position: initial;
+        left: initial;
+        top: initial;
+        width: initial;
+        height: initial;
+        overflow: initial;
+    }
+    /* allow columns to re-align */
+    div.column {
+        width: initial;
+    }
+}
 
+/* Print: just max-width body, no toc */
+@media print {
+    body {
+        max-width: initial;
+        margin-left: initial;
+    }
+    #TOC {
+        display: none;
+    }
+}
+
+/* Headers: Use some nice settings */
 code { font-family: monospace; }
 
 h1 {
@@ -80,13 +124,8 @@ a {
     color: #000000;
     text-align: left;
 }
-#TOC {
-    background-color: rgba(64, 112, 160, 0.1);
-    padding: 10px 30px;
-    text-align: left
-}
 
-/* definitions to match corresponding TeX macros and LUA filters */
+/* Definitions to match corresponding TeX macros and LUA filters */
 .center {
     align-content: center;
     text-align: center;
@@ -117,6 +156,4 @@ a {
     background-color: #ededed;
     font-size: 0.8em;
 }
-
-
 
