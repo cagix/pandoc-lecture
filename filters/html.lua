@@ -44,6 +44,23 @@ function blockSlides(el)
 end
 
 
+-- remove inline notes span, return content: `[...]{.notes}` ... (Span class)
+-- rationale: w/o this filter content would appear in generated html but not in toc
+function inlineNotes(el)
+    if el.classes[1] == "notes" then
+        return el.content
+    end
+end
+
+-- remove block notes div, return content: `::: notes ... :::` ... (Div class)
+-- rationale: w/o this filter content would appear in generated html but not in toc
+function blockNotes(el)
+    if el.classes[1] == "notes" then
+        return el.content
+    end
+end
+
+
 -- helper function to remove key from table (if existing)
 local function stripAttr(table, attr)
     if table[attr] then
@@ -63,5 +80,5 @@ function stripImageAttrs(el)
 end
 
 
-return { { RawInline = blueArrowInline, RawBlock = blueArrowBlock }, { Span = inlineSlides, Div = blockSlides }, { Image = stripImageAttrs } }
+return { { RawInline = blueArrowInline, RawBlock = blueArrowBlock }, { Span = inlineNotes, Div = blockNotes }, { Span = inlineSlides, Div = blockSlides }, { Image = stripImageAttrs } }
 
