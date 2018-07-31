@@ -14,38 +14,83 @@ body {
     margin-left: 240px;
     padding: 1em;
 }
-#TOC {
-    background-color: rgba(64, 112, 160, 0.1);
-    padding: 1em;
-    padding-left: 0em;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 220px;
-    height: 100%;
-    overflow: auto;
-}
 div.column {
     /* Pandoc uses "top", no option/attribute so far supported to change this */
     vertical-align: middle;
 }
+
+#TOC {
+    background-color: #dbe4ed;
+    padding: 1em;
+    padding-left: 0em;
+    left: 0;
+    top: 0;
+    width: 220px;
+    height: 100%;
+    position: fixed;
+    overflow: auto;
+}
+#TOC ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#TOC ul li {
+    display: block;
+    padding: 2px 10px;
+}
+#TOC ul li a {
+    color: #000;
+    text-decoration: none;
+}
+#TOC ul li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+
+#TOC ul li ul {
+    display: none;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+#TOC ul li:hover ul {
+    display: block;
+}
+#TOC ul li ul li a {
+    width: 100%;
+}
+#TOC ul li ul li a:hover {background-color: #a1a1a1}
 
 /* Small screen: just body, toc at top */
 @media screen and (max-width: 1024px) {
     body {
         margin-left: initial;
     }
-    #TOC {
-        position: initial;
-        left: initial;
-        top: initial;
-        width: initial;
-        height: initial;
-        overflow: initial;
-    }
     /* allow columns to re-align */
     div.column {
         width: initial;
+    }
+    #TOC {
+        width: auto;
+        height: auto;
+        position: sticky;
+        position: -webkit-sticky; /* Safari */
+    }
+    #TOC ul li {
+        float: left;
+    }
+    #TOC ul li ul li {
+        float: none;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #TOC ul li {
+        text-align: center;
+        float: none;
     }
 }
 
