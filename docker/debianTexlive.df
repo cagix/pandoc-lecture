@@ -1,0 +1,22 @@
+FROM debian:stretch-slim
+
+# https://www.debian.org/distrib/packages
+RUN apt-get update && apt-get install -y --no-install-recommends         \
+        apt-utils bash wget make graphviz pdftk biber                    \
+        texlive-base texlive-latex-base                                  \
+        texlive-latex-recommended texlive-latex-extra                    \
+        texlive-science texlive-pictures                                 \
+        texlive-bibtex-extra texlive-lang-english texlive-lang-german    \
+        texlive-font-utils texlive-fonts-recommended                     \
+        fontconfig lmodern ghostscript gsfonts                           \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# https://github.com/jgm/pandoc/releases/latest
+RUN wget https://github.com/jgm/pandoc/releases/download/2.2.3/pandoc-2.2.3-1-amd64.deb && \
+    dpkg -i pandoc* &&                                                                     \
+    rm pandoc* &&                                                                          \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Working directory
+WORKDIR /pandoc
+
