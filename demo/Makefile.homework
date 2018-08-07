@@ -11,7 +11,7 @@ FILTERDIR    = $(DATADIR)/filters
 RESOURCEDIR  = $(DATADIR)/resources
 RESOURCEPATH = .:./figs:$(DATADIR)
 
-#PANDOC       = pandoc-2.2.2
+#PANDOC       = pandoc-2.2.3
 PANDOC       = docker run --rm -v $(shell pwd):/pandoc debian-texlive pandoc
 
 
