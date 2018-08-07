@@ -15,10 +15,12 @@ end
 
 -- check `points` field in global metadata
 function checkPoints(meta)
-    if meta["points"] or points > 0 then
-        if tonumber(meta["points"]) ~= points then
+    if meta.points or points > 0 then
+        -- meta.points is either nil, MetaString or MetaInlines
+        local mpts = (type(meta.points) == "table" and pandoc.utils.stringify(meta.points)) or meta.points or "NO"
+        if tonumber(mpts) ~= points then
             -- check expectation and real value
-            io.stderr:write("\n\n" .. "Expected " .. (meta["points"] or "NO") .. " points.\n")
+            io.stderr:write("\n\n" .. "Expected " .. mpts .. " points.\n")
             io.stderr:write("Found " .. points .. " points!" .. '\n\n\n')
         end
     end
