@@ -12,9 +12,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends         \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # https://github.com/jgm/pandoc/releases/latest
-RUN wget https://github.com/jgm/pandoc/releases/download/2.2.3/pandoc-2.2.3-1-amd64.deb && \
-    dpkg -i pandoc* &&                                                                     \
-    rm pandoc* &&                                                                          \
+RUN wget https://github.com/jgm/pandoc/releases/download/2.2.3.2/pandoc-2.2.3.2-1-amd64.deb && \
+    dpkg -i pandoc* &&                                                                         \
+    rm pandoc* &&                                                                              \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Working directory
