@@ -175,21 +175,21 @@ Installing and running
 
     *   [git](https://git-scm.com/)
     *   [make](https://www.gnu.org/software/make/)
-    
-    a)  Either install the following programs and packages:
-        *   [pandoc](http://pandoc.org/installing.html) 2.2.3 (or newer)
-        *   [TeX Live](http://www.tug.org/texlive/)
-        *   [beamer class](https://www.ctan.org/pkg/beamer) (slides only)
-        *   [beamer theme: Metropolis](https://github.com/matze/mtheme) (for building the examples)
-        *   [exam class](https://www.ctan.org/pkg/exam) (exams only)
-    
-    b)  Or use the dockerfile contained in the `docker/` subdirectory to
-        create a docker image, which should contain the tools and tex packages
-        mentioned in (a) ... (about 800 MiB)
-    
-2.  Create a working directory for your project and change into it.
 
-3.  Clone this repo using `git clone https://github.com/cagix/pandoc-lecture lecture`
+2.  Either install also the following programs and packages:
+
+    *   [pandoc](http://pandoc.org/installing.html) 2.2.3 (or newer)
+    *   [TeX Live](http://www.tug.org/texlive/)
+    *   [beamer class](https://www.ctan.org/pkg/beamer) (slides only)
+    *   [beamer theme: Metropolis](https://github.com/matze/mtheme) (for building the examples)
+    *   [exam class](https://www.ctan.org/pkg/exam) (exams only)
+    
+    Or use the dockerfile contained in the `docker/` subdirectory to create a docker image,
+    which should contain all the tools and tex packages mentioned above ... (about 800 MiB)
+    
+3.  Create a working directory for your project and change into it.
+
+4.  Clone this repo using `git clone https://github.com/cagix/pandoc-lecture lecture`
     (or add it as git submodule to your project).
 
 5.  Change to the `lecture/` directory. Adapt the `DATADIR` variable in the
