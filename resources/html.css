@@ -144,6 +144,18 @@ a {
     color: #4070a0;
 }
 
+/* nicer tables */
+th {
+    background-color: #555;
+    color: white;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+tr:hover {background-color: #ddd;}
+tr {vertical-align: top;}
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+
 /* Pandoc: title information */
 .title {
     font-size: 2.0em;
