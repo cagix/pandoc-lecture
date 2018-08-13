@@ -198,6 +198,7 @@ th, td {
     border-style: solid;
     border-color: #ddd;
     background-color: #ddd;
+    border-radius: 25px;
 }
 .cbox {
     padding: 0.2cm;
