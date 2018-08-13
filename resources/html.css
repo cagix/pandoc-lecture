@@ -208,6 +208,10 @@ th, td {
     border-color: #4070a0;
     background-color: #f2f2f2;
 }
+.cboxbox {
+    display: block;
+    text-align: center;
+}
 .blueArrow {
     color: #4070a0;
     font-family: monospace;
