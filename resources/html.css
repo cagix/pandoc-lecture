@@ -144,6 +144,18 @@ a {
     color: #4070a0;
 }
 
+/* nicer tables */
+th {
+    background-color: #555;
+    color: white;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+tr:hover {background-color: #ddd;}
+tr {vertical-align: top;}
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+
 /* Pandoc: title information */
 .title {
     font-size: 2.0em;
@@ -184,13 +196,21 @@ a {
     padding: 0.05cm;
     border-width: 0.05cm;
     border-style: solid;
-    border-color: #4070a0;
+    border-color: #ddd;
+    background-color: #ddd;
+    border-radius: 25px;
+    float: right;
 }
 .cbox {
     padding: 0.2cm;
     border-width: 0.1cm;
     border-style: solid;
     border-color: #4070a0;
+    background-color: #f2f2f2;
+}
+.cboxbox {
+    display: block;
+    text-align: center;
 }
 .blueArrow {
     color: #4070a0;
