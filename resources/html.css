@@ -29,6 +29,7 @@ div.column {
     height: 100%;
     position: fixed;
     overflow: auto;
+    z-index: 999999;
 }
 #TOC ul {
     list-style-type: none;
