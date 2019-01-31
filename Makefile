@@ -6,7 +6,7 @@
 
 # set to appropriate Pandoc version, or
 # delete line to use docker image
-PANDOC = pandoc-2.5
+PANDOC = pandoc-2.6
 .EXPORT_ALL_VARIABLES: # make variables available in sub-makefiles
 
 
