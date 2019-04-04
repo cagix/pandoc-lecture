@@ -41,6 +41,7 @@ BEAMEROPTIONS += --default-image-extension=pdf
 BEAMEROPTIONS += -V theme:metropolis
 BEAMEROPTIONS += -V themeoptions:numbering=none -V themeoptions:progressbar=foot
 BEAMEROPTIONS += -V fontsize=smaller
+BEAMEROPTIONS += --strip-comments
 BEAMEROPTIONS += --slide-level=2
 BEAMEROPTIONS += --lua-filter=${FILTERDIR}/tex.lua
 BEAMEROPTIONS += --include-in-header=${RESOURCEDIR}/definitions.tex
