@@ -1,7 +1,3 @@
--- Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
--- Copyright: (c) 2018 Carsten Gips
--- License: MIT
-
 
 -- helper function to create span for blue arrows
 local function blueArrow()

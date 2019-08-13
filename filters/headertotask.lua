@@ -1,7 +1,3 @@
--- Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
--- Copyright: (c) 2018 Carsten Gips
--- License: MIT
-
 
 -- add some TeX code to headers with `{punkte=42}`
 function extendHeaders(el)

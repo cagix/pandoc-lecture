@@ -1,9 +1,3 @@
-<!--
-Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
-Copyright: (c) 2016-2018 Carsten Gips
-License: MIT
--->
-
 ---
 title: "Evaluation"
 ...

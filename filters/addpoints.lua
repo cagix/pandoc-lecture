@@ -1,7 +1,3 @@
--- Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
--- Copyright: (c) 2018 Carsten Gips
--- License: MIT
-
 
 -- count of all points
 points = 0

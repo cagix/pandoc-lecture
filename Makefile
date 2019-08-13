@@ -1,8 +1,3 @@
-# Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
-# Copyright: (c) 2018 Carsten Gips
-# License: MIT
-
-
 
 # set to appropriate Pandoc version, or
 # delete line to use docker image

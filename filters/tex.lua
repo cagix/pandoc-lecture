@@ -1,7 +1,3 @@
--- Author: Carsten Gips <carsten.gips@fh-bielefeld.de>
--- Copyright: (c) 2018 Carsten Gips
--- License: MIT
-
 
 -- helper function to insert two string as RawInline into a table
 local function insertLatexEnvInline(tab, strBegin, strEnd)
