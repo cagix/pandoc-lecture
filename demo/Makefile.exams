@@ -12,7 +12,7 @@ PANDOC      ?= docker run --rm -v $(PWD):/pandoc -v $(PWD)/$(FILTERDIR):/filters
 
 
 # Files as defined in Excel sheet
-XLS    = bla.md blub.md wuppie.md fluppie.md
+XLS    = bla.md blub.md wuppie.md fluppie.md foo.md
 
 SRC    = $(addprefix md/, $(XLS))
 
@@ -61,7 +61,3 @@ clean:
 
 
 .PHONY: all clean
-
-
-
-
