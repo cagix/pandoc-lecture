@@ -93,27 +93,28 @@ function solution(el)
 end
 
 
--- handling of  `[...]{.ok}` and `[...]{.nok}` inside a `mc` Div ... (Span class)
-local function mcquestion(el)
-    local function createrow(cont, str)
-        -- `cont` is a list of inlines
-        table.insert(cont, 1, pandoc.RawInline("latex", str))
-        table.insert(cont, pandoc.RawInline("latex", " \\\\[5pt] \n"))
-    end
+-- handling of  `[...]{.ok}` and `[...]{.nok}` inside `mc` and `choices` Div's ... (Span class)
+local function mcquestion(ok, nok, row)
+    return function(el)
+        local function createrow(cont, str)
+            -- `cont` is a list of inlines
+            table.insert(cont, 1, pandoc.RawInline("latex", str))
+            if row then table.insert(cont, pandoc.RawInline("latex", " \\\\[5pt] \n")) end
+        end
 
-    -- handle class `ok`
-    if el.classes[1] == "ok" then
-        createrow(el.content, "\\wahr ")
-    end
+        -- handle class `ok`
+        if el.classes[1] == "ok" or el.classes[1] == "CorrectChoice" then
+            createrow(el.content, ok)
+        end
 
-    -- handle class `nok`
-    if el.classes[1] == "nok" then
-        createrow(el.content, "\\falsch ")
-    end
+        -- handle class `nok`
+        if el.classes[1] == "nok" or el.classes[1] == "choice" then
+            createrow(el.content, nok)
+        end
 
-    return el.content
+        return el.content
+    end
 end
-
 
 -- handling of `::: {.mc ok="correct" nok="wrong" points="each 0.5P"} ... :::` ... (Div class)
 function multiplechoice(el)
@@ -128,7 +129,8 @@ function multiplechoice(el)
         table.insert(tabular, pandoc.RawBlock("latex", "\\textbf{" .. ok .. "} & \\textbf{" .. nok .. "} \\\\"))
 
         -- transform entries to multiple choice questions
-        table.insert(tabular, pandoc.walk_block(el, { Span = mcquestion }))
+        local mc = mcquestion("\\wahr ", "\\falsch ", true)
+        table.insert(tabular, pandoc.walk_block(el, { Span = mc }))
 
         -- close mc-tabular
         table.insert(tabular, pandoc.RawBlock("latex", "\\end{tabular}"))
@@ -147,6 +149,29 @@ function multiplechoice(el)
 end
 
 
+-- handling of `::: choices ... :::` and friends... (Div class)
+function choices(el)
+    if el.classes[1] == "choices" or
+            el.classes[1] == "oneparchoices" or
+            el.classes[1] == "checkboxes" or
+            el.classes[1] == "oneparcheckboxes" then
+
+        -- start of environment
+        local tabular = { pandoc.RawBlock("latex", "\\begin{streifenenv}"), pandoc.RawBlock("latex", "\\begin{" .. el.classes[1] .. "}") }
+
+        -- transform entries to multiple choice questions
+        local mc = mcquestion("\\CorrectChoice ", "\\choice ", false)
+        table.insert(tabular, pandoc.walk_block(el, { Span = mc }))
+
+        -- end of environment
+        table.insert(tabular, pandoc.RawBlock("latex", "\\end{" .. el.classes[1] .. "}"))
+        table.insert(tabular, pandoc.RawBlock("latex", "\\end{streifenenv}"))
+
+        return tabular
+    end
+end
+
+
 -- handling of  `[...]{.answer}` ... (Span class)
 function answer(el)
     if el.classes[1] == "answer" then
@@ -158,5 +183,4 @@ function answer(el)
 end
 
 
-return { { Header = headerToQuestion }, { Div = solution }, { Div = multiplechoice }, { Span = answer } }
-
+return { { Header = headerToQuestion }, { Div = solution }, { Div = multiplechoice }, { Div = choices }, { Span = answer } }
