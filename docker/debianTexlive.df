@@ -1,8 +1,7 @@
-FROM debian:testing-slim
+FROM debian:stable-slim
 
 # https://www.debian.org/distrib/packages
-RUN apt-get update -qq && apt-get upgrade -qq &&                        \
-        apt-get install -y --no-install-recommends                      \
+RUN apt-get update && apt-get install -y --no-install-recommends        \
         apt-utils bash wget make graphviz biber                         \
         texlive-base texlive-latex-base                                 \
         texlive-latex-recommended texlive-latex-extra                   \
