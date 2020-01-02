@@ -178,7 +178,7 @@ Installing and running
 
 2.  Either install also the following programs and packages:
 
-    *   [pandoc](http://pandoc.org/installing.html) 2.2.3 (or newer)
+    *   [pandoc](http://pandoc.org/installing.html) 2.9.1 (or newer)
     *   [TeX Live](http://www.tug.org/texlive/)
     *   [beamer class](https://www.ctan.org/pkg/beamer) (slides only)
     *   [beamer theme: Metropolis](https://github.com/matze/mtheme) (for building the examples)
@@ -208,7 +208,7 @@ Installing and running
 Notes and Versions
 ------------------
 
-This project is supposed to be used with Pandoc 2.2.3 or later.
+This project is supposed to be used with Pandoc 2.9.1 or later.
 
 
 ---

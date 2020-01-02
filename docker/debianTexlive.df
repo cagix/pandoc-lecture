@@ -13,11 +13,10 @@ RUN apt-get update -qq && apt-get upgrade -qq &&                        \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # https://github.com/jgm/pandoc/releases/latest
-RUN wget https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-1-amd64.deb &&      \
+RUN wget https://github.com/jgm/pandoc/releases/download/2.9.1/pandoc-2.9.1-1-amd64.deb &&      \
         dpkg -i pandoc* &&                                                                      \
         rm pandoc* &&                                                                           \
         apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Working directory
 WORKDIR /pandoc
-
