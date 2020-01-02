@@ -15,6 +15,7 @@ PANDOC      ?= docker run --rm -v $(PWD):/pandoc -v $(PWD)/$(FILTERDIR):/filters
 XLS    = bla.md blub.md wuppie.md fluppie.md foo.md
 
 SRC    = $(addprefix md/, $(XLS))
+META   = metadata.yaml
 
 PDF    = exam.pdf solution.pdf
 TMP1   = __header.filled.tex
@@ -25,6 +26,7 @@ TMP2   = __titlepage.filled.tex
 ## Exam options
 
 PDFOPTIONS  = -f markdown
+PDFOPTIONS += --metadata-file=$(META)
 PDFOPTIONS += --pdf-engine=pdflatex
 PDFOPTIONS += --default-image-extension=pdf
 PDFOPTIONS += -V documentclass=exam
@@ -49,10 +51,10 @@ PDFOPTIONS += --resource-path=${RESOURCEPATH}
 all:	$(PDF)
 
 solution.pdf: PDFOPTIONS += -V classoption=answers
-exam.pdf solution.pdf: metadata.yaml $(SRC)
-	$(PANDOC) --wrap=preserve --template=${RESOURCEDIR}/exam.tex -o ${TMP1} $<
-	$(PANDOC) --wrap=preserve --template=${RESOURCEDIR}/exam_begin.tex -o ${TMP2} $<
-	$(PANDOC) ${PDFOPTIONS} --include-in-header=${TMP1} --include-before-body=${TMP2} -o $@ $^
+exam.pdf solution.pdf: $(META) $(SRC)
+	$(PANDOC) --wrap=preserve --template=${RESOURCEDIR}/exam.tex --metadata-file=$(META) -o ${TMP1} -f markdown $(META)
+	$(PANDOC) --wrap=preserve --template=${RESOURCEDIR}/exam_begin.tex --metadata-file=$(META) -o ${TMP2} -f markdown $(META)
+	$(PANDOC) ${PDFOPTIONS} --include-in-header=${TMP1} --include-before-body=${TMP2} -o $@ $(SRC)
 	rm -f ${TMP1} ${TMP2}
 
 

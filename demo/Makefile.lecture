@@ -16,6 +16,7 @@ PANDOC      ?= docker run --rm -v $(PWD):/pandoc -v $(PWD)/$(FILTERDIR):/filters
 
 SRC         ?= $(wildcard vl*.md)
 ID          ?= pm
+META         = metadata.yaml
 
 SLIDES       = $(SRC:%.md=${ID}_%.pdf)
 HTML         = $(SRC:%.md=${ID}_%.html)
@@ -27,6 +28,7 @@ TARGETDIR    = ../distr/
 ## Lecture options
 
 OPTIONS        = -f markdown
+OPTIONS       += --metadata-file=$(META)
 OPTIONS       += --data-dir=${DATADIR}
 OPTIONS       += --resource-path=${RESOURCEPATH}
 
@@ -70,11 +72,11 @@ all: $(SLIDES) $(HTML)
 
 $(SRC:.md=): %: ${ID}_%.pdf ${ID}_%.html
 
-${ID}_%.pdf: %.md metadata.yaml
-	$(PANDOC) ${BEAMEROPTIONS} -o $@ $^
+${ID}_%.pdf: %.md $(META)
+	$(PANDOC) ${BEAMEROPTIONS} -o $@ $<
 
-${ID}_%.html: %.md metadata.yaml
-	$(PANDOC) ${HTMLOPTIONS} -o $@ $^
+${ID}_%.html: %.md $(META)
+	$(PANDOC) ${HTMLOPTIONS} -o $@ $<
 
 
 install: $(TARGETDIR) $(SLIDES) $(HTML)

@@ -41,5 +41,3 @@ demo-clean:
 	cd demo && make -f Makefile.lecture  clean
 	cd demo && make -f Makefile.homework clean
 	cd demo && make -f Makefile.exams    clean
-
-
