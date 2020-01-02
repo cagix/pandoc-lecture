@@ -183,10 +183,10 @@ Installing and running
     *   [beamer class](https://www.ctan.org/pkg/beamer) (slides only)
     *   [beamer theme: Metropolis](https://github.com/matze/mtheme) (for building the examples)
     *   [exam class](https://www.ctan.org/pkg/exam) (exams only)
-    
+
     Or use the dockerfile contained in the `docker/` subdirectory to create a docker image,
     which should contain all the tools and tex packages mentioned above ... (about 800 MiB)
-    
+
 3.  Create a working directory for your project and change into it.
 
 4.  Clone this repo using `git clone https://github.com/cagix/pandoc-lecture lecture`
@@ -216,8 +216,6 @@ This project is supposed to be used with Pandoc 2.2.3 or later.
 License
 -------
 
-Copyright (c) 2016-2019, Carsten Gips
+Copyright (c) 2016-2020, Carsten Gips
 
-[MIT licensed](http://opensource.org/licenses/MIT)
-
-
+[MIT licensed](https://opensource.org/licenses/MIT)
