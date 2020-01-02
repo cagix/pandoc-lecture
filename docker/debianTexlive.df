@@ -1,21 +1,38 @@
 FROM debian:stable-slim
 
-# https://www.debian.org/distrib/packages
-RUN apt-get update && apt-get install -y --no-install-recommends        \
-        apt-utils bash wget make graphviz biber                         \
-        texlive-base texlive-latex-base                                 \
-        texlive-latex-recommended texlive-latex-extra                   \
-        texlive-science texlive-pictures                                \
-        texlive-bibtex-extra texlive-lang-english texlive-lang-german   \
-        texlive-font-utils texlive-fonts-recommended                    \
-        fontconfig lmodern ghostscript gsfonts                          \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+# On Linux: replace with your actual UID/GID (if not the default 1000)
+ARG USERNAME=pandocthesis
+ARG USER_UID=1000
+ARG USER_GID=1000
 
-# https://github.com/jgm/pandoc/releases/latest
-RUN wget https://github.com/jgm/pandoc/releases/download/2.9.1/pandoc-2.9.1-1-amd64.deb &&      \
-        dpkg -i pandoc* &&                                                                      \
-        rm pandoc* &&                                                                           \
-        apt-get clean && rm -rf /var/lib/apt/lists/*
+# Pandoc binary as .deb -- see https://github.com/jgm/pandoc/releases/latest
+ARG PANDOCDEB=https://github.com/jgm/pandoc/releases/download/2.9.1/pandoc-2.9.1-1-amd64.deb
 
-# Working directory
+# Install everything
+RUN apt-get update                                                          \
+    #
+    # Packages: TeX-Live and fonts
+    && apt-get install -y --no-install-recommends                           \
+        apt-utils bash wget make graphviz biber                             \
+        texlive-base texlive-latex-base                                     \
+        texlive-latex-recommended texlive-latex-extra                       \
+        texlive-science texlive-pictures                                    \
+        texlive-bibtex-extra texlive-lang-english texlive-lang-german       \
+        texlive-font-utils texlive-fonts-recommended                        \
+        fontconfig lmodern ghostscript gsfonts cm-super                     \
+    #
+    # Pandoc
+    && wget $PANDOCDEB && dpkg -i pandoc* && rm pandoc*                     \
+    #
+    # Create a non-root user to use
+    && groupadd --gid $USER_GID $USERNAME                                   \
+    && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME    \
+    #
+    # Clean-Up
+    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
 WORKDIR /pandoc
+
+# Set default (non-root) user -- see https://aka.ms/vscode-remote/containers/non-root-user
+USER $USERNAME
