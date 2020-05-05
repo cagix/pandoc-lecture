@@ -1,0 +1,9 @@
+## Homework options (questions)
+
+metadata-file: metadata.yaml
+
+template: resources/evaluation.md
+wrap: preserve
+
+filters:
+- questions.lua

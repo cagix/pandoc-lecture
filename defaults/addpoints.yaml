@@ -1,0 +1,9 @@
+## Homework options (add points)
+
+metadata-file: metadata.yaml
+
+template: resources/homework.tex
+wrap: preserve
+
+filters:
+- addpoints.lua

@@ -1,0 +1,35 @@
+## Homework options (pdf)
+
+from: markdown
+to: pdf
+
+metadata-file: metadata.yaml
+
+default-image-extension: '.pdf'
+strip-comments: true
+number-sections: true
+wrap: preserve
+
+pdf-engine: pdflatex
+pdf-engine-opt: '-shell-escape'
+variables:
+  documentclass: scrartcl
+  papersize: a4
+  fontsize: 10pt
+  geometry:
+    - left=1.6cm
+    - right=1.6cm
+    - top=2cm
+    - bottom=1.6cm
+  colorlinks: true
+  linkcolor: headcolor
+  citecolor: headcolor
+  urlcolor: headcolor
+
+include-in-header:
+- resources/definitions.tex
+- resources/definitions_obsolete.tex
+
+filters:
+- headertotask.lua
+- tex.lua

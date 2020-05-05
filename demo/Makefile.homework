@@ -14,76 +14,44 @@ PANDOC      ?= docker run --rm -v $(WORKDIR):/pandoc debian-texlive pandoc
 
 
 ## Data-Dir: Path to the workingcopy of this repository (to be used as git sub-module)
-
-DATADIR      = ..
-FILTERDIR    = $(DATADIR)/filters
-RESOURCEDIR  = $(DATADIR)/resources
-RESOURCEPATH = .:./figs:$(DATADIR)
+DATADIR = ..
+RESDIR  = ".:figs:$(DATADIR)"
 
 
 
-## Source file and lecture prefix
-## either defined here (all files) or given at cmd line like `make SRC=b01.md`
-
-SRC         ?= $(wildcard b*.md)
-ID          ?= pm
-META         = metadata.yaml
-
-PDF          = $(SRC:%.md=${ID}_%.pdf)
-EVAL         = $(SRC:%.md=${ID}_%_eval.pdf)
-TMP1         = __titlepage.filled.tex
-TMP2         = __questions.filled.md
-
-
-
-## Homework options
-
-OPTIONS      = -f markdown
-OPTIONS     += --metadata-file=$(META)
-OPTIONS     += --pdf-engine=pdflatex
-OPTIONS     += --default-image-extension=pdf
-OPTIONS     += -V documentclass=scrartcl
-OPTIONS     += -V papersize=a4
-# use same color for URLs as for headers
-OPTIONS     += -V colorlinks -V linkcolor=headcolor -V citecolor=headcolor -V urlcolor=headcolor
-OPTIONS     += --number-sections
-OPTIONS     += --include-in-header=${RESOURCEDIR}/definitions.tex
-OPTIONS     += --include-in-header=${RESOURCEDIR}/definitions_obsolete.tex
-OPTIONS     += --data-dir=${DATADIR}
-OPTIONS     += --resource-path=${RESOURCEPATH}
-
-PDFOPTIONS   = -V fontsize=10pt
-PDFOPTIONS  += -V geometry:left=1.6cm -V geometry:right=1.6cm -V geometry:top=2cm -V geometry:bottom=1.6cm
-PDFOPTIONS  += --lua-filter=${FILTERDIR}/headertotask.lua
-PDFOPTIONS  += --lua-filter=${FILTERDIR}/tex.lua
-PDFOPTIONS  += $(OPTIONS)
-
-EVALOPTIONS  = -V fontsize=9pt
-EVALOPTIONS += -V geometry:left=1cm -V geometry:right=1cm -V geometry:top=1.5cm -V geometry:bottom=1.5cm
-EVALOPTIONS += $(OPTIONS)
+## Source files, path prefix to sources, and lecture prefix
+## either defined here (all files) or given at cmd line like `make b02`
+MD      = .
+SRC     = $(patsubst $(MD)/%.md,%,$(wildcard $(MD)/*.md))
+ID      = pm
 
 
 
 ## Targets
 
-all: $(PDF) $(EVAL)
+all: $(SRC)
 
-$(SRC:.md=): %: ${ID}_%.pdf ${ID}_%_eval.pdf
+$(SRC): %: $(ID)_%.pdf $(ID)_%_eval.pdf
 
-${ID}_%.pdf: %.md $(META)
-	$(PANDOC) --lua-filter=${FILTERDIR}/addpoints.lua --wrap=preserve --template=${RESOURCEDIR}/homework.tex --metadata-file=$(META) -o ${TMP1} $<
-	$(PANDOC) ${PDFOPTIONS} --include-in-header=${TMP1} -o $@ $<
-	rm -f ${TMP1}
+PDF  = $(SRC:%=${ID}_%.pdf)
+EVAL = $(SRC:%=${ID}_%_eval.pdf)
+TMP1 = __titlepage.filled.tex
+TMP2 = __questions.filled.md
 
-${ID}_%_eval.pdf: %.md $(META)
-	$(PANDOC) --lua-filter=${FILTERDIR}/addpoints.lua --wrap=preserve --template=${RESOURCEDIR}/homework.tex --metadata-file=$(META) -o ${TMP1} $<
-	$(PANDOC) --lua-filter=${FILTERDIR}/questions.lua --wrap=preserve --template=${RESOURCEDIR}/evaluation.md --metadata-file=$(META) -o ${TMP2} $<
-	$(PANDOC) ${EVALOPTIONS} --include-in-header=${TMP1} -o $@ ${TMP2}
-	rm -f ${TMP1} ${TMP2}
+$(ID)_%.pdf: $(MD)/%.md
+	$(PANDOC) --data-dir=$(DATADIR) --resource-path=$(RESDIR) --defaults=addpoints.yaml -o $(TMP1) $<
+	$(PANDOC) --data-dir=$(DATADIR) --resource-path=$(RESDIR) --defaults=homework.yaml --include-in-header=$(TMP1) -o $@ $<
+	rm -f $(TMP1)
+
+$(ID)_%_eval.pdf: $(MD)/%.md
+	$(PANDOC) --data-dir=$(DATADIR) --resource-path=$(RESDIR) --defaults=addpoints.yaml -o $(TMP1) $<
+	$(PANDOC) --data-dir=$(DATADIR) --resource-path=$(RESDIR) --defaults=questions.yaml -o $(TMP2) $<
+	$(PANDOC) --data-dir=$(DATADIR) --resource-path=$(RESDIR) --defaults=homework.yaml --include-in-header=$(TMP1) -o $@ $(TMP2)
+	rm -f $(TMP1) $(TMP2)
 
 
 clean:
-	rm -f $(PDF) ${EVAL} ${TMP1} ${TMP2}
+	rm -f $(PDF) $(EVAL) $(TMP1) $(TMP2)
 
 
 .PHONY: all clean
