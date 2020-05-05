@@ -32,8 +32,6 @@ META         = metadata.yaml
 SLIDES       = $(SRC:%.md=${ID}_%.pdf)
 HTML         = $(SRC:%.md=${ID}_%.html)
 
-TARGETDIR    = ../distr/
-
 
 
 ## Lecture options
@@ -90,16 +88,8 @@ ${ID}_%.html: %.md $(META)
 	$(PANDOC) ${HTMLOPTIONS} -o $@ $<
 
 
-install: $(TARGETDIR) $(SLIDES) $(HTML)
-	mv ${SLIDES} $(TARGETDIR)
-	mv ${HTML} $(TARGETDIR)
-
-$(TARGETDIR):
-	mkdir $@
-
-
 clean:
 	rm -f $(SLIDES) $(HTML)
 
 
-.PHONY: all install clean
+.PHONY: all clean

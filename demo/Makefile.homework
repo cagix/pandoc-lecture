@@ -34,8 +34,6 @@ EVAL         = $(SRC:%.md=${ID}_%_eval.pdf)
 TMP1         = __titlepage.filled.tex
 TMP2         = __questions.filled.md
 
-TARGETDIR    = ../distr/
-
 
 
 ## Homework options
@@ -84,16 +82,8 @@ ${ID}_%_eval.pdf: %.md $(META)
 	rm -f ${TMP1} ${TMP2}
 
 
-install: $(TARGETDIR) $(PDF) $(EVAL)
-	mv ${PDF} $(TARGETDIR)
-	mv ${EVAL} $(TARGETDIR)
-
-$(TARGETDIR):
-	mkdir $@
-
-
 clean:
 	rm -f $(PDF) ${EVAL} ${TMP1} ${TMP2}
 
 
-.PHONY: all install clean
+.PHONY: all clean
