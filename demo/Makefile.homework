@@ -1,13 +1,24 @@
 
-## Path to this repository (to be used as git sub-module)
+## Working directory
+## In case this doesn't work, set the path manually (use absolute paths).
+WORKDIR      = $(CURDIR)
 
-PWD          = $(shell pwd)
+
+
+## Pandoc
+## (Defaults to docker. To use pandoc and TeX-Live directly, create an
+## environment variable `PANDOC` pointing to the location of your
+## pandoc installation.)
+PANDOC      ?= docker run --rm -v $(WORKDIR):/pandoc debian-texlive pandoc
+
+
+
+## Data-Dir: Path to the workingcopy of this repository (to be used as git sub-module)
+
 DATADIR      = ..
 FILTERDIR    = $(DATADIR)/filters
 RESOURCEDIR  = $(DATADIR)/resources
 RESOURCEPATH = .:./figs:$(DATADIR)
-
-PANDOC      ?= docker run --rm -v $(PWD):/pandoc debian-texlive pandoc
 
 
 
