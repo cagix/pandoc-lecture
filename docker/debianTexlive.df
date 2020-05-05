@@ -1,7 +1,7 @@
 FROM debian:stable-slim
 
 # On Linux: replace with your actual UID/GID (if not the default 1000)
-ARG USERNAME=pandocthesis
+ARG USERNAME=pandoc
 ARG USER_UID=1000
 ARG USER_GID=1000
 
