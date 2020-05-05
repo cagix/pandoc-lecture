@@ -1,0 +1,32 @@
+## Lecture options (slides)
+
+from: markdown
+to: beamer
+
+metadata-file: metadata.yaml
+
+default-image-extension: '.pdf'
+strip-comments: true
+slide-level: 2
+
+metadata:
+  suppress-bibliography: true
+  link-citations: false
+
+pdf-engine: pdflatex
+pdf-engine-opt: '-shell-escape'
+variables:
+  aspectratio: 169
+  fontsize: smaller
+  theme: metropolis
+  themeoptions:
+    - numbering=none
+    - progressbar=foot
+
+include-in-header:
+- resources/definitions.tex
+- resources/beamer.tex
+
+filters:
+- tex.lua
+- pandoc-citeproc
