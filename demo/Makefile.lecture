@@ -1,7 +1,7 @@
 
 ## Working directory
 ## In case this doesn't work, set the path manually (use absolute paths).
-WORKDIR = $(CURDIR)
+WORKDIR       = $(CURDIR)
 
 
 
@@ -9,21 +9,28 @@ WORKDIR = $(CURDIR)
 ## (Defaults to docker. To use pandoc and TeX-Live directly, create an
 ## environment variable `PANDOC` pointing to the location of your
 ## pandoc installation.)
-PANDOC ?= docker run --rm -v $(WORKDIR):/pandoc debian-texlive pandoc
+PANDOC       ?= docker run --rm -v $(WORKDIR):/pandoc debian-texlive pandoc
 
 
 
 ## Data-Dir: Path to the workingcopy of this repository (to be used as git sub-module)
-DATADIR = ..
-RESDIR  = ".:figs:$(DATADIR)"
+DATADIR       = ..
+RESDIR        = ".:figs:$(DATADIR)"
 
 
 
 ## Source files, path prefix to sources, and lecture prefix
 ## either defined here (all files) or given at cmd line like `make vl02`
-MD      = .
-SRC     = $(patsubst $(MD)/%.md,%,$(wildcard $(MD)/*.md))
-ID      = pm
+MD            = .
+SRC           = $(patsubst $(MD)/%.md,%,$(wildcard $(MD)/*.md))
+ID            = pm
+
+
+
+## Options
+PANDOCOPTIONS = --data-dir=$(DATADIR) --resource-path=$(RESDIR)
+SLIDEOPTIONS  = $(PANDOCOPTIONS) --defaults=slides.yaml
+HTMLOPTIONS   = $(PANDOCOPTIONS) --defaults=html.yaml
 
 
 
@@ -33,14 +40,14 @@ all: $(SRC)
 
 $(SRC): %: $(ID)_%.pdf $(ID)_%.html
 
-SLIDES = $(SRC:%=$(ID)_%.pdf)
-HTML   = $(SRC:%=$(ID)_%.html)
+SLIDES        = $(SRC:%=$(ID)_%.pdf)
+HTML          = $(SRC:%=$(ID)_%.html)
 
 $(ID)_%.pdf: $(MD)/%.md
-	$(PANDOC) --data-dir=$(DATADIR) --resource-path=$(RESDIR) --defaults=slides.yaml -o $@ $<
+	$(PANDOC) $(SLIDEOPTIONS) -o $@ $<
 
 $(ID)_%.html: $(MD)/%.md
-	$(PANDOC) --data-dir=$(DATADIR) --resource-path=$(RESDIR) --defaults=html.yaml -o $@ $<
+	$(PANDOC) $(HTMLOPTIONS) -o $@ $<
 
 
 clean:
