@@ -103,6 +103,11 @@ div.column {
 /* Headers: Use some nice settings */
 code { font-family: monospace; }
 
+img {
+    max-width: 100%;
+    height: auto
+}
+
 h1 {
     font-size: 1.5em;
     font-weight: bold;
