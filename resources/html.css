@@ -222,3 +222,10 @@ th, td {
     font-size: 0.8em;
 }
 
+/* Definitions for a "no JavaScript" alert/message box */
+.noJsAlert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+}

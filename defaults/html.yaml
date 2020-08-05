@@ -16,6 +16,8 @@ toc-depth: 2
 # with data-external='1' to prevent incorporating MathJax into the generated HTML document when using --self-contained
 include-in-header:
 - resources/mathjaxurl.html
+include-before-body:
+- resources/nojswarning.html
 # use MathJax; URL points to blank dummy document to prevent incorporating MathJax into the generated HTML document when using --self-contained
 html-math-method:
   method: mathjax
