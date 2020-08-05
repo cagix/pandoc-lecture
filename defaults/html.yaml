@@ -12,7 +12,7 @@ self-contained: true
 toc: true
 toc-depth: 2
 
-# insert `<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full' type='text/javascript' data-external='1'></script>`
+# insert `<script src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js' type='text/javascript' data-external='1'></script>`
 # with data-external='1' to prevent incorporating MathJax into the generated HTML document when using --self-contained
 include-in-header:
 - resources/mathjaxurl.html
