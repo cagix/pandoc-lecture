@@ -1,6 +1,6 @@
 ## Lecture options (handout)
 
-from: markdown
+from: markdown+lists_without_preceding_blankline
 to: html5
 
 metadata-file: metadata.yaml

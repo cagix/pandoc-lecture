@@ -1,6 +1,6 @@
 ## Homework options (pdf)
 
-from: markdown
+from: markdown+lists_without_preceding_blankline
 to: pdf
 
 metadata-file: metadata.yaml
