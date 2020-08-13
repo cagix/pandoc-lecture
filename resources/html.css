@@ -1,5 +1,5 @@
 
-/* Screen: body and toc */
+/* Default (Screen: body and toc (left side)) */
 body {
     font-family: "Source Sans Pro", sans-serif;
     max-width: 800px;
@@ -30,7 +30,6 @@ div.column {
     margin: 0;
     padding: 0;
 }
-
 #TOC ul li {
     display: block;
     padding: 2px 10px;
@@ -43,8 +42,6 @@ div.column {
     background-color: #555;
     color: white;
 }
-
-
 #TOC ul li ul {
     display: none;
     background-color: #f9f9f9;
@@ -59,7 +56,8 @@ div.column {
 }
 #TOC ul li ul li a:hover {background-color: #a1a1a1}
 
-/* Small screen: just body, toc at top */
+
+/* Small screen: just body, toc at top (nav bar) */
 @media screen and (max-width: 1024px) {
     body {
         margin-left: initial;
@@ -82,6 +80,8 @@ div.column {
     }
 }
 
+
+/* Really small screen: get smaller */
 @media screen and (max-width: 400px) {
     body {
         font-size: small;
@@ -91,6 +91,7 @@ div.column {
         float: none;
     }
 }
+
 
 /* Print: just max-width body, no toc */
 @media print {
@@ -105,7 +106,8 @@ div.column {
     }
 }
 
-/* Headers: Use some nice settings */
+
+/* Code, Pre, Blockquotes: Use some nice settings */
 code {
     font-family: "Source Code Pro", monospace;
     background-color: #f2f2f2;
@@ -113,6 +115,7 @@ code {
 h1 code, h2 code, h3 code, h4 code, nav code, span.bsp code {
     background-color:inherit;
 }
+
 pre {
     padding: 0.5em 0.7em;
     border: 1px dashed #555;
@@ -132,10 +135,11 @@ blockquote {
     font-style: italic;
 }
 
+
+/* Headers: Use some nice settings */
 section.level1 {
     border-top: 1px solid #ddd;
 }
-
 section.level2 {
     border-bottom: 1px solid #ddd;
     margin-top: 2em;
@@ -183,6 +187,7 @@ a {
     color: #4070a0;
 }
 
+
 /* nicer tables */
 th {
     background-color: #555;
@@ -194,6 +199,7 @@ tr {vertical-align: top;}
 th, td {
     border-bottom: 1px solid #ddd;
 }
+
 
 /* Pandoc: title information */
 .title {
@@ -220,6 +226,7 @@ th, td {
     color: #000000;
     text-align: left;
 }
+
 
 /* Definitions to match corresponding TeX macros and LUA filters */
 .center {
@@ -260,6 +267,7 @@ th, td {
     background-color: #ededed;
     font-size: 0.8em;
 }
+
 
 /* Definitions for a "no JavaScript" alert/message box */
 .noJsAlert {
