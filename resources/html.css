@@ -2,7 +2,7 @@
 /* Screen: body and toc */
 body {
     font-size: small;
-    font-family: Optima, Arial, Helvetica, sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
     max-width: 800px;
     margin: auto;
     margin-left: 240px;
@@ -101,7 +101,7 @@ div.column {
 }
 
 /* Headers: Use some nice settings */
-code { font-family: monospace; }
+code { font-family: "Source Code Pro", monospace; }
 
 img {
     max-width: 100%;
