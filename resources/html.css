@@ -1,4 +1,8 @@
 
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro);
+
+
 /* Default (Screen: body and toc (left side)) */
 body {
     font-family: "Source Sans Pro", sans-serif;
