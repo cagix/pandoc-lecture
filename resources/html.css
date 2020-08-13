@@ -1,7 +1,6 @@
 
 /* Screen: body and toc */
 body {
-    font-size: small;
     font-family: "Source Sans Pro", sans-serif;
     max-width: 800px;
     margin: auto;
@@ -14,6 +13,7 @@ div.column {
 }
 
 #TOC {
+    font-size: small;
     background-color: #dbe4ed;
     padding: 1em;
     padding-left: 0em;
@@ -83,6 +83,9 @@ div.column {
 }
 
 @media screen and (max-width: 400px) {
+    body {
+        font-size: small;
+    }
     #TOC ul li {
         text-align: center;
         float: none;
@@ -92,6 +95,8 @@ div.column {
 /* Print: just max-width body, no toc */
 @media print {
     body {
+        font-size: x-small;
+        font-family: sans-serif;
         max-width: initial;
         margin-left: initial;
     }
@@ -109,21 +114,21 @@ img {
 }
 
 h1 {
-    font-size: 1.5em;
+    font-size: 1.8em;
     font-weight: bold;
     color: #4070a0;
     text-align: left;
 }
 
 h2 {
-    font-size: 1.2em;
+    font-size: 1.4em;
     font-weight: bold;
     color: #4070a0;
     text-align: left;
 }
 
 h3 {
-    font-size: 1.0em;
+    font-size: 1.2em;
     font-weight: bold;
     color: #4070a0;
     text-align: left;
