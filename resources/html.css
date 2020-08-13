@@ -125,6 +125,13 @@ img {
     height: auto;
 }
 
+blockquote {
+    margin: 2em 2em 2em 1em;
+    padding: 0 .75em 0 1.25em;
+    border-left: 1px solid #555;
+    font-style: italic;
+}
+
 section.level1 {
     border-top: 1px solid #ddd;
 }
