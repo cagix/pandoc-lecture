@@ -107,6 +107,12 @@ div.column {
 
 /* Headers: Use some nice settings */
 code { font-family: "Source Code Pro", monospace; }
+pre {
+    padding: 0.5em 0.7em;
+    border: 1px dashed #555;
+    background-color: #f2f2f2;
+    overflow-x: auto;
+  }
 
 img {
     max-width: 100%;
