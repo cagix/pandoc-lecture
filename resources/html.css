@@ -110,7 +110,7 @@ code { font-family: "Source Code Pro", monospace; }
 
 img {
     max-width: 100%;
-    height: auto
+    height: auto;
 }
 
 h1 {
@@ -118,6 +118,8 @@ h1 {
     font-weight: bold;
     color: #4070a0;
     text-align: left;
+    margin-bottom: 1em;
+    margin-top: 1.25em;
 }
 
 h2 {
@@ -125,6 +127,8 @@ h2 {
     font-weight: bold;
     color: #4070a0;
     text-align: left;
+    margin-bottom: 1em;
+    margin-top: 1.25em;
 }
 
 h3 {
@@ -132,6 +136,7 @@ h3 {
     font-weight: bold;
     color: #4070a0;
     text-align: left;
+    margin-bottom: 1em;
 }
 
 h4 {
