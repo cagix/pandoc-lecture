@@ -113,6 +113,16 @@ img {
     height: auto;
 }
 
+section.level1 {
+    border-top: 1px solid #ddd;
+}
+
+section.level2 {
+    border-bottom: 1px solid #ddd;
+    margin-top: 2em;
+    margin-bottom: 1.25em;
+}
+
 h1 {
     font-size: 1.8em;
     font-weight: bold;
