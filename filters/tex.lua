@@ -15,38 +15,6 @@ function center(el)
 end
 
 
--- remove inline notes: `[...]{.notes}` ... (Span class)
-function inlineNotes(el)
-    if el.classes[1] == "notes" then
-        return {}
-    end
-end
-
--- remove block notes: `::: notes ... :::` ... (Div class)
-function blockNotes(el)
-    if el.classes[1] == "notes" then
-        return {}
-    end
-end
-
-
--- remove inline slides span, return content: `[...]{.slides}` ... (Span class)
--- rationale: w/o this filter, the content would not be processed correctly
-function inlineSlides(el)
-    if el.classes[1] == "slides" then
-        return el.content
-    end
-end
-
--- remove block slides div, return content: `::: slides ... :::` ... (Div class)
--- rationale: w/o this filter, the content would not be processed correctly
-function blockSlides(el)
-    if el.classes[1] == "slides" then
-        return el.content
-    end
-end
-
-
 -- handling of  `[...]{.alert}` ... (Span class)
 function alert(el)
     if el.classes[1] == "alert" then
@@ -98,4 +66,4 @@ end
 
 
 
-return { { Div = center }, { Span = inlineNotes, Div = blockNotes }, { Span = inlineSlides, Div = blockSlides }, { Span = alert }, { Span = bsp }, { Span = cbox }, { Span = hinweis }, { Span = thema }, { Span = origin } }
+return { { Div = center }, { Span = alert }, { Span = bsp }, { Span = cbox }, { Span = hinweis }, { Span = thema }, { Span = origin } }

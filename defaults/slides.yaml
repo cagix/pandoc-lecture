@@ -28,5 +28,6 @@ include-in-header:
 - resources/beamer.tex
 
 filters:
+- prepareSlides.lua
 - tex.lua
 - pandoc-citeproc
