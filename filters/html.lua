@@ -1,30 +1,4 @@
 
--- helper function to create span for blue arrows
-local function blueArrow()
-    return { pandoc.Span({ pandoc.Str("=>") }, pandoc.Attr("", { "blueArrow" })), pandoc.Space() }
-end
-
-
--- handling of `\blueArrow` ... (RawInline, tex)
-function blueArrowInline(el)
-    if el.format == "tex" or el.format == "latex" then
-        if string.match(el.text, "\\blueArrow") then
-            return blueArrow()
-        end
-    end
-end
-
-
--- handling of `\blueArrow` ... (RawBlock, tex)
-function blueArrowBlock(el)
-    if el.format == "tex" or el.format == "latex" then
-        if string.match(el.text, "\\blueArrow") then
-            return pandoc.Plain(blueArrow())
-        end
-    end
-end
-
-
 -- add outer Span to  `[...]{.cbox}` ... (Span class)
 function cbox(el)
     if el.classes[1] == "cbox" then
@@ -85,5 +59,4 @@ function stripImageAttrs(el)
 end
 
 
-return { { RawInline = blueArrowInline, RawBlock = blueArrowBlock }, { Span = cbox }, { Span = inlineNotes, Div = blockNotes }, { Span = inlineSlides, Div = blockSlides }, { Div = stripImageAttrs, Image = stripImageAttrs } }
-
+return { { Span = cbox }, { Span = inlineNotes, Div = blockNotes }, { Span = inlineSlides, Div = blockSlides }, { Div = stripImageAttrs, Image = stripImageAttrs } }
