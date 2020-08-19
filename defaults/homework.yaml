@@ -28,7 +28,6 @@ variables:
 
 include-in-header:
 - resources/definitions.tex
-- resources/definitions_obsolete.tex
 
 filters:
 - headertotask.lua
