@@ -30,5 +30,6 @@ filters:
 - html.lua
 - blueArrow.lua
 - stripImageAttrs.lua
+- cbox.lua
 - pandoc-citeproc
 - fhbib.lua

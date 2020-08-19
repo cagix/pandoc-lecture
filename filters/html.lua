@@ -1,12 +1,4 @@
 
--- add outer Span to  `[...]{.cbox}` ... (Span class)
-function cbox(el)
-    if el.classes[1] == "cbox" then
-        return pandoc.Span(el, pandoc.Attr("", { "cboxbox" }))
-    end
-end
-
-
 -- remove inline slides: `[...]{.slides}` ... (Span class)
 function inlineSlides(el)
     if el.classes[1] == "slides" then
@@ -39,4 +31,4 @@ function blockNotes(el)
 end
 
 
-return { { Span = cbox }, { Span = inlineNotes, Div = blockNotes }, { Span = inlineSlides, Div = blockSlides } }
+return { { Span = inlineNotes, Div = blockNotes }, { Span = inlineSlides, Div = blockSlides } }
