@@ -1,56 +1,54 @@
 
--- helper function to insert two string as RawInline into a table
-local function insertLatexEnvInline(tab, strBegin, strEnd)
-    table.insert(tab, 1, pandoc.RawInline("latex", strBegin))
-    table.insert(tab, #tab + 1, pandoc.RawInline("latex", strEnd))
+-- pandoc's List type
+local List = require 'pandoc.List'
+
+
+-- LaTeX commands to be handled (matching definitions needed!)
+local latexCmds = List:new({'alert', 'bsp', 'hinweis', 'thema'})
+
+-- LaTeX environments to be handled (matching definitions needed!)
+local latexEnvs = List:new({'center'})
+
+
+-- handle selected Spans: embed content into a RawInline with matching LaTeX command
+function Span(el)
+    local cmd = el.classes[1]
+
+    -- should we handle this command?
+    if latexCmds:includes(cmd) then
+        local c = el.content
+        c:insert(1, pandoc.RawInline("latex", "\\" .. cmd .. "{"))
+        c:insert(#c + 1, pandoc.RawInline("latex", "}"))
+        return c
+    end
+end
+
+
+-- handle selected Divs: embed content into a RawBlock with matching LaTeX environment
+function Div(el)
+    local env = el.classes[1]
+
+    -- should we handle this environment?
+    if latexEnvs:includes(env) then
+        return { pandoc.RawBlock("latex", "\\begin{" .. env .. "}"), el, pandoc.RawBlock("latex", "\\end{" .. env .. "}") }
+    end
+end
+
+
+
+
+-- helper function to insert two string as LaTeX RawInline into a table
+local function insertLatexInline(tab, strBegin, strEnd)
+    tab:insert(1, pandoc.RawInline("latex", strBegin))
+    tab:insert(#tab + 1, pandoc.RawInline("latex", strEnd))
     return tab
-end
-
-
--- handling of `::: center ... :::` ... (Div class)
-function center(el)
-    if el.classes[1] == "center" then
-        return { pandoc.RawBlock("latex", "\\begin{center}"), el, pandoc.RawBlock("latex", "\\end{center}") }
-    end
-end
-
-
--- handling of  `[...]{.alert}` ... (Span class)
-function alert(el)
-    if el.classes[1] == "alert" then
-        return insertLatexEnvInline(el.content, "\\alert{", "}")
-    end
-end
-
-
--- handling of  `[...]{.bsp}` ... (Span class)
-function bsp(el)
-    if el.classes[1] == "bsp" then
-        return insertLatexEnvInline(el.content, "\\bsp{", "}")
-    end
 end
 
 
 -- handling of  `[...]{.cbox}` ... (Span class)
 function cbox(el)
     if el.classes[1] == "cbox" then
-        return insertLatexEnvInline(el.content, "\\cboxbegin ", " \\cboxend")
-    end
-end
-
-
--- handling of  `[...]{.hinweis}` ... (Span class)
-function hinweis(el)
-    if el.classes[1] == "hinweis" then
-        return insertLatexEnvInline(el.content, "\\hinweis{", "}")
-    end
-end
-
-
--- handling of  `[...]{.thema}` ... (Span class)
-function thema(el)
-    if el.classes[1] == "thema" then
-        return insertLatexEnvInline(el.content, "\\thema{", "}")
+        return insertLatexInline(el.content, "\\cboxbegin ", " \\cboxend")
     end
 end
 
@@ -60,10 +58,9 @@ end
 -- should follow the inline image in the same paragraph/line
 function origin(el)
     if el.classes[1] == "origin" then
-        return insertLatexEnvInline(el.content, "\\colorbox{origin}{\\begin{tiny} ", " \\end{tiny}}")
+        return insertLatexInline(el.content, "\\colorbox{origin}{\\begin{tiny} ", " \\end{tiny}}")
     end
 end
 
 
-
-return { { Div = center }, { Span = alert }, { Span = bsp }, { Span = cbox }, { Span = hinweis }, { Span = thema }, { Span = origin } }
+return { { Div = Div }, { Span = Span }, { Span = cbox }, { Span = origin } }
