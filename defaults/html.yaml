@@ -27,7 +27,7 @@ css:
 - resources/html.css
 
 filters:
-- html.lua
+- prepareHandout.lua
 - blueArrow.lua
 - stripImageAttrs.lua
 - cbox.lua
