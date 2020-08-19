@@ -1,7 +1,8 @@
 
 -- add some TeX code to headers with `{punkte=42}`
-function extendHeaders(el)
+function Header(el)
     local p = tonumber(el.attributes["punkte"]) or 0
+
     if p > 0 then
         table.insert(el.content, pandoc.Space())
         table.insert(el.content, pandoc.RawInline("latex", "\\hfill"))
@@ -13,7 +14,3 @@ function extendHeaders(el)
 
     return el
 end
-
-
-return { { Header = extendHeaders } }
-
