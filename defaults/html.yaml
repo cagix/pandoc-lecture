@@ -29,5 +29,6 @@ css:
 filters:
 - html.lua
 - blueArrow.lua
+- stripImageAttrs.lua
 - pandoc-citeproc
 - fhbib.lua

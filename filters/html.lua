@@ -39,24 +39,4 @@ function blockNotes(el)
 end
 
 
--- helper function to remove key from table (if existing)
-local function stripAttr(table, attr)
-    if table[attr] then
-        table[attr] = nil
-    end
-end
-
--- strip scaling information from images attrs
--- explicit scaling in markdown is used for beamer slides (pdf)
--- for more predictable results in html we use manually scaled png images
--- strip also "width" from Div (div.column) to avoid column overlap on small screens
-function stripImageAttrs(el)
-    stripAttr(el.attr.attributes, "scale")
-    stripAttr(el.attr.attributes, "width")
-    stripAttr(el.attr.attributes, "height")
-
-    return el
-end
-
-
-return { { Span = cbox }, { Span = inlineNotes, Div = blockNotes }, { Span = inlineSlides, Div = blockSlides }, { Div = stripImageAttrs, Image = stripImageAttrs } }
+return { { Span = cbox }, { Span = inlineNotes, Div = blockNotes }, { Span = inlineSlides, Div = blockSlides } }
