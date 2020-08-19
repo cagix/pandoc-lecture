@@ -5,27 +5,24 @@
 --     rationale: w/o this filter content would appear in generated html but not in toc
 
 
-function Span(el)
-    -- completely remove inline slides: `[...]{.slides}` ... (Span class)
+local function prepareHandout(el)
+    -- completely remove slides
     if el.classes[1] == "slides" then
         return {}
     end
 
-    -- remove inline notes span, return content: `[...]{.notes}` ... (Span class)
+    -- remove notes (Span, Div), return content
     if el.classes[1] == "notes" then
         return el.content
     end
 end
 
 
-function Div(el)
-    -- completely remove block slides: `::: slides ... :::` ... (Div class)
-    if el.classes[1] == "slides" then
-        return {}
-    end
+function Span(el)
+    return prepareHandout(el)
+end
 
-    -- remove block notes div, return content: `::: notes ... :::` ... (Div class)
-    if el.classes[1] == "notes" then
-        return el.content
-    end
+
+function Div(el)
+    return prepareHandout(el)
 end

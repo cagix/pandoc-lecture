@@ -5,27 +5,24 @@
 --     rationale: w/o this filter TeX content would not be processed correctly
 
 
-function Span(el)
-    -- completely remove inline notes: `[...]{.notes}` ... (Span class)
+local function prepareSlides(el)
+    -- completely remove notes
     if el.classes[1] == "notes" then
         return {}
     end
 
-    -- remove inline slides span, return content: `[...]{.slides}` ... (Span class)
+    -- remove slides (Span, Div), return content
     if el.classes[1] == "slides" then
         return el.content
     end
 end
 
 
-function Div(el)
-    -- completely remove block notes: `::: notes ... :::` ... (Div class)
-    if el.classes[1] == "notes" then
-        return {}
-    end
+function Span(el)
+    return prepareSlides(el)
+end
 
-    -- remove block slides div, return content: `::: slides ... :::` ... (Div class)
-    if el.classes[1] == "slides" then
-        return el.content
-    end
+
+function Div(el)
+    return prepareSlides(el)
 end
