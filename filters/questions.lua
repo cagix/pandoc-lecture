@@ -1,6 +1,6 @@
 
 -- collect all questions
-questions = {}
+local questions = {}
 
 
 -- generate table of all question headers
@@ -10,9 +10,9 @@ function collectQuestionHeaders(el)
 
     -- collect only questions with points ...
     if p > 0 then
-        table.insert(c, pandoc.Space())
-        table.insert(c, pandoc.Str("(" .. p .. "P)"))
-        table.insert(questions, pandoc.MetaInlines(c))
+        c:insert(pandoc.Space())
+        c:insert(pandoc.Str("(" .. p .. "P)"))
+        questions[#questions + 1] = pandoc.MetaInlines(c)
     end
 end
 
@@ -25,5 +25,7 @@ function setQuestionMetadata(meta)
 end
 
 
-return { { Header = collectQuestionHeaders }, { Meta = setQuestionMetadata } }
-
+return {
+    { Header = collectQuestionHeaders },    -- First run: collect all questions
+    { Meta = setQuestionMetadata }          -- Second run: add questions to metadata
+}

@@ -50,7 +50,6 @@ PDFOPTIONS += --listings --highlight-style=tango
 PDFOPTIONS += --lua-filter=${FILTERDIR}/tex.lua
 PDFOPTIONS += --lua-filter=${FILTERDIR}/exams.lua
 PDFOPTIONS += --include-in-header=${RESOURCEDIR}/definitions.tex
-PDFOPTIONS += --include-in-header=${RESOURCEDIR}/definitions_obsolete.tex
 PDFOPTIONS += --include-after-body=${RESOURCEDIR}/exam_end.tex
 PDFOPTIONS += --data-dir=${DATADIR}
 PDFOPTIONS += --resource-path=${RESOURCEPATH}

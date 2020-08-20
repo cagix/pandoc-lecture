@@ -1,101 +1,35 @@
 
--- helper function to insert two string as RawInline into a table
-local function insertLatexEnvInline(tab, strBegin, strEnd)
-    table.insert(tab, 1, pandoc.RawInline("latex", strBegin))
-    table.insert(tab, #tab + 1, pandoc.RawInline("latex", strEnd))
-    return tab
-end
+-- pandoc's List type
+local List = require 'pandoc.List'
 
 
--- handling of `::: center ... :::` ... (Div class)
-function center(el)
-    if el.classes[1] == "center" then
-        return { pandoc.RawBlock("latex", "\\begin{center}"), el, pandoc.RawBlock("latex", "\\end{center}") }
+-- LaTeX commands to be handled (matching definitions needed!)
+local latexCmds = List:new({'alert', 'bsp', 'cbox', 'hinweis', 'origin', 'thema'})
+
+-- LaTeX environments to be handled (matching definitions needed!)
+local latexEnvs = List:new({'center'})
+
+
+-- handle selected Spans: embed content into a RawInline with matching LaTeX command
+function Span(el)
+    local cmd = el.classes[1]
+
+    -- should we handle this command?
+    if latexCmds:includes(cmd) then
+        local c = el.content
+        c:insert(1, pandoc.RawInline("latex", "\\" .. cmd .. "{"))
+        c:insert(#c + 1, pandoc.RawInline("latex", "}"))
+        return c
     end
 end
 
 
--- remove inline notes: `[...]{.notes}` ... (Span class)
-function inlineNotes(el)
-    if el.classes[1] == "notes" then
-        return {}
+-- handle selected Divs: embed content into a RawBlock with matching LaTeX environment
+function Div(el)
+    local env = el.classes[1]
+
+    -- should we handle this environment?
+    if latexEnvs:includes(env) then
+        return { pandoc.RawBlock("latex", "\\begin{" .. env .. "}"), el, pandoc.RawBlock("latex", "\\end{" .. env .. "}") }
     end
 end
-
--- remove block notes: `::: notes ... :::` ... (Div class)
-function blockNotes(el)
-    if el.classes[1] == "notes" then
-        return {}
-    end
-end
-
-
--- remove inline slides span, return content: `[...]{.slides}` ... (Span class)
--- rationale: w/o this filter, the content would not be processed correctly
-function inlineSlides(el)
-    if el.classes[1] == "slides" then
-        return el.content
-    end
-end
-
--- remove block slides div, return content: `::: slides ... :::` ... (Div class)
--- rationale: w/o this filter, the content would not be processed correctly
-function blockSlides(el)
-    if el.classes[1] == "slides" then
-        return el.content
-    end
-end
-
-
--- handling of  `[...]{.alert}` ... (Span class)
-function alert(el)
-    if el.classes[1] == "alert" then
-        return insertLatexEnvInline(el.content, "\\alert{", "}")
-    end
-end
-
-
--- handling of  `[...]{.bsp}` ... (Span class)
-function bsp(el)
-    if el.classes[1] == "bsp" then
-        return insertLatexEnvInline(el.content, "\\bsp{", "}")
-    end
-end
-
-
--- handling of  `[...]{.cbox}` ... (Span class)
-function cbox(el)
-    if el.classes[1] == "cbox" then
-        return insertLatexEnvInline(el.content, "\\cboxbegin ", " \\cboxend")
-    end
-end
-
-
--- handling of  `[...]{.hinweis}` ... (Span class)
-function hinweis(el)
-    if el.classes[1] == "hinweis" then
-        return insertLatexEnvInline(el.content, "\\hinweis{", "}")
-    end
-end
-
-
--- handling of  `[...]{.thema}` ... (Span class)
-function thema(el)
-    if el.classes[1] == "thema" then
-        return insertLatexEnvInline(el.content, "\\thema{", "}")
-    end
-end
-
-
--- handling of  `[...]{.origin}` for inline images ... (Span class)
--- allows for some formatting inside the origin/author/license information
--- should follow the inline image in the same paragraph/line
-function origin(el)
-    if el.classes[1] == "origin" then
-        return insertLatexEnvInline(el.content, "\\colorbox{origin}{\\begin{tiny} ", " \\end{tiny}}")
-    end
-end
-
-
-
-return { { Div = center }, { Span = inlineNotes, Div = blockNotes }, { Span = inlineSlides, Div = blockSlides }, { Span = alert }, { Span = bsp }, { Span = cbox }, { Span = hinweis }, { Span = thema }, { Span = origin } }

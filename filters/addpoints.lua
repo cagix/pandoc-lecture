@@ -1,6 +1,6 @@
 
 -- count of all points
-points = 0
+local points = 0
 
 
 -- add points of headers with attributes `{punkte=42}`
@@ -23,5 +23,7 @@ function checkPoints(meta)
 end
 
 
-return { { Header = addPoints }, { Meta = checkPoints } }
-
+return {
+    { Header = addPoints },     -- First run: add up all points
+    { Meta = checkPoints }      -- Second run: check with points in metadata
+}
