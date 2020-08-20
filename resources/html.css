@@ -232,7 +232,7 @@ th, td {
 }
 
 
-/* Definitions to match corresponding TeX macros and LUA filters */
+/* Definitions to match corresponding TeX macros and Lua filters */
 .center {
     align-content: center;
     text-align: center;
@@ -270,6 +270,24 @@ th, td {
 .origin {
     background-color: #ededed;
     font-size: 0.8em;
+}
+
+
+/* use some colors to increase readability */
+.tldr {
+    background: #d9e9d5;
+    padding: 12px;
+    margin: 4px 0px 26px 0px;
+}
+.bib {
+    background: #dbe4ed;
+    padding: 12px;
+    margin: 4px 0px 26px 0px;
+}
+.challenges {
+    background: #ebe4d6;
+    padding: 12px;
+    margin: 4px 0px 26px 0px;
 }
 
 
