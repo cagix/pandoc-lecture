@@ -4,7 +4,7 @@ local List = require 'pandoc.List'
 
 
 -- LaTeX commands to be handled (matching definitions needed!)
-local latexCmds = List:new({'alert', 'bsp', 'hinweis', 'thema'})
+local latexCmds = List:new({'alert', 'bsp', 'cbox', 'hinweis', 'thema'})
 
 -- LaTeX environments to be handled (matching definitions needed!)
 local latexEnvs = List:new({'center'})
@@ -45,14 +45,6 @@ local function insertLatexInline(tab, strBegin, strEnd)
 end
 
 
--- handling of  `[...]{.cbox}` ... (Span class)
-function cbox(el)
-    if el.classes[1] == "cbox" then
-        return insertLatexInline(el.content, "\\cboxbegin ", " \\cboxend")
-    end
-end
-
-
 -- handling of  `[...]{.origin}` for inline images ... (Span class)
 -- allows for some formatting inside the origin/author/license information
 -- should follow the inline image in the same paragraph/line
@@ -63,4 +55,4 @@ function origin(el)
 end
 
 
-return { { Div = Div }, { Span = Span }, { Span = cbox }, { Span = origin } }
+return { { Div = Div }, { Span = Span }, { Span = origin } }

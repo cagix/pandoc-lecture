@@ -2,6 +2,7 @@
 %------------------------------------- Packages ----------------
 \usepackage[babel]{csquotes}
 \usepackage{xspace}
+\usepackage{tcolorbox}
 %------------------------------------- Packages ----------------
 
 %------------------------------------- Fonts and Colors ---------------------
@@ -25,12 +26,5 @@
 \newcommand{\hinweis}[1]{\smallskip\emph{Hinweis}: #1}  % `[...]{.hinweis}` in document will be converted by `tex.lua` filter to `\hinweis{...}`
 \newcommand{\thema}[1]{\medskip\textbf{Thema}: #1}  % `[...]{.thema}` in document will be converted by `tex.lua` filter to `\thema{...}`
 
-\newsavebox{\mycolorbox}
-\newenvironment{mycbox}{\begin{lrbox}{\mycolorbox}}{\end{lrbox}\begin{center}\fcolorbox{blue}{listinggray}{\usebox{\mycolorbox}}\end{center}}
-\newcommand{\cboxbegin}{\begin{mycbox}}
-\newcommand{\cboxend}{\end{mycbox}}
+\newcommand{\cbox}[1]{{\centering \tcbox[colback=listinggray,colframe=blue]{#1} }}
 %------------------------------------- CMDs ---------------------
-
-
-
-
