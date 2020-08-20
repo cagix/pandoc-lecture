@@ -30,4 +30,5 @@ include-in-header:
 filters:
 - prepareSlides.lua
 - tex.lua
+- listings.lua
 - pandoc-citeproc

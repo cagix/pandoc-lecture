@@ -32,3 +32,4 @@ include-in-header:
 filters:
 - headertotask.lua
 - tex.lua
+- listings.lua

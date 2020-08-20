@@ -3,6 +3,7 @@
 \usepackage[babel]{csquotes}
 \usepackage{xspace}
 \usepackage{tcolorbox}
+\tcbuselibrary{skins}
 %------------------------------------- Packages ----------------
 
 %------------------------------------- Fonts and Colors ---------------------
@@ -18,6 +19,9 @@
 
 \definecolor{headcolor}{rgb}{0.25,0.44,0.63}  % #4070a0 as in html.css
 \definecolor{origin}{rgb}{0.93,0.93,0.93}     % #ededed as in html.css
+
+\definecolor{code}{HTML}{F2F2F2}    % #f2f2f2 as in html.css
+\definecolor{border}{HTML}{555555}  % #555 as in html.css
 %------------------------------------- Fonts and Colors ---------------------
 
 %------------------------------------- CMDs ---------------------
@@ -28,4 +32,7 @@
 
 \newcommand{\cbox}[1]{{\centering \tcbox[colback=listinggray,colframe=blue]{#1} }}
 \newcommand{\origin}[1]{\colorbox{origin}{{\tiny #1 }}}
+
+\newtcolorbox{codeblock}{enhanced,frame hidden,colback=code,borderline={1pt}{1pt}{border,dotted}}
+\newtcbox{\inlinecode}{on line,frame hidden,colback=code,boxsep=0pt,left=1pt,right=1pt,top=2pt,bottom=2pt,boxrule=0pt}
 %------------------------------------- CMDs ---------------------
