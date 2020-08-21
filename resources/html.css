@@ -27,6 +27,7 @@ div.column {
     height: 100%;
     position: fixed;
     z-index: 50000;
+    overflow: auto;
 }
 #TOC ul {
     list-style-type: none;
@@ -50,7 +51,7 @@ div.column {
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 50020;
-    position: absolute;
+    position: fixed;
 }
 #TOC ul li:hover ul {
     display: block;
@@ -72,7 +73,7 @@ div.column {
         width: initial;
     }
     #TOC {
-        width: auto;
+        width: 100%;
         height: auto;
     }
     #TOC ul li {
@@ -91,7 +92,7 @@ div.column {
         margin-top: 180px;
     }
     #TOC ul li {
-        text-align: center;
+        text-align: left;
         float: none;
     }
 }
