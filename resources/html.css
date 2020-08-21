@@ -84,7 +84,7 @@ div.column {
 }
 
 
-/* Really small screen: get smaller */
+/* Really small screen: get smaller and do not show drop downs */
 @media screen and (max-width: 400px) {
     body {
         font-size: small;
@@ -93,6 +93,12 @@ div.column {
     #TOC ul li {
         text-align: left;
         float: none;
+    }
+    #TOC ul li ul {
+        display: none;
+    }
+    #TOC ul li:hover ul {
+        display: none;
     }
 }
 
