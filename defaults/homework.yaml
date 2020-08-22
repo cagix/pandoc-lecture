@@ -32,5 +32,6 @@ include-in-header:
 filters:
 - deprecated.lua
 - headertotask.lua
-- tex.lua
 - listings.lua
+- tex.lua
+- pandoc-citeproc

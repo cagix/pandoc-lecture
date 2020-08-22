@@ -30,6 +30,6 @@ include-in-header:
 filters:
 - deprecated.lua
 - prepareSlides.lua
-- tex.lua
 - listings.lua
+- tex.lua
 - pandoc-citeproc
