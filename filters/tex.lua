@@ -1,13 +1,9 @@
 
--- pandoc's List type
-local List = require 'pandoc.List'
-
-
 -- LaTeX commands to be handled (matching definitions needed!)
-local latexCmds = List:new({'alert', 'bsp', 'hinweis', 'origin', 'thema'})
+local latexCmds = pandoc.List:new {'alert', 'bsp', 'hinweis', 'origin', 'thema'}
 
 -- LaTeX environments to be handled (matching definitions needed!)
-local latexEnvs = List:new({'cbox', 'center'})
+local latexEnvs = pandoc.List:new {'cbox', 'center'}
 
 
 -- handle selected Spans: embed content into a RawInline with matching LaTeX command
@@ -16,10 +12,7 @@ function Span(el)
 
     -- should we handle this command?
     if latexCmds:includes(cmd) then
-        local c = el.content
-        c:insert(1, pandoc.RawInline("latex", "\\" .. cmd .. "{"))
-        c:insert(#c + 1, pandoc.RawInline("latex", "}"))
-        return c
+        return {pandoc.RawInline("latex", "\\" .. cmd .. "{")} .. el.content .. {pandoc.RawInline("latex", "}")}
     end
 end
 
@@ -30,6 +23,6 @@ function Div(el)
 
     -- should we handle this environment?
     if latexEnvs:includes(env) then
-        return { pandoc.RawBlock("latex", "\\begin{" .. env .. "}"), el, pandoc.RawBlock("latex", "\\end{" .. env .. "}") }
+        return {pandoc.RawBlock("latex", "\\begin{" .. env .. "}")} .. el.content .. {pandoc.RawBlock("latex", "\\end{" .. env .. "}")}
     end
 end
