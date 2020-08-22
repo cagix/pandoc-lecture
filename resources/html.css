@@ -101,6 +101,7 @@ div.column {
         line-height: 1.6;
         position: revert;
         width: auto;
+        margin-bottom: 26px;
     }
     #TOC ul li {
         text-align: left;
