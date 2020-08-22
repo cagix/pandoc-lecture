@@ -35,3 +35,4 @@ filters:
 - listings.lua
 - tex.lua
 - pandoc-citeproc
+- fhbib.lua
