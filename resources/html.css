@@ -90,11 +90,17 @@ div.column {
 }
 
 
-/* Really small screen: get smaller and do not show drop downs */
+/* Really small screen: TOC just inline block with links to sections */
 @media screen and (max-width: 400px) {
     body {
         font-size: small;
-        margin-top: 180px;
+        margin-top: 0px;
+    }
+    #TOC {
+        font-size: smaller;
+        line-height: 1.6;
+        position: revert;
+        width: auto;
     }
     #TOC ul li {
         text-align: left;
