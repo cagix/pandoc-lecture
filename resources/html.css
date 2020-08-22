@@ -61,7 +61,7 @@ div.column {
 #TOC ul li ul li a:hover {background-color: #a1a1a1}
 
 
-/* Small screen: just body, toc at top (nav bar) */
+/* Small screen: just body, toc at top (nav bar), do not show drop downs (this is typical a tablet with touch) */
 @media screen and (max-width: 1024px) {
     body {
         margin-left: initial;
@@ -80,6 +80,12 @@ div.column {
     }
     #TOC ul li ul li {
         float: none;
+    }
+    #TOC ul li ul {
+        display: none;
+    }
+    #TOC ul li:hover ul {
+        display: none;
     }
 }
 
