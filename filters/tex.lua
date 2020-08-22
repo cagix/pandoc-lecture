@@ -4,10 +4,10 @@ local List = require 'pandoc.List'
 
 
 -- LaTeX commands to be handled (matching definitions needed!)
-local latexCmds = List:new({'alert', 'bsp', 'cbox', 'hinweis', 'origin', 'thema'})
+local latexCmds = List:new({'alert', 'bsp', 'hinweis', 'origin', 'thema'})
 
 -- LaTeX environments to be handled (matching definitions needed!)
-local latexEnvs = List:new({'center'})
+local latexEnvs = List:new({'cbox', 'center'})
 
 
 -- handle selected Spans: embed content into a RawInline with matching LaTeX command

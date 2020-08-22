@@ -1,8 +1,11 @@
 
-/* Screen: body and toc */
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro);
+
+
+/* Default (Screen: body and toc (left side)) */
 body {
-    font-size: small;
-    font-family: Optima, Arial, Helvetica, sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
     max-width: 800px;
     margin: auto;
     margin-left: 240px;
@@ -14,6 +17,7 @@ div.column {
 }
 
 #TOC {
+    font-size: small;
     background-color: #dbe4ed;
     padding: 1em;
     padding-left: 0em;
@@ -21,16 +25,14 @@ div.column {
     top: 0;
     width: 220px;
     height: 100%;
+    z-index: 99999;
     position: fixed;
-    overflow: auto;
-    z-index: 999999;
 }
 #TOC ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
-
 #TOC ul li {
     display: block;
     padding: 2px 10px;
@@ -43,13 +45,12 @@ div.column {
     background-color: #555;
     color: white;
 }
-
-
 #TOC ul li ul {
     display: none;
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 999999;
+    position: fixed;
 }
 #TOC ul li:hover ul {
     display: block;
@@ -59,20 +60,20 @@ div.column {
 }
 #TOC ul li ul li a:hover {background-color: #a1a1a1}
 
-/* Small screen: just body, toc at top */
+
+/* Small screen: just body, toc at top (nav bar), do not show drop downs (this is typical a tablet with touch) */
 @media screen and (max-width: 1024px) {
     body {
         margin-left: initial;
+        margin-top: 60px;
     }
     /* allow columns to re-align */
     div.column {
         width: initial;
     }
     #TOC {
-        width: auto;
+        width: 100%;
         height: auto;
-        position: sticky;
-        position: -webkit-sticky; /* Safari */
     }
     #TOC ul li {
         float: left;
@@ -80,18 +81,46 @@ div.column {
     #TOC ul li ul li {
         float: none;
     }
-}
-
-@media screen and (max-width: 400px) {
-    #TOC ul li {
-        text-align: center;
-        float: none;
+    #TOC ul li ul {
+        display: none;
+    }
+    #TOC ul li:hover ul {
+        display: none;
     }
 }
+
+
+/* Really small screen: TOC just inline block with links to sections */
+@media screen and (max-width: 400px) {
+    body {
+        font-size: small;
+        margin-top: 0px;
+    }
+    #TOC {
+        font-size: smaller;
+        line-height: 1.6;
+        position: revert;
+        width: auto;
+        margin-bottom: 26px;
+    }
+    #TOC ul li {
+        text-align: left;
+        float: none;
+    }
+    #TOC ul li ul {
+        display: none;
+    }
+    #TOC ul li:hover ul {
+        display: none;
+    }
+}
+
 
 /* Print: just max-width body, no toc */
 @media print {
     body {
+        font-size: x-small;
+        font-family: sans-serif;
         max-width: initial;
         margin-left: initial;
     }
@@ -100,33 +129,70 @@ div.column {
     }
 }
 
-/* Headers: Use some nice settings */
-code { font-family: monospace; }
+
+/* Code, Pre, Blockquotes: Use some nice settings */
+code {
+    font-family: "Source Code Pro", monospace;
+    background-color: #f2f2f2;
+}
+h1 code, h2 code, h3 code, h4 code, nav code, span.bsp code {
+    background-color:inherit;
+}
+
+pre {
+    padding: 0.5em 0.7em;
+    border: 1px dashed #555;
+    background-color: #f2f2f2;
+    overflow-x: auto;
+}
 
 img {
     max-width: 100%;
-    height: auto
+    height: auto;
+}
+
+blockquote {
+    margin: 2em 2em 2em 1em;
+    padding: 0 .75em 0 1.25em;
+    border-left: 1px solid #555;
+    font-style: italic;
+}
+
+
+/* Headers: Use some nice settings */
+section.level1 {
+    border-top: 1px solid #ddd;
+}
+section.level2 {
+    border-bottom: 1px solid #ddd;
+    margin-top: 2em;
+    margin-bottom: 1.25em;
 }
 
 h1 {
-    font-size: 1.5em;
+    font-size: 2.0em;
     font-weight: bold;
     color: #4070a0;
     text-align: left;
+    margin-bottom: 1em;
+    margin-top: 1.25em;
 }
 
 h2 {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #4070a0;
+    text-align: left;
+    margin-bottom: 1em;
+    margin-top: 1.25em;
+}
+
+h3 {
     font-size: 1.2em;
     font-weight: bold;
     color: #4070a0;
     text-align: left;
-}
-
-h3 {
-    font-size: 1.0em;
-    font-weight: bold;
-    color: #4070a0;
-    text-align: left;
+    margin-bottom: 1em;
 }
 
 h4 {
@@ -144,6 +210,7 @@ a {
     color: #4070a0;
 }
 
+
 /* nicer tables */
 th {
     background-color: #555;
@@ -155,6 +222,7 @@ tr {vertical-align: top;}
 th, td {
     border-bottom: 1px solid #ddd;
 }
+
 
 /* Pandoc: title information */
 .title {
@@ -182,7 +250,8 @@ th, td {
     text-align: left;
 }
 
-/* Definitions to match corresponding TeX macros and LUA filters */
+
+/* Definitions to match corresponding TeX macros and Lua filters */
 .center {
     align-content: center;
     text-align: center;
@@ -207,10 +276,10 @@ th, td {
     border-style: solid;
     border-color: #4070a0;
     background-color: #f2f2f2;
-}
-.cboxbox {
-    display: block;
+    margin: auto;
+    width: 40%;
     text-align: center;
+    overflow: auto;
 }
 .blueArrow {
     color: #4070a0;
@@ -221,6 +290,28 @@ th, td {
     background-color: #ededed;
     font-size: 0.8em;
 }
+
+
+/* use some colors to increase readability */
+.tldr {
+    background: #d9e9d5;
+    padding: 12px;
+    margin: 4px 0px 26px 0px;
+}
+.bib {
+    background: #dbe4ed;
+    padding: 12px;
+    margin: 4px 0px 26px 0px;
+}
+.challenges {
+    background: #ebe4d6;
+    padding: 12px;
+    margin: 4px 0px 26px 0px;
+}
+h1.tldr, h1.bib, h1.challenges {
+    padding: 0px;
+}
+
 
 /* Definitions for a "no JavaScript" alert/message box */
 .noJsAlert {

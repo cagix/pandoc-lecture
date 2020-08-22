@@ -30,5 +30,7 @@ include-in-header:
 - resources/definitions.tex
 
 filters:
+- deprecated.lua
 - headertotask.lua
 - tex.lua
+- listings.lua
