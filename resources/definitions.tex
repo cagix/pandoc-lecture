@@ -30,8 +30,8 @@
 \newcommand{\hinweis}[1]{\smallskip\emph{Hinweis}: #1}  % `[...]{.hinweis}` in document will be converted by `tex.lua` filter to `\hinweis{...}`
 \newcommand{\thema}[1]{\medskip\textbf{Thema}: #1}  % `[...]{.thema}` in document will be converted by `tex.lua` filter to `\thema{...}`
 
-\newcommand{\cbox}[1]{{\centering \tcbox[colback=listinggray,colframe=blue]{#1} }}
 \newcommand{\origin}[1]{\colorbox{origin}{{\tiny #1 }}}
+\newenvironment{cbox}{\begin{center}\begin{minipage}{0.6\textwidth}\begin{tcolorbox}[colback=listinggray,colframe=dkblue,halign=center]}{\end{tcolorbox}\end{minipage}\end{center}}
 
 \newtcolorbox{codeblock}{enhanced,frame hidden,colback=code,borderline={1pt}{1pt}{border,dotted}}
 \newtcbox{\inlinecode}{on line,frame hidden,colback=code,boxsep=0pt,left=1pt,right=1pt,top=2pt,bottom=2pt,boxrule=0pt}

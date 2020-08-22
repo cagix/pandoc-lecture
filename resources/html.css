@@ -269,10 +269,10 @@ th, td {
     border-style: solid;
     border-color: #4070a0;
     background-color: #f2f2f2;
-}
-.cboxbox {
-    display: block;
+    margin: auto;
+    width: 40%;
     text-align: center;
+    overflow: auto;
 }
 .blueArrow {
     color: #4070a0;

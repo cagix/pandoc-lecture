@@ -28,6 +28,7 @@ include-in-header:
 - resources/beamer.tex
 
 filters:
+- deprecated.lua
 - prepareSlides.lua
 - tex.lua
 - listings.lua
