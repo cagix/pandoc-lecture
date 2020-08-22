@@ -11,7 +11,7 @@ end
 -- helper function (DRY)
 local function isTexAndArrow(el)
     if el.format == "tex" or el.format == "latex" then
-        if string.match(el.text, "\\blueArrow") then
+        if el.text:match("\\blueArrow") then
             return true
         end
     end
