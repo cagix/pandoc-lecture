@@ -110,4 +110,22 @@ tbd
 
 tbd
 
+
+## "Show me" button to reveal initially hidden content
+
+Question 1: Wuppie?
+
+::: showme
+Wuppie
+:::
+
+
+Question 2: Foo!
+
+::: {.showme #FOO}
+Fluppie
+
+Bar, too!
+:::
+
 :::

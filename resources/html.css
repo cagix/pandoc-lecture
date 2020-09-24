@@ -333,6 +333,21 @@ h1.tldr, h1.bib, h1.challenges {
 }
 
 
+/* Allow ShowMe Button to toggle visibility of selected content */
+.expandable {
+    display: none;
+    background: #ddd;
+}
+.toggle-btn {
+    padding: 5px 11px;
+    background-color: #ff7;
+    border: 1px solid;
+    border-radius: 3px;
+}
+input[id^=toggle] { display: none; }
+input[id^=toggle]:checked + .expandable { display: block; border: 1px solid black; }
+
+
 /* Definitions for a "no JavaScript" alert/message box */
 .noJsAlert {
     padding: 20px;
