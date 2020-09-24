@@ -21,7 +21,7 @@ RESDIR           = ".:figs:$(DATADIR)"
 
 ## Source files, path prefix to sources, and lecture prefix
 ## either defined here (all files) or given at cmd line like `make b02`
-MD               = .
+MD               = md
 SRC              = $(patsubst $(MD)/%.md,%,$(wildcard $(MD)/b*.md))
 ID               = pm
 
