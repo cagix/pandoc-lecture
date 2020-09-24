@@ -59,6 +59,19 @@ div.column {
     width: 100%;
 }
 #TOC ul li ul li a:hover {background-color: #a1a1a1}
+.home-btn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 12px;
+    padding: 5px 11px;
+    background-color: #ff7;
+    border: 1px solid;
+    border-radius: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
 
 
 /* Small screen: just body, toc at top (nav bar), do not show drop downs (this is typical a tablet with touch) */
@@ -113,6 +126,10 @@ div.column {
     #TOC ul li:hover ul {
         display: none;
     }
+    .home-btn {
+        margin: 7px;
+        padding: 3px 7px;
+    }
 }
 
 
@@ -125,6 +142,9 @@ div.column {
         margin-left: initial;
     }
     #TOC {
+        display: none;
+    }
+    .home-btn {
         display: none;
     }
 }

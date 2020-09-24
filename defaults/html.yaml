@@ -31,5 +31,6 @@ filters:
 - prepareHandout.lua
 - blueArrow.lua
 - stripImageAttrs.lua
+- home.lua
 - pandoc-citeproc
 - fhbib.lua
