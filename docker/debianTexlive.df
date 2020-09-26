@@ -14,12 +14,13 @@ RUN apt-get update                                                          \
     # Packages: TeX-Live and fonts
     && apt-get install -y --no-install-recommends                           \
         apt-utils bash wget make graphviz biber                             \
-        texlive-base texlive-latex-base                                     \
+        texlive-base texlive-plain-generic texlive-latex-base               \
+        texlive-generic-recommended texlive-extra-utils                     \
         texlive-latex-recommended texlive-latex-extra                       \
-        texlive-science texlive-pictures                                    \
+        texlive-science texlive-pictures texlive-pstricks                   \
         texlive-bibtex-extra texlive-lang-english texlive-lang-german       \
         texlive-font-utils texlive-fonts-recommended                        \
-        fontconfig lmodern ghostscript gsfonts cm-super                     \
+        fontconfig lmodern fonts-lmodern ghostscript gsfonts cm-super       \
     #
     # Pandoc
     && wget $PANDOCDEB && dpkg -i pandoc* && rm pandoc*                     \
