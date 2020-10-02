@@ -6,6 +6,12 @@ end
 
 
 -- wrap listings (code block) in `codeblock` LaTeX environment
+-- set font size to "small" (default) or use attribute "size"
 function CodeBlock(el)
-    return { pandoc.RawBlock("latex", "\\begin{codeblock}"), el, pandoc.RawBlock("latex", "\\end{codeblock}") }
+    local size = el.attributes.size or "small"
+    return { pandoc.RawBlock("latex", "\\" .. size),
+             pandoc.RawBlock("latex", "\\begin{codeblock}"),
+             el,
+             pandoc.RawBlock("latex", "\\end{codeblock}"),
+             pandoc.RawBlock("latex", "\\normalsize") }
 end
