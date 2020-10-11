@@ -33,5 +33,5 @@ filters:
 - stripImageAttrs.lua
 - showme.lua
 - home.lua
-- pandoc-citeproc
+- citeproc
 - fhbib.lua

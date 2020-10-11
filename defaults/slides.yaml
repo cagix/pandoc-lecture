@@ -32,5 +32,5 @@ filters:
 - prepareSlides.lua
 - listings.lua
 - tex.lua
-- pandoc-citeproc
+- citeproc
 - fhbib.lua
