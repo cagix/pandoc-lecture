@@ -16,7 +16,7 @@ metadata:
 pdf-engine: pdflatex
 pdf-engine-opt: '-shell-escape'
 variables:
-  aspectratio: 169
+  aspectratio: 1610
   fontsize: smaller
   theme: metropolis
   themeoptions:
