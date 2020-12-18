@@ -6,7 +6,7 @@ ARG USER_UID=1000
 ARG USER_GID=1000
 
 # Pandoc binary as .deb -- see https://github.com/jgm/pandoc/releases/latest
-ARG PANDOCDEB=https://github.com/jgm/pandoc/releases/download/2.11.1.1/pandoc-2.11.1.1-1-amd64.deb
+ARG PANDOCDEB=https://github.com/jgm/pandoc/releases/download/2.11.3/pandoc-2.11.3-1-amd64.deb
 
 # Install everything
 RUN apt-get update                                                          \
