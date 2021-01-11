@@ -216,6 +216,6 @@ This project is supposed to be used with Pandoc 2.9.1 or later.
 License
 -------
 
-Copyright (c) 2016-2020, Carsten Gips
+Copyright (c) 2016-2021, Carsten Gips
 
 [MIT licensed](https://opensource.org/licenses/MIT)
