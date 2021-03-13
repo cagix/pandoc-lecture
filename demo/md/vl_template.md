@@ -104,6 +104,14 @@ tbd
 
 
 
+# Quizzes ... {.quizzes}
+
+<!-- ggf. mit H2 einzelne größere Aufgaben trennen (`## ...`) -->
+
+tbd
+
+
+
 # Challenges ... {.challenges}
 
 <!-- ggf. mit H2 einzelne größere Aufgaben trennen (`## ...`) -->
