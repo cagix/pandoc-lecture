@@ -1,10 +1,11 @@
 ---
 # used for lecture slides and homework sheets
 subtitle: "Modulenumber Moduletitle, Year"
-author: "Author, Institute"
+author: "Author (Institute)"
 lang: de-DE
 bibliography: demo.bib
 link-citations: true
+home: "pm_vl01.html#home-button"
 
 # additional entries for exams
 LVKURZ: "Modulenumber ModuleSHORT, Year"

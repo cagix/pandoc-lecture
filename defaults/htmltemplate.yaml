@@ -1,0 +1,8 @@
+## Lecture options (handout) -- fill htmltemplate.md template
+
+from: markdown+lists_without_preceding_blankline
+to: markdown
+
+standalone: true
+
+template: htmltemplate.md

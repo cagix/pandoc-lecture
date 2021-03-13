@@ -32,9 +32,10 @@ ID            = pm
 
 
 ## Options
-PANDOCOPTIONS = --data-dir=$(DATADIR) --resource-path=$(RESDIR)
-SLIDEOPTIONS  = $(PANDOCOPTIONS) --defaults=slides.yaml
-HTMLOPTIONS   = $(PANDOCOPTIONS) --defaults=html.yaml
+PANDOCOPTIONS       = --data-dir=$(DATADIR) --resource-path=$(RESDIR)
+SLIDEOPTIONS        = $(PANDOCOPTIONS) --defaults=slides.yaml
+HTMLOPTIONS         = $(PANDOCOPTIONS) --defaults=html.yaml
+HTMLTEMPLATEOPTIONS = $(PANDOCOPTIONS) --defaults=htmltemplate.yaml
 
 
 
@@ -51,7 +52,7 @@ $(ID)_%.pdf: $(MD)/%.md
 	$(PANDOC) $(SLIDEOPTIONS) -o $@ $<
 
 $(ID)_%.html: $(MD)/%.md
-	$(PANDOC) $(HTMLOPTIONS) -o $@ $<
+	$(PANDOC) $(HTMLTEMPLATEOPTIONS) $< | $(PANDOC) $(HTMLOPTIONS) -o $@
 
 
 clean:
