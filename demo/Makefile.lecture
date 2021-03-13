@@ -13,7 +13,11 @@ PANDOC       ?= docker run --rm -v $(WORKDIR):/pandoc debian-texlive pandoc
 
 
 
-## Data-Dir: Path to the workingcopy of this repository (to be used as git sub-module)
+## Data-Dir: Path to the working copy of this repository (to be used as git sub-module)
+## (Note: If pandoc is used via docker container, DATADIR must be the working directory
+## or a subdirectory of the working directory, as the working directory is mounted in
+## the docker container! A reference to the parent folder of the working directory like
+## in this example will therefore not work when using the docker container!)
 DATADIR       = ..
 RESDIR        = ".:figs:$(DATADIR)"
 
