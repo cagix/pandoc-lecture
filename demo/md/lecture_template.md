@@ -1,7 +1,7 @@
 ---
 title: "Thema: ggf. Fokus"
 keywords: "xxx, xxx, xxx"
----
+...
 
 
 
@@ -14,7 +14,7 @@ tldr: |
 screencast-iframe-url: TODO
 
 screencast-direct-link: TODO
----
+...
 
 
 
@@ -67,7 +67,7 @@ tbd
 ---
 bib: |
     *   tbd
----
+...
 
 
 
@@ -81,14 +81,14 @@ outcomes:
 
     k3: |
         *   tbd
----
+...
 
 
 
 ---
 quizzes: |
     tbd
----
+...
 
 
 
@@ -111,4 +111,4 @@ challenges: |
 
         Bar, too!
         :::
----
+...
