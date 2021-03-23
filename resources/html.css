@@ -2,8 +2,9 @@
 /* Default (Screen: body and toc (left side)) */
 body {
     /* font-family: "Source Sans Pro", sans-serif; */
-    font-family: "Optima", sans-serif;
+    /* font-family: "Optima", sans-serif; */
     /* font-family: "Palatino", serif; */
+    font-family: "Verdana", sans-serif;
     max-width: 800px;
     margin: auto;
     margin-left: 240px;
@@ -150,7 +151,8 @@ div.column {
 /* Code, Pre, Blockquotes: Use some nice settings */
 code {
     /* font-family: "Source Code Pro", monospace; */
-    font-family: "FreeMono", monospace;
+    /* font-family: "FreeMono", monospace; */
+    font-family: "Courier New", monospace;
     background-color: #f2f2f2;
 }
 h1 code, h2 code, h3 code, h4 code, nav code, span.bsp code {
@@ -301,7 +303,7 @@ th, td {
 }
 .blueArrow {
     color: #4070a0;
-    font-family: "FreeMono", monospace;
+    font-family: "Courier New", monospace;
     font-weight: bold;
 }
 .origin {
