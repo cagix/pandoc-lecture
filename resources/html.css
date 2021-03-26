@@ -318,6 +318,11 @@ th, td {
     padding: 12px;
     margin: 4px 0px 26px 0px;
 }
+.outcomes {
+    background: #dbe4ed;
+    padding: 12px;
+    margin: 4px 0px 26px 0px;
+}
 .quizzes {
     background: #d9e9d5;
     padding: 12px;
