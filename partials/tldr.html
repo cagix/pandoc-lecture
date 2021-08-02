@@ -1,0 +1,34 @@
+<div class="tldr">
+    <h2>TL;DR</h2>
+
+    HERE THERE BE DRAGONS ...
+    <p>Resources: {{ .Resources }}</p>
+
+    <p>Pages: {{ .Pages }}</p>
+
+    <p>Type: {{ .Type }}</p>
+
+    <!--
+    <p>Resources.Match: {{ .Resources.Match "tldr.md" }}</p>
+
+    <p>Resources.Match: {{ range .Resources.Match "tldr.md" }}{{ .Render "single"}}{{ end }}</p>
+
+    <p>GetPage: {{ with .GetPage "tldr.md" }}{{ . }}{{ .Title }}{{ end }}</p>
+    -->
+
+    <p>{{ range where .Pages "Section" "!=" nil }}
+    {{ .Content }}
+    {{ end }}</p>
+
+    {{ with $.Page.Params.youtube }}
+    <div class="embed video-player">
+    <iframe class="youtube-player" type="text/html" width="640" height="385" src="https://www.youtube.com/embed/{{- . | safeURL -}}" allowfullscreen frameborder="0"></iframe>
+    </div>
+    {{ end }}
+
+    {{ with $.Page.Params.fhmedia }}
+    <div class="fhmedia">
+        <a href="https://www.fh-bielefeld.de/medienportal/m/{{- . | safeURL -}}">Direkt-Link FH-Medienportal</a>
+    </div>
+    {{ end }}
+</div>
