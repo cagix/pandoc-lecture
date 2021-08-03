@@ -1,6 +1,15 @@
+{{ $quizzes := $.Page.Resources.Match "quizzes.md" }}
+
 {{ if .Inner }}
 <div class="quizzes">
-    <h2>Quizzes ...</h2>
     {{ .Inner }}
+</div>
+
+{{ else if $quizzes }}
+<div class="quizzes">
+    <h2>Quizzes ...</h2>
+    {{ range $quizzes }}
+        {{ .Content }}
+    {{ end }}
 </div>
 {{ end }}
