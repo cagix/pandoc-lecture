@@ -1,0 +1,82 @@
+{{ $plan := $.Site.Data.schedule }}
+
+<div class="schedule">
+{{ if and (.Get "type") (.Get "type" | eq "table") }}
+
+    <table>
+    <thead>
+        <tr>
+        <th>Woche</th>
+        <th>Vorlesung</th>
+        <th>Aufgabenblatt</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{ range $i, $week := $plan }}
+        {{ $date := index $week "date" }}
+        {{ $lecture := index $week "lecture" }}
+        {{ $assignment := index $week "assignment" }}
+        <tr>
+            <td>Woche &nbsp; {{- add $i 1 -}} &nbsp; ({{- $date -}})</td>
+            <td>
+            {{ range $n, $l := $lecture }}
+                {{ $topic := index $l "topic" }}
+                {{ $leader := index $l "leader" }}
+                {{ $notes := index $l "notes" }}
+                {{ if ge $n 1}}<br>{{ end }}
+                {{ with $.Site.GetPage $topic }}
+                    {{- replace .File.Dir "/" " > " | upper -}}
+                    <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+                {{ end }}
+                {{ if $leader }} ({{- $leader -}}) {{ end }}
+                {{ if $notes }}<br>Hinweis: &nbsp; {{- $notes -}}{{ end }}
+            {{ end }}
+            </td><td>
+            {{ range $assignment }}
+                {{ $title := index . "title" }}
+                {{ $due := index . "due" }}
+                {{ with $.Site.GetPage $title }}
+                    <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+                    (Abgabe: &nbsp; {{- $due -}})
+                {{ end }}
+            {{ end }}
+            </td>
+        </tr>
+    {{ end }}
+    </tbody>
+    </table>
+
+{{ else }}
+
+    <ul>
+    {{ range $i, $week := $plan }}
+        {{ $date := index $week "date" }}
+        {{ $lecture := index $week "lecture" }}
+        {{ $assignment := index $week "assignment" }}
+        <li>
+        Woche &nbsp; {{- add $i 1 -}} &nbsp; ({{- $date -}}):
+        {{ range $lecture }}
+            {{ $topic := index . "topic" }}
+            {{ $leader := index . "leader" }}
+            {{ $notes := index . "notes" }}
+            <br>{{ with $.Site.GetPage $topic }}
+                {{- replace .File.Dir "/" " > " | upper -}}
+                <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+            {{ end }}
+            {{ if $leader }} ({{- $leader -}}) {{ end }}
+            {{ if $notes }}<br>Hinweis: &nbsp; {{- $notes -}}{{ end }}
+        {{ end }}
+        {{ range $assignment }}
+            {{ $title := index . "title" }}
+            {{ $due := index . "due" }}
+            <br>{{ with $.Site.GetPage $title }}
+                <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+                (Abgabe: &nbsp; {{- $due -}})
+            {{ end }}
+        {{ end }}
+        </li>
+    {{ end }}
+    </ul>
+
+{{ end }}
+</div>
