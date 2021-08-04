@@ -1,4 +1,15 @@
+{{ $outcomes := $.Page.Resources.Match "outcomes.md" }}
+
+{{ if .Inner }}
 <div class="outcomes">
-    <h2>Lernziele</h2>
     {{ .Inner }}
 </div>
+
+{{ else if $outcomes }}
+<div class="outcomes">
+    <h2>Lernziele</h2>
+    {{ range $outcomes }}
+        {{ .Content }}
+    {{ end }}
+</div>
+{{ end }}
