@@ -1,0 +1,40 @@
+{{ $readings := .Params.readings }}
+{{ $data := .Site.Data.readings }}
+
+{{ if $readings }}
+<div class="bib">
+    <h2>Literatur</h2>
+    <ul>
+    {{ range $readings }}
+        {{ $key := index . "key" }}
+        {{ $comment := index . "comment" }}
+        {{ with index $data $key }}
+            {{ $name := index . "name" }}
+            {{ $link := index . "link" }}
+            {{ $details := index . "details" }}
+            {{ $isbn := index . "isbn" }}
+            {{ $doi := index . "doi" }}
+            <li>
+            {{ if $link }}
+                <a href="{{- $link | safeURL -}}" class="icon reading"><strong>{{- $name -}}</strong></a>
+            {{ else }}
+                <strong>{{- $name -}}</strong>
+            {{ end }}
+            {{ if $details }}
+                <br>{{- $details -}}
+                {{ if $isbn }}
+                    ISBN <a href="https://www.digibib.net/openurl/Bi10?isbn={{- $isbn | safeURL -}}">{{- $isbn -}}</a>.
+                {{ end }}
+                {{ if $doi }}
+                    DOI <a href="https://doi.org/{{- $doi | safeURL -}}">{{- $doi -}}</a>.
+                {{ end }}
+            {{ end }}
+            {{ if $comment }}
+                <br><em>{{- $comment -}}</em>
+            {{ end }}
+            </li>
+        {{ end }}
+    {{ end }}
+    </ul>
+</div>
+{{ end }}

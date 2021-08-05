@@ -1,0 +1,10 @@
+{{ $outcomes := .Resources.Match "outcomes.md" }}
+
+{{ if $outcomes }}
+<div class="outcomes">
+    <h2>Lernziele</h2>
+    {{ range $outcomes }}
+        {{ .Content }}
+    {{ end }}
+</div>
+{{ end }}
