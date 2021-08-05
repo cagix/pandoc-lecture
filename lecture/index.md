@@ -1,6 +1,6 @@
 ---
-title: "{{ replace .Name "-" " " | title }}"
 type: lecture
+title: "{{ replace .Name "-" " " | title }}"
 weight: 5
 readings:
   - key: "AIMA"
@@ -9,10 +9,6 @@ readings:
 youtube: XYZ (ID)
 fhmedia: XYZ (KEY)
 ---
-
-
-{{< tldr />}}
-{{< outcomes />}}
 
 
 ## Motivation
@@ -36,8 +32,3 @@ Lorem Ipsum. Starte mit H2-Level.
 
 ## Wrap-Up
 ...
-
-
-{{< bib />}}
-{{< quizzes />}}
-{{< challenges />}}
