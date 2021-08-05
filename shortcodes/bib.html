@@ -1,5 +1,5 @@
-{{ $readings := $.Page.Params.readings }}
-{{ $data := $.Site.Data.readings }}
+{{ $readings := .Page.Params.readings }}
+{{ $data := .Site.Data.readings }}
 
 {{ if .Inner }}
 <div class="bib">

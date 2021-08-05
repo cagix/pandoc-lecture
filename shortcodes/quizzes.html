@@ -1,4 +1,4 @@
-{{ $quizzes := $.Page.Resources.Match "quizzes.md" }}
+{{ $quizzes := .Page.Resources.Match "quizzes.md" }}
 
 {{ if .Inner }}
 <div class="quizzes">

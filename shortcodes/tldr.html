@@ -1,4 +1,4 @@
-{{ $tldr := $.Page.Resources.Match "tldr.md" }}
+{{ $tldr := .Page.Resources.Match "tldr.md" }}
 
 {{ if .Inner }}
 <div class="tldr">

@@ -1,4 +1,4 @@
-{{ $outcomes := $.Page.Resources.Match "outcomes.md" }}
+{{ $outcomes := .Page.Resources.Match "outcomes.md" }}
 
 {{ if .Inner }}
 <div class="outcomes">

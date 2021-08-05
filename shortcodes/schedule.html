@@ -1,4 +1,4 @@
-{{ $plan := $.Site.Data.schedule }}
+{{ $plan := .Site.Data.schedule }}
 
 <div class="schedule">
 {{ if and (.Get "type") (.Get "type" | eq "table") }}
