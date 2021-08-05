@@ -1,12 +1,13 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
+type: lecture
 weight: 5
 readings:
   - key: "AIMA"
     comment: "Kapitel 2 und 3"
   - key: "Ertel"
-youtube: XYZ
-fhmedia: XYZ
+youtube: XYZ (ID)
+fhmedia: XYZ (KEY)
 ---
 
 
