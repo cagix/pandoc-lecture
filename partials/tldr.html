@@ -9,8 +9,8 @@
     {{ end }}
 
     {{ with .Params.youtube }}
-    <div class="embed video-player">
-        <iframe class="youtube-player" width="560" height="315" src="https://www.youtube-nocookie.com/embed/{{- . | safeURL -}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="embed-video-player">
+        <iframe class="youtube-player" src="https://www.youtube-nocookie.com/embed/{{- . | safeURL -}}" title="YouTube video player" allowfullscreen></iframe>
     </div>
     {{ end }}
 
