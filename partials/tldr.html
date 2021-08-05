@@ -1,6 +1,8 @@
 {{ $tldr := .Resources.Match "tldr.md" }}
+{{ $yt := .Params.youtube }}
+{{ $fh := .Params.fhmedia }}
 
-{{ if $tldr }}
+{{ if or $tldr (or $yt $fh) }}
 <div class="tldr">
     <h2>TL;DR</h2>
 
@@ -8,13 +10,13 @@
         {{ .Content }}
     {{ end }}
 
-    {{ with .Params.youtube }}
+    {{ with $yt }}
     <div class="embed-video-player">
         <iframe class="youtube-player" src="https://www.youtube-nocookie.com/embed/{{- . | safeURL -}}" title="YouTube video player" allowfullscreen></iframe>
     </div>
     {{ end }}
 
-    {{ with .Params.fhmedia }}
+    {{ with $fh }}
     <div class="fhmedia">
         <a href="https://www.fh-bielefeld.de/medienportal/m/{{- . | safeURL -}}">Direkt-Link FH-Medienportal</a>
     </div>
