@@ -33,4 +33,3 @@ filters:
 - listings.lua
 - tex.lua
 - citeproc
-- fhbib.lua
