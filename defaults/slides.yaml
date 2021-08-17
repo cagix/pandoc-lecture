@@ -1,6 +1,6 @@
 ## Lecture options (slides)
 
-from: markdown+lists_without_preceding_blankline
+from: markdown+rebase_relative_paths+lists_without_preceding_blankline
 to: beamer
 
 metadata-file: metadata.yaml
