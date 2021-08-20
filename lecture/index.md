@@ -11,7 +11,10 @@ quizzes:
     link: XYZ (URL from "Invite more Players")
 youtube:
   - id: XYZ (ID)
-  - id: XYZ (ID)
+  - name: "Use This As Header H3 Before Video"
+    id: XYZ (ID)
+  - name: "Use This As Header H3 Before Video"
+    link: https://youtu.be/XYZ
 fhmedia: XYZ (KEY)
 ---
 
