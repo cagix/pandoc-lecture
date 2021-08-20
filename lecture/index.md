@@ -15,7 +15,12 @@ youtube:
     id: XYZ (ID)
   - name: "Use This As Header H3 Before Video"
     link: https://youtu.be/XYZ
-fhmedia: XYZ (KEY)
+fhmedia:
+  - id: XYZ (KEY)
+  - name: "Use This As Link Text"
+    id: XYZ (KEY)
+  - name: "Use This As Link Text"
+    link: https://www.fh-bielefeld.de/medienportal/m/XYZ
 ---
 
 
