@@ -6,6 +6,9 @@ readings:
   - key: "AIMA"
     comment: "Kapitel 2 und 3"
   - key: "Ertel"
+quizzes:
+  - name: "Testquizz"
+    link: XYZ (URL from "Invite more Players")
 youtube: XYZ (ID)
 fhmedia: XYZ (KEY)
 ---
