@@ -10,10 +10,12 @@
         {{ .Content }}
     {{ end }}
 
-    {{ with $yt }}
-    <div class="embed-video-player">
-        <iframe class="youtube-player" src="https://www.youtube-nocookie.com/embed/{{- . | safeURL -}}" title="YouTube video player" allowfullscreen></iframe>
-    </div>
+    {{ range $yt }}
+        {{ with index . "id" }}
+        <div class="embed-video-player">
+            <iframe class="youtube-player" src="https://www.youtube-nocookie.com/embed/{{- . | safeURL -}}" title="YouTube video player" allowfullscreen></iframe>
+        </div>
+        {{ end }}
     {{ end }}
 
     {{ with $fh }}
