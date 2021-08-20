@@ -23,9 +23,10 @@
     {{ end }}
 
     {{ with $fh }}
-    <div class="fhmedia">
-        <a href="https://www.fh-bielefeld.de/medienportal/m/{{- . | safeURL -}}">Direkt-Link FH-Medienportal</a>
-    </div>
+        <h3>Direkt-Link FH-Medienportal</h3>
+        {{ range . }}
+            {{ partial "fhmedia.html" . }}
+        {{ end }}
     {{ end }}
 </div>
 {{ end }}
