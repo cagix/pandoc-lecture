@@ -9,7 +9,9 @@ readings:
 quizzes:
   - name: "Testquizz"
     link: XYZ (URL from "Invite more Players")
-youtube: XYZ (ID)
+youtube:
+  - id: XYZ (ID)
+  - id: XYZ (ID)
 fhmedia: XYZ (KEY)
 ---
 
