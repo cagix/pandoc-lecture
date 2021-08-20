@@ -1,3 +1,15 @@
+{{ with index . "name" }}
+    <h3>{{ . }}</h3>
+{{ end }}
+
+{{ $l := "https://www.youtube-nocookie.com/embed/" }}
+{{ with index . "id" }}
+    {{ $l = . | printf "%s%s" $l }}
+{{ end }}
+{{ with index . "link" }}
+    {{ $l = . }}
+{{ end }}
+
 <div class="embed-video-player">
-    <iframe class="youtube-player" src="{{- . | safeURL -}}" title="YouTube video player" allowfullscreen></iframe>
+    <iframe class="youtube-player" src="{{- $l | safeURL -}}" title="YouTube video player" allowfullscreen></iframe>
 </div>

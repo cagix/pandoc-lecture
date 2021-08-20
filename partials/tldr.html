@@ -11,15 +11,7 @@
     {{ end }}
 
     {{ range $yt }}
-        {{ with index . "name" }}
-            <h3>{{ . }}</h3>
-        {{ end }}
-        {{ with index . "id" }}
-            {{ partial "youtube.html" "https://www.youtube-nocookie.com/embed/{{- . -}}" }}
-        {{ end }}
-        {{ with index . "link" }}
-            {{ partial "youtube.html" . }}
-        {{ end }}
+        {{ partial "youtube.html" . }}
     {{ end }}
 
     {{ with $fh }}
