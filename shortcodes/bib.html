@@ -21,17 +21,17 @@
             {{ $doi := index . "doi" }}
             <li>
             {{ if $link }}
-                <a href="{{- $link | safeURL -}}" class="icon reading"><strong>{{- $name -}}</strong></a>
+                <a href="{{- $link | safeURL -}}" class="icon reading" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- $name -}}</strong></a>
             {{ else }}
                 <strong>{{- $name -}}</strong>
             {{ end }}
             {{ if $details }}
                 <br>{{- $details -}}
                 {{ if $isbn }}
-                    ISBN <a href="https://www.digibib.net/openurl/Bi10?isbn={{- $isbn | safeURL -}}">{{- $isbn -}}</a>.
+                    ISBN <a href="https://www.digibib.net/openurl/Bi10?isbn={{- $isbn | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $isbn -}}</a>.
                 {{ end }}
                 {{ if $doi }}
-                    DOI <a href="https://doi.org/{{- $doi | safeURL -}}">{{- $doi -}}</a>.
+                    DOI <a href="https://doi.org/{{- $doi | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $doi -}}</a>.
                 {{ end }}
             {{ end }}
             {{ if $comment }}
