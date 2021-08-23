@@ -1,8 +1,7 @@
 {{ $plan := .Site.Data.schedule }}
 
-<div class="schedule">
 {{ if and (.Get "type") (.Get "type" | eq "table") }}
-
+<div class="schedule">
     <table>
     <thead>
         <tr>
@@ -45,9 +44,9 @@
     {{ end }}
     </tbody>
     </table>
-
+</div>
 {{ else }}
-
+<div class="schedule">
     <ul>
     {{ range $i, $week := $plan }}
         {{ $date := index $week "date" }}
@@ -77,6 +76,5 @@
         </li>
     {{ end }}
     </ul>
-
-{{ end }}
 </div>
+{{ end }}
