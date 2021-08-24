@@ -55,11 +55,12 @@
         <tr>
             <td>Woche &nbsp; {{- add $i 1 -}} &nbsp; ({{- $date -}})</td>
             <td>
+            <ul>
             {{ range $n, $l := $lecture }}
                 {{ $topic := index $l "topic" }}
                 {{ $leader := index $l "leader" }}
                 {{ $notes := index $l "notes" }}
-                <p>
+                <li>
                 {{ with $.Site.GetPage $topic }}
                     {{ $path := replace (strings.TrimSuffix "/" .File.Dir | path.Dir) "/" " > " | upper }}
                     {{if gt (len $path) 1}}
@@ -69,8 +70,9 @@
                 {{ end }}
                 {{ if $leader }} ({{- $leader -}}) {{ end }}
                 {{ if $notes }}<br><em>Hinweis: &nbsp; {{- $notes -}}</em>{{ end }}
-                </p>
+                </li>
             {{ end }}
+            </ul>
             </td><td>
             {{ range $assignment }}
                 {{ $title := index . "title" }}
