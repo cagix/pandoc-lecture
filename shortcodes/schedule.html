@@ -16,7 +16,7 @@
         {{ $lecture := index $w "lecture" }}
         {{ $assignment := index $w "assignment" }}
         <tr>
-            <td>{{- printf "Woche %d (%s)" (add $i 1) $week -}}</td>
+            <td>{{ printf "Woche %d (%s)" (add $i 1) $week }}</td>
             <td>
             <ul>
             {{ range $n, $l := $lecture }}
@@ -26,13 +26,11 @@
                 <li>
                 {{ with $.Site.GetPage $topic }}
                     {{ $path := replace (strings.TrimSuffix "/" .File.Dir | path.Dir) "/" " > " | upper }}
-                    {{if gt (len $path) 1}}
-                        {{- printf "%s > " $path -}}
-                    {{end}}
+                    {{if gt (len $path) 1}}{{ printf "%s > " $path }}{{end}}
                     <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
                 {{ end }}
-                {{ if $leader }} ({{- $leader -}}) {{ end }}
-                {{ if $notes }}<br><em>{{- printf "Hinweis: %s" $notes -}}</em>{{ end }}
+                {{ if $leader }}{{ printf " (%s)" $leader }}{{ end }}
+                {{ if $notes }}<br><em>{{ printf "Hinweis: %s" $notes }}</em>{{ end }}
                 </li>
             {{ end }}
             </ul>
@@ -43,7 +41,7 @@
                 {{ with $.Site.GetPage $topic }}
                 <p>
                     <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
-                    {{ if $due }}{{- printf " (Abgabe: %s)" $due -}}{{ end }}
+                    {{ if $due }}{{ printf " (Abgabe: %s)" $due }}{{ end }}
                 </p>
                 {{ end }}
             {{ end }}
