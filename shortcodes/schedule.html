@@ -3,12 +3,12 @@
 {{ if and (.Get "type") (.Get "type" | eq "list") }}
 <div class="schedule">
     <ul>
-    {{ range $i, $week := $plan }}
-        {{ $date := index $week "date" }}
-        {{ $lecture := index $week "lecture" }}
-        {{ $assignment := index $week "assignment" }}
+    {{ range $i, $w := $plan }}
+        {{ $week := index $w "week" }}
+        {{ $lecture := index $w "lecture" }}
+        {{ $assignment := index $w "assignment" }}
         <li>
-        Woche &nbsp; {{- add $i 1 -}} &nbsp; ({{- $date -}}):
+        {{- printf "Woche %d (%s):" (add $i 1) $week -}}
         {{ range $lecture }}
             {{ $topic := index . "topic" }}
             {{ $leader := index . "leader" }}
@@ -22,15 +22,15 @@
                 <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
             {{ end }}
             {{ if $leader }} ({{- $leader -}}) {{ end }}
-            {{ if $notes }}<br><em>Hinweis: &nbsp; {{- $notes -}}</em>{{ end }}
+            {{ if $notes }}<br><em>{{- printf "Hinweis: %s" $notes -}}</em>{{ end }}
         {{ end }}
         {{ range $assignment }}
-            {{ $title := index . "title" }}
+            {{ $topic := index . "topic" }}
             {{ $due := index . "due" }}
-            {{ with $.Site.GetPage $title }}
+            {{ with $.Site.GetPage $topic }}
                 <br>
                 <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
-                (Abgabe: &nbsp; {{- $due -}})
+                {{ if $due }}{{- printf " (Abgabe: %s)" $due -}}{{ end }}
             {{ end }}
         {{ end }}
         </li>
@@ -44,16 +44,16 @@
         <tr>
         <th>Woche</th>
         <th>Vorlesung</th>
-        <th>Aufgabenblatt</th>
+        <th>Praktikum/Übung</th>
         </tr>
     </thead>
     <tbody>
-    {{ range $i, $week := $plan }}
-        {{ $date := index $week "date" }}
-        {{ $lecture := index $week "lecture" }}
-        {{ $assignment := index $week "assignment" }}
+    {{ range $i, $w := $plan }}
+        {{ $week := index $w "week" }}
+        {{ $lecture := index $w "lecture" }}
+        {{ $assignment := index $w "assignment" }}
         <tr>
-            <td>Woche &nbsp; {{- add $i 1 -}} &nbsp; ({{- $date -}})</td>
+            <td>{{- printf "Woche %d (%s)" (add $i 1) $week -}}</td>
             <td>
             <ul>
             {{ range $n, $l := $lecture }}
@@ -69,18 +69,18 @@
                     <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
                 {{ end }}
                 {{ if $leader }} ({{- $leader -}}) {{ end }}
-                {{ if $notes }}<br><em>Hinweis: &nbsp; {{- $notes -}}</em>{{ end }}
+                {{ if $notes }}<br><em>{{- printf "Hinweis: %s" $notes -}}</em>{{ end }}
                 </li>
             {{ end }}
             </ul>
             </td><td>
             {{ range $assignment }}
-                {{ $title := index . "title" }}
+                {{ $topic := index . "topic" }}
                 {{ $due := index . "due" }}
-                {{ with $.Site.GetPage $title }}
+                {{ with $.Site.GetPage $topic }}
                 <p>
                     <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
-                    (Abgabe: &nbsp; {{- $due -}})
+                    {{ if $due }}{{- printf " (Abgabe: %s)" $due -}}{{ end }}
                 </p>
                 {{ end }}
             {{ end }}
