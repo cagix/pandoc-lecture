@@ -1,43 +1,6 @@
 {{ $plan := .Site.Data.schedule }}
 
-{{ if and (.Get "type") (.Get "type" | eq "list") }}
-<div class="schedule">
-    <ul>
-    {{ range $i, $w := $plan }}
-        {{ $week := index $w "week" }}
-        {{ $lecture := index $w "lecture" }}
-        {{ $assignment := index $w "assignment" }}
-        <li>
-        {{- printf "Woche %d (%s):" (add $i 1) $week -}}
-        {{ range $lecture }}
-            {{ $topic := index . "topic" }}
-            {{ $leader := index . "leader" }}
-            {{ $notes := index . "notes" }}
-            <br>
-            {{ with $.Site.GetPage $topic }}
-                {{ $path := replace (strings.TrimSuffix "/" .File.Dir | path.Dir) "/" " > " | upper }}
-                {{if gt (len $path) 1}}
-                    {{- printf "%s > " $path -}}
-                {{end}}
-                <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
-            {{ end }}
-            {{ if $leader }} ({{- $leader -}}) {{ end }}
-            {{ if $notes }}<br><em>{{- printf "Hinweis: %s" $notes -}}</em>{{ end }}
-        {{ end }}
-        {{ range $assignment }}
-            {{ $topic := index . "topic" }}
-            {{ $due := index . "due" }}
-            {{ with $.Site.GetPage $topic }}
-                <br>
-                <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
-                {{ if $due }}{{- printf " (Abgabe: %s)" $due -}}{{ end }}
-            {{ end }}
-        {{ end }}
-        </li>
-    {{ end }}
-    </ul>
-</div>
-{{ else }}
+{{ if $plan }}
 <div class="schedule">
     <table>
     <thead>
