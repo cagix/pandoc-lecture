@@ -3,9 +3,7 @@
 
 {{ if .Params.youtube }}
     <h2>Videos</h2>
-    {{ range .Params.youtube }}
-        {{ partial "youtube.html" . }}
-    {{ end }}
+    {{ partial "youtube.html" . }}
 {{ end }}
 {{ partial "attachments.html" . }}
 

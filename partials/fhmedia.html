@@ -1,16 +1,20 @@
-{{ $n := "Direkt-Link FH-Medienportal" }}
-{{ with index . "name" }}
-    {{ $n = . }}
-{{ end }}
+{{ $fhmedia := .Params.fhmedia }}
 
-{{ $l := "https://www.fh-bielefeld.de/medienportal/m/" }}
-{{ with index . "id" }}
-    {{ $l = . | printf "%s%s" $l }}
-{{ end }}
-{{ with index . "link" }}
-    {{ $l = . }}
-{{ end }}
+{{ range $fhmedia }}
+    {{ $n := "Direkt-Link FH-Medienportal" }}
+    {{ with index . "name" }}
+        {{ $n = . }}
+    {{ end }}
 
-<div class="fhmedia">
-    <a href="{{- $l | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a>
-</div>
+    {{ $l := "https://www.fh-bielefeld.de/medienportal/m/" }}
+    {{ with index . "id" }}
+        {{ $l = . | printf "%s%s" $l }}
+    {{ end }}
+    {{ with index . "link" }}
+        {{ $l = . }}
+    {{ end }}
+
+    <div class="fhmedia">
+        <a href="{{- $l | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a>
+    </div>
+{{ end }}

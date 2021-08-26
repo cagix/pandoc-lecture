@@ -10,15 +10,14 @@
         {{ .Content }}
     {{ end }}
 
-    {{ range $yt }}
+    {{ if $yt }}
+        <h3>Videos (YouTube)</h3>
         {{ partial "youtube.html" . }}
     {{ end }}
 
-    {{ with $fh }}
-        <h3>Direkt-Link FH-Medienportal</h3>
-        {{ range . }}
-            {{ partial "fhmedia.html" . }}
-        {{ end }}
+    {{ if $fh }}
+        <h3>Videos (FH-Medienportal)</h3>
+        {{ partial "fhmedia.html" . }}
     {{ end }}
 </div>
 {{ end }}
