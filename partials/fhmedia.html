@@ -1,5 +1,6 @@
 {{ $fhmedia := .Params.fhmedia }}
 
+<ul>
 {{ range $fhmedia }}
     {{ $n := "Direkt-Link FH-Medienportal" }}
     {{ with index . "name" }}
@@ -15,8 +16,7 @@
     {{ end }}
 
     {{ if $l }}
-    <div class="fhmedia">
-        <a href="{{- $l | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a>
-    </div>
+        <li><a href="{{- $l | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
     {{ end }}
 {{ end }}
+</ul>

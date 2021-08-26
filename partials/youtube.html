@@ -1,5 +1,6 @@
 {{ $youtube := .Params.youtube }}
 
+<ul>
 {{ range $youtube }}
     {{ $n := "" }}
     {{ with index . "name" }}
@@ -16,8 +17,7 @@
 
     {{ if not $n }}{{ $n = "Link YouTube" }}{{ end }}
     {{ with index . "link" }}
-        <div class="youtube">
-            <a href="{{- . | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a>
-        </div>
+        <li><a href="{{- . | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
     {{ end }}
 {{ end }}
+</ul>
