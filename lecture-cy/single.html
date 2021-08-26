@@ -5,6 +5,8 @@
     <h2>Videos</h2>
     {{ partial "youtube.html" . }}
 {{ end }}
+{{ .Scratch.Set "attachments_header" "Folien" }}
+{{ .Scratch.Set "attachments_level" 2 }}
 {{ partial "attachments.html" . }}
 
 

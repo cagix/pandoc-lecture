@@ -1,6 +1,7 @@
 {{ $tldr := .Resources.Match "tldr.md" }}
 {{ $yt := .Params.youtube }}
 {{ $fh := .Params.fhmedia }}
+{{ $attachments := .Params.attachments }}
 
 {{ if or $tldr (or $yt $fh) }}
 <div class="tldr">
@@ -18,6 +19,12 @@
     {{ if $fh }}
         <h3>Videos (FH-Medienportal)</h3>
         {{ partial "fhmedia.html" . }}
+    {{ end }}
+
+    {{ if $attachments }}
+        {{ .Scratch.Set "attachments_header" "(Annotierte) Folien" }}
+        {{ .Scratch.Set "attachments_level" 3 }}
+        {{ partial "attachments.html" . }}
     {{ end }}
 </div>
 {{ end }}
