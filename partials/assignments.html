@@ -1,0 +1,14 @@
+{{ $assignments := .Params.assignments }}
+
+{{ if $assignments }}
+<div class="assignments">
+    <h2>Übungsblätter</h2>
+
+    {{ range $assignments }}
+        {{ with $.Site.GetPage (index . "topic") }}
+        <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+        {{ end }}
+    {{ end }}
+
+</div>
+{{ end }}

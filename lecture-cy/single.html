@@ -1,0 +1,29 @@
+{{ partial "header.html" . }}
+
+
+{{ if .Params.youtube }}
+    <h2>Videos</h2>
+    {{ range .Params.youtube }}
+        {{ partial "youtube.html" . }}
+    {{ end }}
+{{ end }}
+{{ partial "attachments.html" . }}
+
+
+{{ .Content }}
+
+
+{{ partial "quizzes.html" . }}
+{{ partial "assignments.html" . }}
+{{ partial "bib.html" . }}
+
+
+<footer class="footline">
+    <p>{{ readFile "static/license.html" | safeHTML }}</p>
+	{{with .Params.LastModifierDisplayName}}
+	    <i class='fas fa-user'></i> <a href="mailto:{{ $.Params.LastModifierEmail }}">{{ . }}</a> {{with $.Date}} <i class='fas fa-calendar'></i> {{ .Format "02/01/2006" }}{{end}}
+	    </div>
+	{{end}}
+</footer>
+
+{{ partial "footer.html" . }}

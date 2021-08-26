@@ -1,0 +1,10 @@
+<div class="attachments">
+    <h2>Materialien</h2>
+
+    <ul>
+    {{ range .Resources.Match "files/*.pdf" }}
+        {{ $fileUrl := printf "%s%s" $.Page.File.Dir . }}
+        <li><a href="{{- $fileUrl | absURL | safeURL -}}"><strong>{{- path.Base .Title -}}</strong></a></li>
+    {{ end }}
+    </ul>
+</div>
