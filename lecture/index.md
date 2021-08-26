@@ -21,6 +21,9 @@ fhmedia:
     id: XYZ (KEY)
   - name: "Use This As Link Text"
     link: https://www.fh-bielefeld.de/medienportal/m/XYZ
+attachments:
+  - name: "Extra Material, e.g. annotated slides ... Use This As Link Text"
+    link: https://www.fh-bielefeld.de
 ---
 
 
