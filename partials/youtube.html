@@ -1,19 +1,23 @@
 {{ $youtube := .Params.youtube }}
 
 {{ range $youtube }}
+    {{ $n := "" }}
     {{ with index . "name" }}
-        <p><strong>{{ . }}</strong></p>
+        {{ $n = . }}
     {{ end }}
 
-    {{ $l := "https://www.youtube-nocookie.com/embed/" }}
     {{ with index . "id" }}
-        {{ $l = . | printf "%s%s" $l }}
-    {{ end }}
-    {{ with index . "link" }}
-        {{ $l = . }}
+        {{ $l := printf "https://www.youtube-nocookie.com/embed/%s" . }}
+        {{ if $n }}<p><strong>{{ $n }}</strong></p>{{ end }}
+        <div class="embed-video-player">
+            <iframe class="youtube-player" src="{{- $l | safeURL -}}" title="YouTube video player" allowfullscreen></iframe>
+        </div>
     {{ end }}
 
-    <div class="embed-video-player">
-        <iframe class="youtube-player" src="{{- $l | safeURL -}}" title="YouTube video player" allowfullscreen></iframe>
-    </div>
+    {{ if not $n }}{{ $n = "Link YouTube" }}{{ end }}
+    {{ with index . "link" }}
+        <div class="youtube">
+            <a href="{{- . | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a>
+        </div>
+    {{ end }}
 {{ end }}
