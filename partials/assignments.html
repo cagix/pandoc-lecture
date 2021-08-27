@@ -4,11 +4,13 @@
 <div class="assignments">
     <h2>Übungsblätter</h2>
 
+    <ul>
     {{ range $assignments }}
         {{ with $.Site.GetPage (index . "topic") }}
-        <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+        <li><a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a></li>
         {{ end }}
     {{ end }}
+    </ul>
 
 </div>
 {{ end }}
