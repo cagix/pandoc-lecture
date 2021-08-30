@@ -1,4 +1,4 @@
-## Lecture options (handout)
+## Lecture options (Hugo pre-processing)
 
 from: markdown-smart+lists_without_preceding_blankline
 to: markdown+smart-grid_tables-multiline_tables-simple_tables
