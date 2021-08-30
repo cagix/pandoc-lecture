@@ -1,27 +1,42 @@
 {{ $readings := .Params.readings }}
-{{ $data := .Site.Data.readings }}
+{{ $data := .Site.Data.readings.references }}
 
 {{ if $readings }}
 <div class="bib">
     <h2>Literatur</h2>
     <ul>
-    {{ range $readings }}
+    {{ range sort $readings "key" }}
         {{ $key := index . "key" }}
         {{ $comment := index . "comment" }}
-        {{ with index $data $key }}
-            {{ $name := index . "name" }}
-            {{ $link := index . "link" }}
-            {{ $details := index . "details" }}
+        {{ range where $data "id" $key }}
+            {{ $title := index . "title" }}
+            {{ $author := index . "author" }}
+            {{ $url := index . "url" }}
             {{ $isbn := index . "isbn" }}
             {{ $doi := index . "doi" }}
-            <li>
-            {{ if $link }}
-                <a href="{{- $link | safeURL -}}" class="icon reading" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- $name -}}</strong></a>
+
+            {{ $details := slice "" }}
+            {{ range $i, $v := $author }}
+                {{ if eq $i 0 }}
+                    {{ $details = slice (delimit $v ", ") }}
+                {{ else }}
+                    {{ $details = $details | append (delimit $v ", ") }}
+                {{ end }}
+            {{ end }}
+            {{ $details = delimit $details " und " }}
+            {{ $details = slice ($details) }}
+            {{ with index . "publisher" }}{{ $details = $details | append . }}{{ end }}
+            {{ with index . "issued" }}{{ $details = $details | append . }}{{ end }}
+            {{ $details = delimit $details ", " }}
+
+            <li id="id_{{- $key -}}">
+            {{ if $url }}
+                <a href="{{- $url | safeURL -}}" class="icon reading" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- $title -}}</strong></a>
             {{ else }}
-                <strong>{{- $name -}}</strong>
+                <strong>{{- $title -}}</strong>
             {{ end }}
             {{ if $details }}
-                <br>{{- $details -}}
+                <br>{{- $details -}}.
                 {{ if $isbn }}
                     ISBN <a href="https://www.digibib.net/openurl/Bi10?isbn={{- $isbn | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $isbn -}}</a>.
                 {{ end }}
