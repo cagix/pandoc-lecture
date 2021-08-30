@@ -65,3 +65,43 @@ function Span(el)
         el.content ..
         { pandoc.RawInline("markdown", "</span>") }
 end
+
+
+-- Handle citations
+-- use "#id_KEY" as target => needs be be defined in the document
+-- i.e. the shortcode/partial "bib.html" needs to create this targets
+local keys = {}
+
+function Cite(el)
+    -- translate a citation into a link
+    local citation_to_link = function(citation)
+        local id = citation.id
+        local suffix = pandoc.utils.stringify(citation.suffix)
+        -- remember this id, needs to be added to the meta data
+        keys[id] = true
+        -- create a link into the current document
+        return pandoc.Link("[" .. id .. suffix .. "]", "#id_" .. id)
+    end
+
+    -- replace citation with list of links
+    return el.citations:map(citation_to_link)
+end
+
+function Meta(md)
+    -- meta data "readings"
+    md.readings = md.readings or pandoc.MetaList(pandoc.List())
+
+    -- has a "readings" element "x" a "key" with value "k"?
+    local has_id = function(k)
+        return function(x) return pandoc.utils.stringify(x.key) == k end
+    end
+
+    -- collect all "keys" which are not in "readings"
+    for k, _ in pairs(keys) do
+        if #md.readings:filter(has_id(k)) == 0 then
+            md.readings:insert(pandoc.MetaMap{key = pandoc.MetaInlines{pandoc.Str(k)}})
+        end
+    end
+
+    return md
+end
