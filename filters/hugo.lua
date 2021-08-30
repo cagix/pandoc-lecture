@@ -30,3 +30,38 @@ function Math(el)
           }
     end
 end
+
+
+-- Replace native Divs with "real" Divs or Shortcodes
+function Div(el)
+    -- Replace "showme" Div with "expand" Shortcode
+    if el.classes[1] == "showme" then
+        return
+            { pandoc.RawBlock("markdown", '{{% expand "Show Me" %}}'), pandoc.RawBlock("markdown", "<div class='showme'>") } ..
+            el.content ..
+            { pandoc.RawBlock("markdown", "</div>"), pandoc.RawBlock("markdown", "{{% /expand %}}") }
+    end
+
+    -- Transform all other native Divs to "real" Divs digestible to Hugo
+    return
+        { pandoc.RawBlock("markdown", "<div class='" .. el.classes[1] .. "'>") } ..
+        el.content ..
+        { pandoc.RawBlock("markdown", "</div>") }
+end
+
+-- Replace native Spans with "real" Spans or Shortcodes
+function Span(el)
+    -- Replace "bsp" Span with "button" Shortcode
+    if el.classes[1] == "bsp" then
+        return
+            { pandoc.RawInline("markdown", "{{% button %}}") } ..
+            el.content ..
+            { pandoc.RawInline("markdown", "{{% /button %}}") }
+    end
+
+    -- Transform all other native Spans to "real" Spans digestible to Hugo
+    return
+        { pandoc.RawInline("markdown", "<span class='" .. el.classes[1] .. "'>") } ..
+        el.content ..
+        { pandoc.RawInline("markdown", "</span>") }
+end
