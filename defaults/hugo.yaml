@@ -8,4 +8,5 @@ standalone: true
 wrap: preserve
 
 filters:
+- prepareHandout.lua
 - hugo.lua
