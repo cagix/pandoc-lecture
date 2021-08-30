@@ -1,0 +1,11 @@
+## Lecture options (handout)
+
+from: markdown-smart+lists_without_preceding_blankline
+to: markdown+smart-grid_tables-multiline_tables-simple_tables
+
+strip-comments: true
+standalone: true
+wrap: preserve
+
+filters:
+- hugo.lua
