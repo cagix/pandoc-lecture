@@ -1,20 +1,22 @@
 ---
 type: lecture-cy
 title: "{{ replace .Name "-" " " | title }}"
+menuTitle: "{{ replace .Name "-" " " | title }}"
+author: "Canan Yıldız (Türkisch-Deutsche Universität)"
 weight: 5
 readings:
-  - key: "AIMA"
+  - key: "Russell2020"
     comment: "Kapitel 2 und 3"
-  - key: "Ertel"
+  - key: "Ertel2017"
 quizzes:
-  - name: "Testquizz"
-    link: XYZ (URL from "Invite more Players")
-youtube:
-  - id: XYZ (ID)
-  - id: XYZ (ID)
+  - link: XYZ (URL from 'Invite more Players')
+    name: "Testquizz"
 assignments:
   - topic: blatt01
   - topic: blatt02
+youtube:
+  - id: XYZ (ID)
+  - id: XYZ (ID)
 ---
 
 

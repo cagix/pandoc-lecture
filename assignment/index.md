@@ -1,6 +1,6 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
-weight: 1
+author: "NAME (INSTITUT)"
 disableToc: true
 hidden: true
 ---
