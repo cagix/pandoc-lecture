@@ -18,23 +18,6 @@ assignments:
 ---
 
 
-## Zusammenfassung
+## Zusammenfassung / Recap
 
 ...
-
-
-{{% outcomes %}}
-## Lernziele oder Was muss ich wissen?
-
-Platz für Lernziele
-*   Behebung von Bad Smells durch Refactoring
-
-
-{{% k1 %}}
--   Wuppie
--   Fluppie
-{{% /k1 %}}
-
-...
-
-{{% /outcomes %}}
