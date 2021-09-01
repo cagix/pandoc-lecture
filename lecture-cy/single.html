@@ -5,16 +5,18 @@
     <h2>Videos</h2>
     {{ partial "youtube.html" . }}
 {{ end }}
+
 {{ .Scratch.Set "attachments_header" "Folien" }}
 {{ .Scratch.Set "attachments_level" 2 }}
 {{ partial "attachments.html" . }}
 
-
+<div class="recap">
 {{ .Content }}
+</div>
 
-
-{{ partial "quizzes.html" . }}
 {{ partial "assignments.html" . }}
+{{ partial "outcomes.html" . }}
+{{ partial "quizzes.html" . }}
 {{ partial "bib.html" . }}
 
 
