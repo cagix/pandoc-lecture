@@ -9,8 +9,8 @@ readings:
     comment: "Kapitel 2 und 3"
   - key: "Mogensen2017"
 quizzes:
-  - link: XYZ (URL from 'Invite more Players')
-    name: "Testquizz"
+  - link: XYZ
+    name: "Testquizz (URL from `'`{=markdown}Invite more Players`'`{=markdown})"
 assignments:
   - topic: blatt01
 youtube:

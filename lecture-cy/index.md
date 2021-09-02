@@ -9,8 +9,8 @@ readings:
     comment: "Kapitel 2 und 3"
   - key: "Ertel2017"
 quizzes:
-  - link: XYZ (URL from 'Invite more Players')
-    name: "Testquizz"
+  - link: XYZ
+    name: "Testquizz (URL from 'Invite more Players')"
 assignments:
   - topic: blatt01
   - topic: blatt02
