@@ -26,3 +26,11 @@ function Div(el)
         return {pandoc.RawBlock("latex", "\\begin{" .. env .. "}")} .. el.content .. {pandoc.RawBlock("latex", "\\end{" .. env .. "}")}
     end
 end
+
+
+-- center images without captions too (like "real" images w/ caption)
+function Image(el)
+    if el.caption and #el.caption == 0 then
+        return { pandoc.RawInline('latex', '\\begin{center}'), el, pandoc.RawInline('latex', '\\end{center}') }
+    end
+end
