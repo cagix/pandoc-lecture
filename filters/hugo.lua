@@ -32,6 +32,30 @@ function Math(el)
 end
 
 
+-- Nest an image in a Div to center it and allow manual scaling
+--
+-- This is essentially the construct that Hugo would create for
+-- shortcode `{{% figure src="path" title="text" width="60%" %}}`
+-- Now we can just write `![text](path){width="60%}` instead ...
+function Image(el)
+    local width  = el.attributes["width"]  or "auto"
+    local height = el.attributes["height"] or "auto"
+    local style  = string.format("width:%s;height:%s;", width, height)
+    local alt    = pandoc.utils.stringify(el.caption)
+
+    return {
+            pandoc.RawInline('markdown', '<div class="center" style="' .. style .. '">'),
+            pandoc.RawInline('markdown', '<figure>'),
+            pandoc.RawInline('markdown', '<img src="' .. el.src .. '" alt="' .. alt ..'">'),
+            pandoc.RawInline('markdown', '<figcaption><h4>'),
+            pandoc.Str(alt),
+            pandoc.RawInline('markdown', '</h4></figcaption>'),
+            pandoc.RawInline('markdown', '</figure>'),
+            pandoc.RawInline('markdown', '</div>')
+           }
+end
+
+
 -- Replace native Divs with "real" Divs or Shortcodes
 function Div(el)
     -- Replace "showme" Div with "expand" Shortcode
