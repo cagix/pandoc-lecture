@@ -36,9 +36,9 @@
 
                 <li id="id_{{- $key -}}">
                 {{ if $url }}
-                    <a href="{{- $url | safeURL -}}" class="icon reading" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- $title -}}</strong></a>
+                    [{{- $key -}}] <a href="{{- $url | safeURL -}}" class="icon reading" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- $title -}}</strong></a>
                 {{ else }}
-                    <strong>{{- $title -}}</strong>
+                    [{{- $key -}}] <strong>{{- $title -}}</strong>
                 {{ end }}
                 {{ if $details }}
                     <br>{{- $details -}}.
