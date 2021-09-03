@@ -8,6 +8,11 @@
         <th>Woche</th>
         <th>Vorlesung</th>
         <th>Praktikum/Übung</th>
+        {{ $ifmisc := false }}
+        {{ range $plan }}
+            {{ with index . "misc" }}{{ $ifmisc = true }}{{ end }}
+        {{ end }}
+        {{ with $ifmisc }}<th>Verschiedenes</th>{{ end }}
         </tr>
     </thead>
     <tbody>
@@ -15,6 +20,7 @@
         {{ $week := index $w "week" }}
         {{ $lecture := index $w "lecture" }}
         {{ $assignment := index $w "assignment" }}
+        {{ $misc := index $w "misc" }}
         <tr>
             <td>{{ printf "Woche %d (%s)" (add $i 1) $week }}</td>
             <td>
@@ -43,6 +49,18 @@
                     <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
                     {{ if $due }}{{ printf " (Abgabe: %s)" $due }}{{ end }}
                 </p>
+                {{ end }}
+            {{ end }}
+            </td><td>
+            {{ range $misc }}
+                {{ $page := index . "page" }}
+                {{ $notes := index . "notes" }}
+                {{ if $page }}
+                    {{ with $.Site.GetPage $page }}
+                        <p><a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default .Title -}}</strong></a></p>
+                    {{ end }}
+                {{ else if $notes }}
+                    <p>{{- $notes -}}</p>
                 {{ end }}
             {{ end }}
             </td>
