@@ -1,0 +1,18 @@
+{{ $src := ""}}
+{{ $title := ""}}
+{{ $width := "auto"}}
+
+{{ with .Get "src" }}{{ $src = . }}{{ end }}
+{{ with .Get "title" }}{{ $title = . }}{{ end }}
+{{ with .Get "width" }}{{ $width = . }}{{ end }}
+
+{{ with $src }}
+<div class="center" style="width:{{- $width -}}">
+<figure>
+    <img alt="{{- $title -}}" src="{{- $src -}}" />
+    {{ with $title }}
+    <figcaption><h4>{{- $title -}}</h4></figcaption>
+    {{ end }}
+</figure>
+</div>
+{{ end }}
