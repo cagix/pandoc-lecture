@@ -216,6 +216,4 @@ This project is supposed to be used with Pandoc 2.9.1 or later.
 License
 -------
 
-Copyright (c) 2016-2021, Carsten Gips
-
-[MIT licensed](https://opensource.org/licenses/MIT)
+This work by [Carsten Gips](https://github.com/cagix) and [contributors](https://github.com/cagix/pandoc-lecture/graphs/contributors) is licensed under [MIT](https://opensource.org/licenses/MIT).
