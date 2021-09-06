@@ -2,6 +2,7 @@
 title: "{{ replace .Name "-" " " | title }}"
 author: "NAME (INSTITUT)"
 hidden: true
+weight: 5
 ---
 
 
