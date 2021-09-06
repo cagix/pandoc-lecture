@@ -60,7 +60,7 @@
                         <p><a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default .Title -}}</strong></a></p>
                     {{ end }}
                 {{ else if $notes }}
-                    <p>{{- $notes -}}</p>
+                    <p>{{- $notes | markdownify -}}</p>
                 {{ end }}
             {{ end }}
             </td>
