@@ -8,11 +8,11 @@
         <th>Woche</th>
         <th>Vorlesung</th>
         <th>Praktikum/Übung</th>
-        {{ $ifmisc := false }}
+        {{ $if_misc_column := false }}
         {{ range $plan }}
-            {{ with index . "misc" }}{{ $ifmisc = true }}{{ end }}
+            {{ with index . "misc_column" }}{{ $if_misc_column = true }}{{ end }}
         {{ end }}
-        {{ with $ifmisc }}<th>Verschiedenes</th>{{ end }}
+        {{ with $if_misc_column }}<th>Verschiedenes</th>{{ end }}
         </tr>
     </thead>
     <tbody>
@@ -20,7 +20,8 @@
         {{ $week := index $w "week" }}
         {{ $lecture := index $w "lecture" }}
         {{ $assignment := index $w "assignment" }}
-        {{ $misc := index $w "misc" }}
+        {{ $misc_column := index $w "misc_column" }}
+        {{ $misc_lecture := index $w "misc_lecture" }}
         <tr>
             <td>
                 {{ printf "%d" (add $i 1) }}
@@ -44,30 +45,42 @@
                 </li>
             {{ end }}
             </ul>
+            {{ range $misc_lecture }}
+                {{ $page := index . "page" }}
+                {{ $notes := index . "notes" }}
+                {{ if $page }}
+                    {{ with $.Site.GetPage $page }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default .Title -}}</strong></a><br>
+                    {{ end }}
+                {{ else if $notes }}
+                    {{- $notes | markdownify -}}<br>
+                {{ end }}
+            {{ end }}
             </td><td>
             {{ range $assignment }}
                 {{ $topic := index . "topic" }}
                 {{ $due := index . "due" }}
                 {{ with $.Site.GetPage $topic }}
-                <p>
                     <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
-                    {{ if $due }}<br>(Abgabe: {{- $due -}}){{ end }}
-                </p>
+                    {{ if $due }}<br>(Abgabe: {{- $due -}})<br>{{ end }}
                 {{ end }}
             {{ end }}
-            </td><td>
-            {{ range $misc }}
+            </td>
+            {{ if $if_misc_column }}
+            <td>
+            {{ range $misc_column }}
                 {{ $page := index . "page" }}
                 {{ $notes := index . "notes" }}
                 {{ if $page }}
                     {{ with $.Site.GetPage $page }}
-                        <p><a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default .Title -}}</strong></a></p>
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default .Title -}}</strong></a><br>
                     {{ end }}
                 {{ else if $notes }}
-                    <p>{{- $notes | markdownify -}}</p>
+                    {{- $notes | markdownify -}}<br>
                 {{ end }}
             {{ end }}
             </td>
+            {{ end }}
         </tr>
     {{ end }}
     </tbody>
