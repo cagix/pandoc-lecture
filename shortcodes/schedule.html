@@ -22,7 +22,11 @@
         {{ $assignment := index $w "assignment" }}
         {{ $misc := index $w "misc" }}
         <tr>
-            <td>{{ printf "Woche %d (%s)" (add $i 1) $week }}</td>
+            <td>
+                {{ printf "%d" (add $i 1) }}
+                <br>
+                {{ printf "(%s)" $week }}
+            </td>
             <td>
             <ul>
             {{ range $n, $l := $lecture }}
