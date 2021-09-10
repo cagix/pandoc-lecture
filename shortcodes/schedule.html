@@ -31,19 +31,21 @@
             </td>
             <td>
             <ul>
-            {{ range $n, $l := $lecture }}
-                {{ $topic := index $l "topic" }}
-                {{ $leader := index $l "leader" }}
-                {{ $notes := index $l "notes" }}
-                <li>
-                {{ with $.Site.GetPage $topic }}
-                    {{ $path := replace (strings.TrimSuffix "/" .File.Dir | path.Dir) "/" " > " | upper }}
-                    {{if gt (len $path) 1}}{{ printf "%s > " $path }}{{end}}
-                    <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+            {{ range $lecture }}
+                {{ $topic := index . "topic" }}
+                {{ $leader := index . "leader" }}
+                {{ $notes := index . "notes" }}
+                {{ if $topic }}
+                    {{ with $.Site.GetPage $topic }}
+                    <li>
+                        {{ $path := replace (strings.TrimSuffix "/" .File.Dir | path.Dir) "/" " > " | upper }}
+                        {{if gt (len $path) 1}}{{ printf "%s > " $path }}{{end}}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+                        {{ if $leader }}{{ printf " (%s)" $leader }}{{ end }}
+                        {{ if $notes }}<br><em>{{ printf "Hinweis: %s" $notes }}</em>{{ end }}
+                    </li>
+                    {{ end }}
                 {{ end }}
-                {{ if $leader }}{{ printf " (%s)" $leader }}{{ end }}
-                {{ if $notes }}<br><em>{{ printf "Hinweis: %s" $notes }}</em>{{ end }}
-                </li>
             {{ end }}
             </ul>
             {{ range $misc_lecture }}
@@ -58,16 +60,20 @@
                 {{ end }}
             {{ end }}
             </td><td>
+            <ul>
             {{ range $assignment }}
                 {{ $topic := index . "topic" }}
                 {{ $due := index . "due" }}
-                {{ with $.Site.GetPage $topic }}
-                    <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
-                    {{ if $due }}<br>(Abgabe: {{- $due -}})<br>{{ end }}
+                {{ if $topic }}
+                    {{ with $.Site.GetPage $topic }}
+                    <li>
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+                        {{ if $due }}<br>(Abgabe: {{- $due -}}){{ end }}
+                    </li>
+                    {{ end }}
                 {{ end }}
             {{ end }}
-            {{ if $misc_assignment }}
-            <p>
+            </ul>
             {{ range $misc_assignment }}
                 {{ $page := index . "page" }}
                 {{ $notes := index . "notes" }}
@@ -78,8 +84,6 @@
                 {{ else if $notes }}
                     {{- $notes | markdownify -}}<br>
                 {{ end }}
-            {{ end }}
-            </p>
             {{ end }}
             </td>
             {{ if $if_misc_column }}
