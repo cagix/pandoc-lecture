@@ -52,7 +52,7 @@
 }
 .recap {
    /* background: #d9e9d5; */
-   padding: 12px;
+   /* padding: 12px; */
    margin: 4px 0px 26px 0px;
 }
 .bib {
@@ -80,7 +80,7 @@
     padding: 12px;
     margin: 4px 0px 26px 0px;
 }
-h1.tldr, h1.bib, h1.outcomes, h1.quizzes, h1.challenges {
+h1.tldr, h1.recap, h1.bib, h1.outcomes, h1.quizzes, h1.challenges, h1.assignments {
     padding: 0px;
 }
 
@@ -125,10 +125,27 @@ figcaption h4 {
     border:1px solid black;
 }
 
-/* Adjust margin and padding around list-elemeents within table cells */
+/* Adjust margin and padding around list-elements within table cells */
 td ul, td ol {
     margin: 0 0 1rem 0.5rem;
     padding: 0 0 0 0.5rem;
+}
+
+/* Adjust size of headers */
+h1 { font-size:2.8rem !important;}
+h2 { font-size:2.2rem; margin:1.2rem 0}
+h3 { font-size:1.9rem; text-align:left !important; font-weight:400 !important;}
+h4 { font-size:1.6rem}
+h5 { font-size:1.3rem}
+h6 { font-size:1rem}
+
+h2 {
+    width:100% !important;
+    border-bottom:1px solid #5e5e5e !important;
+    padding-bottom: 2px;
+}
+.tldr h2, .recap h2, .bib h2, .outcomes h2, .quizzes h2, .challenges h2, .assignments h2 {
+    margin:0.5rem 0
 }
 
 </style>
