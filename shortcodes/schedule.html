@@ -22,6 +22,7 @@
         {{ $assignment := index $w "assignment" }}
         {{ $misc_column := index $w "misc_column" }}
         {{ $misc_lecture := index $w "misc_lecture" }}
+        {{ $misc_assignment := index $w "misc_assignment" }}
         <tr>
             <td>
                 {{ printf "%d" (add $i 1) }}
@@ -64,6 +65,21 @@
                     <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
                     {{ if $due }}<br>(Abgabe: {{- $due -}})<br>{{ end }}
                 {{ end }}
+            {{ end }}
+            {{ if $misc_assignment }}
+            <p>
+            {{ range $misc_assignment }}
+                {{ $page := index . "page" }}
+                {{ $notes := index . "notes" }}
+                {{ if $page }}
+                    {{ with $.Site.GetPage $page }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default .Title -}}</strong></a><br>
+                    {{ end }}
+                {{ else if $notes }}
+                    {{- $notes | markdownify -}}<br>
+                {{ end }}
+            {{ end }}
+            </p>
             {{ end }}
             </td>
             {{ if $if_misc_column }}
