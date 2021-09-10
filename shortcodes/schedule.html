@@ -40,7 +40,8 @@
                     <li>
                         {{ $path := replace (strings.TrimSuffix "/" .File.Dir | path.Dir) "/" " > " | upper }}
                         {{if gt (len $path) 1}}{{ printf "%s > " $path }}{{end}}
-                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $title -}}</strong></a>
                         {{ if $leader }}{{ printf " (%s)" $leader }}{{ end }}
                         {{ if $notes }}<br><em>{{ printf "Hinweis: %s" $notes }}</em>{{ end }}
                     </li>
@@ -53,7 +54,8 @@
                 {{ $notes := index . "notes" }}
                 {{ if $page }}
                     {{ with $.Site.GetPage $page }}
-                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default .Title -}}</strong></a><br>
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
                     {{ end }}
                 {{ else if $notes }}
                     {{- $notes | markdownify -}}<br>
@@ -67,7 +69,8 @@
                 {{ if $topic }}
                     {{ with $.Site.GetPage $topic }}
                     <li>
-                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $title -}}</strong></a>
                         {{ if $due }}<br>(Abgabe: {{- $due -}}){{ end }}
                     </li>
                     {{ end }}
@@ -79,7 +82,8 @@
                 {{ $notes := index . "notes" }}
                 {{ if $page }}
                     {{ with $.Site.GetPage $page }}
-                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default .Title -}}</strong></a><br>
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
                     {{ end }}
                 {{ else if $notes }}
                     {{- $notes | markdownify -}}<br>
@@ -93,7 +97,8 @@
                 {{ $notes := index . "notes" }}
                 {{ if $page }}
                     {{ with $.Site.GetPage $page }}
-                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default .Title -}}</strong></a><br>
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
                     {{ end }}
                 {{ else if $notes }}
                     {{- $notes | markdownify -}}<br>
