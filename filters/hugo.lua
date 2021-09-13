@@ -1,14 +1,17 @@
 -- Remove TeX/LaTeX RawInlines
 function RawInline(el)
     if el.format:match 'tex' or el.format:match 'latex' then
-        return {}
+        -- replace RawInlines ("latex") w/ a space
+        return pandoc.Space()
     end
 end
 
 -- Remove TeX/LaTeX RawBlocks
 function RawBlock(el)
     if el.format:match 'tex' or el.format:match 'latex' then
-        return {}
+        -- use empty Para instead of just returning an empty list,
+        -- which turns up in the result as HTML comment?!
+        return pandoc.Para{}
     end
 end
 
