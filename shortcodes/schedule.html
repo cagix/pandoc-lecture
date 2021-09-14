@@ -58,7 +58,7 @@
                         <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
                     {{ end }}
                 {{ else if $notes }}
-                    {{- $notes | markdownify -}}<br>
+                    {{- $notes -}}<br>
                 {{ end }}
             {{ end }}
             </td><td>
@@ -86,7 +86,7 @@
                         <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
                     {{ end }}
                 {{ else if $notes }}
-                    {{- $notes | markdownify -}}<br>
+                    {{- $notes -}}<br>
                 {{ end }}
             {{ end }}
             </td>
@@ -101,7 +101,7 @@
                         <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
                     {{ end }}
                 {{ else if $notes }}
-                    {{- $notes | markdownify -}}<br>
+                    {{- $notes -}}<br>
                 {{ end }}
             {{ end }}
             </td>
