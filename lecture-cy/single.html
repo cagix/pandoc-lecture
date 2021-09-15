@@ -1,25 +1,29 @@
 {{ partial "header.html" . }}
 
 
-{{ if .Params.youtube }}
-    <h2>Videos</h2>
-    {{ partial "youtube.html" . }}
+{{ if .Params.sketch }}
+    {{ partial "sketch.html" . }}
+{{ else }}
+    {{ if .Params.youtube }}
+        <h2>Videos</h2>
+        {{ partial "youtube.html" . }}
+    {{ end }}
+
+    {{ .Scratch.Set "attachments_header" "Folien" }}
+    {{ .Scratch.Set "attachments_level" 2 }}
+    {{ partial "attachments.html" . }}
+
+    <div class="recap">
+    {{ .Content }}
+    </div>
+
+    {{ partial "assignments.html" . }}
+    {{ if .Params.outcomes }}
+        {{ partial "outcomes.html" . }}
+    {{ end }}
+    {{ partial "quizzes.html" . }}
+    {{ partial "bib.html" . }}
 {{ end }}
-
-{{ .Scratch.Set "attachments_header" "Folien" }}
-{{ .Scratch.Set "attachments_level" 2 }}
-{{ partial "attachments.html" . }}
-
-<div class="recap">
-{{ .Content }}
-</div>
-
-{{ partial "assignments.html" . }}
-{{ if .Params.outcomes }}
-    {{ partial "outcomes.html" . }}
-{{ end }}
-{{ partial "quizzes.html" . }}
-{{ partial "bib.html" . }}
 
 
 {{ partial "footer.html" . }}

@@ -1,12 +1,16 @@
 {{ partial "header.html" . }}
 
 
-{{ partial "tldr.html" . }}
-{{ .Content }}
-{{ partial "bib.html" . }}
-{{ partial "outcomes.html" . }}
-{{ partial "quizzes.html" . }}
-{{ partial "challenges.html" . }}
+{{ if .Params.sketch }}
+    {{ partial "sketch.html" . }}
+{{ else }}
+    {{ partial "tldr.html" . }}
+    {{ .Content }}
+    {{ partial "bib.html" . }}
+    {{ partial "outcomes.html" . }}
+    {{ partial "quizzes.html" . }}
+    {{ partial "challenges.html" . }}
+{{ end }}
 
 
 {{ partial "footer.html" . }}
