@@ -23,6 +23,7 @@ fhmedia:
 attachments:
   - link: https://www.fh-bielefeld.de
     name: "Extra Material, e.g. annotated slides `...`{=markdown} Use This As Link Text"
+sketch: true
 ---
 
 
