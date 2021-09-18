@@ -18,6 +18,7 @@
     <tbody>
     {{ range $i, $w := $plan }}
         {{ $week := index $w "week" }}
+        {{ $datel := index $w "date" }}
         {{ $lecture := index $w "lecture" }}
         {{ $assignment := index $w "assignment" }}
         {{ $misc_column := index $w "misc_column" }}
@@ -30,6 +31,9 @@
                 {{ printf "(%s)" $week }}
             </td>
             <td>
+            {{ if $datel }}
+                {{- $datel -}}
+            {{ end }}
             <ul>
             {{ range $lecture }}
                 {{ $topic := index . "topic" }}
