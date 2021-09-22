@@ -1,6 +1,8 @@
 ---
+type: assignment
 title: "{{ replace .Name "-" " " | title }}"
 author: "NAME (INSTITUT)"
+points: 10
 hidden: true
 weight: 5
 ---
