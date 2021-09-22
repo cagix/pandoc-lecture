@@ -1,0 +1,32 @@
+{{ partial "header.html" . }}
+
+
+{{ $points := .Params.points }}
+
+{{ $topic := .File.Dir | path.Base }}
+{{ $schedule := .Site.Data.schedule }}
+{{ $due := "" }}
+{{ range $schedule }}
+    {{ range index . "assignment" }}
+        {{ if eq $topic (index . "topic") }}
+            {{ with index . "due" }}{{ $due = . }}{{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ if or $points $due}}
+<p>
+    {{- print "(" -}}
+    {{ with $points }}
+        {{- printf "Punkte: %d" . -}}{{ if $due }}{{- print ", " -}}{{ end }}
+    {{ end }}
+    {{ with $due }}{{- printf "Abgabe: %s" . -}}{{ end }}
+    {{- print ")" -}}
+</p>
+{{ end }}
+
+
+{{ .Content }}
+
+
+{{ partial "footer.html" . }}
