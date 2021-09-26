@@ -5,6 +5,7 @@ author: "NAME (INSTITUT)"
 points: 10
 hidden: true
 weight: 5
+sketch: true
 ---
 
 
