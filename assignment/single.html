@@ -14,19 +14,22 @@
     {{ end }}
 {{ end }}
 
-{{ if or $points $due}}
-<p>
-    {{- print "(" -}}
-    {{ with $points }}
-        {{- printf "Punkte: %d" . -}}{{ if $due }}{{- print ", " -}}{{ end }}
+{{ if .Params.sketch }}
+    {{ partial "sketch.html" . }}
+{{ else }}
+    {{ if or $points $due}}
+    <p>
+        {{- print "(" -}}
+        {{ with $points }}
+            {{- printf "Punkte: %d" . -}}{{ if $due }}{{- print ", " -}}{{ end }}
+        {{ end }}
+        {{ with $due }}{{- printf "Abgabe: %s" . -}}{{ end }}
+        {{- print ")" -}}
+    </p>
     {{ end }}
-    {{ with $due }}{{- printf "Abgabe: %s" . -}}{{ end }}
-    {{- print ")" -}}
-</p>
+
+    {{ .Content }}
 {{ end }}
-
-
-{{ .Content }}
 
 
 {{ partial "footer.html" . }}
