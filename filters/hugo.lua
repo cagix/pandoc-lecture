@@ -81,9 +81,9 @@ function Span(el)
     -- Replace "bsp" Span with "button" Shortcode
     if el.classes[1] == "bsp" then
         return
-            { pandoc.RawInline("markdown", "{{% button %}}") } ..
+            { pandoc.RawInline("markdown", "{{% button-crossreference %}}") } ..
             el.content ..
-            { pandoc.RawInline("markdown", "{{% /button %}}") }
+            { pandoc.RawInline("markdown", "{{% /button-crossreference %}}") }
     end
 
     -- Transform all other native Spans to "real" Spans digestible to Hugo
