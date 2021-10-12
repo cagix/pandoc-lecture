@@ -3,7 +3,7 @@
 {{ $fh := .Params.fhmedia }}
 {{ $attachments := .Params.attachments }}
 
-{{ if or $tldr (or $yt $fh) }}
+{{ if or $tldr (or $attachments (or $yt $fh)) }}
 <div class="tldr">
     <h2>TL;DR</h2>
 
