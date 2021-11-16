@@ -1,4 +1,5 @@
 {{ $attachments := .Params.attachments }}
+{{ $pdf_files := .Resources.Match "files/*.pdf" }}
 
 {{ $header := "Materialien" }}
 {{ with .Scratch.Get "attachments_header" }}
@@ -10,30 +11,24 @@
     {{ $level = . }}
 {{ end }}
 
-$pdf_files := .Resources.Match "files/*.pdf"
-
-{{ if or ($attachments) ($pdf_files) }}
+{{ if or $attachments $pdf_files }}
 <div class="attachments">
     <h{{- $level -}}>{{- $header -}}</h{{- $level -}}>
 
     <ul>
-    {{ if $pdf_files }}
-        {{ range $pdf_files }}
-            {{ $fileUrl := printf "%s%s" $.Page.File.Dir . }}
-            <li><a href="{{- $fileUrl | absURL | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- path.Base .Title -}}</strong></a></li>
-        {{ end }}
+    {{ range $pdf_files }}
+        {{ $fileUrl := printf "%s%s" $.Page.File.Dir . }}
+        <li><a href="{{- $fileUrl | absURL | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- path.Base .Title -}}</strong></a></li>
     {{ end }}
 
-    {{ if $attachments }}
-        {{ range $attachments }}
-            {{ $n := "(annotierter) Foliensatz" }}
-            {{ with index . "name" }}
-                {{ $n = . }}
-            {{ end }}
+    {{ range $attachments }}
+        {{ $n := "(annotierter) Foliensatz" }}
+        {{ with index . "name" }}
+            {{ $n = . }}
+        {{ end }}
 
-            {{ with index . "link" }}
-                <li><a href="{{- . | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
-            {{ end }}
+        {{ with index . "link" }}
+            <li><a href="{{- . | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
         {{ end }}
     {{ end }}
     </ul>
