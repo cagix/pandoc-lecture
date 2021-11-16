@@ -10,24 +10,30 @@
     {{ $level = . }}
 {{ end }}
 
-{{ if $attachments }}
+$pdf_files := .Resources.Match "files/*.pdf"
+
+{{ if or ($attachments) ($pdf_files) }}
 <div class="attachments">
     <h{{- $level -}}>{{- $header -}}</h{{- $level -}}>
 
     <ul>
-    {{ range .Resources.Match "files/*.pdf" }}
-        {{ $fileUrl := printf "%s%s" $.Page.File.Dir . }}
-        <li><a href="{{- $fileUrl | absURL | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- path.Base .Title -}}</strong></a></li>
+    {{ if $pdf_files }}
+        {{ range $pdf_files }}
+            {{ $fileUrl := printf "%s%s" $.Page.File.Dir . }}
+            <li><a href="{{- $fileUrl | absURL | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- path.Base .Title -}}</strong></a></li>
+        {{ end }}
     {{ end }}
 
-    {{ range $attachments }}
-        {{ $n := "(annotierter) Foliensatz" }}
-        {{ with index . "name" }}
-            {{ $n = . }}
-        {{ end }}
+    {{ if $attachments }}
+        {{ range $attachments }}
+            {{ $n := "(annotierter) Foliensatz" }}
+            {{ with index . "name" }}
+                {{ $n = . }}
+            {{ end }}
 
-        {{ with index . "link" }}
-            <li><a href="{{- . | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
+            {{ with index . "link" }}
+                <li><a href="{{- . | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
+            {{ end }}
         {{ end }}
     {{ end }}
     </ul>
