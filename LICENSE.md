@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2021 Carsten Gips
+Copyright (c) 2021-2022 Carsten Gips
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
