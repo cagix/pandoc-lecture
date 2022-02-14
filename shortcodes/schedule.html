@@ -1,0 +1,118 @@
+{{ $plan := .Site.Data.schedule }}
+
+{{ if $plan }}
+<div class="schedule">
+    <table>
+    <thead>
+        <tr>
+        <th>Woche</th>
+        <th>Vorlesung</th>
+        <th>Praktikum/Übung</th>
+        {{ $if_misc_column := false }}
+        {{ range $plan }}
+            {{ with index . "misc_column" }}{{ $if_misc_column = true }}{{ end }}
+        {{ end }}
+        {{ with $if_misc_column }}<th>Verschiedenes</th>{{ end }}
+        </tr>
+    </thead>
+    <tbody>
+    {{ range $i, $w := $plan }}
+        {{ $week := index $w "week" }}
+        {{ $datel := index $w "date" }}
+        {{ $lecture := index $w "lecture" }}
+        {{ $assignment := index $w "assignment" }}
+        {{ $misc_column := index $w "misc_column" }}
+        {{ $misc_lecture := index $w "misc_lecture" }}
+        {{ $misc_assignment := index $w "misc_assignment" }}
+        <tr>
+            <td>
+                {{ printf "%d" (add $i 1) }}
+                <br>
+                {{ printf "(%s)" $week }}
+            </td>
+            <td>
+            {{ if $datel }}
+                {{- $datel -}}
+            {{ end }}
+            <ul>
+            {{ range $lecture }}
+                {{ $topic := index . "topic" }}
+                {{ $leader := index . "leader" }}
+                {{ $notes := index . "notes" }}
+                {{ if $topic }}
+                    {{ with $.Site.GetPage $topic }}
+                    <li>
+                        {{ $path := replace (strings.TrimSuffix "/" .File.Dir | path.Dir) "/" " > " | upper }}
+                        {{if gt (len $path) 1}}{{ printf "%s > " $path }}{{end}}
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $title -}}</strong></a>
+                        {{ if $leader }}{{ printf " (%s)" $leader }}{{ end }}
+                        {{ if $notes }}<br><em>{{ printf "Hinweis: %s" $notes }}</em>{{ end }}
+                    </li>
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+            </ul>
+            {{ range $misc_lecture }}
+                {{ $page := index . "page" }}
+                {{ $notes := index . "notes" }}
+                {{ if $page }}
+                    {{ with $.Site.GetPage $page }}
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
+                    {{ end }}
+                {{ else if $notes }}
+                    {{- $notes -}}<br>
+                {{ end }}
+            {{ end }}
+            </td><td>
+            <ul>
+            {{ range $assignment }}
+                {{ $topic := index . "topic" }}
+                {{ $due := index . "due" }}
+                {{ if $topic }}
+                    {{ with $.Site.GetPage $topic }}
+                    <li>
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $title -}}</strong></a>
+                        {{ if $due }}<br>{{ printf "(Abgabe: %s)" $due }}{{ end }}
+                    </li>
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+            </ul>
+            {{ range $misc_assignment }}
+                {{ $page := index . "page" }}
+                {{ $notes := index . "notes" }}
+                {{ if $page }}
+                    {{ with $.Site.GetPage $page }}
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
+                    {{ end }}
+                {{ else if $notes }}
+                    {{- $notes -}}<br>
+                {{ end }}
+            {{ end }}
+            </td>
+            {{ if $if_misc_column }}
+            <td>
+            {{ range $misc_column }}
+                {{ $page := index . "page" }}
+                {{ $notes := index . "notes" }}
+                {{ if $page }}
+                    {{ with $.Site.GetPage $page }}
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
+                    {{ end }}
+                {{ else if $notes }}
+                    {{- $notes -}}<br>
+                {{ end }}
+            {{ end }}
+            </td>
+            {{ end }}
+        </tr>
+    {{ end }}
+    </tbody>
+    </table>
+</div>
+{{ end }}

@@ -1,0 +1,30 @@
+{{ $tldr := .Resources.Match "tldr.md" }}
+{{ $yt := .Params.youtube }}
+{{ $fh := .Params.fhmedia }}
+{{ $attachments := .Params.attachments }}
+
+{{ if or $tldr (or $attachments (or $yt $fh)) }}
+<div class="tldr">
+    <h2>TL;DR</h2>
+
+    {{ range $tldr }}
+        {{ .Content }}
+    {{ end }}
+
+    {{ if $yt }}
+        <h3>Videos (YouTube)</h3>
+        {{ partial "youtube.html" . }}
+    {{ end }}
+
+    {{ if $fh }}
+        <h3>Videos (FH-Medienportal)</h3>
+        {{ partial "fhmedia.html" . }}
+    {{ end }}
+
+    {{ if $attachments }}
+        {{ .Scratch.Set "attachments_header" "(Annotierte) Folien" }}
+        {{ .Scratch.Set "attachments_level" 3 }}
+        {{ partial "attachments.html" . }}
+    {{ end }}
+</div>
+{{ end }}
