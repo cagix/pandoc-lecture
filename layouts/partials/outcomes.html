@@ -1,10 +1,25 @@
-{{ $outcomes := .Resources.Match "outcomes.md" }}
+{{ $outcomesR := .Resources.Match "outcomes.md" }}
+{{ $outcomesP := .Params.outcomes }}
 
-{{ if $outcomes }}
+{{ if (or $outcomesR $outcomesP) }}
 <div class="outcomes">
     <h2>Lernziele</h2>
-    {{ range $outcomes }}
+
+    {{ range $outcomesR }}
         {{ .Content }}
     {{ end }}
+
+    {{ if reflect.IsSlice $outcomesP }}
+    {{/* do not engage unless it's a list: workaround for use in lecture-cy */}}
+    <ul>
+    {{ range $outcomesP }}
+        {{ with index . "k1" }}<li>{{ print "(K1) " }}{{ . | $.RenderString }}</li>{{ end }}
+        {{ with index . "k2" }}<li>{{ print "(K2) " }}{{ . | $.RenderString }}</li>{{ end }}
+        {{ with index . "k3" }}<li>{{ print "(K3) " }}{{ . | $.RenderString }}</li>{{ end }}
+        {{ with index . "k4" }}<li>{{ print "(K4) " }}{{ . | $.RenderString }}</li>{{ end }}
+    {{ end }}
+    </ul>
+    {{ end }}
+
 </div>
 {{ end }}
