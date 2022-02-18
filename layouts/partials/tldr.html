@@ -1,14 +1,19 @@
-{{ $tldr := .Resources.Match "tldr.md" }}
+{{ $tldrR := .Resources.Match "tldr.md" }}
+{{ $tldrP := .Params.tldr }}
 {{ $yt := .Params.youtube }}
 {{ $fh := .Params.fhmedia }}
 {{ $attachments := .Params.attachments }}
 
-{{ if or $tldr (or $attachments (or $yt $fh)) }}
+{{ if or (or $tldrR $tldrP) (or $attachments (or $yt $fh)) }}
 <div class="tldr">
     <h2>TL;DR</h2>
 
-    {{ range $tldr }}
+    {{ range $tldrR }}
         {{ .Content }}
+    {{ end }}
+
+    {{ with $tldrP }}
+        {{ . | $.RenderString }}
     {{ end }}
 
     {{ if $yt }}
@@ -26,5 +31,6 @@
         {{ .Scratch.Set "attachments_level" 3 }}
         {{ partial "attachments.html" . }}
     {{ end }}
+
 </div>
 {{ end }}
