@@ -1,5 +1,23 @@
 {{ $attachments := .Params.attachments }}
-{{ $pdf_files := .Resources.Match "files/*.pdf" }}
+
+{{ $files := replace $.Page.File.Dir "\\" "/" }}
+{{ if eq $.Page.File.BaseFileName "index" }}
+    {{ $files = printf "%s/files" $files }}
+{{ else }}
+    {{ $files = printf "%s/%s.files" $files $.Page.File.BaseFileName }}
+{{ end }}
+{{ $pdf_files := false }}
+{{ if fileExists $files }}
+    {{ range (readDir (printf "%s/%s" $.Page.Language.ContentDir $files)) }}
+        {{ if findRE "^.*?.pdf" .Name }}
+            {{ if $pdf_files }}
+                {{ $pdf_files = $pdf_files | append .Name }}
+            {{ else }}
+                {{ $pdf_files = slice .Name }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
 
 {{ $header := "Materialien" }}
 {{ with .Scratch.Get "attachments_header" }}
@@ -16,21 +34,21 @@
     <h{{- $level -}}>{{- $header -}}</h{{- $level -}}>
 
     <ul>
+    {{ if reflect.IsSlice $pdf_files }}
     {{ range $pdf_files }}
-        {{ $fileUrl := printf "%s%s" $.Page.File.Dir . }}
-        <li><a href="{{- $fileUrl | absURL | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- path.Base .Title -}}</strong></a></li>
+        {{ $fileUrl := printf "%s/%s" $files . }}
+        <li><a href="{{- $fileUrl | absURL | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- . -}}</a></li>
+    {{ end }}
     {{ end }}
 
     {{ range $attachments }}
         {{ $n := "(annotierter) Foliensatz" }}
-        {{ with index . "name" }}
-            {{ $n = . }}
-        {{ end }}
-
+        {{ with index . "name" }}{{ $n = . }}{{ end }}
         {{ with index . "link" }}
             <li><a href="{{- . | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
         {{ end }}
     {{ end }}
     </ul>
+
 </div>
 {{ end }}
