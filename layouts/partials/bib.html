@@ -3,11 +3,13 @@
 
 {{ if $readings }}
 <div class="bib">
-    <h2>Literatur</h2>
+    <h2>Quellen</h2>
+
     <ul>
     {{ range sort $readings "key" }}
         {{ $key := index . "key" }}
         {{ $comment := index . "comment" }}
+
         {{ range where $data "id" $key }}
             {{ $title := index . "title" }}
             {{ $author := index . "author" }}
@@ -49,7 +51,9 @@
             {{ end }}
             </li>
         {{ end }}
+
     {{ end }}
     </ul>
+
 </div>
 {{ end }}
