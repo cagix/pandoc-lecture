@@ -3,7 +3,10 @@
 
 {{ $points := .Params.points }}
 
-{{ $topic := .File.Dir | path.Base }}
+{{ $topic := $.Page.File.Dir | path.Base }}
+{{ if ne $.Page.File.BaseFileName "index" }}
+    {{ $topic = $.Page.File.BaseFileName }}
+{{ end }}
 {{ $schedule := .Site.Data.schedule }}
 {{ $due := "" }}
 {{ range $schedule }}
@@ -18,11 +21,11 @@
     {{ partial "sketch.html" . }}
 {{ else }}
     {{ if and $points $due}}
-        <p>{{- printf "(Punkte: %d, Abgabe: %s)" $points $due -}}</p>
+        <p><strong>{{- printf "(Punkte: %d, Abgabe: %s)" $points $due -}}</strong></p>
     {{ else if $points }}
-        <p>{{- printf "(Punkte: %d)" $points -}}</p>
+        <p><strong>{{- printf "(Punkte: %d)" $points -}}</strong></p>
     {{ else if $due }}
-        <p>{{- printf "(Abgabe: %s)" $due -}}</p>
+        <p><strong>{{- printf "(Abgabe: %s)" $due -}}</strong></p>
     {{ else }}
     {{ end }}
 
