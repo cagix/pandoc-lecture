@@ -2,17 +2,19 @@
 
 {{ if $quizzes }}
 <div class="quizzes">
-    <h2>Quizzes ...</h2>
+    <h2>Quizzes</h2>
+
     <ul>
     {{ range $quizzes }}
         {{ $name := index . "name" }}
         {{ $link := index . "link" }}
-        {{ if and $link $name }}
+        {{ if $link }}
         <li>
-            <a href="{{- $link | safeURL -}}" class="icon reading" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- $name -}}</strong></a>
+            <a href="{{- $link | safeURL -}}" class="icon reading" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- default $link $name -}}</strong></a>
         </li>
         {{ end }}
     {{ end }}
     </ul>
+
 </div>
 {{ end }}
