@@ -3,19 +3,12 @@
 
 {{ $points := .Params.points }}
 
-{{ $topic := $.Page.File.Dir | path.Base }}
-{{ if ne $.Page.File.BaseFileName "index" }}
-    {{ $topic = $.Page.File.BaseFileName }}
+{{ .Scratch.Set "topic" (.Page.File.Dir | path.Base) }}
+{{ if ne .Page.File.BaseFileName "index" }}
+    {{ .Scratch.Set "topic" .Page.File.BaseFileName }}
 {{ end }}
-{{ $schedule := .Site.Data.schedule }}
-{{ $due := "" }}
-{{ range $schedule }}
-    {{ range index . "assignment" }}
-        {{ if eq $topic (index . "topic") }}
-            {{ with index . "due" }}{{ $due = . }}{{ end }}
-        {{ end }}
-    {{ end }}
-{{ end }}
+{{ .Scratch.Set "schedule" .Site.Data.schedule }}
+{{ $due := partial "due.html" . }}
 
 {{ if .Params.sketch }}
     {{ partial "sketch.html" . }}

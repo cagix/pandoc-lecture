@@ -1,5 +1,5 @@
 {{ $assignments := .Params.assignments }}
-{{ $schedule := .Site.Data.schedule }}
+{{ .Scratch.Set "schedule" .Site.Data.schedule }}
 
 {{ if $assignments }}
 <div class="assignments">
@@ -8,17 +8,12 @@
     <ul>
     {{ range $assignments }}
         {{ $topic := index . "topic" }}
+        {{ $.Scratch.Set "topic" $topic }}
         {{ with $.Site.GetPage $topic }}
-        <li>
-            <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
-            {{ range $schedule }}
-                {{ range index . "assignment" }}
-                    {{ if eq $topic (index . "topic") }}
-                        {{ with index . "due" }}{{ printf " (Abgabe: %s)" . }}{{ end }}
-                    {{ end }}
-                {{ end }}
-            {{ end }}
-        </li>
+            <li>
+                <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+                {{ with partial "due.html" . }}{{ printf " (Abgabe: %s)" . }}{{ end }}
+            </li>
         {{ end }}
     {{ end }}
     </ul>
