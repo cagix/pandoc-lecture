@@ -3,17 +3,13 @@
 <ul>
 {{ range $fhmedia }}
     {{ $n := "Direkt-Link FH-Medienportal" }}
-    {{ with index . "name" }}
-        {{ $n = . }}
-    {{ end }}
+    {{ with index . "name" }}{{ $n = . }}{{ end }}
 
     {{ $l := "" }}
     {{ with index . "id" }}
         {{ $l = printf "https://www.fh-bielefeld.de/medienportal/m/%s" . }}
     {{ end }}
-    {{ with index . "link" }}
-        {{ $l = . }}
-    {{ end }}
+    {{ with index . "link" }}{{ $l = . }}{{ end }}
 
     {{ if $l }}
         <li><a href="{{- $l | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>

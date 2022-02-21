@@ -8,21 +8,19 @@ readings:
   - key: "aho2013compilers"
     comment: "Kapitel 2 und 3"
   - key: "Mogensen2017"
+outcomes:
+  - k1: "**wuppie**"
+  - k2: "*foo*"
+  - k1: "fluppie"
 quizzes:
-  - link: XYZ
-    name: "Testquizz (URL from `'`{=markdown}Invite more Players`'`{=markdown})"
+  - link: "XYZ"
+    name: "Testquizz"
 assignments:
-  - topic: blatt01
-youtube:
-  - id: XYZ (ID)
-  - link: https://youtu.be/XYZ
-    name: "Use This As Link Text (Link from `'share'`{=markdown}-Button)"
-fhmedia:
-  - link: https://www.fh-bielefeld.de/medienportal/m/XYZ
-    name: "Use This As Link Text (Direkt-Link from `'share'`{=markdown}-Button)"
+  - topic: sheet01
+  - topic: sheet02
 attachments:
-  - link: https://www.fh-bielefeld.de
-    name: "Extra Material, e.g. annotated slides `...`{=markdown} Use This As Link Text"
+  - link: "https://www.fh-bielefeld.de"
+    name: "Extra Material, e.g. annotated slides"
 sketch: true
 ---
 
@@ -86,6 +84,8 @@ Lorem Ipsum.
 ![](https://licensebuttons.net/l/by-sa/4.0/88x31.png)
 
 Unless otherwise noted, this work is licensed under CC BY-SA 4.0.
+
+\bigskip
 
 ### Exceptions
 *   TODO (what, where, license)

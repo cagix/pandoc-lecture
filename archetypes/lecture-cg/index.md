@@ -8,18 +8,26 @@ readings:
   - key: "Russell2020"
     comment: "Kapitel 2 und 3"
   - key: "Ertel2017"
+tldr: |
+  hier kommt eine tolle inline-zusammenfassung!
+  Formatierung _könnte_ auch **gehen**?
+outcomes:
+  - k1: "**wuppie**"
+  - k2: "*foo*"
+  - k1: "fluppie"
 quizzes:
-  - link: XYZ
-    name: "Testquizz (URL from `'`{=markdown}Invite more Players`'`{=markdown})"
+  - link: "XYZ"
+    name: "Testquizz"
 assignments:
-  - topic: blatt01
+  - topic: sheet01
+  - topic: sheet02
 youtube:
-  - id: XYZ (ID)
-  - link: https://youtu.be/XYZ
-    name: "Use This As Link Text (Link from `'share'`{=markdown}-Button)"
+  - id: "XYZ (ID)"
+  - link: "https://youtu.be/XYZ"
+    name: "Use This As Link Text"
 fhmedia:
-  - link: https://www.fh-bielefeld.de/medienportal/m/XYZ
-    name: "Use This As Link Text (Link from `'share'`{=markdown}-Button)"
+  - link: "https://www.fh-bielefeld.de/medienportal/m/XYZ"
+    name: "Use This As Link Text (Direkt-Link)"
 sketch: true
 ---
 
@@ -58,6 +66,8 @@ Lorem Ipsum. Starte mit H2-Level.
 ![](https://licensebuttons.net/l/by-sa/4.0/88x31.png)
 
 Unless otherwise noted, this work is licensed under CC BY-SA 4.0.
+
+\bigskip
 
 ### Exceptions
 *   TODO (what, where, license)

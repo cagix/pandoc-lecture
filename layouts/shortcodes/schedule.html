@@ -31,9 +31,7 @@
                 {{ printf "(%s)" $week }}
             </td>
             <td>
-            {{ if $datel }}
-                {{- $datel -}}
-            {{ end }}
+            {{ if $datel }}{{- $datel -}}{{ end }}
             <ul>
             {{ range $lecture }}
                 {{ $topic := index . "topic" }}

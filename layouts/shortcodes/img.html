@@ -7,9 +7,7 @@
 <div class="center" style="width:{{- $width -}}">
 <figure>
     <img alt="{{- $title -}}" src="{{- $src -}}" class="{{- $class -}}" />
-    {{ with $title }}
-    <figcaption><h4>{{- $title -}}</h4></figcaption>
-    {{ end }}
+    {{ with $title }}<figcaption><h4>{{- $title -}}</h4></figcaption>{{ end }}
 </figure>
 </div>
 {{ end }}

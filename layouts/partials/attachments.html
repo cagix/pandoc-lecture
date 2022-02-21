@@ -20,14 +20,10 @@
 {{ end }}
 
 {{ $header := "Materialien" }}
-{{ with .Scratch.Get "attachments_header" }}
-    {{ $header = . }}
-{{ end }}
+{{ with .Scratch.Get "attachments_header" }}{{ $header = . }}{{ end }}
 
 {{ $level := 2 }}
-{{ with .Scratch.Get "attachments_level" }}
-    {{ $level = . }}
-{{ end }}
+{{ with .Scratch.Get "attachments_level" }}{{ $level = . }}{{ end }}
 
 {{ if or $attachments $pdf_files }}
 <div class="attachments">

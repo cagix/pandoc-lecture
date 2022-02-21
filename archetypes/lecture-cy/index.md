@@ -8,16 +8,20 @@ readings:
   - key: "Russell2020"
     comment: "Kapitel 2 und 3"
   - key: "Ertel2017"
+outcomes:
+  - k1: "**wuppie**"
+  - k2: "*foo*"
+  - k1: "fluppie"
 quizzes:
-  - link: XYZ
-    name: "Testquizz (URL from 'Invite more Players')"
+  - link: "XYZ"
+    name: "Testquizz"
 assignments:
-  - topic: blatt01
-  - topic: blatt02
+  - topic: sheet01
+  - topic: sheet02
 youtube:
-  - id: XYZ (ID)
-  - id: XYZ (ID)
-outcomes: false
+  - id: "XYZ (ID)"
+  - link: "https://youtu.be/XYZ"
+    name: "Use This As Link Text"
 sketch: true
 ---
 
