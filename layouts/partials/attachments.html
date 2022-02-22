@@ -1,11 +1,12 @@
 {{ $attachments := .Params.attachments }}
 
-{{ $files := replace $.Page.File.Dir "\\" "/" }}
-{{ if eq $.Page.File.BaseFileName "index" }}
-    {{ $files = printf "%s/files" $files }}
+{{ $files := "" }}
+{{ if or (eq $.Page.File.BaseFileName "index") (eq $.Page.File.BaseFileName "_index") }}
+    {{ $files = printf "%s/files" $.Page.File.Dir }}
 {{ else }}
-    {{ $files = printf "%s/%s.files" $files $.Page.File.BaseFileName }}
+    {{ $files = printf "%s/%s.files" $.Page.File.Dir $.Page.File.BaseFileName }}
 {{ end }}
+{{ $files = $files | path.Clean | relURL }}
 {{ $pdf_files := false }}
 {{ if fileExists $files }}
     {{ range (readDir (printf "%s/%s" $.Page.Language.ContentDir $files)) }}
@@ -33,7 +34,7 @@
     {{ if reflect.IsSlice $pdf_files }}
     {{ range $pdf_files }}
         {{ $fileUrl := printf "%s/%s" $files . }}
-        <li><a href="{{- $fileUrl | absURL | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- . -}}</a></li>
+        <li><a href="{{- $fileUrl | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- . -}}</a></li>
     {{ end }}
     {{ end }}
 
