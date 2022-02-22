@@ -35,9 +35,16 @@ function Math(el)
 end
 
 
--- Emit custom shortcode `img`: `{{% img src="path" title="text" width="60%" %}}`
+-- Emit custom shortcode `img`:
+-- Convert `![text](path){width=60%}` into `{{% img src="path" title="text" width="60%" %}}`
+--
+-- Scaling of images with the custom shortcode `img` currently works only in terms of image width.
+-- By default, the `width` parameter from the Pandoc link attribute will be used, which is then
+-- identical for both the slides and the web version. To achieve a different scaling for just the
+-- web version, you can use the `web_width` parameter, which takes precedence over the normal `width`
+-- parameter.
 function Image(el)
-    local w = el.attributes["width"] or "auto"
+    local w = el.attributes["web_width"] or el.attributes["width"] or "auto"
     local t = pandoc.utils.stringify(el.caption)
 
     return pandoc.RawInline('markdown', '{{% img src="' .. el.src .. '" title="' .. t .. '" width="' .. w .. '" %}}')
