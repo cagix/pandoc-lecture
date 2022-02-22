@@ -3,11 +3,23 @@
 {{ $class := .Get "class" | default "" }}
 {{ $width := .Get "width" | default "auto"}}
 
+{{ if not (hasPrefix $src "http") }}
+    {{ if or (eq $.Page.File.BaseFileName "index") (eq $.Page.File.BaseFileName "_index") }}
+        {{ $src = printf "%s/images/%s" $.Page.File.Dir ($src | path.Base) }}
+    {{ else }}
+        {{ $src = printf "%s/%s.images/%s" $.Page.File.Dir $.Page.File.BaseFileName ($src | path.Base) }}
+    {{ end }}
+    {{ $src = $src | path.Clean | relURL }}
+{{ else }}
+    {{ $src = $src | safeURL }}
+{{ end }}
+
+{{/* Setting the width of the figure is just a workaround: It should be possible to set the width/height ... */}}
+{{/* ... of an image using a style for the img tag. However, Hugo (or some of our configuration) seems to ...  */}}
+{{/* ... gobble this somehow and adds a `style="width: auto; height: auto;"`, which is not quite helpful. */}}
 {{ with $src }}
-<div class="center" style="width:{{- $width -}}">
-<figure>
+<figure class="center" style="width:{{- $width -}}">
     <img alt="{{- $title -}}" src="{{- $src -}}" class="{{- $class -}}" />
     {{ with $title }}<figcaption><h4>{{- $title -}}</h4></figcaption>{{ end }}
 </figure>
-</div>
 {{ end }}
