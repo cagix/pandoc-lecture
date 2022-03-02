@@ -40,7 +40,11 @@
                 {{ if $topic }}
                     {{ with $.Site.GetPage $topic }}
                     <li>
-                        {{ $path := replace (strings.TrimSuffix "/" .File.Dir | path.Dir) "/" " > " | upper }}
+                        {{ $path := .File.Dir | path.Clean }}
+                        {{ if or (eq .File.BaseFileName "index") (eq .File.BaseFileName "_index") }}
+                            {{ $path = $path | path.Dir }}
+                        {{ end }}
+                        {{ $path = replace ($path | path.Clean) "/" " > " | upper }}
                         {{if gt (len $path) 1}}{{ printf "%s > " $path }}{{end}}
                         {{ $title := .Params.menutitle | default .Title }}
                         <a href="{{- .Permalink | safeURL -}}"><strong>{{- $title -}}</strong></a>
