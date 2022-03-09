@@ -4,12 +4,7 @@
 {{ $width := .Get "width" | default "auto"}}
 
 {{ if not (hasPrefix $src "http") }}
-    {{ if or (eq $.Page.File.BaseFileName "index") (eq $.Page.File.BaseFileName "_index") }}
-        {{ $src = printf "%s/images/%s" $.Page.File.Dir ($src | path.Base) }}
-    {{ else }}
-        {{ $src = printf "%s/%s.images/%s" $.Page.File.Dir $.Page.File.BaseFileName ($src | path.Base) }}
-    {{ end }}
-    {{ $src = $src | path.Clean | relURL }}
+    {{ $src = printf "%s/%s" $.Page.File.Dir $src | path.Clean | relURL }}
 {{ else }}
     {{ $src = $src | safeURL }}
 {{ end }}
