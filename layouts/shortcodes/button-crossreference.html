@@ -1,5 +1,7 @@
 {{ if .Inner }}
-<a class="btn btn-default btn-crossreference">
-{{ .Inner }}
-</a>
+<div style="text-align: right;">
+<span class="btn btn-default btn-crossreference">
+{{ .Inner | markdownify }}
+</span>
+</div>
 {{ end }}
