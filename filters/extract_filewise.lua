@@ -1,3 +1,6 @@
+---@diagnostic disable: lowercase-global
+---@diagnostic disable: undefined-global
+--
 -- extract_filewise.lua
 --
 -- This filter will extract the title from a meta block
@@ -6,21 +9,20 @@
 -- If the file is an "_index.md" file, it is a top-level
 -- topic landing page, which can be used to extract the
 -- chapter-name
---
----@diagnostic disable: undefined-global
+
 pandoc.utils = require 'pandoc.utils'
 pandoc.path = require 'pandoc.path'
-Blocks = {}
-Skip = false
+blocks = {}
+skip = false
 
-function Header(header)
+function header(header)
 	-- header level 1 is used for topics ("lexer", "parser")
 	-- header level 2 is used for chapters("LL-Parsing", "LR-Parsing")
 	header.level = header.level + 2
-	table.insert(Blocks, header)
+	table.insert(blocks, header)
 end
 
-function Meta(meta)
+function meta(meta)
 	local input_file = PANDOC_STATE.input_files
 	local input_file_as_str = pandoc.utils.stringify(input_file)
 	print("Called filewise_filter for: " .. input_file_as_str)
@@ -41,10 +43,10 @@ function Meta(meta)
 	-- skip files with hidden attribute or no title
 	if (meta.hidden ~= nil and meta.hidden == true) then
 		print("Skipping file due to 'hidden' attribute")
-		Skip = true
+		skip = true
 	elseif (meta.title == nil) then
 		print("Skipping file due to missing title")
-		Skip = true
+		skip = true
 	else
 		local weight = meta.weight ~= nil and pandoc.utils.stringify(meta.weight) or "0"
 		local title = meta.title ~= nil and pandoc.utils.stringify(meta.title) or "no title"
@@ -57,22 +59,22 @@ function Meta(meta)
 			dir=directory,
 			is_index=is_index_str
 		})
-		table.insert(Blocks, meta_header)
+		table.insert(blocks, meta_header)
 	end
 end
 
 ---@diagnostic disable-next-line: unused-local
-function Pandoc(doc)
-	if (Skip) then
+function document(doc)
+	if (skip) then
 		return pandoc.Pandoc({})
 	else
-		return pandoc.Pandoc(Blocks)
+		return pandoc.Pandoc(blocks)
 	end
 end
 
 return {
   traverse = 'topdown',
-  { Meta = Meta },
-  { Header = Header},
-  { Pandoc = Pandoc},
+  { Meta = meta },
+  { Header = header},
+  { Pandoc = document},
 }

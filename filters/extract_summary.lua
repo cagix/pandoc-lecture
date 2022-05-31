@@ -1,6 +1,7 @@
--- extract_summary.lua
---
+---@diagnostic disable: lowercase-global
 ---@diagnostic disable: undefined-global
+--
+-- extract_summary.lua
 --
 -- This filter will take several steps to create the summary of the lecture structure
 -- in the correct ordering (because processing order of the files seems to be non-deterministic
@@ -23,25 +24,25 @@ blocks = {}
 pandoc.utils = require 'pandoc.utils'
 pandoc.path = require 'pandoc.path'
 
-function Pandoc(doc)
+function document(doc)
 	local last_chapter_or_index_name = "none"
 
 	for _,el in pairs(doc.blocks) do
 		if el.t == "Header" and el.attributes.is_index == "true" then
 			-- bucketing
 			local split_dir =  pandoc.path.split(el.attributes.dir)
-			Create_dir_buckets(split_dir,nil)
+			create_dir_buckets(split_dir,nil)
 
-			last_chapter_or_index_name = Get_slide_container_name(el)
+			last_chapter_or_index_name = get_slide_container_name(el)
 
-			Put_index(el)
+			put_index(el)
 		elseif el.t == "Header" and el.level == 2 then
-			last_chapter_or_index_name = Get_slide_container_name(el)
+			last_chapter_or_index_name = get_slide_container_name(el)
 
 			local split_dir =  pandoc.path.split(el.attributes.dir)
-			Create_dir_buckets(split_dir,nil)
+			create_dir_buckets(split_dir,nil)
 
-			Put_chapter(el)
+			put_chapter(el)
 		elseif el.t == "Header" and el.level > 2 then
 			if (slide_container[last_chapter_or_index_name] == nil) then
 				slide_container[last_chapter_or_index_name] = {el}
@@ -51,11 +52,11 @@ function Pandoc(doc)
 		end
 	end
 
-	Sort_bucket(directory_buckets["markdown"])
+	sort_bucket(directory_buckets["markdown"])
 	print("----------------------EXTRACTED STRUCTURE----------------------")
-	RecPrint(directory_buckets)
+	rec_print(directory_buckets)
 	print("----------------------EMITTING BLOCKS----------------------")
-	Emit_blocks(directory_buckets["markdown"])
+	emit_blocks(directory_buckets["markdown"])
 
 	local blocks_without_attrs = {}
 	for _,b in pairs(blocks) do
@@ -66,7 +67,7 @@ function Pandoc(doc)
 	return pandoc.Pandoc(blocks_without_attrs)
 end
 
-function Emit_blocks(bucket, root_level)
+function emit_blocks(bucket, root_level)
 	-- if bucket has chapters
 	-- 		iterate over chapters
 	-- 		if chapter-entry is index
@@ -89,13 +90,13 @@ function Emit_blocks(bucket, root_level)
 				table.insert(blocks, el.index)
 				local split_dir = pandoc.path.split(el.index.attributes.dir)
 
-				local index_bucket = Get_bucket(split_dir, directory_buckets)
-				Emit_blocks(index_bucket, level_offset + 1)
+				local index_bucket = get_bucket(split_dir, directory_buckets)
+				emit_blocks(index_bucket, level_offset + 1)
 			elseif el.chapter ~= nil then
 				local chapter = el.chapter
 				chapter.level = chapter.level + level_offset - 1
 
-				local slide_container_name = Get_slide_container_name(el.chapter)
+				local slide_container_name = get_slide_container_name(el.chapter)
 				local slides = slide_container[slide_container_name]
 
 				local content = pandoc.utils.stringify(chapter.content)
@@ -111,7 +112,7 @@ function Emit_blocks(bucket, root_level)
 	end
 end
 
-function Create_dir_buckets(split_dir, parent)
+function create_dir_buckets(split_dir, parent)
 	local count = 0
 	for _ in pairs(split_dir) do count = count + 1 end
 	if count > 0 then
@@ -122,28 +123,28 @@ function Create_dir_buckets(split_dir, parent)
 		if (bucket[bucket_name] == nil) then
 			bucket[bucket_name] = {}
 		end
-		Create_dir_buckets(split_dir, bucket[bucket_name])
+		create_dir_buckets(split_dir, bucket[bucket_name])
 	end
 end
 
-function Compare_by_weight(a,b)
+function compare_by_weight(a,b)
 	return a.weight < b.weight
 end
 
-function Sort_bucket(bucket)
+function sort_bucket(bucket)
 	if bucket == nil or bucket.chapters == nil then
 		return
 	end
-	table.sort(bucket["chapters"], Compare_by_weight)
+	table.sort(bucket["chapters"], compare_by_weight)
 
 	for _,el in pairs(bucket) do
 		if (type(el)=="table" and el.chapters ~= nil) then
-			Sort_bucket(el)
+			sort_bucket(el)
 		end
 	end
 end
 
-function Get_bucket(split_dir, parent_bucket)
+function get_bucket(split_dir, parent_bucket)
 	local count = 0
 	for _ in pairs(split_dir) do count = count + 1 end
 
@@ -157,12 +158,11 @@ function Get_bucket(split_dir, parent_bucket)
 		-- TODO: handle missing bucket
 
 		table.remove(split_dir, 1)
-		return Get_bucket(split_dir, bucket)
+		return get_bucket(split_dir, bucket)
 	end
 end
 
-
-function Put_index(index)
+function put_index(index)
 	-- put in "chapters" key of bucket "above"
 	local bucket = directory_buckets
 	local split_dir = pandoc.path.split(index.attributes.dir)
@@ -186,7 +186,7 @@ function Put_index(index)
 	})
 end
 
-function Put_chapter(chapter)
+function put_chapter(chapter)
 	local bucket = directory_buckets
 	local split_dir = pandoc.path.split(chapter.attributes.dir)
 	for _,el in pairs(split_dir) do
@@ -204,25 +204,35 @@ function Put_chapter(chapter)
 	})
 end
 
-function Get_slide_container_name(header)
+function get_slide_container_name(header)
 	return header.attributes.dir .. pandoc.utils.stringify(header.content)
 end
 
 -- for debug
-function RecPrint(s, l, i) -- recursive Print (structure, limit, indent)
-	l = (l) or 100; i = i or "";	-- default item limit, indent string
-	if (l<1) then print "ERROR: Item limit reached."; return l-1 end;
-	local ts = type(s);
-	if (ts ~= "table") then print (i,ts,s); return l-1 end
-	print (i,ts);           -- print "table"
-	for k,v in pairs(s) do  -- print "[KEY] VALUE"
-		l = RecPrint(v, l, i.."\t["..tostring(k).."]");
-		if (l < 0) then break end
+function rec_print(structure, limit, indent) -- recursive Print (structure, limit, indent)
+	limit = (limit) or 100; indent = indent or "";	-- default item limit, indent string
+	if (limit<1) then
+		print "ERROR: Item limit reached.";
+		return limit-1
 	end
-	return l
+
+	local type_of_structure = type(structure)
+	if (type_of_structure ~= "table") then
+		print (indent,type_of_structure,structure)
+		return limit-1
+	end
+
+	print (indent,type_of_structure);           -- print "table"
+	for k,v in pairs(structure) do  -- print "[KEY] VALUE"
+		limit = rec_print(v, limit, indent.."\t["..tostring(k).."]");
+		if (limit < 0) then
+			break
+		end
+	end
+	return limit
 end
 
 return {
   traverse = 'topdown',
-  { Pandoc = Pandoc},
+  { Pandoc = document},
 }
