@@ -1,26 +1,26 @@
 ---
-type: lecture-bc
-title: "{{ replace .Name "-" " " | title }}"
-menuTitle: "{{ replace .Name "-" " " | title }}"
+archetype: lecture-bc
+title: "{{ replace .Name '-' ' ' | title }}"
+menuTitle: "{{ replace .Name '-' ' ' | title }}"
 author: "BC George (FH Bielefeld)"
 weight: 5
 readings:
-  - key: "aho2013compilers"
-    comment: "Kapitel 2 und 3"
-  - key: "Mogensen2017"
+    -   key: "aho2013compilers"
+        comment: "Kapitel 2 und 3"
+    -   key: "Mogensen2017"
 outcomes:
-  - k1: "**wuppie**"
-  - k2: "*foo*"
-  - k1: "fluppie"
+    -   k1: "**wuppie**"
+    -   k2: "*foo*"
+    -   k1: "fluppie"
 quizzes:
-  - link: "XYZ"
-    name: "Testquizz"
+    -   link: "XYZ"
+        name: "Testquizz"
 assignments:
-  - topic: sheet01
-  - topic: sheet02
+    -   topic: sheet01
+    -   topic: sheet02
 attachments:
-  - link: "https://www.fh-bielefeld.de"
-    name: "Extra Material, e.g. annotated slides"
+    -   link: "https://www.fh-bielefeld.de"
+        name: "Extra Material, e.g. annotated slides"
 sketch: true
 ---
 

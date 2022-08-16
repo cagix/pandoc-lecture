@@ -1,0 +1,24 @@
+{{- $page := .page }}
+{{- $content := .content }}
+{{- with $page }}
+<article class="default">
+{{ partial "heading-pre.html" . }}<h1>{{ .Title }}</h1>{{ partial "heading-post.html" . }}
+
+
+{{ if .Params.sketch }}
+    {{ partial "sketch.html" . }}
+{{ else }}
+    {{ partial "tldr.html" . }}
+    {{ partial "outcomes.html" . }}
+    {{ $content | safeHTML }}
+    {{ partial "quizzes.html" . }}
+    {{ partial "assignments.html" . }}
+    {{ partial "bib.html" . }}
+{{ end }}
+
+
+<footer class="footline">
+{{- partial "content-footer.html" . }}
+</footer>
+</article>
+{{- end }}

@@ -1,4 +1,8 @@
-{{ partial "header.html" . }}
+{{- $page := .page }}
+{{- $content := .content }}
+{{- with $page }}
+<article class="default">
+{{ partial "heading-pre.html" . }}<h1>{{ .Title }}</h1>{{ partial "heading-post.html" . }}
 
 
 {{ if .Params.sketch }}
@@ -14,7 +18,7 @@
     {{ partial "attachments.html" . }}
 
     <div class="recap">
-        {{ .Content }}
+        {{ $content | safeHTML }}
     </div>
 
     {{ partial "assignments.html" . }}
@@ -26,4 +30,8 @@
 {{ end }}
 
 
-{{ partial "footer.html" . }}
+<footer class="footline">
+{{- partial "content-footer.html" . }}
+</footer>
+</article>
+{{- end }}

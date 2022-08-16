@@ -1,7 +1,9 @@
-{{ partial "header.html" . }}
+{{- $page := .page }}
+{{- $content := .content }}
+{{- with $page }}
+<article class="default">
+{{ partial "heading-pre.html" . }}<h1>{{ .Title }}</h1>{{ partial "heading-post.html" . }}
 
-
-{{ $points := .Params.points }}
 
 {{ .Scratch.Set "topic" (.Page.File.Dir | path.Base) }}
 {{ if ne .Page.File.BaseFileName "index" }}
@@ -9,6 +11,8 @@
 {{ end }}
 {{ .Scratch.Set "schedule" .Site.Data.schedule }}
 {{ $due := partial "due.html" . }}
+{{ $points := .Params.points }}
+
 
 {{ if .Params.sketch }}
     {{ partial "sketch.html" . }}
@@ -22,8 +26,12 @@
     {{ else }}
     {{ end }}
 
-    {{ .Content }}
+    {{ $content | safeHTML }}
 {{ end }}
 
 
-{{ partial "footer.html" . }}
+<footer class="footline">
+{{- partial "content-footer.html" . }}
+</footer>
+</article>
+{{- end }}
