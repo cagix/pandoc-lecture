@@ -26,6 +26,7 @@
 {{ $level := 2 }}
 {{ with .Scratch.Get "attachments_level" }}{{ $level = . }}{{ end }}
 
+
 {{ if or $attachments $pdf_files }}
 <div class="attachments">
     <h{{- $level -}}>{{- $header -}}</h{{- $level -}}>
@@ -33,7 +34,7 @@
     <ul>
     {{ if reflect.IsSlice $pdf_files }}
     {{ range $pdf_files }}
-        {{ $fileUrl := printf "%s/%s" $files . }}
+        {{ $fileUrl := printf "%s/%s" $files . | path.Clean | relURL }}
         <li><a href="{{- $fileUrl | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- . -}}</a></li>
     {{ end }}
     {{ end }}
@@ -42,7 +43,13 @@
         {{ $n := "(annotierter) Foliensatz" }}
         {{ with index . "name" }}{{ $n = . }}{{ end }}
         {{ with index . "link" }}
-            <li><a href="{{- . | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
+            {{ $url := urls.Parse . }}
+            {{ if $url.Scheme }}
+                {{ $url = $url.String }}
+            {{ else }}
+                {{ $url = printf "%s/%s" $.Page.File.Dir $url.Path | path.Clean | relURL }}
+            {{ end }}
+            <li><a href="{{- $url | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
         {{ end }}
     {{ end }}
     </ul>
