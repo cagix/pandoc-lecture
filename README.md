@@ -1,5 +1,4 @@
-Pandoc Markdown Lecture Template
-================================
+# Pandoc Markdown Lecture Template
 
 This project defines a skeleton repo for creating lecture material, i.e. slides and
 handouts including lecture notes, homework sheets plus the corresponding evaluation
@@ -7,8 +6,7 @@ sheets and exams plus solution sheets out of [Pandoc Markdown](http://pandoc.org
 using a single source approach.
 
 
-History
--------
+## History
 
 ### Slides and Handouts
 
@@ -90,8 +88,7 @@ creating exams with the `exam` class can be simplified.
 Since LaTeX is still used as back end, all TeX macros could be used.
 
 
-Notes on Pandoc Filters
------------------------
+## Notes on Pandoc Filters
 
 Since LaTeX is still used as back end when creating slides, all TeX macros
 could be used.
@@ -142,8 +139,7 @@ This list is used in the evaluation sheet template to generate the appropriate
 structures.
 
 
-Notes on TeX Math
------------------
+## Notes on TeX Math
 
 To deal with TeX math, a number of options exist:
 
@@ -168,8 +164,7 @@ without Internet connectivity, math is converted to embedded images using
 the `--webtex` option of Pandoc for EPUB output.
 
 
-Installing and running
-----------------------
+## Installing and running
 
 1.  If you have not already done so, install:
 
@@ -205,15 +200,23 @@ Installing and running
     are demonstrated and explained in the markdown source.
 
 
-Notes and Versions
-------------------
+## Notes and Versions
 
-This project is supposed to be used with Pandoc 2.9.1 or later.
+This project is supposed to be used with Pandoc 2.19 or later.
+
+
+## Contributing
+
+Questions, bug reports, feature requests and pull requests are very welcome.
+Please be sure to read the [contributor guidelines](CONTRIBUTING.md) before
+opening a new issue.
 
 
 ---
 
-License
--------
+## License
 
-This work by [Carsten Gips](https://github.com/cagix) and [contributors](https://github.com/cagix/pandoc-lecture/graphs/contributors) is licensed under [MIT](https://opensource.org/licenses/MIT).
+This [work](https://github.com/cagix/pandoc-lecture) by
+[Carsten Gips](https://github.com/cagix) and
+[contributors](https://github.com/cagix/pandoc-lecture/graphs/contributors)
+is licensed under [MIT](LICENSE.md).
