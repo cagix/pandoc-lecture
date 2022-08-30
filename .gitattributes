@@ -1,6 +1,4 @@
 * text=auto eol=lf
-*.{cmd,[cC][mM][dD]} text eol=crlf
-*.{bat,[bB][aA][tT]} text eol=crlf
-*.jpg -text
-*.png -text
-*.pdf -text
+
+*.cmd text eol=crlf
+*.bat text eol=crlf
