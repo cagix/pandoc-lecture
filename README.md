@@ -214,7 +214,9 @@ opening a new issue.
 
 ---
 
-License
--------
+## License
 
-This work by [Carsten Gips](https://github.com/cagix) and [contributors](https://github.com/cagix/pandoc-lecture/graphs/contributors) is licensed under [MIT](https://opensource.org/licenses/MIT).
+This [work](https://github.com/cagix/pandoc-lecture) by
+[Carsten Gips](https://github.com/cagix) and
+[contributors](https://github.com/cagix/pandoc-lecture/graphs/contributors)
+is licensed under [MIT](LICENSE.md).
