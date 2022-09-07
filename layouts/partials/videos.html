@@ -1,0 +1,12 @@
+{{ $params   := .Scratch.Get "params" }}
+{{ $linktext := .Scratch.Get "linktext" }}
+
+<ul>
+{{ range $params }}
+    {{ $n := index . "name" | default $linktext }}
+
+    {{ with index . "link" }}
+        <li><a href="{{- . | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
+    {{ end }}
+{{ end }}
+</ul>

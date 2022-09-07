@@ -19,9 +19,11 @@ assignments:
     -   topic: sheet01
     -   topic: sheet02
 youtube:
-    -   id: "XYZ (ID)"
     -   link: "https://youtu.be/XYZ"
         name: "Use This As Link Text"
+attachments:
+    -   link: "files/MyAnnotatedSlides.pdf"
+        name: "Extra Material, e.g. annotated slides"
 sketch: true
 ---
 

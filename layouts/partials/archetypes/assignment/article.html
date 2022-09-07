@@ -5,10 +5,7 @@
 {{ partial "heading-pre.html" . }}<h1>{{ .Title }}</h1>{{ partial "heading-post.html" . }}
 
 
-{{ .Scratch.Set "topic" (.Page.File.Dir | path.Base) }}
-{{ if ne .Page.File.BaseFileName "index" }}
-    {{ .Scratch.Set "topic" .Page.File.BaseFileName }}
-{{ end }}
+{{ .Scratch.Set "topic" .Page.File.BaseFileName }}
 {{ .Scratch.Set "schedule" .Site.Data.schedule }}
 {{ $due := partial "due.html" . }}
 {{ $points := .Params.points }}

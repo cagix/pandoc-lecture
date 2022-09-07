@@ -12,6 +12,8 @@ Folders which contain an empty text file "`.noslides`" will be ignored when gene
 
 ## Page Bundles
 
+**Support for page bundles has been dropped. Please use single markdown files!**
+
 ```
 content/
 |___  _index.md             <= Landing Page

@@ -13,12 +13,16 @@
 
     {{ if $yt }}
         <h3>Videos (YouTube)</h3>
-        {{ partial "youtube.html" . }}
+        {{ .Scratch.Set "params" $yt }}
+        {{ .Scratch.Set "linktext" "Direkt-Link YouTube" }}
+        {{ partial "videos.html" . }}
     {{ end }}
 
     {{ if $fh }}
         <h3>Videos (FH-Medienportal)</h3>
-        {{ partial "fhmedia.html" . }}
+        {{ .Scratch.Set "params" $fh }}
+        {{ .Scratch.Set "linktext" "Direkt-Link FH-Medienportal" }}
+        {{ partial "videos.html" . }}
     {{ end }}
 
     {{ if $attachments }}

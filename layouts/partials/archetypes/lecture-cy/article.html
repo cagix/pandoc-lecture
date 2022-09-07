@@ -10,7 +10,9 @@
 {{ else }}
     {{ if .Params.youtube }}
         <h2>Videos</h2>
-        {{ partial "youtube.html" . }}
+        {{ .Scratch.Set "params" .Params.youtube }}
+        {{ .Scratch.Set "linktext" "Direkt-Link YouTube" }}
+        {{ partial "videos.html" . }}
     {{ end }}
 
     {{ .Scratch.Set "attachments_header" "Folien" }}

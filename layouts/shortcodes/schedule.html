@@ -1,5 +1,9 @@
 {{ $plan := .Site.Data.schedule }}
 
+{{ $if_misc_column := false }}
+{{ range $plan }}{{ with index . "misc_column" }}{{ $if_misc_column = true }}{{ end }}{{ end }}
+
+
 {{ if $plan }}
 <div class="schedule">
     <table>
@@ -8,16 +12,13 @@
         <th>Woche</th>
         <th>Vorlesung</th>
         <th>Praktikum/Übung</th>
-        {{ $if_misc_column := false }}
-        {{ range $plan }}
-            {{ with index . "misc_column" }}{{ $if_misc_column = true }}{{ end }}
-        {{ end }}
         {{ with $if_misc_column }}<th>Verschiedenes</th>{{ end }}
         </tr>
     </thead>
+
     <tbody>
     {{ range $i, $w := $plan }}
-        {{ $week := index $w "week" }}
+        {{ $week := index $w "week" | default (add $i 1 | printf "%d") }}
         {{ $datel := index $w "date" }}
         {{ $lecture := index $w "lecture" }}
         {{ $assignment := index $w "assignment" }}
@@ -26,6 +27,7 @@
         {{ $misc_assignment := index $w "misc_assignment" }}
         <tr>
             <td>{{ printf "%s" $week }}</td>
+
             <td>
             {{ if $datel }}{{- $datel -}}{{ end }}
             <ul>
@@ -37,9 +39,6 @@
                     {{ with $.Site.GetPage $topic }}
                     <li>
                         {{ $path := .File.Dir | path.Clean }}
-                        {{ if or (eq .File.BaseFileName "index") (eq .File.BaseFileName "_index") }}
-                            {{ $path = $path | path.Dir }}
-                        {{ end }}
                         {{ $path = replace ($path | path.Clean) "/" " > " | upper }}
                         {{if gt (len $path) 1}}{{ printf "%s > " $path }}{{end}}
                         {{ $title := .Params.menutitle | default .Title }}
@@ -52,18 +51,11 @@
             {{ end }}
             </ul>
             {{ range $misc_lecture }}
-                {{ $page := index . "page" }}
-                {{ $notes := index . "notes" }}
-                {{ if $page }}
-                    {{ with $.Site.GetPage $page }}
-                        {{ $title := .Params.menutitle | default .Title }}
-                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
-                    {{ end }}
-                {{ else if $notes }}
-                    {{- $notes -}}<br>
-                {{ end }}
+                {{ with index . "notes" }}{{- . -}}<br>{{ end }}
             {{ end }}
-            </td><td>
+            </td>
+
+            <td>
             <ul>
             {{ range $assignment }}
                 {{ $topic := index . "topic" }}
@@ -80,34 +72,18 @@
             {{ end }}
             </ul>
             {{ range $misc_assignment }}
-                {{ $page := index . "page" }}
-                {{ $notes := index . "notes" }}
-                {{ if $page }}
-                    {{ with $.Site.GetPage $page }}
-                        {{ $title := .Params.menutitle | default .Title }}
-                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
-                    {{ end }}
-                {{ else if $notes }}
-                    {{- $notes -}}<br>
-                {{ end }}
+                {{ with index . "notes" }}{{- . -}}<br>{{ end }}
             {{ end }}
             </td>
+
             {{ if $if_misc_column }}
             <td>
             {{ range $misc_column }}
-                {{ $page := index . "page" }}
-                {{ $notes := index . "notes" }}
-                {{ if $page }}
-                    {{ with $.Site.GetPage $page }}
-                        {{ $title := .Params.menutitle | default .Title }}
-                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $notes | default $title -}}</strong></a><br>
-                    {{ end }}
-                {{ else if $notes }}
-                    {{- $notes -}}<br>
-                {{ end }}
+                {{ with index . "notes" }}{{- . -}}<br>{{ end }}
             {{ end }}
             </td>
             {{ end }}
+
         </tr>
     {{ end }}
     </tbody>
