@@ -1,5 +1,10 @@
 {{ $assignments := .Params.assignments }}
-{{ .Scratch.Set "schedule" .Site.Data.schedule }}
+{{ $schedule := .Site.Data.schedule }}
+{{ if .Site.IsMultiLingual }}
+    {{ $data := index .Site.Data .Site.Language.Lang }}
+    {{ $schedule = $data.schedule }}
+{{ end }}
+
 
 {{ if $assignments }}
 <div class="assignments">
@@ -8,11 +13,19 @@
     <ul>
     {{ range $assignments }}
         {{ $topic := index . "topic" }}
-        {{ $.Scratch.Set "topic" $topic }}
+        {{ $due := "" }}
+        {{ range $schedule }}
+            {{ range index . "assignment" }}
+                {{ if eq ($topic) (index . "topic") }}
+                    {{ with index . "due" }}{{ $due = . }}{{ end }}
+                {{ end }}
+            {{ end }}
+        {{ end }}
+
         {{ with $.Site.GetPage $topic }}
             <li>
                 <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
-                {{ with partial "due.html" . }}{{ printf " (Abgabe: %s)" . }}{{ end }}
+                {{ with $due }}{{ printf " (Abgabe: %s)" . }}{{ end }}
             </li>
         {{ end }}
     {{ end }}

@@ -5,9 +5,22 @@
 {{ partial "heading-pre.html" . }}<h1>{{ .Title }}</h1>{{ partial "heading-post.html" . }}
 
 
-{{ .Scratch.Set "topic" .Page.File.BaseFileName }}
-{{ .Scratch.Set "schedule" .Site.Data.schedule }}
-{{ $due := partial "due.html" . }}
+{{ $topic := .Page.File.TranslationBaseName }}
+
+{{ $schedule := .Site.Data.schedule }}
+{{ if .Site.IsMultiLingual }}
+    {{ $data := index .Site.Data .Site.Language.Lang }}
+    {{ $schedule = $data.schedule }}
+{{ end }}
+
+{{ $due := "" }}
+{{ range $schedule }}
+    {{ range index . "assignment" }}
+        {{ if eq ($topic) (index . "topic") }}
+            {{ with index . "due" }}{{ $due = . }}{{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
 {{ $points := .Params.points }}
 
 

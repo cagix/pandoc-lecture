@@ -1,4 +1,8 @@
 {{ $plan := .Site.Data.schedule }}
+{{ if .Site.IsMultiLingual }}
+    {{ $data := index .Site.Data .Site.Language.Lang }}
+    {{ $plan = $data.schedule }}
+{{ end }}
 
 {{ $if_misc_column := false }}
 {{ range $plan }}{{ with index . "misc_column" }}{{ $if_misc_column = true }}{{ end }}{{ end }}
