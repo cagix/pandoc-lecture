@@ -11,7 +11,7 @@ ARG HUGO=0.110.0
 
 
 ## Ubuntu: install basis and extra packages
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 COPY docker/install-packages-ubuntu.sh  /root/install-packages-ubuntu.sh
 RUN /root/install-packages-ubuntu.sh  &&  rm -rf /root/install-packages-ubuntu.sh
