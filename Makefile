@@ -20,7 +20,7 @@ clean:
 ## Start locally to shell in container
 .PHONY: runlocal
 runlocal:
-	docker run  --rm -it  -v "$(shell pwd):/pandoc" -w "/pandoc"  --entrypoint "bash"  $(IMAGE)
+	docker run  --rm -it  -v "$(shell pwd):/pandoc" -w "/pandoc"  -u "$(shell id -u):$(shell id -g)"  --entrypoint "bash"  $(IMAGE)
 
 
 ## Demo
