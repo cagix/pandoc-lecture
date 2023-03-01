@@ -23,6 +23,17 @@
 # Temporary directory #
 #######################
 tmp/
+temp/
+resources/
+docs/
+pdf/
+
+
+# Hugo / Pandoc related files #
+###############################
+.hugo_build.lock
+local.yaml
+/data/readings.yaml
 
 
 # Packages #
