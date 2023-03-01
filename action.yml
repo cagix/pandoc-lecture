@@ -1,4 +1,4 @@
-name: 'Pandoc Container Action'
+name: 'Pandoc-Lecture Container Action'
 description: 'Alpine Linux with Pandoc and Hugo and TexLive'
 inputs:
   make-target:
