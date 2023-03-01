@@ -1,0 +1,47 @@
+{{- $page := .page }}
+{{- $content := .content }}
+{{- with $page }}
+<article class="default">
+{{ partial "heading-pre.html" . }}<h1>{{ .Title }}</h1>{{ partial "heading-post.html" . }}
+
+
+{{ $topic := .Page.File.TranslationBaseName }}
+
+{{ $schedule := .Site.Data.schedule }}
+{{ if .Site.IsMultiLingual }}
+    {{ $data := index .Site.Data .Site.Language.Lang }}
+    {{ $schedule = $data.schedule }}
+{{ end }}
+
+{{ $due := "" }}
+{{ range $schedule }}
+    {{ range index . "assignment" }}
+        {{ if eq ($topic) (index . "topic") }}
+            {{ with index . "due" }}{{ $due = . }}{{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+{{ $points := .Params.points }}
+
+
+{{ if .Params.sketch }}
+    {{ partial "sketch.html" . }}
+{{ else }}
+    {{ if and $points $due}}
+        <p><strong>{{- printf "(Punkte: %d, Abgabe: %s)" $points $due -}}</strong></p>
+    {{ else if $points }}
+        <p><strong>{{- printf "(Punkte: %d)" $points -}}</strong></p>
+    {{ else if $due }}
+        <p><strong>{{- printf "(Abgabe: %s)" $due -}}</strong></p>
+    {{ else }}
+    {{ end }}
+
+    {{ $content | safeHTML }}
+{{ end }}
+
+
+<footer class="footline">
+{{- partial "content-footer.html" . }}
+</footer>
+</article>
+{{- end }}

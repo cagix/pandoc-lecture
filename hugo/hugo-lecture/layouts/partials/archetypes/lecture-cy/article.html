@@ -1,0 +1,39 @@
+{{- $page := .page }}
+{{- $content := .content }}
+{{- with $page }}
+<article class="default">
+{{ partial "heading-pre.html" . }}<h1>{{ .Title }}</h1>{{ partial "heading-post.html" . }}
+
+
+{{ if .Params.sketch }}
+    {{ partial "sketch.html" . }}
+{{ else }}
+    {{ if .Params.youtube }}
+        <h2>Videos</h2>
+        {{ .Scratch.Set "params" .Params.youtube }}
+        {{ .Scratch.Set "linktext" "Direkt-Link YouTube" }}
+        {{ partial "videos.html" . }}
+    {{ end }}
+
+    {{ .Scratch.Set "attachments_header" "Folien" }}
+    {{ .Scratch.Set "attachments_level" 2 }}
+    {{ partial "attachments.html" . }}
+
+    <div class="recap">
+        {{ $content | safeHTML }}
+    </div>
+
+    {{ partial "assignments.html" . }}
+    {{ if .Params.outcomes }}
+        {{ partial "outcomes.html" . }}
+    {{ end }}
+    {{ partial "quizzes.html" . }}
+    {{ partial "bib.html" . }}
+{{ end }}
+
+
+<footer class="footline">
+{{- partial "content-footer.html" . }}
+</footer>
+</article>
+{{- end }}

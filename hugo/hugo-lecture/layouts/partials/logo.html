@@ -1,0 +1,11 @@
+{{ $logo := "images/logo.png" }}
+
+{{ if .Site.IsMultiLingual }}
+    {{ with (strings.TrimPrefix "/" .Site.LanguagePrefix) }}
+        {{ $logo = printf "images/logo.%s.png" . }}
+    {{ end }}
+{{ end }}
+
+<a id="logo" href='{{- .Site.BaseURL -}}/index.html'>
+    <img style="max-width:35%" alt="icon" src='{{- $logo | relURL -}}'>
+</a>

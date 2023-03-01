@@ -1,0 +1,11 @@
+{{ $due := "" }}
+
+{{ range $.Scratch.Get "schedule" }}
+    {{ range index . "assignment" }}
+        {{ if eq ($.Scratch.Get "topic") (index . "topic") }}
+            {{ with index . "due" }}{{ $due = . }}{{ end }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+{{ return $due }}

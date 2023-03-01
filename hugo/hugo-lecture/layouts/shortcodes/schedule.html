@@ -1,0 +1,96 @@
+{{ $plan := .Site.Data.schedule }}
+{{ if .Site.IsMultiLingual }}
+    {{ $data := index .Site.Data .Site.Language.Lang }}
+    {{ $plan = $data.schedule }}
+{{ end }}
+
+{{ $if_misc_column := false }}
+{{ range $plan }}{{ with index . "misc_column" }}{{ $if_misc_column = true }}{{ end }}{{ end }}
+
+
+{{ if $plan }}
+<div class="schedule">
+    <table>
+    <thead>
+        <tr>
+        <th>Woche</th>
+        <th>Vorlesung</th>
+        <th>Praktikum/Übung</th>
+        {{ with $if_misc_column }}<th>Verschiedenes</th>{{ end }}
+        </tr>
+    </thead>
+
+    <tbody>
+    {{ range $i, $w := $plan }}
+        {{ $week := index $w "week" | default (add $i 1 | printf "%d") }}
+        {{ $datel := index $w "date" }}
+        {{ $lecture := index $w "lecture" }}
+        {{ $assignment := index $w "assignment" }}
+        {{ $misc_column := index $w "misc_column" }}
+        {{ $misc_lecture := index $w "misc_lecture" }}
+        {{ $misc_assignment := index $w "misc_assignment" }}
+        <tr>
+            <td>{{ printf "%s" $week }}</td>
+
+            <td>
+            {{ if $datel }}{{- $datel -}}{{ end }}
+            <ul>
+            {{ range $lecture }}
+                {{ $topic := index . "topic" }}
+                {{ $leader := index . "leader" }}
+                {{ $notes := index . "notes" }}
+                {{ if $topic }}
+                    {{ with $.Site.GetPage $topic }}
+                    <li>
+                        {{ $path := .File.Dir | path.Clean }}
+                        {{ $path = replace ($path | path.Clean) "/" " > " | upper }}
+                        {{if gt (len $path) 1}}{{ printf "%s > " $path }}{{end}}
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $title -}}</strong></a>
+                        {{ if $leader }}{{ printf " (%s)" $leader }}{{ end }}
+                        {{ if $notes }}<br><em>{{ printf "Hinweis: %s" $notes }}</em>{{ end }}
+                    </li>
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+            </ul>
+            {{ range $misc_lecture }}
+                {{ with index . "notes" }}{{- . -}}<br>{{ end }}
+            {{ end }}
+            </td>
+
+            <td>
+            <ul>
+            {{ range $assignment }}
+                {{ $topic := index . "topic" }}
+                {{ $due := index . "due" }}
+                {{ if $topic }}
+                    {{ with $.Site.GetPage $topic }}
+                    <li>
+                        {{ $title := .Params.menutitle | default .Title }}
+                        <a href="{{- .Permalink | safeURL -}}"><strong>{{- $title -}}</strong></a>
+                        {{ if $due }}<br>{{ printf "(Abgabe: %s)" $due }}{{ end }}
+                    </li>
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+            </ul>
+            {{ range $misc_assignment }}
+                {{ with index . "notes" }}{{- . -}}<br>{{ end }}
+            {{ end }}
+            </td>
+
+            {{ if $if_misc_column }}
+            <td>
+            {{ range $misc_column }}
+                {{ with index . "notes" }}{{- . -}}<br>{{ end }}
+            {{ end }}
+            </td>
+            {{ end }}
+
+        </tr>
+    {{ end }}
+    </tbody>
+    </table>
+</div>
+{{ end }}

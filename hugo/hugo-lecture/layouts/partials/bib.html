@@ -1,0 +1,59 @@
+{{ $readings := .Params.readings }}
+{{ $data := .Site.Data.readings.references }}
+
+{{ if $readings }}
+<div class="bib">
+    <h2>Quellen</h2>
+
+    <ul>
+    {{ range sort $readings "key" }}
+        {{ $key := index . "key" }}
+        {{ $comment := index . "comment" }}
+
+        {{ range where $data "id" $key }}
+            {{ $title := index . "title" }}
+            {{ $author := index . "author" }}
+            {{ $url := index . "url" }}
+            {{ $isbn := index . "isbn" }}
+            {{ $doi := index . "doi" }}
+
+            {{ $details := slice "" }}
+            {{ range $i, $v := $author }}
+                {{ if eq $i 0 }}
+                    {{ $details = slice (delimit $v ", ") }}
+                {{ else }}
+                    {{ $details = $details | append (delimit $v ", ") }}
+                {{ end }}
+            {{ end }}
+            {{ $details = delimit $details " und " }}
+            {{ $details = slice ($details) }}
+            {{ with index . "publisher" }}{{ $details = $details | append . }}{{ end }}
+            {{ with index . "issued" }}{{ $details = $details | append . }}{{ end }}
+            {{ $details = delimit $details ", " }}
+
+            <li id="id_{{- $key -}}">
+            {{ if $url }}
+                [{{- $key -}}] <a href="{{- $url | safeURL -}}" class="icon reading" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- $title -}}</strong></a>
+            {{ else }}
+                [{{- $key -}}] <strong>{{- $title -}}</strong>
+            {{ end }}
+            {{ if $details }}
+                <br>{{- $details -}}.
+                {{ if $isbn }}
+                    ISBN <a href="https://www.digibib.net/openurl/Bi10?isbn={{- $isbn | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $isbn -}}</a>.
+                {{ end }}
+                {{ if $doi }}
+                    DOI <a href="https://doi.org/{{- $doi | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $doi -}}</a>.
+                {{ end }}
+            {{ end }}
+            {{ if $comment }}
+                <br><em>{{- $comment -}}</em>
+            {{ end }}
+            </li>
+        {{ end }}
+
+    {{ end }}
+    </ul>
+
+</div>
+{{ end }}

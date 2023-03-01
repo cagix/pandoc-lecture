@@ -1,0 +1,35 @@
+{{ $assignments := .Params.assignments }}
+{{ $schedule := .Site.Data.schedule }}
+{{ if .Site.IsMultiLingual }}
+    {{ $data := index .Site.Data .Site.Language.Lang }}
+    {{ $schedule = $data.schedule }}
+{{ end }}
+
+
+{{ if $assignments }}
+<div class="assignments">
+    <h2>Übungsblätter/Aufgaben</h2>
+
+    <ul>
+    {{ range $assignments }}
+        {{ $topic := index . "topic" }}
+        {{ $due := "" }}
+        {{ range $schedule }}
+            {{ range index . "assignment" }}
+                {{ if eq ($topic) (index . "topic") }}
+                    {{ with index . "due" }}{{ $due = . }}{{ end }}
+                {{ end }}
+            {{ end }}
+        {{ end }}
+
+        {{ with $.Site.GetPage $topic }}
+            <li>
+                <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
+                {{ with $due }}{{ printf " (Abgabe: %s)" . }}{{ end }}
+            </li>
+        {{ end }}
+    {{ end }}
+    </ul>
+
+</div>
+{{ end }}
