@@ -1,0 +1,13 @@
+## ignore Makefile
+Makefile
+
+## ignore Dockerfile
+Dockerfile
+docker/Dockerfile.ubuntu
+
+## ignore Misc
+.git
+.github
+action.yml
+README.md
+LICENSE.md

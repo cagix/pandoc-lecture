@@ -1,0 +1,35 @@
+## Ubuntu
+## provide similar functionality as pandoc/extra, but for linux/arm64
+## (pandoc/extra is currently only available for linux/amd64)
+FROM ubuntu:22.04
+
+
+## Versions
+ARG ARCH=arm64
+ARG PANDOC=3.1
+ARG HUGO=0.110.0
+
+
+## Ubuntu: install basis and extra packages
+ENV DEBIAN_FRONTEND noninteractive
+
+COPY docker/install-packages-ubuntu.sh  /root/install-packages-ubuntu.sh
+RUN /root/install-packages-ubuntu.sh  &&  rm -rf /root/install-packages-ubuntu.sh
+
+
+## TexLive and extra packages
+ENV PATH="/opt/texlive/texdir/bin/aarch64-linux:${PATH}"
+
+COPY docker/texlive.profile     /root/texlive.profile
+COPY docker/install-texlive.sh  /root/install-texlive.sh
+RUN /root/install-texlive.sh  &&  rm -rf /root/install-texlive.sh  &&  rm -rf /root/texlive.profile
+
+COPY docker/install-texlive-basics.sh  /root/install-texlive-basics.sh
+RUN /root/install-texlive-basics.sh  &&  rm -rf /root/install-texlive-basics.sh
+
+COPY docker/install-texlive-extras.sh  /root/install-texlive-extras.sh
+RUN /root/install-texlive-extras.sh  &&  rm -rf /root/install-texlive-extras.sh
+
+
+## Entrypoint
+ENTRYPOINT ["sh", "-c"]

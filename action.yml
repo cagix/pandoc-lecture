@@ -1,0 +1,12 @@
+name: 'My first Pandoc Container Action'
+description: 'Alpine Linux with Pandoc and Hugo and TexLive'
+inputs:
+  make-target:
+    description: 'makefile target to run'
+    required: true
+    default: 'make'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - export DOCKER=false; ${{ inputs.make-target }}
