@@ -8,6 +8,11 @@ docker/Dockerfile.ubuntu
 ## ignore Misc
 .git
 .github
+.dockerignore
+.editorconfig
+.gitattributes
+.gitignore
 action.yml
 README.md
 LICENSE.md
+CONTRIBUTING.md
