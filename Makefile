@@ -1,5 +1,5 @@
 ## Name the image
-IMAGE = my-first-action
+IMAGE = pandoc-lecture
 
 ## Build linux/amd64 image for GitHub Action (default)
 .PHONY: all
