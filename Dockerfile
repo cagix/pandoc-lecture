@@ -20,5 +20,10 @@ COPY docker/install-texlive-extras.sh  /root/install-texlive-extras.sh
 RUN /root/install-texlive-extras.sh  &&  rm -rf /root/install-texlive-extras.sh
 
 
+## Pandoc-Lecture and Hugo Relearn Theme
+COPY docker/install-pandoc-lecture.sh  /root/install-pandoc-lecture.sh
+RUN /root/install-pandoc-lecture.sh  &&  rm -rf /root/install-pandoc-lecture.sh
+
+
 ## Entrypoint
 ENTRYPOINT ["sh", "-c"]
