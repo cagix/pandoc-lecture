@@ -20,7 +20,7 @@ clean:
 ## Start Docker container "pandoc-lecture" into interactive shell
 .PHONY: runlocal
 runlocal:
-	docker run  --rm -it  -v "$(shell pwd):/pandoc" -w "/pandoc"  -u "$(shell id -u):$(shell id -g)"  --env CI=true  --entrypoint "bash"  $(IMAGE)
+	docker run  --rm -it  -v "$(shell pwd):/pandoc" -w "/pandoc"  -u "$(shell id -u):$(shell id -g)"  -e CI=true  --entrypoint "bash"  $(IMAGE)
 ## Where do we find the content from https://github.com/cagix/pandoc-lecture,
 ## i.e. the resources for Pandoc and the themes for Hugo?
 ##     (a) If we run inside the Docker container, the variable CI is set to
