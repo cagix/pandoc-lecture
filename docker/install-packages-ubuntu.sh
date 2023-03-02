@@ -23,6 +23,7 @@ apt-get -q --no-allow-insecure-repositories update              \
 ## graphviz (dot)
 apt-get -q --no-allow-insecure-repositories update              \
     && apt-get install --assume-yes --no-install-recommends     \
+        git                                                     \
         make                                                    \
         bash                                                    \
         zip                                                     \

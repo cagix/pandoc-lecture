@@ -2,7 +2,7 @@
 
 
 ## graphviz (dot)
-apk --no-cache add make bash zip graphviz ghostscript font-noto
+apk --no-cache add git make bash zip graphviz ghostscript font-noto
 
 
 ## Hugo: https://github.com/gohugoio/hugo/releases/latest/
