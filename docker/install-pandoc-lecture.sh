@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-## Pandoc-Lecture
+## Pandoc-Lecture: https://github.com/cagix/pandoc-lecture.git
 ## (TODO: replace "git clone" w/ "wget release artefact")
 git clone  --depth 1  https://github.com/cagix/pandoc-lecture.git  ${XDG_DATA_HOME}/pandoc/
 cd ${XDG_DATA_HOME}/pandoc/  &&  rm -rf .git demo/ docker/
