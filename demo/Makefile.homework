@@ -9,7 +9,7 @@ WORKDIR          = $(shell pwd)
 ## (Defaults to docker. To use pandoc and TeX-Live directly, create an
 ## environment variable `PANDOC` pointing to the location of your
 ## pandoc installation.)
-PANDOC       ?= docker run  --rm -it  -v "$(WORKDIR):/pandoc" -w "/pandoc"  -u "$(shell id -u):$(shell id -g)"  --entrypoint="pandoc"  pandoc-lecture
+PANDOC       ?= docker run  --rm -it  -v "$(WORKDIR):/pandoc" -w "/pandoc"  -u "$(shell id -u):$(shell id -g)"  -e CI=true  --entrypoint "pandoc"  pandoc-lecture
 
 
 
