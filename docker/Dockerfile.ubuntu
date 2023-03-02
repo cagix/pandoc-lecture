@@ -33,7 +33,7 @@ RUN /root/install-texlive-extras.sh  &&  rm -rf /root/install-texlive-extras.sh
 
 
 ## Pandoc-Lecture and Hugo Relearn Theme
-ENV XDG_DATA_HOME="/usr/local/share/"
+ENV XDG_DATA_HOME="/usr/local/share"
 
 COPY docker/install-pandoc-lecture.sh  /root/install-pandoc-lecture.sh
 RUN /root/install-pandoc-lecture.sh  &&  rm -rf /root/install-pandoc-lecture.sh
