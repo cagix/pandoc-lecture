@@ -7,7 +7,7 @@ FROM pandoc/extra:3.1
 ARG ARCH=amd64
 ARG PANDOC=3.1.1
 ARG HUGO=0.111.2
-ARG RELEARN=5.12.1
+ARG RELEARN=5.12.2
 
 
 ## Alpine: install extra packages
