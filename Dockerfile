@@ -6,7 +6,7 @@ FROM pandoc/extra:3.1
 ## Versions
 ARG ARCH=amd64
 ARG PANDOC=3.1.1
-ARG HUGO=0.111.2
+ARG HUGO=0.111.3
 ARG RELEARN=5.12.2
 
 
