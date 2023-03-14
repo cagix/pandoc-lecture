@@ -71,7 +71,7 @@ end
 -- Replace native Spans with "real" Spans or Shortcodes
 function Span(el)
     -- Replace "bsp" span with "button" shortcode
-    -- Use key "href" as href parameter in shortcode
+    -- Use key/value pair "href=..." as href parameter in shortcode
     if el.classes[1] == "bsp" then
         return {
             pandoc.RawInline('markdown', '<div style="text-align: right;">'),
