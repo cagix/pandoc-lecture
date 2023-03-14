@@ -70,11 +70,12 @@ end
 
 -- Replace native Spans with "real" Spans or Shortcodes
 function Span(el)
-    -- Replace "bsp" Span with "button" Shortcode
+    -- Replace "bsp" span with "button" shortcode
+    -- Use key "href" as href parameter in shortcode
     if el.classes[1] == "bsp" then
         return {
             pandoc.RawInline('markdown', '<div style="text-align: right;">'),
-            pandoc.RawInline('markdown', '{{% button style="btn-crossreference" %}}')
+            pandoc.RawInline('markdown', '{{% button style="btn-crossreference" href="' .. el.attributes["href"] .. '" %}}')
         } .. el.content .. {
             pandoc.RawInline('markdown', '{{% /button %}}'),
             pandoc.RawInline('markdown', '</div>')
