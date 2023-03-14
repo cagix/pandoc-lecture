@@ -75,7 +75,7 @@ function Span(el)
     if el.classes[1] == "bsp" then
         return {
             pandoc.RawInline('markdown', '<div style="text-align: right;">'),
-            pandoc.RawInline('markdown', '{{% button style="btn-crossreference" href="' .. el.attributes["href"] or "" .. '" %}}')
+            pandoc.RawInline('markdown', '{{% button style="btn-crossreference" href="' .. (el.attributes["href"] or "") .. '" %}}')
         } .. el.content .. {
             pandoc.RawInline('markdown', '{{% /button %}}'),
             pandoc.RawInline('markdown', '</div>')
