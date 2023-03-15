@@ -26,16 +26,15 @@ function Div(el)
 end
 
 
--- center images without captions too (like "real" images w/ caption)
+-- center images without captions too (like "real" images w/ caption aka figures)
 --
 -- remove as a precaution a possibly existing parameter `web_width`, which
 -- should only be respected in the web version.
+--
+-- note: images w/ caption will be parsed (implicitly) as figures instead - no need to check for empty caption here
 function Image(el)
     el.attributes["web_width"] = nil
-
-    if el.caption and #el.caption == 0 then
-        return { pandoc.RawInline('latex', '\\begin{center}'), el, pandoc.RawInline('latex', '\\end{center}') }
-    end
+    return { pandoc.RawInline('latex', '\\begin{center}'), el, pandoc.RawInline('latex', '\\end{center}') }
 end
 
 
