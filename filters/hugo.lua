@@ -40,6 +40,7 @@ end
 -- Images (empty title): Convert scaling from Pandoc markdown to Hugo Relearn theme
 --        "![](img/wuppie.png){width=20%}" will become "![](img/wuppie.png?width=20%25)"
 -- Figures (non-empty title): Emit custom shortcode `img`
+--        "![Wuppieee](img/wuppie.png){width=20%}" will become "{{% img src="img/wuppie.png?width=20%25" caption="Wuppieee" width="20%" height="auto" class="center" %}}"
 --
 -- If both the "width" and "web_width" parameters are present, "web_width" takes precedence
 -- over the regular "width" parameter. Likewise for "height" and "web_height".
