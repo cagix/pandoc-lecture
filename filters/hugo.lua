@@ -52,10 +52,10 @@ function Image(el)
     local t = pandoc.utils.stringify(el.caption)
 
     if t == "" then
-        -- Empty caption "image": Just transform width/height for Hugo and Relearn theme
+        -- Empty caption ("image"): Just transform width/height for Hugo and Relearn theme
         return pandoc.Image("", el.src .. "?width=" .. w:gsub("%%", "%%25") .. "&height=" .. h:gsub("%%", "%%25"))
     else
-        -- Non-empty caption "figure": Emit `img` shortcode for Hugo
+        -- Non-empty caption ("figure"): Emit `img` shortcode for Hugo
         -- (custom shortcode, see https://github.com/cagix/pandoc-lecture/pull/28)
         return pandoc.RawInline('markdown', '{{% img src="' .. el.src .. '" caption="' .. t .. '" width="' .. w .. '" height="' .. h .. '" class="center" %}}')
     end
