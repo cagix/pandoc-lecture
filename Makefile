@@ -4,12 +4,12 @@ IMAGE = pandoc-lecture
 ## Build linux/amd64 image for GitHub Action (default)
 .PHONY: all
 all: Dockerfile
-	docker build -t $(IMAGE) -f $< .
+	docker build --no-cache -t $(IMAGE) -f $< .
 
 ## Build linux/arm64 image
 .PHONY: arm64
 arm64: docker/Dockerfile.ubuntu
-	docker build -t $(IMAGE) -f $< .
+	docker build --no-cache -t $(IMAGE) -f $< .
 
 ## Remove image
 .PHONY: clean
