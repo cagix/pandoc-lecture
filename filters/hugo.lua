@@ -35,19 +35,30 @@ function Math(el)
 end
 
 
--- Emit custom shortcode `img`:
--- Convert `![text](path){width=60%}` into `{{% img src="path" title="text" width="60%" %}}`
+-- Handling of images for Hugo
 --
--- Scaling of images with the custom shortcode `img` currently works only in terms of image width.
--- By default, the `width` parameter from the Pandoc link attribute will be used, which is then
--- identical for both the slides and the web version. To achieve a different scaling for just the
--- web version, you can use the `web_width` parameter, which takes precedence over the normal `width`
--- parameter.
+-- Images (empty title): Convert scaling from Pandoc markdown to Hugo Relearn theme
+--        "![](img/wuppie.png){width=20%}" will become "![](img/wuppie.png?width=20%25)"
+-- Figures (non-empty title): Emit custom shortcode `img`
+--        "![Wuppieee](img/wuppie.png){width=20%}" will become "{{% img src="img/wuppie.png?width=20%25" caption="Wuppieee" width="20%" height="auto" class="center" %}}"
+--
+-- If both the "width" and "web_width" parameters are present, "web_width" takes precedence
+-- over the regular "width" parameter. Likewise for "height" and "web_height".
+--
+-- This needs "-implicit_figures" for Pandoc (see https://github.com/cagix/pandoc-lecture/pull/28).
 function Image(el)
-    local w = el.attributes["web_width"] or el.attributes["width"] or "auto"
+    local w = el.attributes["web_width"]  or el.attributes["width"]  or "auto"
+    local h = el.attributes["web_height"] or el.attributes["height"] or "auto"
     local t = pandoc.utils.stringify(el.caption)
 
-    return pandoc.RawInline('markdown', '{{% img src="' .. el.src .. '" title="' .. t .. '" width="' .. w .. '" %}}')
+    if t == "" then
+        -- Empty caption ("image"): Just transform width/height for Hugo and Relearn theme
+        return pandoc.Image("", el.src .. "?width=" .. w:gsub("%%", "%%25") .. "&height=" .. h:gsub("%%", "%%25"))
+    else
+        -- Non-empty caption ("figure"): Emit `img` shortcode for Hugo
+        -- (custom shortcode, see https://github.com/cagix/pandoc-lecture/pull/28)
+        return pandoc.RawInline('markdown', '{{% img src="' .. el.src .. '" caption="' .. t .. '" width="' .. w .. '" height="' .. h .. '" class="center" %}}')
+    end
 end
 
 
