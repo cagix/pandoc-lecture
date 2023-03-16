@@ -8,6 +8,9 @@
 {{ if .Params.sketch }}
     {{ partial "sketch.html" . }}
 {{ else }}
+    {{ .Scratch.Set "attachments_title" "Annotierte Folien" }}
+    {{ partial "attachments.html" . }}
+
     {{ $content | safeHTML }}
 
     {{ partial "bib.html" . }}
