@@ -38,7 +38,7 @@
             {{ if $details }}
                 {{ $c = printf "%s<br>%s." $c $details }}
                 {{ if $isbn }}
-                    {{ $c = printf "%s ISBN <a href='https://www.digibib.net/openurl/Bi10?isbn=%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'>%s</a>." $c ($isbn | safeURL) $isbn }}
+                    {{ $c = printf "%s ISBN <a href='https://fhb-bielefeld.digibib.net/openurl?isbn=%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'>%s</a>." $c ($isbn | safeURL) $isbn }}
                 {{ end }}
                 {{ if $doi }}
                     {{ $c = printf "%s DOI <a href='https://doi.org/%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'>%s</a>." $c ($doi | safeURL) $doi }}
