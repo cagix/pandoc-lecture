@@ -20,6 +20,9 @@
     {{ .Scratch.Set "videos_linktext" "Direkt-Link FH-Medienportal" }}
     {{ partial "videos.html" . }}
 
+    {{ .Scratch.Set "attachments_title" "Slides" }}
+    {{ partial "attachments.html" . }}
+
     {{ partial "outcomes.html" . }}
 
     {{ $content | safeHTML }}
