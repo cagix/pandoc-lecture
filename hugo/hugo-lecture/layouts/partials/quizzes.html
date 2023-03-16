@@ -1,4 +1,5 @@
 {{ $quizzes := .Params.quizzes }}
+
 {{ if $quizzes }}
 
     {{ $c := "<ul>" }}
@@ -9,7 +10,7 @@
             {{ $c = printf "%s <li><a href='%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'>%s</a></li>" $c ($link | safeURL) (default $link $name) }}
         {{ end }}
     {{ end }}
-    {{ $c = printf "%s%s" $c "</ul>" }}
+    {{ $c = printf "%s</ul>" $c }}
 
     {{ partial "shortcodes/notice.html" (dict
         "context" .

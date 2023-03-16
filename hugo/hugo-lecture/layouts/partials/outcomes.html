@@ -1,4 +1,5 @@
 {{ $outcomes := .Params.outcomes }}
+
 {{ if (and $outcomes (reflect.IsSlice $outcomes)) }}    {{/* do not engage unless it's a list: workaround for use in lecture-cy */}}
 
     {{ $c := "<ul>" }}
@@ -8,7 +9,7 @@
         {{ with index . "k3" }}{{ $c = printf "%s <li>(K3) %s</li>" $c (. | markdownify) }}{{ end }}
         {{ with index . "k4" }}{{ $c = printf "%s <li>(K4) %s</li>" $c (. | markdownify) }}{{ end }}
     {{ end }}
-    {{ $c = printf "%s%s" $c "</ul>" }}
+    {{ $c = printf "%s</ul>" $c }}
 
     {{ partial "shortcodes/notice.html" (dict
         "context" .
