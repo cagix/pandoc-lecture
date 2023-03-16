@@ -1,20 +1,21 @@
 {{ $quizzes := .Params.quizzes }}
-
 {{ if $quizzes }}
-<div class="quizzes">
-    <h2>Quizzes</h2>
 
-    <ul>
-    {{ range $quizzes }}
-        {{ $name := index . "name" }}
-        {{ $link := index . "link" }}
-        {{ if $link }}
-        <li>
-            <a href="{{- $link | safeURL -}}" class="icon reading" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- default $link $name -}}</strong></a>
-        </li>
-        {{ end }}
+$c := "<ul>"
+{{ range $quizzes }}
+    {{ $name := index . "name" }}
+    {{ $link := index . "link" }}
+    {{ if $link }}
+        $c = printf "%s%s" $c "<li><a href=\"" + ($link | safeURL) + "\" class=\"icon reading\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"><strong>" + (default $link $name) + "</strong></a></li>"
     {{ end }}
-    </ul>
+{{ end }}
+$c = printf "%s%s" $c "</ul>"
 
-</div>
+{{ partial "shortcodes/notice.html" (dict
+"context" .
+"style" "tip"
+"title" "Quizzes"
+"content" $c
+)}}
+
 {{ end }}
