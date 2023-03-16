@@ -1,22 +1,22 @@
 {{ $quizzes := .Params.quizzes }}
 {{ if $quizzes }}
 
-    {{ $c := "<ul>" }}
-    {{ range $quizzes }}
-        {{ $name := index . "name" }}
-        {{ $link := index . "link" }}
-        {{ if $link }}
-            {{ $c = $c | printf "%s <li><a href='%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'>%s</a></li>" . ($link | safeURL) (default $link $name) }}
-        {{ end }}
+{{ $c := "<ul>" }}
+{{ range $quizzes }}
+    {{ $name := index . "name" }}
+    {{ $link := index . "link" }}
+    {{ if $link }}
+        {{ $c = $c | printf "%s <li><a href='%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'>%s</a></li>" . ($link | safeURL) (default $link $name) }}
     {{ end }}
-    {{ $c = printf "%s%s" $c "</ul>" }}
+{{ end }}
+{{ $c = printf "%s%s" $c "</ul>" }}
 
-    {{ partial "shortcodes/notice.html" (dict
+{{ partial "shortcodes/notice.html" (dict
     "context" .
     "style" "tip"
     "title" "Quizzes"
     "icon" "fas fa-user-check"
     "content" $c
-    )}}
+)}}
 
 {{ end }}
