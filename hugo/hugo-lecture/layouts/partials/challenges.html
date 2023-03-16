@@ -1,0 +1,15 @@
+{{ $challenges := .Params.challenges }}
+
+{{ if $challenges }}
+
+    {{ $c := $challenges | markdownify }}
+
+    {{ partial "shortcodes/notice.html" (dict
+        "context" .
+        "style" "note"
+        "icon" "fas fa-puzzle-piece"
+        "title" "Challenges"
+        "content" $c
+    )}}
+
+{{ end }}
