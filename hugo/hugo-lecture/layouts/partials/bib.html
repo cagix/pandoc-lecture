@@ -2,10 +2,8 @@
 {{ $data := .Site.Data.readings.references }}
 
 {{ if $readings }}
-<div class="bib">
-    <h2>Quellen</h2>
 
-    <ul>
+    {{ $c := "<ul>" }}
     {{ range sort $readings "key" }}
         {{ $key := index . "key" }}
         {{ $comment := index . "comment" }}
@@ -31,29 +29,35 @@
             {{ with index . "issued" }}{{ $details = $details | append . }}{{ end }}
             {{ $details = delimit $details ", " }}
 
-            <li id="id_{{- $key -}}">
+            {{ $c = printf "%s <li id='id_%s'>" $c $key }}
             {{ if $url }}
-                [{{- $key -}}] <a href="{{- $url | safeURL -}}" class="icon reading" target="_blank" rel="nofollow noopener noreferrer"><strong>{{- $title -}}</strong></a>
+                {{ $c = printf "%s[%s] <a href='%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'><strong>%s</strong></a>" $c $key ($url | safeURL) $title }}
             {{ else }}
-                [{{- $key -}}] <strong>{{- $title -}}</strong>
+                {{ $c = printf "%s[%s] <strong>%s</strong>" $c $key $title }}
             {{ end }}
             {{ if $details }}
-                <br>{{- $details -}}.
+                {{ $c = printf "%s<br>%s." $c $details }}
                 {{ if $isbn }}
-                    ISBN <a href="https://www.digibib.net/openurl/Bi10?isbn={{- $isbn | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $isbn -}}</a>.
+                    {{ $c = printf "%s ISBN <a href='https://www.digibib.net/openurl/Bi10?isbn=%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'>%s</a>." $c ($isbn | safeURL) $isbn }}
                 {{ end }}
                 {{ if $doi }}
-                    DOI <a href="https://doi.org/{{- $doi | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $doi -}}</a>.
+                    {{ $c = printf "%s DOI <a href='https://doi.org/%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'>%s</a>." $c ($doi | safeURL) $doi }}
                 {{ end }}
             {{ end }}
             {{ if $comment }}
-                <br><em>{{- $comment -}}</em>
+                {{ $c = printf "%s<br><em>%s</em>" $c $comment }}
             {{ end }}
-            </li>
+            {{ $c = printf "%s</li>" $c }}
         {{ end }}
-
     {{ end }}
-    </ul>
+    {{ $c = printf "%s</ul>" $c }}
 
-</div>
+    {{ partial "shortcodes/notice.html" (dict
+        "context" .
+        "style" "info"
+        "icon" "fas fa-book-reader"
+        "title" "Quellen"
+        "content" $c
+    )}}
+
 {{ end }}
