@@ -9,10 +9,10 @@
     {{ partial "sketch.html" . }}
 {{ else }}
     {{ $content | safeHTML }}
+
     {{ partial "bib.html" . }}
     {{ partial "outcomes.html" . }}
     {{ partial "assignments.html" . }}
-    {{ partial "quizzes.html" . }}
 {{ end }}
 
 
