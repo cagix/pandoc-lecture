@@ -1,15 +1,15 @@
 {{ $quizzes := .Params.quizzes }}
 {{ if $quizzes }}
 
-$c := "<ul>"
+{{ $c := "<ul>" }}
 {{ range $quizzes }}
     {{ $name := index . "name" }}
     {{ $link := index . "link" }}
     {{ if $link }}
-        $c = printf "%s%s" $c "<li><a href=\"" + ($link | safeURL) + "\" class=\"icon reading\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"><strong>" + (default $link $name) + "</strong></a></li>"
+        {{ $c = printf "%s%s" $c "<li><a href=\"" + ($link | safeURL) + "\" class=\"icon reading\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"><strong>" + (default $link $name) + "</strong></a></li>" }}
     {{ end }}
 {{ end }}
-$c = printf "%s%s" $c "</ul>"
+{{ $c = printf "%s%s" $c "</ul>" }}
 
 {{ partial "shortcodes/notice.html" (dict
 "context" .
