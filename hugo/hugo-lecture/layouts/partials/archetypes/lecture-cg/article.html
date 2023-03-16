@@ -9,8 +9,21 @@
     {{ partial "sketch.html" . }}
 {{ else }}
     {{ partial "tldr.html" . }}
+
+    {{ .Scratch.Set "videos_params" .Params.youtube }}
+    {{ .Scratch.Set "videos_title" "Videos (YouTube)" }}
+    {{ .Scratch.Set "videos_linktext" "Direkt-Link YouTube" }}
+    {{ partial "videos.html" . }}
+
+    {{ .Scratch.Set "videos_params" .Params.fhmedia }}
+    {{ .Scratch.Set "videos_title" "Videos (FH-Medienportal)" }}
+    {{ .Scratch.Set "videos_linktext" "Direkt-Link FH-Medienportal" }}
+    {{ partial "videos.html" . }}
+
     {{ partial "outcomes.html" . }}
+
     {{ $content | safeHTML }}
+
     {{ partial "quizzes.html" . }}
     {{ partial "challenges.html" . }}
     {{ partial "assignments.html" . }}
