@@ -8,7 +8,6 @@
 {{ if .Params.sketch }}
     {{ partial "sketch.html" . }}
 {{ else }}
-    {{ partial "tldr.html" . }}
     {{ $content | safeHTML }}
     {{ partial "bib.html" . }}
     {{ partial "outcomes.html" . }}
