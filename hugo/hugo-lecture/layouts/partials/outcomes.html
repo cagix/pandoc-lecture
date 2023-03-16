@@ -1,18 +1,21 @@
 {{ $outcomes := .Params.outcomes }}
+{{ if (and $outcomes (reflect.IsSlice $outcomes)) }}    {{/* do not engage unless it's a list: workaround for use in lecture-cy */}}
 
-{{ if (and $outcomes (reflect.IsSlice $outcomes)) }}
-{{/* do not engage unless it's a list: workaround for use in lecture-cy */}}
-<div class="outcomes">
-    <h2>Lernziele</h2>
-
-    <ul>
+    {{ $c := "<ul>" }}
     {{ range $outcomes }}
-        {{ with index . "k1" }}<li>{{ print "(K1) " }}{{ . | $.RenderString }}</li>{{ end }}
-        {{ with index . "k2" }}<li>{{ print "(K2) " }}{{ . | $.RenderString }}</li>{{ end }}
-        {{ with index . "k3" }}<li>{{ print "(K3) " }}{{ . | $.RenderString }}</li>{{ end }}
-        {{ with index . "k4" }}<li>{{ print "(K4) " }}{{ . | $.RenderString }}</li>{{ end }}
+        {{ with index . "k1" }}{{ $c = printf "%s <li>(K1) %s</li>" $c (. | $.RenderString) }}{{ end }}
+        {{ with index . "k2" }}{{ $c = printf "%s <li>(K2) %s</li>" $c (. | $.RenderString) }}{{ end }}
+        {{ with index . "k3" }}{{ $c = printf "%s <li>(K3) %s</li>" $c (. | $.RenderString) }}{{ end }}
+        {{ with index . "k4" }}{{ $c = printf "%s <li>(K4) %s</li>" $c (. | $.RenderString) }}{{ end }}
     {{ end }}
-    </ul>
+    {{ $c = printf "%s%s" $c "</ul>" }}
 
-</div>
+    {{ partial "shortcodes/notice.html" (dict
+        "context" .
+        "style" "tip"
+        "icon" "fas fa-lightbulb"
+        "title" "Lernziele"
+        "content" $c
+    )}}
+
 {{ end }}
