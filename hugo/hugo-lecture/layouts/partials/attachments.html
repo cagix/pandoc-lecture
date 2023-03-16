@@ -1,14 +1,9 @@
 {{ $attachments := .Params.attachments }}
-
-{{ $header := .Scratch.Get "attachments_header" | default "Materialien" }}
-{{ $level  := .Scratch.Get "attachments_level"  | default 2 }}
-
+{{ $title       := .Scratch.Get "attachments_title" | default "Materialien" }}
 
 {{ if $attachments }}
-<div class="attachments">
-    <h{{- $level -}}>{{- $header -}}</h{{- $level -}}>
 
-    <ul>
+    {{ $c := "<ul>" }}
     {{ range $attachments }}
         {{ $n := index . "name" | default "(annotierter) Foliensatz" }}
         {{ with index . "link" }}
@@ -40,10 +35,17 @@
                     {{ $url = replace $url $current_lang $default_lang }}
                 {{ end }}
             {{ end }}
-            <li><a href="{{- $url | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
+            {{ $c = printf "%s <li><a href='%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'>%s</a></li>" $c ($url | safeURL) $n }}
         {{ end }}
     {{ end }}
-    </ul>
+    {{ $c = printf "%s</ul>" $c }}
 
-</div>
+    {{ partial "shortcodes/notice.html" (dict
+        "context" .
+        "style" "info"
+        "icon" "far fa-file-powerpoint"
+        "title" $title
+        "content" $c
+    )}}
+
 {{ end }}

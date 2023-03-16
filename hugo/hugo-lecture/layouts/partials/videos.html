@@ -1,12 +1,24 @@
-{{ $params   := .Scratch.Get "params" }}
-{{ $linktext := .Scratch.Get "linktext" }}
+{{ $videos   := .Scratch.Get "videos_params" }}
+{{ $title    := .Scratch.Get "videos_title" | default "Videos" }}
+{{ $linktext := .Scratch.Get "videos_linktext" | default "Direkt-Link" }}
 
-<ul>
-{{ range $params }}
-    {{ $n := index . "name" | default $linktext }}
+{{ if $videos }}
 
-    {{ with index . "link" }}
-        <li><a href="{{- . | safeURL -}}" target="_blank" rel="nofollow noopener noreferrer">{{- $n -}}</a></li>
+    {{ $c := "<ul>" }}
+    {{ range $videos }}
+        {{ $n := index . "name" | default $linktext }}
+        {{ with index . "link" }}
+            {{ $c = printf "%s <li><a href='%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'>%s</a></li>" $c (. | safeURL) $n }}
+        {{ end }}
     {{ end }}
+    {{ $c = printf "%s</ul>" $c }}
+
+    {{ partial "shortcodes/notice.html" (dict
+        "context" .
+        "style" "info"
+        "icon" "fas fa-podcast"
+        "title" $title
+        "content" $c
+    )}}
+
 {{ end }}
-</ul>

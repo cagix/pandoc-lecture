@@ -8,12 +8,14 @@
 {{ if .Params.sketch }}
     {{ partial "sketch.html" . }}
 {{ else }}
-    {{ partial "tldr.html" . }}
+    {{ .Scratch.Set "attachments_title" "Annotierte Folien" }}
+    {{ partial "attachments.html" . }}
+
     {{ $content | safeHTML }}
+
     {{ partial "bib.html" . }}
     {{ partial "outcomes.html" . }}
     {{ partial "assignments.html" . }}
-    {{ partial "quizzes.html" . }}
 {{ end }}
 
 

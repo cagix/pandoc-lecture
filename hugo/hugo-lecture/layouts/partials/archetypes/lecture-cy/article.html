@@ -8,15 +8,12 @@
 {{ if .Params.sketch }}
     {{ partial "sketch.html" . }}
 {{ else }}
-    {{ if .Params.youtube }}
-        <h2>Videos</h2>
-        {{ .Scratch.Set "params" .Params.youtube }}
-        {{ .Scratch.Set "linktext" "Direkt-Link YouTube" }}
-        {{ partial "videos.html" . }}
-    {{ end }}
+    {{ .Scratch.Set "videos_params" .Params.youtube }}
+    {{ .Scratch.Set "videos_title" "Videos" }}
+    {{ .Scratch.Set "videos_linktext" "Direkt-Link YouTube" }}
+    {{ partial "videos.html" . }}
 
-    {{ .Scratch.Set "attachments_header" "Folien" }}
-    {{ .Scratch.Set "attachments_level" 2 }}
+    {{ .Scratch.Set "attachments_title" "Folien" }}
     {{ partial "attachments.html" . }}
 
     <div class="recap">
