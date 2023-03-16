@@ -6,7 +6,7 @@
     {{ $name := index . "name" }}
     {{ $link := index . "link" }}
     {{ if $link }}
-        {{ $c = printf "%s <li><a href=\"%s\" class=\"icon reading\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"><strong>%s</strong></a></li>" $c ($link | safeURL) (default $link $name) }}
+    {{ $c = printf "%s <li><a href='%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'><strong%s</strong%s</a></li>" $c ($link | safeURL) (default $link $name) }}
     {{ end }}
 {{ end }}
 {{ $c = printf "%s%s" $c "</ul>" }}
