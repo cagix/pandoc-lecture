@@ -3,10 +3,10 @@
 
     {{ $c := "<ul>" }}
     {{ range $outcomes }}
-        {{ with index . "k1" }}{{ $c = printf "%s <li>(K1) %s</li>" $c (. | $.RenderString) }}{{ end }}
-        {{ with index . "k2" }}{{ $c = printf "%s <li>(K2) %s</li>" $c (. | $.RenderString) }}{{ end }}
-        {{ with index . "k3" }}{{ $c = printf "%s <li>(K3) %s</li>" $c (. | $.RenderString) }}{{ end }}
-        {{ with index . "k4" }}{{ $c = printf "%s <li>(K4) %s</li>" $c (. | $.RenderString) }}{{ end }}
+        {{ with index . "k1" }}{{ $c = printf "%s <li>(K1) %s</li>" $c (. | markdownify) }}{{ end }}
+        {{ with index . "k2" }}{{ $c = printf "%s <li>(K2) %s</li>" $c (. | markdownify) }}{{ end }}
+        {{ with index . "k3" }}{{ $c = printf "%s <li>(K3) %s</li>" $c (. | markdownify) }}{{ end }}
+        {{ with index . "k4" }}{{ $c = printf "%s <li>(K4) %s</li>" $c (. | markdownify) }}{{ end }}
     {{ end }}
     {{ $c = printf "%s%s" $c "</ul>" }}
 
