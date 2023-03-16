@@ -5,12 +5,9 @@
     {{ $schedule = $data.schedule }}
 {{ end }}
 
-
 {{ if $assignments }}
-<div class="assignments">
-    <h2>Übungsblätter/Aufgaben</h2>
 
-    <ul>
+    {{ $c := "<ul>" }}
     {{ range $assignments }}
         {{ $topic := index . "topic" }}
         {{ $due := "" }}
@@ -23,13 +20,19 @@
         {{ end }}
 
         {{ with $.Site.GetPage $topic }}
-            <li>
-                <a href="{{- .Permalink | safeURL -}}"><strong>{{- .Title -}}</strong></a>
-                {{ with $due }}{{ printf " (Abgabe: %s)" . }}{{ end }}
-            </li>
+            {{ $c = printf "%s <li><a href='%s' class='icon reading' target='_blank' rel='nofollow noopener noreferrer'>%s</a>" $c (.Permalink | safeURL) .Title }}
+            {{ with $due }}{{ $c = printf "%s (Abgabe: %s)" $c . }}{{ end }}
+            {{ $c = printf "%s</li>" $c }}
         {{ end }}
     {{ end }}
-    </ul>
+    {{ $c = printf "%s</ul>" $c }}
 
-</div>
+    {{ partial "shortcodes/notice.html" (dict
+        "context" .
+        "style" "note"
+        "icon" "fas fa-laptop-code"
+        "title" "Übungsblätter/Aufgaben"
+        "content" $c
+    )}}
+
 {{ end }}
