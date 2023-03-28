@@ -72,6 +72,14 @@ function Div(el)
             { pandoc.RawBlock("markdown", "{{% /expand %}}") }
     end
 
+    -- Replace "cbox" Div with "notice" Shortcode
+    if el.classes[1] == "cbox" then
+        return
+            { pandoc.RawBlock("markdown", '{{% notice style="info" %}}') } ..
+            el.content ..
+            { pandoc.RawBlock("markdown", "{{% /notice %}}") }
+    end
+
     -- Transform all other native Divs to "real" Divs digestible to Hugo
     return
         { pandoc.RawBlock("markdown", "<div class='" .. el.classes[1] .. "'>") } ..
