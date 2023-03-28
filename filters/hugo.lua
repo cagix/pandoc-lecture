@@ -67,9 +67,9 @@ function Div(el)
     -- Replace "showme" Div with "expand" Shortcode
     if el.classes[1] == "showme" then
         return
-            { pandoc.RawBlock("markdown", '{{% expand "Show Me" %}}'), pandoc.RawBlock("markdown", "<div class='showme'>") } ..
+            { pandoc.RawBlock("markdown", '{{% expand "Show Me" %}}') } ..
             el.content ..
-            { pandoc.RawBlock("markdown", "</div>"), pandoc.RawBlock("markdown", "{{% /expand %}}") }
+            { pandoc.RawBlock("markdown", "{{% /expand %}}") }
     end
 
     -- Transform all other native Divs to "real" Divs digestible to Hugo
