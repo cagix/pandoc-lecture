@@ -72,12 +72,12 @@ function Div(el)
             { pandoc.RawBlock("markdown", "{{% /expand %}}") }
     end
 
-    -- Replace "cbox" Div with "notice" Shortcode
+    -- Replace "cbox" Div with centered "button" Shortcode
     if el.classes[1] == "cbox" then
         return
-            { pandoc.RawBlock("markdown", '{{% notice style="info" %}}') } ..
+            { pandoc.RawBlock("markdown", '<div style="text-align:center;">'), pandoc.RawBlock("markdown", '{{% button style="primary" %}}') } ..
             el.content ..
-            { pandoc.RawBlock("markdown", "{{% /notice %}}") }
+            { pandoc.RawBlock("markdown", "{{% /button %}}"), pandoc.RawBlock("markdown", "</div>") }
     end
 
     -- Transform all other native Divs to "real" Divs digestible to Hugo
