@@ -28,9 +28,9 @@
     {{ partial "sketch.html" . }}
 {{ else }}
     {{ if and $points $due}}
-        <p><strong>{{- printf "(Punkte: %d; %s)" $points $due -}}</strong></p>
+        <p><strong>{{- printf "(%s; %s)" $points $due -}}</strong></p>
     {{ else if $points }}
-        <p><strong>{{- printf "(Punkte: %d)" $points -}}</strong></p>
+        <p><strong>{{- printf "(%s)" $points -}}</strong></p>
     {{ else if $due }}
         <p><strong>{{- printf "(%s)" $due -}}</strong></p>
     {{ else }}
