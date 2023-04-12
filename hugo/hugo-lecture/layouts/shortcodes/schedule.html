@@ -69,7 +69,7 @@
                     <li>
                         {{ $title := .Params.menutitle | default .Title }}
                         <a href="{{- .Permalink | safeURL -}}"><strong>{{- $title -}}</strong></a>
-                        {{ if $due }}<br>{{ printf "(Abgabe: %s)" $due }}{{ end }}
+                        {{ if $due }}<br>{{ printf "(%s)" $due }}{{ end }}
                     </li>
                     {{ end }}
                 {{ end }}
