@@ -14,7 +14,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    ## Install Pandoc plus Pandoc-Lecture
+    ## Base: Install Pandoc plus Pandoc-Lecture
     - name: 'Download Pandoc'
       run: sh ${{ github.action_path }}/docker/download-pandoc.sh
       shell: bash
@@ -31,7 +31,7 @@ runs:
       run: pandoc -v
       shell: bash
 
-    ## Install Hugo (if requested)
+    ## Plus: Install Hugo (if requested)
     - name: 'Download Hugo'
       run: sh ${{ github.action_path }}/docker/download-hugo.sh
       shell: bash
@@ -52,7 +52,7 @@ runs:
       shell: bash
       if: ${{ inputs.hugo == 'true' }}
 
-    ## Install TexLive (if requested)
+    ## Plus: Install TexLive (if requested)
     - name: 'Install TexLive'
       run: sudo sh ${{ github.action_path }}/docker/install-texlive.sh
       shell: bash
