@@ -9,6 +9,15 @@ arm64:
 	cd docker && make arm64
 
 
+## Install Pandoc-Lecture and Hugo Relearn Theme to ${HOME}/.local/share/pandoc/ for local use
+.PHONY: install_scripts_locally
+install_scripts_locally:
+	mkdir -p ${HOME}/.local/share/
+	export XDG_DATA_HOME="${HOME}/.local/share/"   && \
+	sh docker/install-pandoc-lecture.sh            && \
+	sh docker/install-relearn.sh
+
+
 ## Demo
 .PHONY: demo-lecture
 demo-lecture:
