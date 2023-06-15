@@ -1,12 +1,69 @@
-name: 'Pandoc-Lecture Container Action'
-description: 'Alpine Linux with Pandoc and Hugo and TexLive'
+name: 'Setup Pandoc-Lecture'
+description: 'This action will setup Pandoc-Lecture from https://github.com/cagix/pandoc-lecture'
+
 inputs:
-  make-target:
-    description: 'makefile target to run'
-    required: true
-    default: 'make'
+  hugo:
+    description: 'Setup Hugo'
+    required: false
+    default: 'false'        ## values: 'false', 'true'
+  texlive:
+    description: 'Setup TexLive'
+    required: false
+    default: 'false'        ## values: 'false', 'true', 'extra'
+
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - export DOCKER=false; ${{ inputs.make-target }}
+  using: "composite"
+  steps:
+    ## Install Pandoc plus Pandoc-Lecture
+    - name: 'Download Pandoc'
+      run: sh ${{ github.action_path }}/docker/download-pandoc.sh
+      shell: bash
+
+    - name: 'Install Pandoc'
+      run: sudo sh ${{ github.action_path }}/docker/install-pandoc.sh
+      shell: bash
+
+    - name: 'Install Pandoc-Lecture'
+      run: sh ${{ github.action_path }}/docker/install-pandoc-lecture.sh
+      shell: bash
+
+    - name: 'Check'
+      run: pandoc -v
+      shell: bash
+
+    ## Install Hugo (if requested)
+    - name: 'Download Hugo'
+      run: sh ${{ github.action_path }}/docker/download-hugo.sh
+      shell: bash
+      if: ${{ inputs.hugo == 'true' }}
+
+    - name: 'Install Hugo'
+      run: sudo sh ${{ github.action_path }}/docker/install-hugo.sh
+      shell: bash
+      if: ${{ inputs.hugo == 'true' }}
+
+    - name: 'Install Hugo Relearn Theme'
+      run: sh ${{ github.action_path }}/docker/install-relearn.sh
+      shell: bash
+      if: ${{ inputs.hugo == 'true' }}
+
+    - name: 'Check'
+      run: hugo version
+      shell: bash
+      if: ${{ inputs.hugo == 'true' }}
+
+    ## Install TexLive (if requested)
+    - name: 'Install TexLive'
+      run: sudo sh ${{ github.action_path }}/docker/install-texlive.sh
+      shell: bash
+      if: ${{ inputs.texlive == 'true' || inputs.texlive == 'extra'}}
+
+    - name: 'Install TexLive (extra packages)'
+      run: sudo sh ${{ github.action_path }}/docker/install-texlive-extra.sh
+      shell: bash
+      if: ${{ inputs.texlive == 'extra'}}
+
+    - name: 'Check'
+      run: pdflatex -version
+      shell: bash
+      if: ${{ inputs.texlive == 'true' || inputs.texlive == 'extra'}}
