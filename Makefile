@@ -1,12 +1,12 @@
 ## Build linux/amd64 image for GitHub Action (default)
 .PHONY: all
 all:
-	cd docker && make -f Makefile all
+	cd docker && make all
 
 ## Build linux/arm64 image
 .PHONY: arm64
 arm64:
-	cd docker && make -f Makefile arm64
+	cd docker && make arm64
 
 
 ## Demo
