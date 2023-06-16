@@ -27,9 +27,8 @@ runlocal:
 	docker run  --rm -it  -v "$(shell pwd):/pandoc" -w "/pandoc"  -u "$(shell id -u):$(shell id -g)"  --entrypoint "bash"  $(IMAGE)
 ## Where do we find the content from https://github.com/cagix/pandoc-lecture,
 ## i.e. the resources for Pandoc and the themes for Hugo?
-##     (a) If we run inside the Docker container, the variable CI is set to
-##         true and we find the files in ${XDG_DATA_HOME}/pandoc/.
-##     (b) If we are running locally (native installation), then we look for
-##         the contents at ${HOME}/.local/share/pandoc/.
-## Note: $(CI) is a default environment variable that GitHub sets (see
-## https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables)
+##     (a) If we run inside the Docker container or inside the GitHub action,
+##         we find the files in ${XDG_DATA_HOME}/pandoc/.
+##     (b) If we are running locally (native installation), we look for the
+##         files at ${HOME}/.local/share/pandoc/.
+## XDG_DATA_HOME can be set externally
