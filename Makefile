@@ -13,7 +13,7 @@ arm64:
 .PHONY: install_scripts_locally
 install_scripts_locally:
 	mkdir -p ${HOME}/.local/share/
-	export XDG_DATA_HOME="${HOME}/.local/share/"   && \
+	export XDG_DATA_HOME="${HOME}/.local/share"    && \
 	sh docker/install-pandoc-lecture.sh            && \
 	sh docker/install-relearn.sh
 

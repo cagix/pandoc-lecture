@@ -15,6 +15,13 @@ runs:
   using: "composite"
   steps:
     ## Base: Install Pandoc plus Pandoc-Lecture
+    - name: 'Setup environment'
+      run: |
+        echo "XDG_DATA_HOME=$HOME/.local/share" >> $GITHUB_ENV
+        echo "ARCH=amd64" >> $GITHUB_ENV
+        mkdir -p $HOME/.local/share/
+      shell: bash
+
     - name: 'Download Pandoc'
       run: sh ${{ github.action_path }}/docker/download-pandoc.sh
       shell: bash
