@@ -1,5 +1,5 @@
 name: 'Setup Pandoc-Lecture'
-description: 'This action will setup Pandoc-Lecture from https://github.com/cagix/pandoc-lecture (Ubuntu runner onyly)'
+description: 'This action will setup Pandoc-Lecture from https://github.com/cagix/pandoc-lecture (Ubuntu runner only)'
 
 inputs:
   hugo:
