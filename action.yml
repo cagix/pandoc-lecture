@@ -10,6 +10,10 @@ inputs:
     description: 'Setup TexLive'
     required: false
     default: 'false'        ## values: 'false', 'true', 'extra'
+  graphviz:
+    description: 'Setup Graphviz'
+    required: false
+    default: 'false'        ## values: 'false', 'true'
 
 runs:
   using: "composite"
@@ -74,3 +78,14 @@ runs:
       run: pdflatex -version
       shell: bash
       if: ${{ inputs.texlive == 'true' || inputs.texlive == 'extra'}}
+
+    ## Plus: Install Graphviz (if requested)
+    - name: 'Install Graphviz'
+      run: sudo sh ${{ github.action_path }}/docker/install-packages-ubuntu.sh
+      shell: bash
+      if: ${{ inputs.graphviz == 'true'}}
+
+    - name: 'Check'
+      run: dot -V
+      shell: bash
+      if: ${{ inputs.graphviz == 'true'}}
