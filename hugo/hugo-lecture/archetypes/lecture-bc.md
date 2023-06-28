@@ -2,7 +2,7 @@
 archetype: lecture-bc
 title: "{{ replace .Name '-' ' ' | title }}"
 menuTitle: "{{ replace .Name '-' ' ' | title }}"
-author: "BC George (FH Bielefeld)"
+author: "BC George (HSBI)"
 weight: 5
 readings:
     -   key: "aho2013compilers"
@@ -19,7 +19,7 @@ assignments:
     -   topic: sheet01
     -   topic: sheet02
 attachments:
-    -   link: "https://www.fh-bielefeld.de"
+    -   link: "https://www.hsbi.de"
         name: "Extra Material, e.g. annotated slides"
 sketch: true
 ---
