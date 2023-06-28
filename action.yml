@@ -1,5 +1,5 @@
 name: 'Setup Pandoc-Lecture'
-description: 'This action will setup Pandoc-Lecture from https://github.com/cagix/pandoc-lecture'
+description: 'This action will setup Pandoc-Lecture from https://github.com/cagix/pandoc-lecture (Ubuntu runner only)'
 
 inputs:
   hugo:
@@ -20,6 +20,10 @@ runs:
         echo "XDG_DATA_HOME=$HOME/.local/share" >> $GITHUB_ENV
         echo "ARCH=amd64" >> $GITHUB_ENV
         mkdir -p $HOME/.local/share/
+      shell: bash
+
+    - name: 'Install additional Ubuntu packages'
+      run: sudo sh ${{ github.action_path }}/docker/install-packages-ubuntu.sh
       shell: bash
 
     - name: 'Download Pandoc'
