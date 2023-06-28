@@ -2,7 +2,7 @@
 archetype: lecture-cg
 title: "{{ replace .Name '-' ' ' | title }}"
 menuTitle: "{{ replace .Name '-' ' ' | title }}"
-author: "Carsten Gips (FH Bielefeld)"
+author: "Carsten Gips (HSBI)"
 weight: 5
 readings:
     -   key: "Russell2020"
@@ -25,7 +25,7 @@ youtube:
     -   link: "https://youtu.be/XYZ"
         name: "Use This As Link Text"
 fhmedia:
-    -   link: "https://www.fh-bielefeld.de/medienportal/m/XYZ"
+    -   link: "https://www.hsbi.de/medienportal/m/XYZ"
         name: "Use This As Link Text (Direkt-Link)"
 sketch: true
 ---
