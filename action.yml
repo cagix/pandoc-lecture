@@ -22,10 +22,6 @@ runs:
         mkdir -p $HOME/.local/share/
       shell: bash
 
-    - name: 'Install additional Ubuntu packages'
-      run: sudo sh ${{ github.action_path }}/docker/install-packages-ubuntu.sh
-      shell: bash
-
     - name: 'Download Pandoc'
       run: sh ${{ github.action_path }}/docker/download-pandoc.sh
       shell: bash
