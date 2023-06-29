@@ -5,6 +5,6 @@
 ## see https://github.com/Wandmalfarbe/pandoc-latex-template#texlive
 
 ## TexLive
-apt-get update
+apt-get clean && apt-get update
 apt-get install -y texlive texlive-latex-extra texlive-lang-german lmodern cm-super
 rm -rf /var/lib/apt/lists/*
