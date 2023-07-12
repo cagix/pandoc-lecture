@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## Versions
-export HUGO="0.114.1"
+export HUGO="0.115.2"
 # set ARCH="amd64" or ARCH="arm64" externally
 
 ## Hugo: https://github.com/gohugoio/hugo/releases/latest/
