@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## Versions
-export PANDOC="3.1.4"
+export PANDOC="3.1.5"
 # set ARCH="amd64" or ARCH="arm64" externally
 
 ## Pandoc: https://github.com/jgm/pandoc/releases/latest/
