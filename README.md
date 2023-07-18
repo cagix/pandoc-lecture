@@ -108,7 +108,7 @@ Installation and usage in these scenarios is described in the following sections
 
 ## Using Online: GitHub action
 
-You need a suitable build script, e.g. a Makefile, to apply Pandoc and the other tools to your Markdown files. Additionally, you need a GitHub workflow that utilises this Makefile and the [_composite_ GitHub-Action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action) defined in the Pandoc-Lecture project ([action.yml](https://github.com/cagix/pandoc-lecture/blob/master/action.yml)).
+You need a suitable build script, e.g. a Makefile, to apply Pandoc and the other tools to your Markdown files. Additionally, you need a GitHub workflow that utilises this Makefile and the [_composite_ GitHub-Action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action) defined in the Pandoc-Lecture project ([action.yaml](https://github.com/cagix/pandoc-lecture/blob/master/action.yaml)).
 
 ### Build Script
 
@@ -128,9 +128,9 @@ slides: ...
 
 ### GitHub Workflow
 
-To use your build script and the tools in a CI/CD pipeline on the GitHub runner for producing the teaching materials, you need to define a suitable [GitHub workflow](https://docs.github.com/en/actions/using-workflows). This workflow will first install the required tools using the [_composite_ GitHub-Action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action) in [action.yml](https://github.com/cagix/pandoc-lecture/blob/master/action.yml), and afterwards you can call your own build script from the workflow steps.
+To use your build script and the tools in a CI/CD pipeline on the GitHub runner for producing the teaching materials, you need to define a suitable [GitHub workflow](https://docs.github.com/en/actions/using-workflows). This workflow will first install the required tools using the [_composite_ GitHub-Action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action) in [action.yaml](https://github.com/cagix/pandoc-lecture/blob/master/action.yaml), and afterwards you can call your own build script from the workflow steps.
 
-Our [action](https://github.com/cagix/pandoc-lecture/blob/master/action.yml) will install Pandoc and Pandoc-Lecture in the GitHub runner. If the option `hugo` is set to `'true'` (string!), Hugo and Hugo Relearn theme will also be installed. If the option `texlive` is set to `'true'` (string!), TexLive will be installed along with all the packages needed to produce the Beamer PDF slides. If instead of `'true'` the value `'extra'` is given, additional packages such as additional fonts will be installed (cf. [docker/install-texlive-extra.sh](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-texlive-extra.sh)) - however, this requires _significantly_ more space and time during installation! With the option `graphviz` (value `'true'`, string!) you can also install [GraphViz](https://graphviz.org/) and [Dot](https://graphviz.org/doc/info/lang.html).
+Our [action](https://github.com/cagix/pandoc-lecture/blob/master/action.yaml) will install Pandoc and Pandoc-Lecture in the GitHub runner. If the option `hugo` is set to `'true'` (string!), Hugo and Hugo Relearn theme will also be installed. If the option `texlive` is set to `'true'` (string!), TexLive will be installed along with all the packages needed to produce the Beamer PDF slides. If instead of `'true'` the value `'extra'` is given, additional packages such as additional fonts will be installed (cf. [docker/install-texlive-extra.sh](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-texlive-extra.sh)) - however, this requires _significantly_ more space and time during installation! With the option `graphviz` (value `'true'`, string!) you can also install [GraphViz](https://graphviz.org/) and [Dot](https://graphviz.org/doc/info/lang.html).
 
 Here is an example workflow for your project with one job each for the production of the beamer PDF slides and the website for the teaching materials:
 
