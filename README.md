@@ -225,9 +225,9 @@ With `make runlocal`, issued in your local shell, the container will be launched
 
 Local use without Docker is also an option for Unix-like operating systems like Linux or macOS (_but is not recommended_). For this purpose, the specified tools have to be installed manually using the correct versions. The files linked below provide both the download URLs for the respective binaries and the required version numbers:
 
--   [Pandoc](https://github.com/cagix/pandoc-lecture/blob/master/docker/download-pandoc.sh) and [Pandoc-Lecture](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-pandoc-lecture.sh)
+-   [Pandoc](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-pandoc.sh) and [Pandoc-Lecture](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-pandoc-lecture.sh)
 -   For the web page:
-    -   [Hugo](https://github.com/cagix/pandoc-lecture/blob/master/docker/download-hugo.sh)
+    -   [Hugo](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-hugo.sh)
     -   [Hugo Relearn-Theme](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-relearn.sh)
 -   For the PDF slide sets:
     -   [TeX-Live](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-texlive.sh)

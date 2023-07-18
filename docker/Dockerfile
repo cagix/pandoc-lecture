@@ -17,9 +17,6 @@ RUN /root/install-packages-ubuntu.sh  &&  rm -rf /root/install-packages-ubuntu.s
 
 
 ## Install Pandoc and Pandoc-Lecture
-COPY download-pandoc.sh  /root/download-pandoc.sh
-RUN /root/download-pandoc.sh  &&  rm -rf /root/download-pandoc.sh
-
 COPY install-pandoc.sh  /root/install-pandoc.sh
 RUN /root/install-pandoc.sh  &&  rm -rf /root/install-pandoc.sh
 
@@ -28,9 +25,6 @@ RUN /root/install-pandoc-lecture.sh  &&  rm -rf /root/install-pandoc-lecture.sh
 
 
 ## Install Hugo and Hugo Relearn Theme
-COPY download-hugo.sh  /root/download-hugo.sh
-RUN /root/download-hugo.sh  &&  rm -rf /root/download-hugo.sh
-
 COPY install-hugo.sh  /root/install-hugo.sh
 RUN /root/install-hugo.sh  &&  rm -rf /root/install-hugo.sh
 

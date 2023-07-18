@@ -27,10 +27,6 @@ runs:
         mkdir -p $HOME/.local/share/
       shell: bash
 
-    - name: 'Download Pandoc'
-      run: sh ${{ github.action_path }}/docker/download-pandoc.sh
-      shell: bash
-
     - name: 'Install Pandoc'
       run: sudo sh ${{ github.action_path }}/docker/install-pandoc.sh
       shell: bash
@@ -44,11 +40,6 @@ runs:
       shell: bash
 
     ## Plus: Install Hugo (if requested)
-    - name: 'Download Hugo'
-      run: sh ${{ github.action_path }}/docker/download-hugo.sh
-      shell: bash
-      if: ${{ inputs.hugo == 'true' }}
-
     - name: 'Install Hugo'
       run: sudo sh ${{ github.action_path }}/docker/install-hugo.sh
       shell: bash
