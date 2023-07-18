@@ -1,4 +1,6 @@
-# Pandoc Markdown Lecture Template
+---
+title: "Pandoc Markdown Lecture Template"
+---
 
 This project defines a skeleton repo for creating lecture material, i.e. slides and
 handouts including lecture notes, homework sheets plus the corresponding evaluation
@@ -6,9 +8,9 @@ sheets and exams plus solution sheets out of [Pandoc Markdown](http://pandoc.org
 using a single source approach.
 
 
-## History
+# History
 
-### Slides and Handouts
+## Slides and Handouts
 
 Originally [TeX Live](https://www.tug.org/texlive/) and the
 [beamer class](https://www.ctan.org/pkg/beamer) were used to produce
@@ -51,7 +53,7 @@ be used to create lecture slides (PDF) and handouts (HTML/EPUB). Even slide
 desks in HTML using e.g. [reveal.js](http://lab.hakim.se/reveal-js/) would
 be possible.
 
-### Homework Sheets
+## Homework Sheets
 
 Originally [TeX Live](https://www.tug.org/texlive/) and the
 [exam class](https://www.ctan.org/pkg/exam) were used to produce
@@ -75,7 +77,7 @@ by the `exam` class).
 
 Since LaTeX is still used as back end, all TeX macros could be used.
 
-### Exams
+## Exams
 
 Originally [TeX Live](https://www.tug.org/texlive/) and the
 [exam class](https://www.ctan.org/pkg/exam) were used to produce
@@ -86,7 +88,7 @@ creating exams with the `exam` class can be simplified.
 Since LaTeX is still used as back end, all TeX macros could be used.
 
 
-## Installing and using Pandoc-Lecture
+# Installing and using Pandoc-Lecture
 
 The project [Pandoc-Lecture](https://github.com/cagix/pandoc-lecture) defines a toolchain to generate slides (in PDF format) as well as a website for teaching material from a set of Markdown files. For each unit, the PDF and the HTML page are generated from the same Markdown file:
 
@@ -104,11 +106,11 @@ There are three ways to use the toolchain defined by the [Pandoc-Lecture project
 
 Installation and usage in these scenarios is described in the following sections.
 
-### Using Online: GitHub action
+## Using Online: GitHub action
 
 You need a suitable build script, e.g. a Makefile, to apply Pandoc and the other tools to your Markdown files. Additionally, you need a GitHub workflow that utilises this Makefile and the [_composite_ GitHub-Action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action) defined in the Pandoc-Lecture project ([action.yml](https://github.com/cagix/pandoc-lecture/blob/master/action.yml)).
 
-#### Build Script
+### Build Script
 
 You can use your favourite build script technology. In this example we will demonstrate how to use a Makefile. The following code snippet shows two targets `web` and `slides` for calling Hugo and Pandoc, respectively. This example is quite abbreviated, you will find the complete (and working) text in [Programming Methods/PM Lecture/Makefile](https://github.com/Programmiermethoden/PM-Lecture/blob/master/Makefile).
 
@@ -124,7 +126,7 @@ slides: ...
 	pandoc -d slides $< -o $@
 ```
 
-#### GitHub Workflow
+### GitHub Workflow
 
 To use your build script and the tools in a CI/CD pipeline on the GitHub runner for producing the teaching materials, you need to define a suitable [GitHub workflow](https://docs.github.com/en/actions/using-workflows). This workflow will first install the required tools using the [_composite_ GitHub-Action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action) in [action.yml](https://github.com/cagix/pandoc-lecture/blob/master/action.yml), and afterwards you can call your own build script from the workflow steps.
 
@@ -183,11 +185,11 @@ Usually, this workflow has to be saved as a YAML file "`WORKFLOWNAME.yaml`" in t
 
 Depending on your settings, the ["cagix/pandoc-lecture"](https://github.com/cagix/pandoc-lecture) GitHub action must be enabled for your repository: `Settings > Actions > General > Action permissions`.
 
-### Using locally: Docker container
+## Using locally: Docker container
 
 For local use, the [Docker image](https://github.com/cagix/pandoc-lecture/blob/master/docker/Dockerfile) defined in the project can be used. You'll need to build this Docker image, also you'll need a suitable build script, e.g. a Makefile.
 
-#### Building the Docker Image
+### Building the Docker Image
 
 To create the image with the name `pandoc-lecture`, just clone the project locally, navigate to the sub-folder `docker/` and create the Docker image for your architecture via the provided Makefile. For Intel machines this will be the `amd64` target, for Apple M1 (also M2 and other ARM-based machines) accordingly `arm64`:
 
@@ -201,7 +203,7 @@ make clean arm64  # Apple M1/M2, ARM
 
 Once the image has been created, the `pandoc-lecture/` folder can be deleted. To renew the image, e.g. after updating the definitions, the above steps have to be repeated.
 
-#### Working with the Docker Image
+### Working with the Docker Image
 
 The entire toolchain is available in the Docker image named `pandoc-lecture`. To work with the toolchain, the Docker image needs to be launched and the local working directory has to be mounted into the container. An interactive shell inside the container can be used to access the mounted files and the toolchain in the container from there.
 
@@ -219,7 +221,7 @@ slides: ...
 
 With `make runlocal`, issued in your local shell, the container will be launched and an interactive shell (Bash) inside the container will be started. Your local working directory will be mounted into the container, so all files in your local working directory are accessible inside the container. With the above Makefile, you can then produce the PDF slide sets in the interactive shell within the container using `make slides`. The generated PDF files are automatically available in the local working directory via the mount.
 
-### Using locally: Native installation
+## Using locally: Native installation
 
 Local use without Docker is also an option for Unix-like operating systems like Linux or macOS (_but is not recommended_). For this purpose, the specified tools have to be installed manually using the correct versions. The files linked below provide both the download URLs for the respective binaries and the required version numbers:
 
@@ -254,7 +256,7 @@ slides: ...
 The downside of this option would be that you need to manually maintain the installed tools (Pandoc, Hugo, TexLive) as well as the scripts from Pandoc-Lecture and Hugo Relearn-Theme. The versions must always match the specifications in [cagix/pandoc-lecture/docker/](https://github.com/cagix/pandoc-lecture/tree/master/docker)!
 
 
-## Contributing
+# Contributing
 
 Questions, bug reports, feature requests and pull requests are very welcome.
 Please make sure to read the [contributor guidelines](CONTRIBUTING.md) before
@@ -263,7 +265,7 @@ opening a new issue.
 
 ---
 
-## License
+# License
 
 This [work](https://github.com/cagix/pandoc-lecture) by
 [Carsten Gips](https://github.com/cagix) and
