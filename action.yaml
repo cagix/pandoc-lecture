@@ -44,11 +44,6 @@ runs:
       shell: bash
 
     ## Plus: Install Hugo (if requested)
-    - name: 'Download Hugo'
-      run: sh ${{ github.action_path }}/docker/download-hugo.sh
-      shell: bash
-      if: ${{ inputs.hugo == 'true' }}
-
     - name: 'Install Hugo'
       run: sudo sh ${{ github.action_path }}/docker/install-hugo.sh
       shell: bash

@@ -227,7 +227,7 @@ Local use without Docker is also an option for Unix-like operating systems like 
 
 -   [Pandoc](https://github.com/cagix/pandoc-lecture/blob/master/docker/download-pandoc.sh) and [Pandoc-Lecture](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-pandoc-lecture.sh)
 -   For the web page:
-    -   [Hugo](https://github.com/cagix/pandoc-lecture/blob/master/docker/download-hugo.sh)
+    -   [Hugo](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-hugo.sh)
     -   [Hugo Relearn-Theme](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-relearn.sh)
 -   For the PDF slide sets:
     -   [TeX-Live](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-texlive.sh)

@@ -28,9 +28,6 @@ RUN /root/install-pandoc-lecture.sh  &&  rm -rf /root/install-pandoc-lecture.sh
 
 
 ## Install Hugo and Hugo Relearn Theme
-COPY download-hugo.sh  /root/download-hugo.sh
-RUN /root/download-hugo.sh  &&  rm -rf /root/download-hugo.sh
-
 COPY install-hugo.sh  /root/install-hugo.sh
 RUN /root/install-hugo.sh  &&  rm -rf /root/install-hugo.sh
 
