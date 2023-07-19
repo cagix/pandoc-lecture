@@ -221,6 +221,27 @@ slides: ...
 
 With `make runlocal`, issued in your local shell, the container will be launched and an interactive shell (Bash) inside the container will be started. Your local working directory will be mounted into the container, so all files in your local working directory are accessible inside the container. With the above Makefile, you can then produce the PDF slide sets in the interactive shell within the container using `make slides`. The generated PDF files are automatically available in the local working directory via the mount.
 
+### Testing of the website in the local file system
+
+The base URL for the deployment of the produced website has to be defined in the Hugo configuration file (`config.yaml`, variable `baseURL`).
+
+However, this prevents the generated web pages from being displayed correctly when accessed from the local file system. You would first have to adapt the Hugo configuration to the local URL. However, since this configuration is versioned with Git together with all the other project files, you can easily commit this "broken" configuration by accident.
+
+As an alternative, you can add an additional local file `local.yaml` to the project root, which will _not be versioned_ (create a corresponding entry in the `.gitignore`!). This file contains a single line `baseURL: "file://<path_to_project>/docs/"`, specifying the actual path in the local file system to your project. If this file is present, its definition of the `baseURL` overwrites the original configuration and you can view the generated web pages locally. For the deployment to the LMS, you just need to comment out the single line in the file, so the `baseURL` from the versioned global configuration will be used again.
+
+Here is an excerpt from a suitable Makefile (see again [Programming Methods/PM Lecture/Makefile](https://github.com/Programmiermethoden/PM-Lecture/blob/master/Makefile)):
+
+```makefile
+## Define options to be used by Hugo
+## local.yaml allows to override settings in config.yaml
+HUGO_ARGS  = --config config.yaml,$(wildcard local.yaml)  --themesDir "$(XDG_DATA_HOME)/pandoc/hugo"
+
+## Create website
+web: ...
+	hugo $(HUGO_ARGS)
+```
+
+
 ## Using locally: Native installation
 
 Local use without Docker is also an option for Unix-like operating systems like Linux or macOS (_but is not recommended_). For this purpose, the specified tools have to be installed manually using the correct versions. The files linked below provide both the download URLs for the respective binaries and the required version numbers:
@@ -254,6 +275,8 @@ slides: ...
 ```
 
 The downside of this option would be that you need to manually maintain the installed tools (Pandoc, Hugo, TexLive) as well as the scripts from Pandoc-Lecture and Hugo Relearn-Theme. The versions must always match the specifications in [cagix/pandoc-lecture/docker/](https://github.com/cagix/pandoc-lecture/tree/master/docker)!
+
+To check the generated artefacts locally, follow the advice given in the "Testing the website in the local file system" section above.
 
 
 # Contributing
