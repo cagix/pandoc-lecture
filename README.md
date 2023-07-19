@@ -259,8 +259,10 @@ The downside of this option would be that you need to manually maintain the inst
 # Contributing
 
 Questions, bug reports, feature requests and pull requests are very welcome.
-Please make sure to read the [contributor guidelines](CONTRIBUTING.md) before
-opening a new issue.
+
+Please first check whether your request has already been dealt with in other (open or closed) issues. Feel free to reopen relevant closed issues to add your request there.
+
+When submitting pull requests, please make sure that your **feature branch starts at the tip of the current `master` branch**. Upon acceptance (i.e. merging your pull request), your contribution automatically becomes subject to the licence of this repository (MIT).
 
 
 ---
