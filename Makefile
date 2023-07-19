@@ -1,12 +1,16 @@
 ## Build linux/amd64 image for GitHub Action (default)
 .PHONY: all
-all:
-	cd docker && make all
+all: amd64
+
+## Build linux/amd64 image
+.PHONY: amd64
+amd64:
+	cd docker && make clean amd64
 
 ## Build linux/arm64 image
 .PHONY: arm64
 arm64:
-	cd docker && make arm64
+	cd docker && make clean arm64
 
 
 ## Install Pandoc-Lecture and Hugo Relearn Theme to ${HOME}/.local/share/pandoc/ for local use

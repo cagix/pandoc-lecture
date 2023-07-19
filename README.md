@@ -195,10 +195,10 @@ To create the image with the name `pandoc-lecture`, just clone the project local
 
 ```sh
 git clone https://github.com/cagix/pandoc-lecture.git
-cd pandoc-lecture/docker/
+cd pandoc-lecture/
 # Use either of the following steps
-make clean amd64  # Intel
-make clean arm64  # Apple M1/M2, ARM
+make amd64  # Intel
+make arm64  # Apple M1/M2, ARM
 ```
 
 Once the image has been created, the `pandoc-lecture/` folder can be deleted. To renew the image, e.g. after updating the definitions, the above steps have to be repeated.
