@@ -11,3 +11,13 @@ insert_final_newline = true
 
 [Makefile]
 indent_style = tab
+
+[{*.sh, gradlew}]
+end_of_line = lf
+
+[{*.bat, *.cmd}]
+end_of_line = crlf
+
+[{*.hs, *.yaml}]
+indent_style = space
+indent_size = 2
