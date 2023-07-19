@@ -265,7 +265,7 @@ Please first check whether your request has already been dealt with in other (op
 When submitting pull requests, please make sure that your **feature branch starts at the tip of the current `master` branch**. Upon acceptance (i.e. merging your pull request), your contribution automatically becomes subject to the licence of this repository (MIT).
 
 
-## Credits
+# Credits
 
 See the [credits](CREDITS.md) for a detailed list of contributing projects.
 
