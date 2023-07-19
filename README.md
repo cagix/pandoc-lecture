@@ -276,7 +276,7 @@ slides: ...
 
 The downside of this option would be that you need to manually maintain the installed tools (Pandoc, Hugo, TexLive) as well as the scripts from Pandoc-Lecture and Hugo Relearn-Theme. The versions must always match the specifications in [cagix/pandoc-lecture/docker/](https://github.com/cagix/pandoc-lecture/tree/master/docker)!
 
-To check the generated artefacts locally, follow the advice given in the "Testing the website in the local file system" section above.
+If you want to check the generated artefacts locally, follow the advice given in the "Testing the Web site in the local file system" section above.
 
 
 # Contributing
