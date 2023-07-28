@@ -5,7 +5,7 @@
     {{ $c := $challenges | markdownify }}
 
     {{ partial "shortcodes/notice.html" (dict
-        "context" .
+        "page" .
         "style" "note"
         "icon" "fas fa-puzzle-piece"
         "title" "Challenges"

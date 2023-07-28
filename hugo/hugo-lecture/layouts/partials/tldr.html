@@ -5,7 +5,7 @@
     {{ $c := $tldr | markdownify }}
 
     {{ partial "shortcodes/notice.html" (dict
-        "context" .
+        "page" .
         "style" "info"
         "icon" "fas fa-graduation-cap"
         "title" "TL;DR"
