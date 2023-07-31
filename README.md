@@ -241,7 +241,7 @@ web: ...
 	hugo $(HUGO_ARGS)
 ```
 
-_Note_: Since Hugo version 0.110.0, the configuration file for Hugo is supposed to have the name `hugo.yaml` (see also https://gohugo.io/getting-started/configuration/#hugotoml-vs-configtoml). However, since this name is already used for the Pandoc filter to preprocess Markdown files, there would be a name clash. Therefore, in the example [Programming Methods/PM Lecture/Makefile](https://github.com/Programmiermethoden/PM-Lecture/blob/master/Makefile), a different filename is used for the Hugo configuration (i.e. `hugo_conf.yaml`) and then is set explicitly as a parameter for Hugo in the Makefile (`--config hugo_conf.yaml`).
+_Note_: Since Hugo version 0.110.0, the configuration file for Hugo is supposed to have the name `hugo.yaml` (see also https://gohugo.io/getting-started/configuration/#hugotoml-vs-configtoml). However, since this name is also already being used for the Pandoc default file for pre-processing Markdown files (`defaults/hugo.yaml`), there would be a naming conflict. Therefore, in the example [Programming Methods/PM Lecture/Makefile](https://github.com/Programmiermethoden/PM-Lecture/blob/master/Makefile), another file name is used for the Hugo configuration (`hugo_conf.yaml`) and then explicitly set as a parameter for Hugo in the Makefile (`--config hugo_conf.yaml`).
 
 ## Using locally: Native installation
 
