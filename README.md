@@ -223,7 +223,7 @@ With `make runlocal`, issued in your local shell, the container will be launched
 
 ### Testing of the website in the local file system
 
-The base URL for the deployment of the produced website has to be defined in the Hugo configuration file (`config.yaml`, variable `baseURL`).
+The base URL for the deployment of the produced website has to be defined in the Hugo configuration file (`hugo.yaml`, variable `baseURL`).
 
 However, this prevents the generated web pages from being displayed correctly when accessed from the local file system. You would first have to adapt the Hugo configuration to the local URL. However, since this configuration is versioned with Git together with all the other project files, you can easily commit this "broken" configuration by accident.
 
@@ -233,14 +233,15 @@ Here is an excerpt from a suitable Makefile (see again [Programming Methods/PM L
 
 ```makefile
 ## Define options to be used by Hugo
-## local.yaml allows to override settings in config.yaml
-HUGO_ARGS  = --config config.yaml,$(wildcard local.yaml)  --themesDir "$(XDG_DATA_HOME)/pandoc/hugo"
+## local.yaml allows to override settings in hugo.yaml
+HUGO_ARGS  = --config hugo.yaml,$(wildcard local.yaml)  --themesDir "$(XDG_DATA_HOME)/pandoc/hugo"
 
 ## Create website
 web: ...
 	hugo $(HUGO_ARGS)
 ```
 
+_Note_: Since Hugo version 0.110.0, the configuration file for Hugo is supposed to be named `hugo.yaml` (see also https://gohugo.io/getting-started/configuration/#hugotoml-vs-configtoml). However, since this name is also already being used for the Pandoc default file for pre-processing Markdown files (`defaults/hugo.yaml`), there would be a naming conflict. Therefore, in the example [Programming Methods/PM Lecture/Makefile](https://github.com/Programmiermethoden/PM-Lecture/blob/master/Makefile), another file name is used for the Hugo configuration (`hugo_conf.yaml`) and then explicitly set as a parameter for Hugo in the Makefile (`--config hugo_conf.yaml`).
 
 ## Using locally: Native installation
 
