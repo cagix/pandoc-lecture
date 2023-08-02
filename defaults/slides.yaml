@@ -29,6 +29,5 @@ include-in-header:
 
 filters:
 - prepareSlides.lua
-- listings.lua
 - tex.lua
 - citeproc
