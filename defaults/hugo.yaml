@@ -9,5 +9,5 @@ wrap: preserve
 standalone: true
 
 filters:
-    - prepareHandout.lua
-    - hugo.lua
+  - prepareHandout.lua
+  - hugo.lua
