@@ -4,9 +4,10 @@ from: markdown+lists_without_preceding_blankline-smart-implicit_figures
 to: markdown+smart-grid_tables-multiline_tables-simple_tables
 
 strip-comments: true
-standalone: true
 wrap: preserve
 
+standalone: true
+
 filters:
-- prepareHandout.lua
-- hugo.lua
+  - prepareHandout.lua
+  - hugo.lua

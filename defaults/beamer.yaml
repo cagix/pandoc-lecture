@@ -1,17 +1,19 @@
-## Lecture options (slides)
+## Lecture options (slides: Beamer)
 
 from: markdown+lists_without_preceding_blankline+rebase_relative_paths
 to: beamer
 
-metadata-file: metadata.yaml
-
-default-image-extension: '.pdf'
-strip-comments: true
-slide-level: 2
-
+citeproc: true
 metadata:
-  suppress-bibliography: true
+  #csl: https://www.zotero.org/styles/springer-lecture-notes-in-computer-science
+  #cls: https://www.zotero.org/styles/springer-basic-author-date
   link-citations: false
+  suppress-bibliography: true
+
+strip-comments: true
+wrap: preserve
+
+slide-level: 2
 
 pdf-engine: pdflatex
 pdf-engine-opt: '-shell-escape'
@@ -24,10 +26,9 @@ variables:
     - progressbar=foot
 
 include-in-header:
-- resources/definitions.tex
-- resources/beamer.tex
+  - resources/definitions.tex
+  - resources/beamer.tex
 
 filters:
-- prepareSlides.lua
-- tex.lua
-- citeproc
+  - prepareSlides.lua
+  - tex.lua
