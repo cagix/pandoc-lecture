@@ -33,7 +33,7 @@ ID            = pm
 
 ## Options
 PANDOCOPTIONS       = --data-dir=$(DATADIR) --resource-path=$(RESDIR)
-SLIDEOPTIONS        = $(PANDOCOPTIONS) --defaults=slides.yaml
+SLIDEOPTIONS        = $(PANDOCOPTIONS) --defaults=beamer.yaml
 HTMLOPTIONS         = $(PANDOCOPTIONS) --defaults=html.yaml
 HTMLTEMPLATEOPTIONS = $(PANDOCOPTIONS) --defaults=htmltemplate.yaml
 
