@@ -32,7 +32,6 @@ include-in-header:
 filters:
 - deprecated.lua
 - headertotask.lua
-- listings.lua
 - tex.lua
 - citeproc
 - fhbib.lua
