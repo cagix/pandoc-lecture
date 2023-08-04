@@ -1,0 +1,32 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Pandoc Markdown Lecture Template
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Carsten
+    family-names: Gips
+    email: cagix@hsbi.de
+    affiliation: HSBI
+    orcid: 'https://orcid.org/0000-0002-4230-9060'
+repository-code: 'https://github.com/cagix/pandoc-lecture'
+abstract: >-
+  This project defines a skeleton repo for creating lecture
+  material, i.e. slides and handouts including lecture
+  notes, homework sheets plus the corresponding evaluation
+  sheets and exams plus solution sheets out of Pandoc
+  Markdown using a single source approach.
+keywords:
+  - markdown
+  - pandoc
+  - lecture material
+  - teaching material
+  - slides
+  - handouts
+  - lecture website
+  - oer
+license: MIT
