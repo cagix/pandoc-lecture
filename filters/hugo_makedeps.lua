@@ -256,6 +256,7 @@ local function emit_links ()
 end
 
 
+
 function Pandoc (doc)
     -- init global vars using metadata: meta.prefix and meta.indexMD
     PREFIX = doc.meta.prefix or "."                     -- if not set, use "." and do no harm
