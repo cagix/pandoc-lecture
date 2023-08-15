@@ -25,18 +25,18 @@ install_scripts_locally:
 ## Demo
 .PHONY: demo-lecture
 demo-lecture:
-	cd demo && make -f Makefile.lecture all
+	cd demo/outdated/ && make -f Makefile.lecture all
 
 .PHONY: demo-homework
 demo-homework:
-	cd demo && make -f Makefile.homework all
+	cd demo/outdated/ && make -f Makefile.homework all
 
 .PHONY: demo-exams
 demo-exams:
-	cd demo && make -f Makefile.exams all
+	cd demo/outdated/ && make -f Makefile.exams all
 
 .PHONY: demo-clean
 demo-clean:
-	cd demo && make -f Makefile.lecture  clean
-	cd demo && make -f Makefile.homework clean
-	cd demo && make -f Makefile.exams    clean
+	cd demo/outdated/ && make -f Makefile.lecture  clean
+	cd demo/outdated/ && make -f Makefile.homework clean
+	cd demo/outdated/ && make -f Makefile.exams    clean
