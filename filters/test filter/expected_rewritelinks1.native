@@ -1,0 +1,154 @@
+[ Header 1 ( "summary.md" , [] , [] ) [ Str "Summary.md" ]
+, Header
+    2
+    ( "this-should-work" , [] , [] )
+    [ Str "This" , Space , Str "should" , Space , Str "work" ]
+, Para [ Str "Thanks" , Space , Str "everyone!" ]
+, Para
+    [ RawInline
+        (Format "markdown") "[File A]({{< ref \"file-a\" >}})"
+    ]
+, Para
+    [ RawInline
+        (Format "markdown") "[File A]({{< ref \"file-a\" >}})"
+    ]
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing
+       [ Plain
+           [ Str "Image"
+           , Space
+           , Str "A"
+           , Space
+           , Str "(from"
+           , Space
+           , Str "Readme.md)"
+           ]
+       ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "Image"
+            , Space
+            , Str "A"
+            , Space
+            , Str "(from"
+            , Space
+            , Str "Readme.md)"
+            ]
+            ( "a.png" , "" )
+        ]
+    ]
+, Para [ Image ( "" , [] , [] ) [] ( "a.png" , "" ) ]
+, Header
+    2
+    ( "different-wrong-format" , [] , [] )
+    [ Str "Different"
+    , Space
+    , Str "(wrong)"
+    , Space
+    , Str "format"
+    ]
+, BulletList
+    [ [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "wrong" , Space , Str "extension" ]
+              ( "file-c.png" , "" )
+          ]
+      ]
+    , [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "not" , Space , Str "local" ]
+              ( "https://pandoc.org/lua-filters.html" , "" )
+          ]
+      ]
+    , [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "still" , Space , Str "not" , Space , Str "local" ]
+              ( "https://pandoc.org/lua-filters.md" , "" )
+          ]
+      ]
+    , [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "also" , Space , Str "not" , Space , Str "local" ]
+              ( "http://pandoc.org/lua-filters.md" , "" )
+          ]
+      ]
+    , [ Plain
+          [ RawInline
+              (Format "markdown")
+              "[not there and not here]({{< ref \"wuppie\" >}})"
+          ]
+      ]
+    ]
+, Header
+    2
+    ( "recursive-inclusion" , [] , [] )
+    [ Str "Recursive" , Space , Str "inclusion" ]
+, Para
+    [ RawInline
+        (Format "markdown") "[File B]({{< ref \"file-b\" >}})"
+    ]
+, Header
+    2 ( "subdirectories" , [] , [] ) [ Str "Subdirectories" ]
+, Para
+    [ RawInline
+        (Format "markdown")
+        "[Subdir: File D]({{< ref \"file-d\" >}})"
+    ]
+, Para
+    [ RawInline
+        (Format "markdown")
+        "[Subdir: File D]({{< ref \"file-d\" >}})"
+    ]
+, Header
+    2
+    ( "subdirectories-recursive" , [] , [] )
+    [ Str "Subdirectories," , Space , Str "recursive" ]
+, Para
+    [ RawInline
+        (Format "markdown")
+        "[Subdir: File E]({{< ref \"file-e\" >}})"
+    ]
+, Header
+    2
+    ( "subdirectories-direct-plus-recursive" , [] , [] )
+    [ Str "Subdirectories,"
+    , Space
+    , Str "direct"
+    , Space
+    , Str "plus"
+    , Space
+    , Str "recursive"
+    ]
+, Para
+    [ RawInline
+        (Format "markdown")
+        "[Subdir/Leaf: Foo]({{< ref \"foo\" >}})"
+    ]
+, Header
+    2
+    ( "links-to-landing-pages" , [] , [] )
+    [ Str "Links"
+    , Space
+    , Str "to"
+    , Space
+    , Str "Landing"
+    , Space
+    , Str "Pages"
+    ]
+, Para
+    [ RawInline
+        (Format "markdown")
+        "[subdir/readme]({{< ref \"subdir\" >}})"
+    ]
+, Para
+    [ RawInline
+        (Format "markdown") "[readme]({{< ref \"/\" >}})"
+    ]
+]
