@@ -1,0 +1,126 @@
+[ Plain
+    [ RawInline (Format "markdown") "a.png: img/a.png\n"
+    , RawInline
+        (Format "markdown") "WEB_IMAGE_TARGETS += a.png\n\n"
+    , RawInline (Format "markdown") "file-b/a.png: img/a.png\n"
+    , RawInline
+        (Format "markdown") "WEB_IMAGE_TARGETS += file-b/a.png\n\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/file-e/c.png: subdir/img/c.png\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_IMAGE_TARGETS += subdir/file-e/c.png\n\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/leaf/b.png: subdir/leaf/img/b.png\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_IMAGE_TARGETS += subdir/leaf/b.png\n\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/readme/c.png: subdir/img/c.png\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_IMAGE_TARGETS += subdir/readme/c.png\n\n"
+    , RawInline (Format "markdown") "readme/a.png: img/a.png\n"
+    , RawInline
+        (Format "markdown") "WEB_IMAGE_TARGETS += readme/a.png\n\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/leaf/bar/b.png: subdir/leaf/img/b.png\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_IMAGE_TARGETS += subdir/leaf/bar/b.png\n\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/leaf/bar/d.png: subdir/leaf/img/d.png\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_IMAGE_TARGETS += subdir/leaf/bar/d.png\n\n"
+    ]
+, Plain
+    [ RawInline (Format "markdown") "_index.md: foo.md\n"
+    , RawInline (Format "markdown") "_index.md: a.png\n"
+    , RawInline (Format "markdown") "_index.md: WEIGHT=1\n"
+    , RawInline
+        (Format "markdown") "WEB_MARKDOWN_TARGETS += _index.md\n\n"
+    , RawInline
+        (Format "markdown") "file-a/_index.md: file-a.md\n"
+    , RawInline
+        (Format "markdown") "file-a/_index.md: WEIGHT=2\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += file-a/_index.md\n\n"
+    , RawInline
+        (Format "markdown") "file-b/_index.md: file-b.md\n"
+    , RawInline
+        (Format "markdown") "file-b/_index.md: file-b/a.png\n"
+    , RawInline
+        (Format "markdown") "file-b/_index.md: WEIGHT=3\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += file-b/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/file-d/_index.md: subdir/file-d.md\n"
+    , RawInline
+        (Format "markdown") "subdir/file-d/_index.md: WEIGHT=4\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += subdir/file-d/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/file-e/_index.md: subdir/file-e.md\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/file-e/_index.md: subdir/file-e/c.png\n"
+    , RawInline
+        (Format "markdown") "subdir/file-e/_index.md: WEIGHT=5\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += subdir/file-e/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/leaf/_index.md: subdir/leaf/foo.md\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/leaf/_index.md: subdir/leaf/b.png\n"
+    , RawInline
+        (Format "markdown") "subdir/leaf/_index.md: WEIGHT=6\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += subdir/leaf/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/readme/_index.md: subdir/readme.md\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/readme/_index.md: subdir/readme/c.png\n"
+    , RawInline
+        (Format "markdown") "subdir/readme/_index.md: WEIGHT=7\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += subdir/readme/_index.md\n\n"
+    , RawInline
+        (Format "markdown") "readme/_index.md: readme.md\n"
+    , RawInline
+        (Format "markdown") "readme/_index.md: readme/a.png\n"
+    , RawInline
+        (Format "markdown") "readme/_index.md: WEIGHT=8\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += readme/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/leaf/bar/_index.md: subdir/leaf/bar.md\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/leaf/bar/_index.md: subdir/leaf/bar/b.png subdir/leaf/bar/d.png\n"
+    , RawInline
+        (Format "markdown") "subdir/leaf/bar/_index.md: WEIGHT=9\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += subdir/leaf/bar/_index.md\n\n"
+    ]
+]
