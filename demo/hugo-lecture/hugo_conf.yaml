@@ -1,0 +1,87 @@
+baseURL: "file:///Users/cagix/Desktop/include-files/test site/docs/"
+canonifyURLs: true   # prepend all relative URLs w/ baseURL
+relativeURLs: false  # do NOT rewrite relative URLs to be relative to current content
+uglyurls: true       # use foo.de/bar.html instead of foo.de/bar/ (our new ILIAS 7.x HTML-Lernmodul won't find landing pages else)
+
+languageCode: "de-DE"
+metaDataFormat: "yaml"
+
+theme:
+  - "hugo-lecture"
+  - "hugo-theme-relearn"
+#themesDir: ".hugo"  ## this is either ${HOME}/.local/share/pandoc/hugo/ (local installation)
+                     ## or ${XDG_DATA_HOME}/pandoc/hugo/ (docker container / GitHub action)
+
+contentDir: "temp"
+publishDir: "docs"
+
+params:
+  editURL: "https://github.com/Programmiermethoden/PM-Lecture/edit/master/markdown/"
+  author: "cagix"
+  titleSeparator: " "
+  alwaysopen: false
+  showVisitedLinks: true
+  disableBreadcrumb: true
+  disableInlineCopyToClipBoard: true
+  disableNextPrev: true
+  disableSearch: true
+  disableLandingPageButton: true
+  disableLanguageSwitchingButton: true
+  disableMathJax: false
+  disableMermaid: true
+  themeVariant:
+    - "auto"
+    - "relearn-light"
+    - "relearn-dark"
+    - "green"
+
+menu:
+  shortcuts:
+    - name: "<i class='fas fa-bookmark'></i> Zeiten"
+      url: "/index.html#vorlesung-2-sws"
+      weight: 10
+    - name: "<i class='fas fa-bookmark'></i> Fahrplan"
+      url: "/index.html#fahrplan"
+      weight: 20
+    - name: "<i class='fas fa-bookmark'></i> Praktikum"
+      url: "/assignments.html"
+      weight: 30
+    - name: "<i class='fas fa-bookmark'></i> Note/Credits"
+      url: "/index.html#prüfungsform-note-und-credits"
+      weight: 40
+    - name: "<i class='fas fa-bookmark'></i> FAQ"
+      url: "/org/faq.html"
+      weight: 50
+
+outputs:
+  home:
+    - HTML
+    - PRINT
+  section:
+    - HTML
+    - PRINT
+  page:
+    - HTML
+    - PRINT
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  tableOfContents:
+    startLevel: 2
+
+privacy:
+  disqus:
+    disable: true
+  googleAnalytics:
+    disable: true
+  instagram:
+    disable: true
+  twitter:
+    disable: true
+  vimeo:
+    disable: true
+  youtube:
+    disable: true
+    privacyEnhanced: true

@@ -1,0 +1,18 @@
+- week: "W01 (07. April)"
+  misc_lecture:
+    - notes: ">> Feiertag"
+  misc_assignment:
+    - notes: ">> Feiertag"
+
+- week: "W02 (14. April)"
+  lecture:
+    - topic: file-d
+      notes: "Kick-Off/Orga (Zoom)"
+    - topic: file-e
+  misc_assignment:
+    - notes: ">> Kein Praktikum"
+
+- week: "W03 (21. April)"
+  lecture:
+    - topic: bar
+    - topic: foo
