@@ -162,7 +162,7 @@ end
 
 local function _remember_me (md_file, include_path)
     -- remember this file
-    -- => PREFIX/include_path/(md_file?)/_index.md: include_path/(md_file .. ".md")
+    -- safe as PREFIX/include_path/(md_file?)/_index.md: include_path/(md_file .. ".md")
     local oldl = _old_path(include_path, md_file .. ".md")
     local newl = _new_path_idx(include_path, md_file)
 
@@ -193,17 +193,19 @@ process Pandoc document (list of blocks):
 (1) "save" link to current document, i.e. do not process this document again
 (2) collect all images and all links in this document (local, relative, not HTTP, links to Markdown files)
 ]]
--- process document
 local function process_doc (blocks, md_file, include_path)
     -- remember this file & folder
     _remember_me(md_file, include_path)
 
-    -- collect all new images and links in this file
+    -- enqueue "include_path/readme.md" for later processing
+    _push(_old_path(include_path, INDEX_MD .. ".md"))
+
+    -- collect all new images and links in this file 'include_path/md_file'
     local collect_images_links = {
         -- do not refactor this into separate functions as we need 'md_file' and 'include_path' as closure
         Image = function (image)
             -- collect all new images in this file
-            -- => PREFIX/include_path/(md_file?)/file(img.src): include_path/img.src
+            -- safe as PREFIX/include_path/(md_file?)/file(img.src): include_path/img.src
             if _is_relative(image.src) and not _is_url(image.src) then
                 local oldi = _old_path(include_path, image.src)
                 local newi = _new_path(include_path, md_file, pandoc.path.filename(image.src))
@@ -212,17 +214,17 @@ local function process_doc (blocks, md_file, include_path)
                 if not images[newi] then
                     img[#img + 1] = newi    -- list: we want the same sequence for each run
                     images[newi] = oldi     -- set: do not store images twice
-                    -- create dependency for corresponding _index.md
+                    -- create a dependency for corresponding '_index.md'
                     link_img[newl] = link_img[newl] and (link_img[newl] .. " " .. newi) or (newi)
                 end
             end
         end,
         Link = function (link)
-            -- collect all new links in this file:
-            -- => PREFIX/include_path/path(link.target)/file_woe(link.target)?/_index.md: include_path/link.target
+            -- collect all new links in this file
+            -- safe as PREFIX/include_path/path(link.target)/file_woe(link.target)?/_index.md: include_path/link.target
             if _is_markdown(link.target) and _is_relative(link.target) and not _is_url(link.target) then
-                _push(_old_path(include_path, INDEX_MD .. ".md"))   -- need to look at "include_path/readme.md" as well
-                _push(_old_path(include_path, link.target))         -- look at file "include_path/link.target"
+                -- enqueue "include_path/link.target" for later processing
+                _push(_old_path(include_path, link.target))
             end
         end
     }

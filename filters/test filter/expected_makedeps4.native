@@ -27,6 +27,12 @@
         "WEB_IMAGE_TARGETS += foobar/subdir/c.png\n\n"
     , RawInline
         (Format "markdown")
+        "foobar/orga/syllabus/modulbeschreibung.png: orga/img/modulbeschreibung.png\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_IMAGE_TARGETS += foobar/orga/syllabus/modulbeschreibung.png\n\n"
+    , RawInline
+        (Format "markdown")
         "foobar/subdir/leaf/bar/b.png: subdir/leaf/img/b.png\n"
     , RawInline
         (Format "markdown")
@@ -117,13 +123,52 @@
         "WEB_MARKDOWN_TARGETS += foobar/subdir/_index.md\n\n"
     , RawInline
         (Format "markdown")
+        "foobar/orga/syllabus/_index.md: orga/syllabus.md\n"
+    , RawInline
+        (Format "markdown")
+        "foobar/orga/syllabus/_index.md: foobar/orga/syllabus/modulbeschreibung.png\n"
+    , RawInline
+        (Format "markdown")
+        "foobar/orga/syllabus/_index.md: WEIGHT=8\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += foobar/orga/syllabus/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "foobar/orga/resources/_index.md: orga/resources.md\n"
+    , RawInline
+        (Format "markdown")
+        "foobar/orga/resources/_index.md: WEIGHT=9\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += foobar/orga/resources/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "foobar/orga/grading/_index.md: orga/grading.md\n"
+    , RawInline
+        (Format "markdown")
+        "foobar/orga/grading/_index.md: WEIGHT=10\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += foobar/orga/grading/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "foobar/orga/exams/_index.md: orga/exams.md\n"
+    , RawInline
+        (Format "markdown")
+        "foobar/orga/exams/_index.md: WEIGHT=11\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += foobar/orga/exams/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
         "foobar/subdir/leaf/bar/_index.md: subdir/leaf/bar.md\n"
     , RawInline
         (Format "markdown")
         "foobar/subdir/leaf/bar/_index.md: foobar/subdir/leaf/bar/b.png foobar/subdir/leaf/bar/d.png\n"
     , RawInline
         (Format "markdown")
-        "foobar/subdir/leaf/bar/_index.md: WEIGHT=8\n"
+        "foobar/subdir/leaf/bar/_index.md: WEIGHT=12\n"
     , RawInline
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += foobar/subdir/leaf/bar/_index.md\n\n"
@@ -135,9 +180,17 @@
         "foobar/subdir/leaf/_index.md: foobar/subdir/leaf/b.png\n"
     , RawInline
         (Format "markdown")
-        "foobar/subdir/leaf/_index.md: WEIGHT=9\n"
+        "foobar/subdir/leaf/_index.md: WEIGHT=13\n"
     , RawInline
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += foobar/subdir/leaf/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "foobar/orga/_index.md: orga/readme.md\n"
+    , RawInline
+        (Format "markdown") "foobar/orga/_index.md: WEIGHT=14\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += foobar/orga/_index.md\n\n"
     ]
 ]

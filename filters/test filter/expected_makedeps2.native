@@ -28,6 +28,12 @@
         (Format "markdown") "WEB_IMAGE_TARGETS += readme/a.png\n\n"
     , RawInline
         (Format "markdown")
+        "orga/syllabus/modulbeschreibung.png: orga/img/modulbeschreibung.png\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_IMAGE_TARGETS += orga/syllabus/modulbeschreibung.png\n\n"
+    , RawInline
+        (Format "markdown")
         "subdir/leaf/bar/b.png: subdir/leaf/img/b.png\n"
     , RawInline
         (Format "markdown")
@@ -113,12 +119,46 @@
         "WEB_MARKDOWN_TARGETS += readme/_index.md\n\n"
     , RawInline
         (Format "markdown")
+        "orga/syllabus/_index.md: orga/syllabus.md\n"
+    , RawInline
+        (Format "markdown")
+        "orga/syllabus/_index.md: orga/syllabus/modulbeschreibung.png\n"
+    , RawInline
+        (Format "markdown") "orga/syllabus/_index.md: WEIGHT=9\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += orga/syllabus/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "orga/resources/_index.md: orga/resources.md\n"
+    , RawInline
+        (Format "markdown") "orga/resources/_index.md: WEIGHT=10\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += orga/resources/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "orga/grading/_index.md: orga/grading.md\n"
+    , RawInline
+        (Format "markdown") "orga/grading/_index.md: WEIGHT=11\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += orga/grading/_index.md\n\n"
+    , RawInline
+        (Format "markdown") "orga/exams/_index.md: orga/exams.md\n"
+    , RawInline
+        (Format "markdown") "orga/exams/_index.md: WEIGHT=12\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += orga/exams/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
         "subdir/leaf/bar/_index.md: subdir/leaf/bar.md\n"
     , RawInline
         (Format "markdown")
         "subdir/leaf/bar/_index.md: subdir/leaf/bar/b.png subdir/leaf/bar/d.png\n"
     , RawInline
-        (Format "markdown") "subdir/leaf/bar/_index.md: WEIGHT=9\n"
+        (Format "markdown") "subdir/leaf/bar/_index.md: WEIGHT=13\n"
     , RawInline
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += subdir/leaf/bar/_index.md\n\n"
