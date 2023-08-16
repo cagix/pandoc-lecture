@@ -104,3 +104,19 @@ Vorstellung der Lösungen im jeweiligen nachfolgenden Praktikumstermin.
 **Hinweise**: Abgabe der Hausaufgaben (PDF, ZIP, Link) jeweils bis zur angegebenen Deadline im ILIAS.
 Peer-Feedback jeweils bis zur angegebenen Deadline im ILIAS.
 Vorstellung der Lösungen im jeweiligen nachfolgenden Praktikumstermin.
+
+
+::: notes
+This part will be used while building the makefile dependencies, but will be removed for building the
+website. We can use this to include files in the build process even if we do not want to have explicit
+links in the site ...
+
+Use case: We use a Hugo-generated schedule, i.e. we do not link to all individual lections in this
+readme or elsewhere, but want to define the scope of the semester/offering. So all links to the lectures
+to be included can go here.
+
+-   [Syllabus](orga/syllabus.md)
+-   [Ressourcen](orga/resources.md)
+-   [Note und Credits](orga/grading.md)
+-   [Prüfungsvorbereitung](orga/exams.md)
+:::
