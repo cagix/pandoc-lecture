@@ -151,4 +151,263 @@
     [ RawInline
         (Format "markdown") "[readme]({{< ref \"readme\" >}})"
     ]
+, Div
+    ( "" , [ "slides" ] , [] )
+    [ Header
+        2
+        ( "hidden-parts" , [] , [] )
+        [ Str "Hidden" , Space , Str "Parts" ]
+    , Para
+        [ Str "This"
+        , Space
+        , Str "part"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "visible"
+        , Space
+        , Str "while"
+        , Space
+        , Str "building"
+        , Space
+        , Str "the"
+        , Space
+        , Str "makefile"
+        , Space
+        , Str "dependencies,"
+        , Space
+        , Str "but"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "removed"
+        , Space
+        , Str "for"
+        , Space
+        , Str "building"
+        , SoftBreak
+        , Str "the"
+        , Space
+        , Str "website"
+        , Space
+        , Str "because"
+        , Space
+        , Str "of"
+        , Space
+        , Str "being"
+        , Space
+        , Str "marked"
+        , Space
+        , Str "as"
+        , Space
+        , Str "slides"
+        , Space
+        , Str "content."
+        , Space
+        , Str "We"
+        , Space
+        , Str "can"
+        , Space
+        , Str "use"
+        , Space
+        , Str "this"
+        , Space
+        , Str "to"
+        , Space
+        , Str "include"
+        , Space
+        , Str "files"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "build"
+        , SoftBreak
+        , Str "process"
+        , Space
+        , Str "even"
+        , Space
+        , Str "if"
+        , Space
+        , Str "we"
+        , Space
+        , Str "do"
+        , Space
+        , Str "not"
+        , Space
+        , Str "want"
+        , Space
+        , Str "to"
+        , Space
+        , Str "have"
+        , Space
+        , Str "explicit"
+        , Space
+        , Str "links"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "site"
+        , Space
+        , Str "\8230"
+        ]
+    , Para
+        [ Str "Use"
+        , Space
+        , Str "case:"
+        , Space
+        , Str "We"
+        , Space
+        , Str "want"
+        , Space
+        , Str "to"
+        , Space
+        , Str "use"
+        , Space
+        , Str "a"
+        , Space
+        , Str "Hugo-generated"
+        , Space
+        , Str "schedule,"
+        , Space
+        , Str "i.e.\160we"
+        , Space
+        , Str "do"
+        , Space
+        , Str "not"
+        , Space
+        , Str "provide"
+        , Space
+        , Str "links"
+        , Space
+        , Str "to"
+        , Space
+        , Str "all"
+        , Space
+        , Str "individual"
+        , SoftBreak
+        , Str "lections"
+        , Space
+        , Str "in"
+        , Space
+        , Str "this"
+        , Space
+        , Str "readme"
+        , Space
+        , Str "or"
+        , Space
+        , Str "elsewhere,"
+        , Space
+        , Str "but"
+        , Space
+        , Str "need"
+        , Space
+        , Str "to"
+        , Space
+        , Str "define"
+        , Space
+        , Str "the"
+        , Space
+        , Str "scope"
+        , Space
+        , Str "of"
+        , Space
+        , Str "the"
+        , Space
+        , Str "semester/offering."
+        , Space
+        , Str "So"
+        , Space
+        , Str "all"
+        , SoftBreak
+        , Str "links"
+        , Space
+        , Str "to"
+        , Space
+        , Str "the"
+        , Space
+        , Str "lectures"
+        , Space
+        , Str "to"
+        , Space
+        , Str "be"
+        , Space
+        , Str "included"
+        , Space
+        , Str "can"
+        , Space
+        , Str "go"
+        , Space
+        , Str "here"
+        , Space
+        , Str "and"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "hidden"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "generated"
+        , Space
+        , Str "website."
+        , Space
+        , Str "The"
+        , SoftBreak
+        , Str "referenced"
+        , Space
+        , Str "pages"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "available"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "site,"
+        , Space
+        , Str "however."
+        ]
+    , BulletList
+        [ [ Plain
+              [ RawInline
+                  (Format "markdown")
+                  "[Syllabus]({{< ref \"syllabus\" >}})"
+              ]
+          ]
+        , [ Plain
+              [ RawInline
+                  (Format "markdown")
+                  "[Ressourcen]({{< ref \"resources\" >}})"
+              ]
+          ]
+        , [ Plain
+              [ RawInline
+                  (Format "markdown")
+                  "[Note und Credits]({{< ref \"grading\" >}})"
+              ]
+          ]
+        , [ Plain
+              [ RawInline
+                  (Format "markdown")
+                  "[Pr\252fungsvorbereitung]({{< ref \"exams\" >}})"
+              ]
+          ]
+        ]
+    ]
 ]
