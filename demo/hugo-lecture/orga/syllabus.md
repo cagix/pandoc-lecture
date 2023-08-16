@@ -82,7 +82,7 @@ und pflegen können:
 
 ## Erwartungen an Sie
 
-![](images/modulbeschreibung.png){width="80%"}
+![](img/modulbeschreibung.png){width="80%"}
 
 *  135h Selbststudium => ca. 9h Arbeitszeit pro Woche!
 

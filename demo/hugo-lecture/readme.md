@@ -106,14 +106,18 @@ Peer-Feedback jeweils bis zur angegebenen Deadline im ILIAS.
 Vorstellung der Lösungen im jeweiligen nachfolgenden Praktikumstermin.
 
 
-::: notes
-This part will be used while building the makefile dependencies, but will be removed for building the
-website. We can use this to include files in the build process even if we do not want to have explicit
-links in the site ...
 
-Use case: We use a Hugo-generated schedule, i.e. we do not link to all individual lections in this
-readme or elsewhere, but want to define the scope of the semester/offering. So all links to the lectures
-to be included can go here.
+::: slides
+## Hidden Parts
+
+This part will be visible while building the makefile dependencies, but will be removed for building
+the website because of being marked as slides content. We can use this to include files in the build
+process even if we do not want to have explicit links in the site ...
+
+Use case: We want to use a Hugo-generated schedule, i.e. we do not provide links to all individual
+lections in this readme or elsewhere, but need to define the scope of the semester/offering. So all
+links to the lectures to be included can go here and will be hidden in the generated website. The
+referenced pages will be available in the site, however.
 
 -   [Syllabus](orga/syllabus.md)
 -   [Ressourcen](orga/resources.md)
