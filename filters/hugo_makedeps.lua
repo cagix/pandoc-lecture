@@ -111,7 +111,7 @@ local lqlast = -1               -- last element in queue
 
 local PREFIX = "."              -- string to prepend to the new locations, e.g. temporary folder (will be set from metadata)
 local INDEX_MD = "readme"       -- name of readme.md (will be set from metadata)
-local ROOT = "."
+local ROOT = "."                -- absolute path to working directory when starting
 
 
 -- helper
@@ -195,7 +195,7 @@ process Pandoc document (list of blocks):
 
 (1) "save" link to current document, i.e. do not process this document again
 (2) collect all images and all links in this document (local, relative, not HTTP, links to Markdown files)
-]]
+]]--
 local function _process_doc (blocks, md_file, include_path)
     -- new link: PREFIX/include_path/(md_file?)/_index.md
     local newl = _new_path_idx(include_path, md_file)
@@ -245,7 +245,7 @@ local function _handle_file (oldl)
         pandoc.system.with_working_directory(
             pandoc.path.directory(oldl),    -- may still contain '../'
             function ()
-                local wrkdir = pandoc.system.get_working_directory()    -- same as 'pandoc.path.directory(oldl)' but w/o '../' since Pandoc changed here
+                local wrkdir = pandoc.system.get_working_directory()    -- same as 'pandoc.path.directory(oldl)' but w/o '../' since Pandoc cd'ed here
                 _process_doc(blocks, _filename_woext(oldl), pandoc.path.make_relative(wrkdir, ROOT))
             end)
     end
