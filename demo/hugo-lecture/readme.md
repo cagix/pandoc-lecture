@@ -121,6 +121,5 @@ referenced pages will be available in the site, however.
 
 -   [Syllabus](orga/syllabus.md)
 -   [Ressourcen](orga/resources.md)
--   [Note und Credits](orga/grading.md)
 -   [Prüfungsvorbereitung](orga/exams.md)
 :::
