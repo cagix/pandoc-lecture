@@ -108,6 +108,7 @@ local weights = {}              -- list of collected links to calculate the "wei
 local lqueue = {}               -- queue to implement breadth-first search for visiting links
 local lqfirst = 0               -- first element in queue
 local lqlast = -1               -- last element in queue
+local lqueue_mem = {}           -- remember all enqueued links to reduce processing time
 
 local PREFIX = "."              -- string to prepend to the new locations, e.g. temporary folder (will be set from metadata)
 local INDEX_MD = "readme"       -- name of readme.md (will be set from metadata)
@@ -148,8 +149,14 @@ end
 
 -- queue
 local function _enqueue (path)
-    lqlast = lqlast + 1
-    lqueue[lqlast] = path
+    if not lqueue_mem[path] then
+        -- enqueue path
+        lqlast = lqlast + 1
+        lqueue[lqlast] = path
+
+        -- remember this path: we don't need to enqueue this path for processing again
+        lqueue_mem[path] = true
+    end
 end
 
 local function _dequeue ()
