@@ -144,22 +144,22 @@
         "WEB_MARKDOWN_TARGETS += foobar/orga/resources/_index.md\n\n"
     , RawInline
         (Format "markdown")
-        "foobar/orga/grading/_index.md: orga/grading.md\n"
-    , RawInline
-        (Format "markdown")
-        "foobar/orga/grading/_index.md: WEIGHT=10\n"
-    , RawInline
-        (Format "markdown")
-        "WEB_MARKDOWN_TARGETS += foobar/orga/grading/_index.md\n\n"
-    , RawInline
-        (Format "markdown")
         "foobar/orga/exams/_index.md: orga/exams.md\n"
     , RawInline
         (Format "markdown")
-        "foobar/orga/exams/_index.md: WEIGHT=11\n"
+        "foobar/orga/exams/_index.md: WEIGHT=10\n"
     , RawInline
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += foobar/orga/exams/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "foobar/orga/grading/_index.md: orga/grading.md\n"
+    , RawInline
+        (Format "markdown")
+        "foobar/orga/grading/_index.md: WEIGHT=11\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += foobar/orga/grading/_index.md\n\n"
     , RawInline
         (Format "markdown")
         "foobar/subdir/leaf/bar/_index.md: subdir/leaf/bar.md\n"
