@@ -108,7 +108,7 @@ local weights = {}              -- list of collected links to calculate the "wei
 local frontier = {}             -- queue to implement breadth-first search for visiting links
 local frontier_first = 0        -- first element in queue
 local frontier_last = -1        -- last element in queue
-local lqueue_mem = {}           -- remember all enqueued links to reduce processing time
+local frontier_mem = {}         -- remember all enqueued links to reduce processing time
 
 local PREFIX = "."              -- string to prepend to the new locations, e.g. temporary folder (will be set from metadata)
 local INDEX_MD = "readme"       -- name of readme.md (will be set from metadata)
@@ -149,13 +149,13 @@ end
 
 -- queue
 local function _enqueue (path)
-    if not lqueue_mem[path] then
+    if not frontier_mem[path] then
         -- enqueue path
         frontier_last = frontier_last + 1
         frontier[frontier_last] = path
 
         -- remember this path: we don't need to enqueue this path for processing again
-        lqueue_mem[path] = true
+        frontier_mem[path] = true
     end
 end
 
