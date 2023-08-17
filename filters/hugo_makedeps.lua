@@ -105,9 +105,9 @@ local link_img = {}             -- dependencies for _index.md: all referenced im
 local links = {}                -- set of collected links to avoid processing the same file/link several times
 local weights = {}              -- list of collected links to calculate the "weight" property for a page
 
-local lqueue = {}               -- queue to implement breadth-first search for visiting links
-local lqfirst = 0               -- first element in queue
-local lqlast = -1               -- last element in queue
+local frontier = {}             -- queue to implement breadth-first search for visiting links
+local frontier_first = 0        -- first element in queue
+local frontier_last = -1        -- last element in queue
 local lqueue_mem = {}           -- remember all enqueued links to reduce processing time
 
 local PREFIX = "."              -- string to prepend to the new locations, e.g. temporary folder (will be set from metadata)
@@ -151,8 +151,8 @@ end
 local function _enqueue (path)
     if not lqueue_mem[path] then
         -- enqueue path
-        lqlast = lqlast + 1
-        lqueue[lqlast] = path
+        frontier_last = frontier_last + 1
+        frontier[frontier_last] = path
 
         -- remember this path: we don't need to enqueue this path for processing again
         lqueue_mem[path] = true
@@ -161,10 +161,10 @@ end
 
 local function _dequeue ()
     local path = nil
-    if lqfirst <= lqlast then
-        path = lqueue[lqfirst]
-        lqueue[lqfirst] = nil
-        lqfirst = lqfirst + 1
+    if frontier_first <= frontier_last then
+        path = frontier[frontier_first]
+        frontier[frontier_first] = nil
+        frontier_first = frontier_first + 1
     end
     return path
 end
