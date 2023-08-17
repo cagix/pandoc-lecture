@@ -137,20 +137,20 @@
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += orga/resources/_index.md\n\n"
     , RawInline
-        (Format "markdown")
-        "orga/grading/_index.md: orga/grading.md\n"
-    , RawInline
-        (Format "markdown") "orga/grading/_index.md: WEIGHT=11\n"
-    , RawInline
-        (Format "markdown")
-        "WEB_MARKDOWN_TARGETS += orga/grading/_index.md\n\n"
-    , RawInline
         (Format "markdown") "orga/exams/_index.md: orga/exams.md\n"
     , RawInline
-        (Format "markdown") "orga/exams/_index.md: WEIGHT=12\n"
+        (Format "markdown") "orga/exams/_index.md: WEIGHT=11\n"
     , RawInline
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += orga/exams/_index.md\n\n"
+    , RawInline
+        (Format "markdown")
+        "orga/grading/_index.md: orga/grading.md\n"
+    , RawInline
+        (Format "markdown") "orga/grading/_index.md: WEIGHT=12\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += orga/grading/_index.md\n\n"
     , RawInline
         (Format "markdown")
         "subdir/leaf/bar/_index.md: subdir/leaf/bar.md\n"

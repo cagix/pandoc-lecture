@@ -111,7 +111,7 @@ local lqlast = -1               -- last element in queue
 
 local PREFIX = "."              -- string to prepend to the new locations, e.g. temporary folder (will be set from metadata)
 local INDEX_MD = "readme"       -- name of readme.md (will be set from metadata)
-
+local ROOT = "."                -- absolute path to working directory when starting
 
 
 -- helper
@@ -145,12 +145,14 @@ local function _filename_woext (target)
     return name
 end
 
-local function _push (path)
+
+-- queue
+local function _enqueue (path)
     lqlast = lqlast + 1
     lqueue[lqlast] = path
 end
 
-local function _pop ()
+local function _dequeue ()
     local path = nil
     if lqfirst <= lqlast then
         path = lqueue[lqfirst]
@@ -160,24 +162,75 @@ local function _pop ()
     return path
 end
 
-local function _remember_me (md_file, include_path)
-    -- remember this file
+
+-- processing of markdown files, links and images
+local function _remember_file (include_path, md_file, newl)
     -- safe as PREFIX/include_path/(md_file?)/_index.md: include_path/(md_file .. ".md")
     local oldl = _old_path(include_path, md_file .. ".md")
-    local newl = _new_path_idx(include_path, md_file)
 
     if not links[newl] then
         weights[#weights + 1] = newl
         links[newl] = oldl
     else
-        io.stderr:write("\t (_remember_me) new path '" .. newl .. "' (from '" .. oldl .. "') has been already processed ... this should not happen ... \n")
+        io.stderr:write("\t (_remember_file) new path '" .. newl .. "' (from '" .. oldl .. "') has been already processed ... THIS SHOULD NOT HAPPEN ... \n")
     end
 end
 
-local function _read_file (target)
-    local fh = io.open(target, "r")
+local function _remember_image (include_path, md_file, image_src, newl)
+    -- safe as PREFIX/include_path/(md_file?)/file(image_src): include_path/image_src
+    local oldi = _old_path(include_path, image_src)
+    local newi = _new_path(include_path, md_file, pandoc.path.filename(image_src))
+
+    if not images[newi] then
+        img[#img + 1] = newi    -- list: we want the same sequence for each run
+        images[newi] = oldi     -- set: do not store images twice
+
+        -- create a dependency for corresponding '_index.md'
+        link_img[newl] = link_img[newl] and (link_img[newl] .. " " .. newi) or (newi)
+    end
+end
+
+--[[
+process Pandoc document (list of blocks):
+
+(1) "save" link to current document, i.e. do not process this document again
+(2) collect all images and all links in this document (local, relative, not HTTP, links to Markdown files)
+]]--
+local function _process_doc (blocks, md_file, include_path)
+    -- new link: PREFIX/include_path/(md_file?)/_index.md
+    local newl = _new_path_idx(include_path, md_file)
+
+    -- if not already processed:
+    if not links[newl] then
+        -- remember this file
+        _remember_file(include_path, md_file, newl)
+
+        -- enqueue local landing page "include_path/readme.md" for later processing
+        _enqueue(_old_path(include_path, INDEX_MD .. ".md"))
+
+        -- collect and enqueue all new images and links in this file 'include_path/md_file'
+        local collect_images_links = {
+            Image = function (image)
+                if _is_relative(image.src) and not _is_url(image.src) then
+                    -- remember this image
+                    _remember_image(include_path, md_file, image.src, newl)
+                end
+            end,
+            Link = function (link)
+                if _is_markdown(link.target) and _is_relative(link.target) and not _is_url(link.target) then
+                    -- enqueue "include_path/link.target" for later processing
+                    _enqueue(_old_path(include_path, link.target))
+                end
+            end
+        }
+        blocks:walk(collect_images_links)
+    end
+end
+
+local function _read_file (fname)
+    local fh = io.open(fname, "r")
     if not fh then
-        io.stderr:write("\t (_read_file) cannot open file '" .. target .. " ... skipping ... \n")
+        io.stderr:write("\t (_read_file) cannot open file '" .. fname .. " ... skipping ... \n")
     else
         local content = fh:read "*all"
         fh:close()
@@ -185,55 +238,22 @@ local function _read_file (target)
     end
 end
 
+local function _handle_file (oldl)
+    local blocks = _read_file(oldl)
 
-
---[[
-process Pandoc document (list of blocks):
-
-(1) "save" link to current document, i.e. do not process this document again
-(2) collect all images and all links in this document (local, relative, not HTTP, links to Markdown files)
-]]
-local function process_doc (blocks, md_file, include_path)
-    -- remember this file & folder
-    _remember_me(md_file, include_path)
-
-    -- enqueue "include_path/readme.md" for later processing
-    _push(_old_path(include_path, INDEX_MD .. ".md"))
-
-    -- collect all new images and links in this file 'include_path/md_file'
-    local collect_images_links = {
-        -- do not refactor this into separate functions as we need 'md_file' and 'include_path' as closure
-        Image = function (image)
-            -- collect all new images in this file
-            -- safe as PREFIX/include_path/(md_file?)/file(img.src): include_path/img.src
-            if _is_relative(image.src) and not _is_url(image.src) then
-                local oldi = _old_path(include_path, image.src)
-                local newi = _new_path(include_path, md_file, pandoc.path.filename(image.src))
-                local newl = _new_path_idx(include_path, md_file)   -- corresponding _index.md
-
-                if not images[newi] then
-                    img[#img + 1] = newi    -- list: we want the same sequence for each run
-                    images[newi] = oldi     -- set: do not store images twice
-                    -- create a dependency for corresponding '_index.md'
-                    link_img[newl] = link_img[newl] and (link_img[newl] .. " " .. newi) or (newi)
-                end
-            end
-        end,
-        Link = function (link)
-            -- collect all new links in this file
-            -- safe as PREFIX/include_path/path(link.target)/file_woe(link.target)?/_index.md: include_path/link.target
-            if _is_markdown(link.target) and _is_relative(link.target) and not _is_url(link.target) then
-                -- enqueue "include_path/link.target" for later processing
-                _push(_old_path(include_path, link.target))
-            end
-        end
-    }
-    blocks:walk(collect_images_links)
+    if blocks then
+        pandoc.system.with_working_directory(
+            pandoc.path.directory(oldl),    -- may still contain '../'
+            function ()
+                local wrkdir = pandoc.system.get_working_directory()    -- same as 'pandoc.path.directory(oldl)' but w/o '../' since Pandoc cd'ed here
+                _process_doc(blocks, _filename_woext(oldl), pandoc.path.make_relative(wrkdir, ROOT))
+            end)
+    end
 end
 
 
-
-local function emit_images ()
+-- emit structures for make.deps
+local function _emit_images ()
     local inlines = pandoc.List:new()
     for _, newi in ipairs(img) do
         inlines:insert(pandoc.RawInline("markdown", newi .. ": " .. images[newi] .. "\n"))
@@ -242,9 +262,7 @@ local function emit_images ()
     return inlines
 end
 
-
-
-local function emit_links ()
+local function _emit_links ()
     local inlines = pandoc.List:new()
     for weight, newl in ipairs(weights) do
         inlines:insert(pandoc.RawInline("markdown", newl .. ": " .. links[newl] .. "\n"))
@@ -259,29 +277,23 @@ end
 
 
 
+-- main filter function
 function Pandoc (doc)
     -- init global vars using metadata: meta.prefix and meta.indexMD
     PREFIX = doc.meta.prefix or "."                     -- if not set, use "." and do no harm
     INDEX_MD = doc.meta.indexMD or "readme"             -- we do need the name w/o extension
+    ROOT = pandoc.system.get_working_directory()        -- remember our project root
 
     -- landing page: process all images and links
-    process_doc(doc.blocks, INDEX_MD, ".")
+    _process_doc(doc.blocks, INDEX_MD, ".")
 
     -- process files recursively: breadth-first search
-    local oldl = _pop()
+    local oldl = _dequeue()
     while oldl do
-        local dir = pandoc.path.directory(oldl)
-        local name = _filename_woext(oldl)
-        local newl = _new_path_idx(dir, name)
-
-        if not links[newl] then
-            local blocks = _read_file(oldl)
-            if blocks then process_doc(blocks, name, dir) end
-        end
-
-        oldl = _pop()
+        _handle_file(oldl)
+        oldl = _dequeue()
     end
 
     -- emit dependency makefile
-    return pandoc.Pandoc({pandoc.Plain(emit_images()), pandoc.Plain(emit_links())}, doc.meta)
+    return pandoc.Pandoc({pandoc.Plain(_emit_images()), pandoc.Plain(_emit_links())}, doc.meta)
 end

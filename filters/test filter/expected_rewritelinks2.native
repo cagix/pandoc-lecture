@@ -399,12 +399,6 @@
         , [ Plain
               [ RawInline
                   (Format "markdown")
-                  "[Note und Credits]({{< ref \"grading\" >}})"
-              ]
-          ]
-        , [ Plain
-              [ RawInline
-                  (Format "markdown")
                   "[Pr\252fungsvorbereitung]({{< ref \"exams\" >}})"
               ]
           ]
