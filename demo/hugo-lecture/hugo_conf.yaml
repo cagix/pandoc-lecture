@@ -12,8 +12,8 @@ theme:
 #themesDir: ".hugo"  ## this is either ${HOME}/.local/share/pandoc/hugo/ (local installation)
                      ## or ${XDG_DATA_HOME}/pandoc/hugo/ (docker container / GitHub action)
 
-contentDir: "temp"
-publishDir: "docs"
+#contentDir: "temp"  ## set via Makefile: $(TEMP_DIR)
+#publishDir: "docs"  ## set via Makefile: $(WEB_OUTPUT_DIR)
 
 params:
   editURL: "https://github.com/Programmiermethoden/PM-Lecture/edit/master/markdown/"
