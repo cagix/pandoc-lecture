@@ -147,12 +147,12 @@ end
 
 
 -- queue
-local function _push (path)
+local function _enqueue (path)
     lqlast = lqlast + 1
     lqueue[lqlast] = path
 end
 
-local function _pop ()
+local function _dequeue ()
     local path = nil
     if lqfirst <= lqlast then
         path = lqueue[lqfirst]
@@ -206,7 +206,7 @@ local function _process_doc (blocks, md_file, include_path)
         _remember_file(include_path, md_file, newl)
 
         -- enqueue local landing page "include_path/readme.md" for later processing
-        _push(_old_path(include_path, INDEX_MD .. ".md"))
+        _enqueue(_old_path(include_path, INDEX_MD .. ".md"))
 
         -- collect and enqueue all new images and links in this file 'include_path/md_file'
         local collect_images_links = {
@@ -219,7 +219,7 @@ local function _process_doc (blocks, md_file, include_path)
             Link = function (link)
                 if _is_markdown(link.target) and _is_relative(link.target) and not _is_url(link.target) then
                     -- enqueue "include_path/link.target" for later processing
-                    _push(_old_path(include_path, link.target))
+                    _enqueue(_old_path(include_path, link.target))
                 end
             end
         }
@@ -288,10 +288,10 @@ function Pandoc (doc)
     _process_doc(doc.blocks, INDEX_MD, ".")
 
     -- process files recursively: breadth-first search
-    local oldl = _pop()
+    local oldl = _dequeue()
     while oldl do
         _handle_file(oldl)
-        oldl = _pop()
+        oldl = _dequeue()
     end
 
     -- emit dependency makefile
