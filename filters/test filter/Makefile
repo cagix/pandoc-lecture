@@ -3,12 +3,14 @@ PANDOC ?= pandoc
 
 FILES_TRANSFORM = readme.md
 FILES_MAKEDEPS  = readme.md
+FILES_INCLUDEMD = summary.md
 
 LUA_REWRITELINKS = ../hugo_rewritelinks.lua
 LUA_MAKEDEPS     = ../hugo_makedeps.lua
+LUA_INCLUDEMD    = ../include-mdfiles.lua
 
 
-test: test_rewritelinks test_makedeps
+test: test_rewritelinks test_makedeps test_includemd
 
 test_rewritelinks: $(FILES_TRANSFORM)
 	@$(PANDOC) -L $(LUA_REWRITELINKS) -t native $^                                        \
@@ -29,6 +31,10 @@ test_makedeps: $(FILES_MAKEDEPS)
 	    | $(DIFF) expected_makedeps3.native -
 	@$(PANDOC) -L $(LUA_MAKEDEPS) -M prefix="foobar" -M indexMD="readme" -t native $^     \
 	    | $(DIFF) expected_makedeps4.native -
+
+test_includemd: $(FILES_INCLUDEMD)
+	@$(PANDOC) -L $(LUA_INCLUDEMD) -t native $^                                           \
+	    | $(DIFF) expected_inludemd.native -
 
 
 expected: expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native
@@ -51,9 +57,14 @@ expected_makedeps3.native: $(FILES_MAKEDEPS)
 expected_makedeps4.native: $(FILES_MAKEDEPS)
 	$(PANDOC) -L $(LUA_MAKEDEPS) -M prefix="foobar" -M indexMD="readme" -t native -o $@ $^
 
+expected: expected_inludemd.native
+expected_inludemd.native: $(FILES_INCLUDEMD)
+	$(PANDOC) -L $(LUA_INCLUDEMD) -t native -o $@ $^
+
 
 clean:
 	rm -rf expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native
 	rm -rf expected_makedeps1.native expected_makedeps2.native expected_makedeps3.native expected_makedeps4.native
+	rm -rf expected_inludemd.native
 
-.PHONY: test test_rewritelinks test_makedeps expected clean
+.PHONY: test test_rewritelinks test_makedeps test_includemd expected clean
