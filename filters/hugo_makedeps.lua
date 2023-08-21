@@ -91,6 +91,7 @@ The filter needs to look at the root Markdown file (`readme.md`) and to extract 
 images and local links to Markdown files. For each such link, this process will be repeated
 (recursively, via breadth-first search).
 
+
 Caveats:
 (a) All referenced Markdown files must have UNIQUE NAMES.
 (b) References to the top index page (landing page) are (presumably) not working.
@@ -179,7 +180,7 @@ local function _remember_file (include_path, md_file, newl)
         weights[#weights + 1] = newl
         links[newl] = oldl
     else
-        io.stderr:write("\t (_remember_file) new path '" .. newl .. "' (from '" .. oldl .. "') has been already processed ... THIS SHOULD NOT HAPPEN ... \n")
+        io.stderr:write("\t (_remember_file) WARNING: new path '" .. newl .. "' (from '" .. oldl .. "') has been already processed ... THIS SHOULD NOT HAPPEN ... \n")
     end
 end
 
@@ -237,7 +238,7 @@ end
 local function _read_file (fname)
     local fh = io.open(fname, "r")
     if not fh then
-        io.stderr:write("\t (_read_file) cannot open file '" .. fname .. "' ... skipping ... \n")
+        io.stderr:write("\t (_read_file) WARNING: cannot open file '" .. fname .. "' ... skipping ... \n")
     else
         local content = fh:read "*all"
         fh:close()
