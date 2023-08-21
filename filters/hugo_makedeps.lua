@@ -237,7 +237,7 @@ end
 local function _read_file (fname)
     local fh = io.open(fname, "r")
     if not fh then
-        io.stderr:write("\t (_read_file) cannot open file '" .. fname .. " ... skipping ... \n")
+        io.stderr:write("\t (_read_file) cannot open file '" .. fname .. "' ... skipping ... \n")
     else
         local content = fh:read "*all"
         fh:close()
