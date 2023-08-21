@@ -1,0 +1,2175 @@
+[ Header 1 ( "summary.md" , [] , [] ) [ Str "Summary.md" ]
+, Header
+    2
+    ( "this-should-work" , [] , [] )
+    [ Str "This" , Space , Str "should" , Space , Str "work" ]
+, Para [ Str "Thanks" , Space , Str "everyone!" ]
+, Para []
+, Header 1 ( "file-a.md" , [] , [] ) [ Str "file-a.md" ]
+, Para
+    [ Str "This"
+    , Space
+    , Str "is"
+    , Space
+    , Code ( "" , [] , [] ) "file-a.md"
+    , Str "."
+    ]
+, Para []
+, Para []
+, Para []
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing
+       [ Plain
+           [ Str "Image"
+           , Space
+           , Str "A"
+           , Space
+           , Str "(from"
+           , Space
+           , Str "Readme.md)"
+           ]
+       ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "Image"
+            , Space
+            , Str "A"
+            , Space
+            , Str "(from"
+            , Space
+            , Str "Readme.md)"
+            ]
+            ( "img/a.png" , "" )
+        ]
+    ]
+, Para [ Image ( "" , [] , [] ) [] ( "img/a.png" , "" ) ]
+, Header
+    2
+    ( "different-wrong-format" , [] , [] )
+    [ Str "Different"
+    , Space
+    , Str "(wrong)"
+    , Space
+    , Str "format"
+    ]
+, BulletList
+    [ [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "wrong" , Space , Str "extension" ]
+              ( "file-c.png" , "" )
+          ]
+      ]
+    , [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "not" , Space , Str "local" ]
+              ( "https://pandoc.org/lua-filters.html" , "" )
+          ]
+      ]
+    , [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "still" , Space , Str "not" , Space , Str "local" ]
+              ( "https://pandoc.org/lua-filters.md" , "" )
+          ]
+      ]
+    , [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "also" , Space , Str "not" , Space , Str "local" ]
+              ( "http://pandoc.org/lua-filters.md" , "" )
+          ]
+      ]
+    , [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "not"
+              , Space
+              , Str "there"
+              , Space
+              , Str "and"
+              , Space
+              , Str "not"
+              , Space
+              , Str "here"
+              ]
+              ( "wuppie.md" , "" )
+          ]
+      ]
+    ]
+, Header
+    2
+    ( "recursive-inclusion" , [] , [] )
+    [ Str "Recursive" , Space , Str "inclusion" ]
+, Para []
+, Header 1 ( "file_b.md" , [] , [] ) [ Str "file_b.md" ]
+, Para
+    [ Str "This"
+    , Space
+    , Str "is"
+    , Space
+    , Code ( "" , [] , [] ) "file-b.md"
+    , Str "."
+    ]
+, Para []
+, Para []
+, Para []
+, Para
+    [ RawInline
+        (Format "markdown") "{{< children showhidden=\"true\" >}}"
+    ]
+, Para []
+, Header
+    1
+    ( "subdirleaffoo.md" , [] , [] )
+    [ Str "Subdir/Leaf/Foo.md" ]
+, Para
+    [ Str "This"
+    , Space
+    , Str "is"
+    , Space
+    , Str "a"
+    , Space
+    , Quoted DoubleQuote [ Str "single" , Space , Str "page" ]
+    , Space
+    , Str "in"
+    , Space
+    , Str "a"
+    , Space
+    , Quoted DoubleQuote [ Str "leaf" , Space , Str "bundle" ]
+    , Space
+    , Str "and"
+    , Space
+    , Str "should"
+    , Space
+    , Strong [ Str "not" ]
+    , Space
+    , Str "be"
+    , Space
+    , Str "available."
+    ]
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing
+       [ Plain
+           [ Str "This"
+           , Space
+           , Str "is"
+           , Space
+           , Str "Figure"
+           , Space
+           , Str "B"
+           , Space
+           , Str "(via"
+           , Space
+           , Str "Markdown)"
+           ]
+       ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "This"
+            , Space
+            , Str "is"
+            , Space
+            , Str "Figure"
+            , Space
+            , Str "B"
+            , Space
+            , Str "(via"
+            , Space
+            , Str "Markdown)"
+            ]
+            ( "subdir/leaf/img/b.png" , "" )
+        ]
+    ]
+, Header
+    2
+    ( "recursion-lets-include-bar" , [] , [] )
+    [ Str "Recursion:"
+    , Space
+    , Str "Let\8217s"
+    , Space
+    , Str "include"
+    , Space
+    , Str "BAR"
+    ]
+, Para []
+, Header
+    1
+    ( "subdirleafbar.md" , [] , [] )
+    [ Str "Subdir/Leaf/Bar.md" ]
+, Para
+    [ Str "This"
+    , Space
+    , Str "is"
+    , Space
+    , Str "a"
+    , Space
+    , Quoted DoubleQuote [ Str "single" , Space , Str "page" ]
+    , Space
+    , Str "in"
+    , Space
+    , Str "a"
+    , Space
+    , Quoted DoubleQuote [ Str "leaf" , Space , Str "bundle" ]
+    , Space
+    , Str "and"
+    , Space
+    , Str "should"
+    , Space
+    , Strong [ Str "not" ]
+    , Space
+    , Str "be"
+    , Space
+    , Str "available."
+    ]
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing
+       [ Plain
+           [ Str "This"
+           , Space
+           , Str "is"
+           , Space
+           , Str "Figure"
+           , Space
+           , Str "B"
+           , Space
+           , Str "(via"
+           , Space
+           , Str "Markdown)"
+           ]
+       ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "This"
+            , Space
+            , Str "is"
+            , Space
+            , Str "Figure"
+            , Space
+            , Str "B"
+            , Space
+            , Str "(via"
+            , Space
+            , Str "Markdown)"
+            ]
+            ( "subdir/leaf/img/b.png" , "" )
+        ]
+    ]
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing
+       [ Plain
+           [ Str "This"
+           , Space
+           , Str "is"
+           , Space
+           , Str "Figure"
+           , Space
+           , Str "D"
+           , Space
+           , Str "(via"
+           , Space
+           , Str "Markdown)"
+           ]
+       ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "This"
+            , Space
+            , Str "is"
+            , Space
+            , Str "Figure"
+            , Space
+            , Str "D"
+            , Space
+            , Str "(via"
+            , Space
+            , Str "Markdown)"
+            ]
+            ( "subdir/leaf/img/d.png" , "" )
+        ]
+    ]
+, Header
+    2
+    ( "recursion-lets-include-foo" , [] , [] )
+    [ Str "Recursion:"
+    , Space
+    , Str "Let\8217s"
+    , Space
+    , Str "include"
+    , Space
+    , Str "FOO"
+    ]
+, Para []
+, Para []
+, Para []
+, Para []
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing [ Plain [ Str "Image" , Space , Str "title" ] ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "Image" , Space , Str "title" ]
+            ( "subdir/img/c.png" , "" )
+        ]
+    ]
+, Para []
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing
+       [ Plain
+           [ Str "Image"
+           , Space
+           , Str "A"
+           , Space
+           , Str "(from"
+           , Space
+           , Str "file-b.md)"
+           ]
+       ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "Image"
+            , Space
+            , Str "A"
+            , Space
+            , Str "(from"
+            , Space
+            , Str "file-b.md)"
+            ]
+            ( "img/a.png" , "" )
+        ]
+    ]
+, Para []
+, Header
+    2 ( "subdirectories" , [] , [] ) [ Str "Subdirectories" ]
+, Para []
+, Header
+    1 ( "subdirfile-d.md" , [] , [] ) [ Str "Subdir/File-D.md" ]
+, Para [ Str "Wuppie!" ]
+, HorizontalRule
+, Para []
+, Header
+    2 ( "pr\252fungsform" , [] , [] ) [ Str "Pr\252fungsform" ]
+, Para
+    [ Strong
+        [ Str "Performanzpr\252fung,"
+        , Space
+        , Str "7"
+        , Space
+        , Str "ECTS"
+        ]
+    ]
+, BulletList
+    [ [ Para
+          [ Strong [ Str "Praktische" , Space , Str "Teilleistung" ]
+          , Str ":"
+          , SoftBreak
+          , Str "Regelm\228\223ige"
+          , Space
+          , Str "Bearbeitung"
+          , Space
+          , Str "der"
+          , Space
+          , Str "Praktikumsaufgaben,"
+          , SoftBreak
+          , Str "fristgerechte"
+          , Space
+          , Str "Abgabe"
+          , Space
+          , Str "der"
+          , Space
+          , Str "L\246sungen"
+          , Space
+          , Str "(PDF,"
+          , Space
+          , Str "ZIP,"
+          , Space
+          , Str "Link)"
+          , Space
+          , Str "im"
+          , Space
+          , Str "ILIAS,"
+          , SoftBreak
+          , Str "Erstellung"
+          , Space
+          , Str "von"
+          , Space
+          , Str "Peer-Feedback"
+          , Space
+          , Str "im"
+          , Space
+          , Str "ILIAS,"
+          , SoftBreak
+          , Str "Vorstellung"
+          , Space
+          , Str "der"
+          , Space
+          , Str "L\246sungen"
+          , Space
+          , Str "im"
+          , Space
+          , Str "Praktikum"
+          , Space
+          , Str "=>"
+          , Space
+          , Str "Punkte"
+          ]
+      , Para [ Str "Notenspiegel:" ]
+      , BulletList
+          [ [ Plain
+                [ Str "90"
+                , Space
+                , Str "Punkte"
+                , Space
+                , Str "gesamt"
+                , Space
+                , Str "erreichbar:"
+                , Space
+                , Str "Zyklus"
+                , Space
+                , Str "1"
+                , Space
+                , Str "und"
+                , Space
+                , Str "2"
+                , Space
+                , Str "je"
+                , Space
+                , Str "15"
+                , Space
+                , Str "Punkte,"
+                , Space
+                , Str "Zyklus"
+                , Space
+                , Str "3"
+                , Space
+                , Str "bis"
+                , Space
+                , Str "5"
+                , Space
+                , Str "je"
+                , Space
+                , Str "15+5"
+                , Space
+                , Str "Punkte"
+                ]
+            ]
+          , [ Plain
+                [ Str "4.0:"
+                , Space
+                , Str "ab"
+                , Space
+                , Str "50%"
+                , Space
+                , Str "(45.0"
+                , Space
+                , Str "Punkte),"
+                , Space
+                , Str "alle"
+                , Space
+                , Str "5%"
+                , Space
+                , Str "n\228chste"
+                , Space
+                , Str "Teilnote,"
+                , Space
+                , Str "1.0:"
+                , Space
+                , Str "ab"
+                , Space
+                , Str "95%"
+                , Space
+                , Str "(85.5"
+                , Space
+                , Str "Punkte)"
+                ]
+            ]
+          ]
+      ]
+    , [ Para
+          [ Strong [ Str "Theoretische" , Space , Str "Teilleistung" ]
+          , Str ":"
+          , SoftBreak
+          , Str "Digitale"
+          , Space
+          , Str "Klausur"
+          , Space
+          , Str "in"
+          , Space
+          , Str "den"
+          , Space
+          , Str "Pr\252fungszeitr\228umen"
+          ]
+      ]
+    , [ Para
+          [ Strong [ Str "Gesamtnote" ]
+          , Str ":"
+          , SoftBreak
+          , Str "50%"
+          , Space
+          , Str "Praxis,"
+          , Space
+          , Str "50%"
+          , Space
+          , Str "Theorie"
+          ]
+      ]
+    ]
+, Para
+    [ Str "Wiederholer"
+    , Space
+    , Str "mit"
+    , Space
+    , Str "bereits"
+    , Space
+    , Str "begonnener"
+    , Space
+    , Str "Parcours-Pr\252fung"
+    , Space
+    , Str "absolvieren"
+    , Space
+    , Str "stattdessen"
+    , Space
+    , Str "eine"
+    , Space
+    , Str "Parcours-Pr\252fung."
+    , SoftBreak
+    , Str "Bitte"
+    , Space
+    , Str "melden"
+    , Space
+    , Str "Sie"
+    , Space
+    , Str "sich"
+    , Space
+    , Str "vor"
+    , Space
+    , Str "Beginn"
+    , Space
+    , Str "der"
+    , Space
+    , Str "Praktika"
+    , Space
+    , Str "per"
+    , Space
+    , Str "E-Mail"
+    , Space
+    , Str "beim"
+    , Space
+    , Str "Dozenten."
+    ]
+, Header
+    2
+    ( "hinweise-zum-praktikum-praktische-teilleistung"
+    , []
+    , []
+    )
+    [ Str "Hinweise"
+    , Space
+    , Str "zum"
+    , Space
+    , Str "Praktikum"
+    , Space
+    , Str "(praktische"
+    , Space
+    , Str "Teilleistung)"
+    ]
+, Header
+    3
+    ( "bearbeitung-der-aufgaben" , [] , [] )
+    [ Str "Bearbeitung"
+    , Space
+    , Str "der"
+    , Space
+    , Str "Aufgaben"
+    ]
+, Para
+    [ Str "Sie"
+    , Space
+    , Str "bearbeiten"
+    , Space
+    , Str "alle"
+    , Space
+    , Str "Aufgaben"
+    , Space
+    , Str "in"
+    , Space
+    , Str "festen"
+    , Space
+    , Str "Teams"
+    , Space
+    , Str "zu"
+    , Space
+    , Str "je"
+    , Space
+    , Strong [ Str "drei" , Space , Str "Personen" ]
+    , Str "."
+    , Space
+    , Str "Jedes"
+    , Space
+    , Str "Team"
+    , Space
+    , Str "erarbeitet"
+    , Space
+    , Str "seine"
+    , SoftBreak
+    , Strong [ Str "eigene" ]
+    , Space
+    , Str "L\246sung."
+    ]
+, Para
+    [ Str "Wer"
+    , Space
+    , Str "L\246sungen"
+    , Space
+    , Str "ganz"
+    , Space
+    , Str "oder"
+    , Space
+    , Str "teilweise"
+    , Space
+    , Str "von"
+    , Space
+    , Str "anderen"
+    , Space
+    , Str "Teams/Studierenden"
+    , Space
+    , Str "oder"
+    , Space
+    , Str "anderen"
+    , Space
+    , Str "Quellen"
+    , Space
+    , Str "\252bernimmt"
+    , SoftBreak
+    , Str "und"
+    , Space
+    , Str "als"
+    , Space
+    , Str "eigene"
+    , Space
+    , Str "L\246sung"
+    , Space
+    , Str "ab-/ausgibt,"
+    , Space
+    , Str "begeht"
+    , Space
+    , Str "einen"
+    , Space
+    , Str "T\228uschungsversuch"
+    , Space
+    , Str "mit"
+    , Space
+    , Str "entsprechenden"
+    , Space
+    , Str "Konsequenzen"
+    , SoftBreak
+    , Str "im"
+    , Space
+    , Str "Pr\252fungsverfahren."
+    ]
+, Header
+    3 ( "wochen-zyklen" , [] , [] ) [ Str "2-Wochen-Zyklen" ]
+, Para
+    [ Str "Das"
+    , Space
+    , Str "Praktikum"
+    , Space
+    , Str "erfolgt"
+    , Space
+    , Str "in"
+    , Space
+    , Str "2-Wochen-Zyklen:"
+    ]
+, OrderedList
+    ( 1 , Decimal , Period )
+    [ [ Plain
+          [ Str "Erste"
+          , Space
+          , Str "Zyklus-Woche:"
+          , Space
+          , Str "Konzeptphase"
+          ]
+      , BulletList
+          [ [ Plain
+                [ Str "Auswahl"
+                , Space
+                , Str "der"
+                , Space
+                , Str "zu"
+                , Space
+                , Str "bearbeitenden"
+                , Space
+                , Str "Aufgaben"
+                , Space
+                , Str "(=>"
+                , Space
+                , Str "Team)"
+                ]
+            ]
+          , [ Plain
+                [ Str "Erstellung"
+                , Space
+                , Str "einer"
+                , Space
+                , Str "Konzeptskizze"
+                , Space
+                , Str "(PDF)"
+                , Space
+                , Str "(=>"
+                , Space
+                , Str "Team)"
+                ]
+            ]
+          , [ Plain
+                [ Str "Abgabe"
+                , Space
+                , Str "der"
+                , Space
+                , Str "Konzeptskizze"
+                , Space
+                , Str "(PDF)"
+                , Space
+                , Str "im"
+                , Space
+                , Str "ILIAS"
+                , Space
+                , Str "(=>"
+                , Space
+                , Str "Jede(r)"
+                , Space
+                , Str "einzeln)"
+                ]
+            ]
+          , [ Plain
+                [ Str "Peer-Feedback"
+                , Space
+                , Str "zur"
+                , Space
+                , Str "Konzeptskizze"
+                , Space
+                , Str "im"
+                , Space
+                , Str "ILIAS"
+                , Space
+                , Str "(=>"
+                , Space
+                , Str "Jede(r)"
+                , Space
+                , Str "einzeln)"
+                ]
+            ]
+          , [ Plain
+                [ Str "Vorstellung"
+                , Space
+                , Str "der"
+                , Space
+                , Str "Konzeptskizze"
+                , Space
+                , Str "im"
+                , Space
+                , Str "Praktikum"
+                , Space
+                , Str "(=>"
+                , Space
+                , Str "Team)"
+                ]
+            ]
+          ]
+      ]
+    , [ Plain
+          [ Str "Zweite"
+          , Space
+          , Str "Zyklus-Woche:"
+          , Space
+          , Str "Implementierungsphase"
+          ]
+      , BulletList
+          [ [ Plain
+                [ Str "Umsetzung"
+                , Space
+                , Str "des"
+                , Space
+                , Str "Konzepts/Implementierung"
+                , Space
+                , Str "der"
+                , Space
+                , Str "L\246sung"
+                , Space
+                , Str "(=>"
+                , Space
+                , Str "Team)"
+                ]
+            ]
+          , [ Plain
+                [ Str "Abgabe"
+                , Space
+                , Str "des"
+                , Space
+                , Str "Quellcodes"
+                , Space
+                , Str "(ZIP"
+                , Space
+                , Str "bzw."
+                , Space
+                , Str "Link)"
+                , Space
+                , Str "im"
+                , Space
+                , Str "ILIAS"
+                , Space
+                , Str "(=>"
+                , Space
+                , Str "Jede(r)"
+                , Space
+                , Str "einzeln)"
+                ]
+            ]
+          , [ Plain
+                [ Str "Peer-Feedback"
+                , Space
+                , Str "zum"
+                , Space
+                , Str "Quellcode"
+                , Space
+                , Str "im"
+                , Space
+                , Str "ILIAS"
+                , Space
+                , Str "(=>"
+                , Space
+                , Str "Jede(r)"
+                , Space
+                , Str "einzeln)"
+                ]
+            ]
+          , [ Plain
+                [ Str "Vorstellung"
+                , Space
+                , Str "des"
+                , Space
+                , Str "Quellcodes"
+                , Space
+                , Str "im"
+                , Space
+                , Str "Praktikum"
+                , Space
+                , Str "(=>"
+                , Space
+                , Str "Team)"
+                ]
+            ]
+          ]
+      ]
+    ]
+, Para
+    [ Str "Sie"
+    , Space
+    , Str "k\246nnen"
+    , Space
+    , Str "pro"
+    , Space
+    , Str "Zyklus"
+    , Space
+    , Str "Aufgaben"
+    , Space
+    , Str "im"
+    , Space
+    , Str "Umfang"
+    , Space
+    , Str "von"
+    , Space
+    , Str "15"
+    , Space
+    , Str "Punkten"
+    , Space
+    , Str "abgeben/vorstellen."
+    ]
+, Header
+    3 ( "punktevergabe" , [] , [] ) [ Str "Punktevergabe" ]
+, Para
+    [ Str "F\252r"
+    , Space
+    , Str "die"
+    , Space
+    , Str "Vergabe"
+    , Space
+    , Str "der"
+    , Space
+    , Str "Punkte"
+    , Space
+    , Str "m\252ssen"
+    , Space
+    , Str "Sie"
+    , Space
+    , Str "pro"
+    , Space
+    , Str "Zyklus"
+    , Space
+    , Str "jeweils"
+    , Space
+    , Str "fristgerecht"
+    , SoftBreak
+    , Str "Ihre"
+    , Space
+    , Str "Konzeptskizze"
+    , Space
+    , Str "als"
+    , Space
+    , Str "PDF"
+    , Space
+    , Str "eingereicht"
+    , Space
+    , Str "und"
+    , Space
+    , Str "im"
+    , Space
+    , Str "Praktikum"
+    , Space
+    , Str "vorgestellt"
+    , Space
+    , Str "haben,"
+    , SoftBreak
+    , Str "in"
+    , Space
+    , Str "beiden"
+    , Space
+    , Str "Zyklen-H\228lften"
+    , Space
+    , Str "das"
+    , Space
+    , Str "Peer-Feedback"
+    , Space
+    , Str "erstellt"
+    , Space
+    , Str "haben"
+    , Space
+    , Str "und"
+    , SoftBreak
+    , Str "die"
+    , Space
+    , Str "L\246sung"
+    , Space
+    , Str "(Quellcode:"
+    , Space
+    , Str "Abgabe"
+    , Space
+    , Str "per"
+    , Space
+    , Str "ZIP"
+    , Space
+    , Str "oder"
+    , Space
+    , Str "Link,"
+    , Space
+    , Str "vgl."
+    , Space
+    , Str "Anweisungen"
+    , Space
+    , Str "auf"
+    , Space
+    , Str "den"
+    , SoftBreak
+    , Str "\220bungsbl\228ttern)"
+    , Space
+    , Str "eingereicht"
+    , Space
+    , Str "und"
+    , Space
+    , Str "im"
+    , Space
+    , Str "Praktikum"
+    , Space
+    , Str "vorgestellt"
+    , Space
+    , Str "haben."
+    ]
+, Header
+    3
+    ( "sonderabgabe-letzte-vorlesungswoche" , [] , [] )
+    [ Str "Sonderabgabe"
+    , Space
+    , Str "letzte"
+    , Space
+    , Str "Vorlesungswoche"
+    ]
+, Para
+    [ Str "Zusatztermin"
+    , Space
+    , Str "f\252r"
+    , Space
+    , Str "Studierende,"
+    , Space
+    , Str "die"
+    , Space
+    , Str "bis"
+    , Space
+    , Str "dahin"
+    , Space
+    , Str "unterhalb"
+    , Space
+    , Str "der"
+    , Space
+    , Str "Bestehensschwelle"
+    , Space
+    , Str "f\252r"
+    , Space
+    , Str "die"
+    , Space
+    , Str "praktische"
+    , SoftBreak
+    , Str "Teilleistung"
+    , Space
+    , Str "liegen"
+    , Space
+    , Str "oder"
+    , Space
+    , Str "die"
+    , Space
+    , Str "wegen"
+    , Space
+    , Str "Krankheit"
+    , Space
+    , Str "einen"
+    , Space
+    , Str "Termin"
+    , Space
+    , Str "nicht"
+    , Space
+    , Str "wahrnehmen"
+    , Space
+    , Str "konnten."
+    ]
+, Para
+    [ Str "F\252r"
+    , Space
+    , Str "diese"
+    , Space
+    , Str "Abgabe"
+    , Space
+    , Str "gibt"
+    , Space
+    , Str "es"
+    , Space
+    , Str "keine"
+    , Space
+    , Str "Konzeptphase"
+    , Space
+    , Str "und"
+    , Space
+    , Str "auch"
+    , Space
+    , Str "kein"
+    , Space
+    , Str "Peer-Feedback,"
+    , Space
+    , Str "die"
+    , Space
+    , Str "L\246sung"
+    , Space
+    , Str "(Link)"
+    , SoftBreak
+    , Str "ist"
+    , Space
+    , Str "bis"
+    , Space
+    , Str "zur"
+    , Space
+    , Str "Deadline"
+    , Space
+    , Str "im"
+    , Space
+    , Str "ILIAS"
+    , Space
+    , Str "hochzuladen"
+    , Space
+    , Str "und"
+    , Space
+    , Str "im"
+    , Space
+    , Str "nachfolgenden"
+    , Space
+    , Str "Praktikum"
+    , Space
+    , Str "vorzustellen."
+    ]
+, Header
+    2
+    ( "hinweise-zur-klausur-theoretische-teilleistung"
+    , []
+    , []
+    )
+    [ Str "Hinweise"
+    , Space
+    , Str "zur"
+    , Space
+    , Str "Klausur"
+    , Space
+    , Str "(theoretische"
+    , Space
+    , Str "Teilleistung)"
+    ]
+, Para
+    [ Str "Pr\252fung"
+    , Space
+    , Str "Theorie"
+    , Space
+    , Str "(Termin"
+    , Space
+    , Str "1):"
+    , Space
+    , Str "Die"
+    , Space
+    , Str "Pr\252fung"
+    , Space
+    , Str "zum"
+    , Space
+    , Str "theoretischen"
+    , Space
+    , Str "Teil"
+    , Space
+    , Str "findet"
+    , Space
+    , Str "am"
+    , Space
+    , Str "Mittwoch,"
+    , Space
+    , Str "05.07.23,"
+    , SoftBreak
+    , Str "im"
+    , Space
+    , Str "B40"
+    , Space
+    , Str "am"
+    , Space
+    , Str "Campus"
+    , Space
+    , Str "Minden"
+    , Space
+    , Str "als"
+    , Space
+    , Str "digitale"
+    , Space
+    , Str "Klausur"
+    , Space
+    , Str "auf"
+    , Space
+    , Str "dem"
+    , Space
+    , Str "HSBI-Pr\252fungs-ILIAS"
+    , Space
+    , Str "statt."
+    ]
+, Para
+    [ Str "Da"
+    , Space
+    , Str "in"
+    , Space
+    , Str "diesem"
+    , Space
+    , Str "Raum"
+    , Space
+    , Str "nur"
+    , Space
+    , Str "30"
+    , Space
+    , Str "Personen"
+    , Space
+    , Str "gleichzeitig"
+    , Space
+    , Str "gepr\252ft"
+    , Space
+    , Str "werden"
+    , Space
+    , Str "k\246nnen,"
+    , Space
+    , Str "werden"
+    , Space
+    , Str "wir"
+    , Space
+    , Str "in"
+    , Space
+    , Str "zwei"
+    , SoftBreak
+    , Str "Durchl\228ufen"
+    , Space
+    , Str "arbeiten:"
+    , Space
+    , Str "09:00-10:30"
+    , Space
+    , Str "Uhr"
+    , Space
+    , Str "und"
+    , Space
+    , Str "11:00-12:30"
+    , Space
+    , Str "Uhr."
+    , Space
+    , Str "Sie"
+    , Space
+    , Str "k\246nnen"
+    , Space
+    , Str "nur"
+    , Space
+    , Str "an"
+    , Space
+    , Str "einer"
+    , Space
+    , Str "der"
+    , Space
+    , Str "beiden"
+    , SoftBreak
+    , Str "Sitzungen"
+    , Space
+    , Str "teilnehmen."
+    ]
+, Para
+    [ Str "Es"
+    , Space
+    , Str "gibt"
+    , Space
+    , Str "entsprechend"
+    , Space
+    , Str "zwei"
+    , Space
+    , Str "Eintr\228ge"
+    , Space
+    , Str "im"
+    , Space
+    , Str "Pr\252fungs-ILIAS."
+    , Space
+    , Str "Die"
+    , Space
+    , Str "Zugangsdaten"
+    , Space
+    , Str "wurden"
+    , Space
+    , Str "an"
+    , Space
+    , Str "alle"
+    , Space
+    , Str "im"
+    , Space
+    , Str "LSF"
+    , SoftBreak
+    , Str "f\252r"
+    , Space
+    , Str "die"
+    , Space
+    , Str "Pr\252fung"
+    , Space
+    , Str "angemeldeten"
+    , Space
+    , Str "Studierenden"
+    , Space
+    , Str "geschickt."
+    , Space
+    , Str "Bitte"
+    , Space
+    , Str "melden"
+    , Space
+    , Str "Sie"
+    , Space
+    , Str "sich"
+    , Space
+    , Str "bis"
+    , Space
+    , Str "Freitag,"
+    , SoftBreak
+    , Str "30.06.23,"
+    , Space
+    , Str "in"
+    , Space
+    , Str "einem"
+    , Space
+    , Str "der"
+    , Space
+    , Str "beiden"
+    , Space
+    , Str "Pr\252fungskursr\228ume"
+    , Space
+    , Str "an"
+    , Space
+    , Str "("
+    , Quoted
+        DoubleQuote
+        [ Str "Beitritt"
+        , Space
+        , Str "mit"
+        , Space
+        , Str "Best\228tigung"
+        ]
+    , Str ")."
+    , Space
+    , Str "Beachten"
+    , Space
+    , Str "Sie"
+    , SoftBreak
+    , Str "die"
+    , Space
+    , Str "Gruppengr\246\223e,"
+    , Space
+    , Str "es"
+    , Space
+    , Str "k\246nnen"
+    , Space
+    , Str "sich"
+    , Space
+    , Str "max."
+    , Space
+    , Str "30"
+    , Space
+    , Str "Personen"
+    , Space
+    , Str "pro"
+    , Space
+    , Str "Durchlauf"
+    , Space
+    , Str "anmelden."
+    , Space
+    , Str "Es"
+    , Space
+    , Str "gibt"
+    , Space
+    , Str "keine"
+    , SoftBreak
+    , Str "Wartelisten"
+    , Space
+    , Str "-"
+    , Space
+    , Str "wenn"
+    , Space
+    , Str "einer"
+    , Space
+    , Str "der"
+    , Space
+    , Str "beiden"
+    , Space
+    , Str "Pr\252fungskursr\228ume"
+    , Space
+    , Str "voll"
+    , Space
+    , Str "ist,"
+    , Space
+    , Str "melden"
+    , Space
+    , Str "Sie"
+    , Space
+    , Str "sich"
+    , Space
+    , Str "bitte"
+    , Space
+    , Str "beim"
+    , SoftBreak
+    , Str "anderen"
+    , Space
+    , Str "Pr\252fungskursraum"
+    , Space
+    , Str "an."
+    ]
+, Para
+    [ Str "Sie"
+    , Space
+    , Str "ben\246tigen"
+    , Space
+    , Str "am"
+    , Space
+    , Str "Pr\252fungstag"
+    , Space
+    , Str "Ihre"
+    , Space
+    , Str "HSBI-Zugangsdaten"
+    , Space
+    , Str "(User,"
+    , Space
+    , Str "Passwort),"
+    , Space
+    , Str "einen"
+    , Space
+    , Str "Studierendenausweis"
+    , SoftBreak
+    , Str "und"
+    , Space
+    , Str "Personalausweis"
+    , Space
+    , Str "sowie"
+    , Space
+    , Str "Ihren"
+    , Space
+    , Str "DIN-A4-Spickzettel."
+    ]
+, Para
+    [ Str "Pr\252fungsrelevant"
+    , Space
+    , Str "sind"
+    , Space
+    , Str "die"
+    , Space
+    , Str "im"
+    , Space
+    , Quoted DoubleQuote [ Str "Fahrplan" ]
+    , Space
+    , Str "verlinkten"
+    , Space
+    , Str "Inhalte."
+    ]
+, Para []
+, HorizontalRule
+, Para []
+, Para []
+, Para []
+, Header
+    2
+    ( "subdirectories-recursive" , [] , [] )
+    [ Str "Subdirectories," , Space , Str "recursive" ]
+, Para []
+, Header
+    1 ( "subdirfile-e.md" , [] , [] ) [ Str "Subdir/File-E.md" ]
+, Header
+    2
+    ( "image-include" , [] , [] )
+    [ Str "Image" , Space , Str "include" ]
+, Para
+    [ Str "Image"
+    , Space
+    , Str "relative"
+    , Space
+    , Str "path"
+    , Space
+    , Str "will"
+    , Space
+    , Str "be"
+    , Space
+    , Str "updated."
+    ]
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing [ Plain [ Str "Image" , Space , Str "title" ] ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "Image" , Space , Str "title" ]
+            ( "subdir/img/c.png" , "" )
+        ]
+    ]
+, Header
+    2
+    ( "direct-include" , [] , [] )
+    [ Str "Direct" , Space , Str "include" ]
+, Para []
+, Para []
+, Header
+    2
+    ( "recursive-include-in-subdir" , [] , [] )
+    [ Str "Recursive"
+    , Space
+    , Str "include"
+    , Space
+    , Str "in"
+    , Space
+    , Str "subdir"
+    ]
+, Para []
+, Para []
+, Para []
+, Para []
+, Para []
+, Header
+    2
+    ( "subdirectories-direct-plus-recursive" , [] , [] )
+    [ Str "Subdirectories,"
+    , Space
+    , Str "direct"
+    , Space
+    , Str "plus"
+    , Space
+    , Str "recursive"
+    ]
+, Para []
+, Para []
+, Header
+    2
+    ( "links-to-landing-pages" , [] , [] )
+    [ Str "Links"
+    , Space
+    , Str "to"
+    , Space
+    , Str "Landing"
+    , Space
+    , Str "Pages"
+    ]
+, Para []
+, Para []
+, Para []
+, Header 1 ( "summary.md" , [] , [] ) [ Str "Summary.md" ]
+, Header
+    2
+    ( "this-should-work" , [] , [] )
+    [ Str "This" , Space , Str "should" , Space , Str "work" ]
+, Para [ Str "Thanks" , Space , Str "everyone!" ]
+, Para []
+, Para []
+, Para []
+, Para []
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing
+       [ Plain
+           [ Str "Image"
+           , Space
+           , Str "A"
+           , Space
+           , Str "(from"
+           , Space
+           , Str "Readme.md)"
+           ]
+       ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "Image"
+            , Space
+            , Str "A"
+            , Space
+            , Str "(from"
+            , Space
+            , Str "Readme.md)"
+            ]
+            ( "img/a.png" , "" )
+        ]
+    ]
+, Para [ Image ( "" , [] , [] ) [] ( "img/a.png" , "" ) ]
+, Header
+    2
+    ( "different-wrong-format" , [] , [] )
+    [ Str "Different"
+    , Space
+    , Str "(wrong)"
+    , Space
+    , Str "format"
+    ]
+, BulletList
+    [ [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "wrong" , Space , Str "extension" ]
+              ( "file-c.png" , "" )
+          ]
+      ]
+    , [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "not" , Space , Str "local" ]
+              ( "https://pandoc.org/lua-filters.html" , "" )
+          ]
+      ]
+    , [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "still" , Space , Str "not" , Space , Str "local" ]
+              ( "https://pandoc.org/lua-filters.md" , "" )
+          ]
+      ]
+    , [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "also" , Space , Str "not" , Space , Str "local" ]
+              ( "http://pandoc.org/lua-filters.md" , "" )
+          ]
+      ]
+    , [ Plain
+          [ Link
+              ( "" , [] , [] )
+              [ Str "not"
+              , Space
+              , Str "there"
+              , Space
+              , Str "and"
+              , Space
+              , Str "not"
+              , Space
+              , Str "here"
+              ]
+              ( "wuppie.md" , "" )
+          ]
+      ]
+    ]
+, Header
+    2
+    ( "recursive-inclusion" , [] , [] )
+    [ Str "Recursive" , Space , Str "inclusion" ]
+, Para []
+, Para []
+, Header
+    2 ( "subdirectories" , [] , [] ) [ Str "Subdirectories" ]
+, Para []
+, Para []
+, Para []
+, Para []
+, Header
+    2
+    ( "subdirectories-recursive" , [] , [] )
+    [ Str "Subdirectories," , Space , Str "recursive" ]
+, Para []
+, Para []
+, Header
+    2
+    ( "subdirectories-direct-plus-recursive" , [] , [] )
+    [ Str "Subdirectories,"
+    , Space
+    , Str "direct"
+    , Space
+    , Str "plus"
+    , Space
+    , Str "recursive"
+    ]
+, Para []
+, Para []
+, Header
+    2
+    ( "links-to-landing-pages" , [] , [] )
+    [ Str "Links"
+    , Space
+    , Str "to"
+    , Space
+    , Str "Landing"
+    , Space
+    , Str "Pages"
+    ]
+, Para []
+, Para []
+, Para []
+, Para []
+, Div
+    ( "" , [ "slides" ] , [] )
+    [ Header
+        2
+        ( "hidden-parts" , [] , [] )
+        [ Str "Hidden" , Space , Str "Parts" ]
+    , Para
+        [ Str "This"
+        , Space
+        , Str "part"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "visible"
+        , Space
+        , Str "while"
+        , Space
+        , Str "building"
+        , Space
+        , Str "the"
+        , Space
+        , Str "makefile"
+        , Space
+        , Str "dependencies,"
+        , Space
+        , Str "but"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "removed"
+        , Space
+        , Str "for"
+        , Space
+        , Str "building"
+        , SoftBreak
+        , Str "the"
+        , Space
+        , Str "website"
+        , Space
+        , Str "because"
+        , Space
+        , Str "of"
+        , Space
+        , Str "being"
+        , Space
+        , Str "marked"
+        , Space
+        , Str "as"
+        , Space
+        , Str "slides"
+        , Space
+        , Str "content."
+        , Space
+        , Str "We"
+        , Space
+        , Str "can"
+        , Space
+        , Str "use"
+        , Space
+        , Str "this"
+        , Space
+        , Str "to"
+        , Space
+        , Str "include"
+        , Space
+        , Str "files"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "build"
+        , SoftBreak
+        , Str "process"
+        , Space
+        , Str "even"
+        , Space
+        , Str "if"
+        , Space
+        , Str "we"
+        , Space
+        , Str "do"
+        , Space
+        , Str "not"
+        , Space
+        , Str "want"
+        , Space
+        , Str "to"
+        , Space
+        , Str "have"
+        , Space
+        , Str "explicit"
+        , Space
+        , Str "links"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "site"
+        , Space
+        , Str "\8230"
+        ]
+    , Para
+        [ Str "Use"
+        , Space
+        , Str "case:"
+        , Space
+        , Str "We"
+        , Space
+        , Str "want"
+        , Space
+        , Str "to"
+        , Space
+        , Str "use"
+        , Space
+        , Str "a"
+        , Space
+        , Str "Hugo-generated"
+        , Space
+        , Str "schedule,"
+        , Space
+        , Str "i.e.\160we"
+        , Space
+        , Str "do"
+        , Space
+        , Str "not"
+        , Space
+        , Str "provide"
+        , Space
+        , Str "links"
+        , Space
+        , Str "to"
+        , Space
+        , Str "all"
+        , Space
+        , Str "individual"
+        , SoftBreak
+        , Str "lections"
+        , Space
+        , Str "in"
+        , Space
+        , Str "this"
+        , Space
+        , Str "readme"
+        , Space
+        , Str "or"
+        , Space
+        , Str "elsewhere,"
+        , Space
+        , Str "but"
+        , Space
+        , Str "need"
+        , Space
+        , Str "to"
+        , Space
+        , Str "define"
+        , Space
+        , Str "the"
+        , Space
+        , Str "scope"
+        , Space
+        , Str "of"
+        , Space
+        , Str "the"
+        , Space
+        , Str "semester/offering."
+        , Space
+        , Str "So"
+        , Space
+        , Str "all"
+        , SoftBreak
+        , Str "links"
+        , Space
+        , Str "to"
+        , Space
+        , Str "the"
+        , Space
+        , Str "lectures"
+        , Space
+        , Str "to"
+        , Space
+        , Str "be"
+        , Space
+        , Str "included"
+        , Space
+        , Str "can"
+        , Space
+        , Str "go"
+        , Space
+        , Str "here"
+        , Space
+        , Str "and"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "hidden"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "generated"
+        , Space
+        , Str "website."
+        , Space
+        , Str "The"
+        , SoftBreak
+        , Str "referenced"
+        , Space
+        , Str "pages"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "available"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "site,"
+        , Space
+        , Str "however."
+        ]
+    , BulletList
+        [ [ Plain
+              [ Link
+                  ( "" , [] , [] )
+                  [ Str "Syllabus" ]
+                  ( "orga/syllabus.md" , "" )
+              ]
+          ]
+        , [ Plain
+              [ Link
+                  ( "" , [] , [] )
+                  [ Str "Ressourcen" ]
+                  ( "orga/resources.md" , "" )
+              ]
+          ]
+        , [ Plain
+              [ Link
+                  ( "" , [] , [] )
+                  [ Str "Pr\252fungsvorbereitung" ]
+                  ( "orga/exams.md" , "" )
+              ]
+          ]
+        ]
+    ]
+, Para []
+, Div
+    ( "" , [ "slides" ] , [] )
+    [ Header
+        2
+        ( "hidden-parts" , [] , [] )
+        [ Str "Hidden" , Space , Str "Parts" ]
+    , Para
+        [ Str "This"
+        , Space
+        , Str "part"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "visible"
+        , Space
+        , Str "while"
+        , Space
+        , Str "building"
+        , Space
+        , Str "the"
+        , Space
+        , Str "makefile"
+        , Space
+        , Str "dependencies,"
+        , Space
+        , Str "but"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "removed"
+        , Space
+        , Str "for"
+        , Space
+        , Str "building"
+        , SoftBreak
+        , Str "the"
+        , Space
+        , Str "website"
+        , Space
+        , Str "because"
+        , Space
+        , Str "of"
+        , Space
+        , Str "being"
+        , Space
+        , Str "marked"
+        , Space
+        , Str "as"
+        , Space
+        , Str "slides"
+        , Space
+        , Str "content."
+        , Space
+        , Str "We"
+        , Space
+        , Str "can"
+        , Space
+        , Str "use"
+        , Space
+        , Str "this"
+        , Space
+        , Str "to"
+        , Space
+        , Str "include"
+        , Space
+        , Str "files"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "build"
+        , SoftBreak
+        , Str "process"
+        , Space
+        , Str "even"
+        , Space
+        , Str "if"
+        , Space
+        , Str "we"
+        , Space
+        , Str "do"
+        , Space
+        , Str "not"
+        , Space
+        , Str "want"
+        , Space
+        , Str "to"
+        , Space
+        , Str "have"
+        , Space
+        , Str "explicit"
+        , Space
+        , Str "links"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "site"
+        , Space
+        , Str "\8230"
+        ]
+    , Para
+        [ Str "Use"
+        , Space
+        , Str "case:"
+        , Space
+        , Str "We"
+        , Space
+        , Str "want"
+        , Space
+        , Str "to"
+        , Space
+        , Str "use"
+        , Space
+        , Str "a"
+        , Space
+        , Str "Hugo-generated"
+        , Space
+        , Str "schedule,"
+        , Space
+        , Str "i.e.\160we"
+        , Space
+        , Str "do"
+        , Space
+        , Str "not"
+        , Space
+        , Str "provide"
+        , Space
+        , Str "links"
+        , Space
+        , Str "to"
+        , Space
+        , Str "all"
+        , Space
+        , Str "individual"
+        , SoftBreak
+        , Str "lections"
+        , Space
+        , Str "in"
+        , Space
+        , Str "this"
+        , Space
+        , Str "readme"
+        , Space
+        , Str "or"
+        , Space
+        , Str "elsewhere,"
+        , Space
+        , Str "but"
+        , Space
+        , Str "need"
+        , Space
+        , Str "to"
+        , Space
+        , Str "define"
+        , Space
+        , Str "the"
+        , Space
+        , Str "scope"
+        , Space
+        , Str "of"
+        , Space
+        , Str "the"
+        , Space
+        , Str "semester/offering."
+        , Space
+        , Str "So"
+        , Space
+        , Str "all"
+        , SoftBreak
+        , Str "links"
+        , Space
+        , Str "to"
+        , Space
+        , Str "the"
+        , Space
+        , Str "lectures"
+        , Space
+        , Str "to"
+        , Space
+        , Str "be"
+        , Space
+        , Str "included"
+        , Space
+        , Str "can"
+        , Space
+        , Str "go"
+        , Space
+        , Str "here"
+        , Space
+        , Str "and"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "hidden"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "generated"
+        , Space
+        , Str "website."
+        , Space
+        , Str "The"
+        , SoftBreak
+        , Str "referenced"
+        , Space
+        , Str "pages"
+        , Space
+        , Str "will"
+        , Space
+        , Str "be"
+        , Space
+        , Str "available"
+        , Space
+        , Str "in"
+        , Space
+        , Str "the"
+        , Space
+        , Str "site,"
+        , Space
+        , Str "however."
+        ]
+    , BulletList
+        [ [ Plain
+              [ Link
+                  ( "" , [] , [] )
+                  [ Str "Syllabus" ]
+                  ( "orga/syllabus.md" , "" )
+              ]
+          ]
+        , [ Plain
+              [ Link
+                  ( "" , [] , [] )
+                  [ Str "Ressourcen" ]
+                  ( "orga/resources.md" , "" )
+              ]
+          ]
+        , [ Plain
+              [ Link
+                  ( "" , [] , [] )
+                  [ Str "Pr\252fungsvorbereitung" ]
+                  ( "orga/exams.md" , "" )
+              ]
+          ]
+        ]
+    ]
+]
