@@ -1,7 +1,7 @@
 [ Plain
-    [ RawInline (Format "markdown") "a.png: img/a.png\n"
+    [ RawInline (Format "markdown") "readme/a.png: img/a.png\n"
     , RawInline
-        (Format "markdown") "WEB_IMAGE_TARGETS += a.png\n\n"
+        (Format "markdown") "WEB_IMAGE_TARGETS += readme/a.png\n\n"
     , RawInline (Format "markdown") "file-b/a.png: img/a.png\n"
     , RawInline
         (Format "markdown") "WEB_IMAGE_TARGETS += file-b/a.png\n\n"
@@ -23,9 +23,6 @@
     , RawInline
         (Format "markdown")
         "WEB_IMAGE_TARGETS += subdir/readme/c.png\n\n"
-    , RawInline (Format "markdown") "readme/a.png: img/a.png\n"
-    , RawInline
-        (Format "markdown") "WEB_IMAGE_TARGETS += readme/a.png\n\n"
     , RawInline
         (Format "markdown")
         "orga/syllabus/modulbeschreibung.png: orga/img/modulbeschreibung.png\n"
@@ -46,11 +43,15 @@
         "WEB_IMAGE_TARGETS += subdir/leaf/bar/d.png\n\n"
     ]
 , Plain
-    [ RawInline (Format "markdown") "_index.md: foo.md\n"
-    , RawInline (Format "markdown") "_index.md: a.png\n"
-    , RawInline (Format "markdown") "_index.md: WEIGHT=1\n"
+    [ RawInline
+        (Format "markdown") "readme/_index.md: readme.md\n"
     , RawInline
-        (Format "markdown") "WEB_MARKDOWN_TARGETS += _index.md\n\n"
+        (Format "markdown") "readme/_index.md: readme/a.png\n"
+    , RawInline
+        (Format "markdown") "readme/_index.md: WEIGHT=1\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += readme/_index.md\n\n"
     , RawInline
         (Format "markdown") "file-a/_index.md: file-a.md\n"
     , RawInline
@@ -109,22 +110,13 @@
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += subdir/readme/_index.md\n\n"
     , RawInline
-        (Format "markdown") "readme/_index.md: readme.md\n"
-    , RawInline
-        (Format "markdown") "readme/_index.md: readme/a.png\n"
-    , RawInline
-        (Format "markdown") "readme/_index.md: WEIGHT=8\n"
-    , RawInline
-        (Format "markdown")
-        "WEB_MARKDOWN_TARGETS += readme/_index.md\n\n"
-    , RawInline
         (Format "markdown")
         "orga/syllabus/_index.md: orga/syllabus.md\n"
     , RawInline
         (Format "markdown")
         "orga/syllabus/_index.md: orga/syllabus/modulbeschreibung.png\n"
     , RawInline
-        (Format "markdown") "orga/syllabus/_index.md: WEIGHT=9\n"
+        (Format "markdown") "orga/syllabus/_index.md: WEIGHT=8\n"
     , RawInline
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += orga/syllabus/_index.md\n\n"
@@ -132,14 +124,14 @@
         (Format "markdown")
         "orga/resources/_index.md: orga/resources.md\n"
     , RawInline
-        (Format "markdown") "orga/resources/_index.md: WEIGHT=10\n"
+        (Format "markdown") "orga/resources/_index.md: WEIGHT=9\n"
     , RawInline
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += orga/resources/_index.md\n\n"
     , RawInline
         (Format "markdown") "orga/exams/_index.md: orga/exams.md\n"
     , RawInline
-        (Format "markdown") "orga/exams/_index.md: WEIGHT=11\n"
+        (Format "markdown") "orga/exams/_index.md: WEIGHT=10\n"
     , RawInline
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += orga/exams/_index.md\n\n"
@@ -147,7 +139,7 @@
         (Format "markdown")
         "orga/grading/_index.md: orga/grading.md\n"
     , RawInline
-        (Format "markdown") "orga/grading/_index.md: WEIGHT=12\n"
+        (Format "markdown") "orga/grading/_index.md: WEIGHT=11\n"
     , RawInline
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += orga/grading/_index.md\n\n"
@@ -158,7 +150,7 @@
         (Format "markdown")
         "subdir/leaf/bar/_index.md: subdir/leaf/bar/b.png subdir/leaf/bar/d.png\n"
     , RawInline
-        (Format "markdown") "subdir/leaf/bar/_index.md: WEIGHT=13\n"
+        (Format "markdown") "subdir/leaf/bar/_index.md: WEIGHT=12\n"
     , RawInline
         (Format "markdown")
         "WEB_MARKDOWN_TARGETS += subdir/leaf/bar/_index.md\n\n"

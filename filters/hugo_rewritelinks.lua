@@ -37,7 +37,7 @@ Examples:
     pandoc -L hugo_rewritelinks.lua -t markdown test/subdir/leaf/foo.md
 
 
-Caveats:
+Caveats (see 'hugo_makedeps.lua'):
 (a) All referenced Markdown files must have UNIQUE NAMES.
 (b) References to the top index page (landing page) are (presumably) not working.
 ]]--
