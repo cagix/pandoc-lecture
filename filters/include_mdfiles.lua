@@ -1,5 +1,5 @@
 --[[
-include-mdfiles.lua – filter to include local Markdown files via links
+include_mdfiles.lua – filter to include local Markdown files via links
 
 for each link to local Markdown file in start document:
     (1) read file
@@ -18,13 +18,13 @@ for each link to local Markdown file in start document:
 Usage: This filter is intended to be used with individual files that are placed directly in
 the working directory.
 Examples:
-    pandoc -L include-mdfiles.lua -t markdown readme.md
-    pandoc -L include-mdfiles.lua -t markdown summary.md
+    pandoc -L include_mdfiles.lua -t markdown readme.md
+    pandoc -L include_mdfiles.lua -t markdown summary.md
 
 
 Credits: Work on this filter was partially inspired by some ideas shared in "include-files"
 (https://github.com/pandoc/lua-filters/blob/master/include-files/include-files.lua, by Albert
-Krewinkel (@tarleb), license: MIT). The 'include-mdfiles.lua' filter has been developed by us
+Krewinkel (@tarleb), license: MIT). The 'include_mdfiles.lua' filter has been developed by us
 from scratch and is neither based on nor contains any third-party code.
 
 

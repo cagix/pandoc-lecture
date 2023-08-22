@@ -8,7 +8,7 @@ FILES_INCLUDEMD2 = readme.md
 
 LUA_REWRITELINKS = ../hugo_rewritelinks.lua
 LUA_MAKEDEPS     = ../hugo_makedeps.lua
-LUA_INCLUDEMD    = ../include-mdfiles.lua
+LUA_INCLUDEMD    = ../include_mdfiles.lua
 
 
 test: test_rewritelinks test_makedeps test_includemd
