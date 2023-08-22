@@ -129,29 +129,17 @@ local ROOT = "."                -- absolute path to working directory when start
 
 
 -- helper
-local function _is_relative (target)
-    return pandoc.path.is_relative(target)
-end
-
-local function _is_url (target)
-    return target:match('https?://.*')
-end
-
-local function _is_markdown (target)
-    return target:match('.*%.md')
-end
-
 local function _is_local_path (path)
-    return _is_relative(path) and
-           not _is_url(path)
+    return pandoc.path.is_relative(path) and    -- is relative path
+           not path:match('https?://.*')        -- is not http(s)
 end
 
 local function _is_local_markdown_file_link (inline)
     return inline and
            inline.t and
-           inline.t == "Link" and
-           _is_markdown(inline.target) and
-           _is_local_path(inline.target)
+           inline.t == "Link" and               -- is pandoc.Link
+           inline.target:match('.*%.md') and    -- is markdown
+           _is_local_path(inline.target)        -- is relative & not http(s)
 end
 
 local function _old_path (include_path, file)
@@ -260,20 +248,20 @@ local function _process_doc (blocks, md_file, include_path)
     end
 end
 
-local function _handle_file (oldl)
-    local fh = io.open(oldl, "r")
+local function _handle_file (target)
+    local fh = io.open(target, "r")
     if not fh then
-        io.stderr:write("\t (_handle_file) WARNING: cannot open file '" .. oldl .. "' ... skipping ... \n")
+        io.stderr:write("\t (_handle_file) WARNING: cannot open file '" .. target .. "' ... skipping ... \n")
     else
         local blocks = pandoc.read(fh:read "*all", "markdown", PANDOC_READER_OPTIONS).blocks
         fh:close()
 
         pandoc.system.with_working_directory(
-            pandoc.path.directory(oldl),    -- may still contain '../'
+            pandoc.path.directory(target),  -- may still contain '../'
             function ()
-                -- same as 'pandoc.path.directory(oldl)' but w/o '../' since Pandoc cd'ed here
+                -- same as 'pandoc.path.directory(target)' but w/o '../' since Pandoc cd'ed here
                 local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
-                _process_doc(blocks, _filename_woext(oldl), include_path)
+                _process_doc(blocks, _filename_woext(target), include_path)
             end)
     end
 end
@@ -314,10 +302,10 @@ function Pandoc (doc)
     _process_doc(doc.blocks, INDEX_MD, ".")
 
     -- process files recursively: breadth-first search
-    local oldl = _dequeue()
-    while oldl do
-        _handle_file(oldl)
-        oldl = _dequeue()
+    local target = _dequeue()
+    while target do
+        _handle_file(target)
+        target = _dequeue()
     end
 
     -- emit dependency makefile
