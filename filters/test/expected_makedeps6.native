@@ -1,0 +1,22 @@
+[ Plain
+    [ RawInline
+        (Format "markdown")
+        "subdir/leaf/b.png: subdir/leaf/img/b.png\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_IMAGE_TARGETS += subdir/leaf/b.png\n\n"
+    ]
+, Plain
+    [ RawInline
+        (Format "markdown")
+        "subdir/leaf/_index.md: subdir/leaf/readme.md\n"
+    , RawInline
+        (Format "markdown")
+        "subdir/leaf/_index.md: subdir/leaf/b.png\n"
+    , RawInline
+        (Format "markdown") "subdir/leaf/_index.md: WEIGHT=1\n"
+    , RawInline
+        (Format "markdown")
+        "WEB_MARKDOWN_TARGETS += subdir/leaf/_index.md\n\n"
+    ]
+]

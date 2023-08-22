@@ -92,10 +92,11 @@ images and local links to Markdown files. For each such link, this process will 
 (recursively, via breadth-first search).
 
 
-Usage: This filter is intended to be used with individual files that are placed directly in
-the working directory.
+Usage: This filter is intended to be used with individual files that are placed either directly
+in the working directory or in a subdirectory.
 Examples:
     pandoc -L hugo_makedeps.lua -t markdown readme.md
+    pandoc -L hugo_makedeps.lua -t markdown subdir/leaf/readme.md
 
 
 Credits: Work on this filter was partially inspired by some ideas shared in "include-files"
@@ -104,7 +105,7 @@ Krewinkel (@tarleb), license: MIT). The 'hugo_makedeps.lua' filter has been deve
 from scratch and is neither based on nor contains any third-party code.
 
 
-Caveats:
+Caveats (see 'hugo_rewritelinks.lua'):
 (a) All referenced Markdown files must have UNIQUE NAMES.
 (b) References to the top index page (landing page) are (presumably) not working.
 ]]--
