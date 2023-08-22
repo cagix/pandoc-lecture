@@ -22,6 +22,12 @@ Examples:
     pandoc -L include-mdfiles.lua -t markdown summary.md
 
 
+Credits: Work on this filter was partially inspired by some ideas shared in "include-files"
+(https://github.com/pandoc/lua-filters/blob/master/include-files/include-files.lua, by Albert
+Krewinkel (@tarleb), license: MIT). The 'include-mdfiles.lua' filter has been developed by us
+from scratch and is neither based on nor contains any third-party code.
+
+
 Caveats:
 The same file cannot be included more than once to avoid potential endless recursion.
 ]]--

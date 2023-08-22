@@ -98,6 +98,12 @@ Examples:
     pandoc -L hugo_makedeps.lua -t markdown readme.md
 
 
+Credits: Work on this filter was partially inspired by some ideas shared in "include-files"
+(https://github.com/pandoc/lua-filters/blob/master/include-files/include-files.lua, by Albert
+Krewinkel (@tarleb), license: MIT). The 'hugo_makedeps.lua' filter has been developed by us
+from scratch and is neither based on nor contains any third-party code.
+
+
 Caveats:
 (a) All referenced Markdown files must have UNIQUE NAMES.
 (b) References to the top index page (landing page) are (presumably) not working.
