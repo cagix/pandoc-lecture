@@ -15,11 +15,11 @@ for each link to local Markdown file in start document:
             - return block list to replace current Para
 
 
-Usage: This filter is intended to be used with individual files that are placed directly in
-the working directory.
+Usage: This filter is intended to be used with individual files that are placed either directly
+in the working directory or in a subdirectory.
 Examples:
     pandoc -L include_mdfiles.lua -t markdown readme.md
-    pandoc -L include_mdfiles.lua -t markdown summary.md
+    pandoc -L include_mdfiles.lua -t markdown subdir/leaf/readme.md
 
 
 Credits: Work on this filter was partially inspired by some ideas shared in "include-files"
@@ -39,6 +39,15 @@ local frontier = {}     -- set of collected links to avoid processing the same f
 
 
 -- helper
+local function _get_input_file ()
+    local input_files = PANDOC_STATE.input_files
+    return #input_files >= 1 and input_files[#input_files] or "."
+end
+
+local function _get_include_path ()
+    return pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
+end
+
 local function _is_relative (target)
     return pandoc.path.is_relative(target)
 end
@@ -69,30 +78,6 @@ local function _join_path (include_path, file)
 end
 
 
--- if not already processed, apply the filters to the blocks and return the result as a list of blocks
-local function _filter_blocks (blocks, include_path, target)
-    if not frontier[target] then
-        -- remember this file (path w/o '../' - for this reason, this cannot be checked earlier/elsewhere)
-        frontier[target] = true
-
-        -- process this file
-        return blocks:walk({
-            Image = function (img)
-                if _is_local_path(img.src) then
-                    -- prepend current include path to image source
-                    img.src = _join_path(include_path, img.src)
-                    return img
-                end
-            end,
-            Para = _include_md
-        })
-    else
-        io.stderr:write("\t (_handle_file) WARNING: file has been included before '" .. target .. "' ... skipping ... \n")
-        return pandoc.List:new()
-    end
-end
-
-
 -- open file, read content, parse recursively and return list of blocks
 local function _handle_file (lnk)
     local fh = io.open(lnk, "r")
@@ -103,41 +88,63 @@ local function _handle_file (lnk)
         local blocks = pandoc.read(fh:read "*all", "markdown", PANDOC_READER_OPTIONS).blocks
         fh:close()
 
-        return pandoc.system.with_working_directory(
-            pandoc.path.directory(lnk),    -- may still contain '../'
-            function ()
-                -- same as 'pandoc.path.directory(lnk)' but w/o '../' since Pandoc cd'ed here
-                local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
-                local target = _join_path(include_path, pandoc.path.filename(lnk))
-                return _filter_blocks (blocks, include_path, target)
-            end)
+        return _filter_blocks_in_dir(blocks, lnk)
     end
 end
 
 
--- to be used as a filter function for pandoc.Para: check each inline in a pandoc.Para block and
--- split this block into a list of blocks (before and after the links) and splice a list of blocks
--- for each link to a local Markdown file
-function _include_md (para)
-    local block_list = pandoc.List:new()
-    local current_block = pandoc.Para({})
-    block_list:insert(current_block)
-
-    for _,i in ipairs(para.content) do
-        if _is_local_markdown_file_link(i) then
-            -- process link target
-            block_list:extend(_handle_file(i.target))
-
-            -- "close" current block and open new one for any remaining inlines in current block 'para'
-            current_block = pandoc.Para({})
+-- apply the filters to the blocks and return the result as a list of blocks
+local function _filter_blocks (blocks)
+    return blocks:walk({
+        Image = function (img)
+            if _is_local_path(img.src) then
+                -- prepend current include path to image source
+                img.src = _join_path(_get_include_path(), img.src)
+                return img
+            end
+        end,
+        Para = function (para)
+            local block_list = pandoc.List:new()
+            local current_block = pandoc.Para({})
             block_list:insert(current_block)
-        else
-            -- copy inline into block content
-            current_block.content:insert(i)
-        end
-    end
 
-    return block_list
+            for _,i in ipairs(para.content) do
+                if _is_local_markdown_file_link(i) then
+                    -- process link target
+                    block_list:extend(_handle_file(i.target))
+
+                    -- "close" current block and open new one for any remaining inlines in current block 'para'
+                    current_block = pandoc.Para({})
+                    block_list:insert(current_block)
+                else
+                    -- copy inline into block content
+                    current_block.content:insert(i)
+                end
+            end
+
+            return block_list
+        end
+    })
+end
+
+
+-- process all blocks in context of target's directory
+function _filter_blocks_in_dir(blocks, target)
+    -- change into directory of 'target' to resolve potential '../' in path
+    return pandoc.system.with_working_directory(
+            pandoc.path.directory(target),    -- may still contain '../'
+            function ()
+                -- same as 'pandoc.path.directory(target)' but w/o '../' since Pandoc cd'ed here
+                local target = _join_path(_get_include_path(), pandoc.path.filename(target))
+
+                if not frontier[target] then
+                    frontier[target] = true         -- remember this file (path w/o '../'
+                    return _filter_blocks(blocks)   -- process this file
+                else
+                    io.stderr:write("\t (_filter_blocks_in_dir) WARNING: file has been included before '" .. target .. "' ... skipping ... \n")
+                    return pandoc.List:new()
+                end
+            end)
 end
 
 
@@ -147,5 +154,5 @@ function Pandoc (doc)
     ROOT = pandoc.system.get_working_directory()
 
     -- process all images and links (recursively)
-    return pandoc.Pandoc(doc.blocks:walk({Para = _include_md}), doc.meta)
+    return pandoc.Pandoc(_filter_blocks_in_dir(doc.blocks, _get_input_file()), doc.meta)
 end

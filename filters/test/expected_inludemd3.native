@@ -1,0 +1,210 @@
+[ Para
+    [ RawInline
+        (Format "markdown") "{{< children showhidden=\"true\" >}}"
+    ]
+, Para []
+, Header
+    1
+    ( "subdirleaffoo.md" , [] , [] )
+    [ Str "Subdir/Leaf/Foo.md" ]
+, Para
+    [ Str "This"
+    , Space
+    , Str "is"
+    , Space
+    , Str "a"
+    , Space
+    , Quoted DoubleQuote [ Str "single" , Space , Str "page" ]
+    , Space
+    , Str "in"
+    , Space
+    , Str "a"
+    , Space
+    , Quoted DoubleQuote [ Str "leaf" , Space , Str "bundle" ]
+    , Space
+    , Str "and"
+    , Space
+    , Str "should"
+    , Space
+    , Strong [ Str "not" ]
+    , Space
+    , Str "be"
+    , Space
+    , Str "available."
+    ]
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing
+       [ Plain
+           [ Str "This"
+           , Space
+           , Str "is"
+           , Space
+           , Str "Figure"
+           , Space
+           , Str "B"
+           , Space
+           , Str "(via"
+           , Space
+           , Str "Markdown)"
+           ]
+       ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "This"
+            , Space
+            , Str "is"
+            , Space
+            , Str "Figure"
+            , Space
+            , Str "B"
+            , Space
+            , Str "(via"
+            , Space
+            , Str "Markdown)"
+            ]
+            ( "subdir/leaf/img/b.png" , "" )
+        ]
+    ]
+, Header
+    2
+    ( "recursion-lets-include-bar" , [] , [] )
+    [ Str "Recursion:"
+    , Space
+    , Str "Let\8217s"
+    , Space
+    , Str "include"
+    , Space
+    , Str "BAR"
+    ]
+, Para []
+, Header
+    1
+    ( "subdirleafbar.md" , [] , [] )
+    [ Str "Subdir/Leaf/Bar.md" ]
+, Para
+    [ Str "This"
+    , Space
+    , Str "is"
+    , Space
+    , Str "a"
+    , Space
+    , Quoted DoubleQuote [ Str "single" , Space , Str "page" ]
+    , Space
+    , Str "in"
+    , Space
+    , Str "a"
+    , Space
+    , Quoted DoubleQuote [ Str "leaf" , Space , Str "bundle" ]
+    , Space
+    , Str "and"
+    , Space
+    , Str "should"
+    , Space
+    , Strong [ Str "not" ]
+    , Space
+    , Str "be"
+    , Space
+    , Str "available."
+    ]
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing
+       [ Plain
+           [ Str "This"
+           , Space
+           , Str "is"
+           , Space
+           , Str "Figure"
+           , Space
+           , Str "B"
+           , Space
+           , Str "(via"
+           , Space
+           , Str "Markdown)"
+           ]
+       ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "This"
+            , Space
+            , Str "is"
+            , Space
+            , Str "Figure"
+            , Space
+            , Str "B"
+            , Space
+            , Str "(via"
+            , Space
+            , Str "Markdown)"
+            ]
+            ( "subdir/leaf/img/b.png" , "" )
+        ]
+    ]
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing
+       [ Plain
+           [ Str "This"
+           , Space
+           , Str "is"
+           , Space
+           , Str "Figure"
+           , Space
+           , Str "D"
+           , Space
+           , Str "(via"
+           , Space
+           , Str "Markdown)"
+           ]
+       ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "This"
+            , Space
+            , Str "is"
+            , Space
+            , Str "Figure"
+            , Space
+            , Str "D"
+            , Space
+            , Str "(via"
+            , Space
+            , Str "Markdown)"
+            ]
+            ( "subdir/leaf/img/d.png" , "" )
+        ]
+    ]
+, Header
+    2
+    ( "recursion-lets-include-foo" , [] , [] )
+    [ Str "Recursion:"
+    , Space
+    , Str "Let\8217s"
+    , Space
+    , Str "include"
+    , Space
+    , Str "FOO"
+    ]
+, Para []
+, Para []
+, Para []
+, Para []
+, Figure
+    ( "" , [] , [] )
+    (Caption
+       Nothing [ Plain [ Str "Image" , Space , Str "title" ] ])
+    [ Plain
+        [ Image
+            ( "" , [] , [] )
+            [ Str "Image" , Space , Str "title" ]
+            ( "subdir/img/c.png" , "" )
+        ]
+    ]
+]
