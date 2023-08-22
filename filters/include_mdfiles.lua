@@ -35,7 +35,7 @@ The same file cannot be included more than once to avoid potential endless recur
 
 -- vars
 local ROOT = "."        -- absolute path to working directory when starting
-local frontier = {}     -- set of collected links to avoid processing the same file/link several times
+local frontier = {}     -- set of visited paths to avoid including the same file several times
 
 
 -- helper
@@ -111,7 +111,7 @@ local function _filter_blocks_in_dir (blocks, target)
             end)
 end
 
--- open file and read content (and parse recursively and return list of blocks)
+-- open file and read content (and parse recursively and return list of blocks via '_filter_blocks_in_dir')
 function _handle_file (target)
     local fh = io.open(target, "r")
     if not fh then
