@@ -146,13 +146,14 @@ local function _old_path (include_path, file)
     return pandoc.path.normalize(pandoc.path.join({include_path, file}))
 end
 
-local function _new_path (include_path, parent_file, file)
+local function _new_path (parent_file, file)
+    local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
     local parent = (parent_file == INDEX_MD) and "." or parent_file
     return pandoc.path.normalize(pandoc.path.join({PREFIX, include_path, parent, file}))
 end
 
-local function _new_path_idx (include_path, parent_file)
-    return _new_path(include_path, parent_file, "_index.md")
+local function _new_path_idx (parent_file)
+    return _new_path(parent_file, "_index.md")
 end
 
 local function _filename_woext (target)
@@ -190,7 +191,9 @@ end
 
 
 -- processing of markdown files, links and images
-local function _remember_file (include_path, md_file, newl)
+local function _remember_file (md_file, newl)
+    local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
+
     -- safe as PREFIX/include_path/(md_file?)/_index.md: include_path/(md_file .. ".md")
     local oldl = _old_path(include_path, md_file .. ".md")
 
@@ -202,10 +205,12 @@ local function _remember_file (include_path, md_file, newl)
     end
 end
 
-local function _remember_image (include_path, md_file, image_src, newl)
+local function _remember_image (md_file, image_src, newl)
+    local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
+
     -- safe as PREFIX/include_path/(md_file?)/file(image_src): include_path/image_src
     local oldi = _old_path(include_path, image_src)
-    local newi = _new_path(include_path, md_file, pandoc.path.filename(image_src))
+    local newi = _new_path(md_file, pandoc.path.filename(image_src))
 
     if not images[newi] then
         img[#img + 1] = newi    -- list: we want the same sequence for each run
@@ -228,15 +233,14 @@ local function _filter_blocks_in_dir (blocks, target)
 
                 -- TODO
                 local md_file = _filename_woext(target)
-                local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
 
                 -- new link: PREFIX/include_path/(md_file?)/_index.md
-                local newl = _new_path_idx(include_path, md_file)
+                local newl = _new_path_idx(md_file)
 
                 -- if not already processed:
                 if not links[newl] then
                     -- remember this file
-                    _remember_file(include_path, md_file, newl)
+                    _remember_file(md_file, newl)
 
                     -- enqueue local landing page "include_path/readme.md" for later processing
                     _enqueue(_prepend_include_path(INDEX_MD .. ".md"))
@@ -246,7 +250,7 @@ local function _filter_blocks_in_dir (blocks, target)
                         Image = function (image)
                             if _is_local_path(image.src) then
                                 -- remember this image
-                                _remember_image(include_path, md_file, image.src, newl)
+                                _remember_image(md_file, image.src, newl)
                             end
                         end,
                         Link = function (link)
