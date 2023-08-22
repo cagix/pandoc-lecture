@@ -39,34 +39,22 @@ local frontier = {}     -- set of collected links to avoid processing the same f
 
 
 -- helper
-local function _is_relative (target)
-    return pandoc.path.is_relative(target)
-end
-
-local function _is_url (target)
-    return target:match('https?://.*')
-end
-
-local function _is_markdown (target)
-    return target:match('.*%.md')
-end
-
 local function _is_local_path (path)
-    return _is_relative(path) and
-           not _is_url(path)
+    return pandoc.path.is_relative(path) and    -- is relative path
+           not path:match('https?://.*')        -- is not http(s)
 end
 
 local function _is_local_markdown_file_link (inline)
     return inline and
            inline.t and
-           inline.t == "Link" and
-           _is_markdown(inline.target) and
-           _is_local_path(inline.target)
+           inline.t == "Link" and               -- is pandoc.Link
+           inline.target:match('.*%.md') and    -- is markdown
+           _is_local_path(inline.target)        -- is relative & not http(s)
 end
 
-local function _prepend_include_path (file)
+local function _prepend_include_path (path)
     local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
-    return pandoc.path.normalize(pandoc.path.join({include_path, file}))
+    return pandoc.path.normalize(pandoc.path.join({include_path, path}))
 end
 
 
