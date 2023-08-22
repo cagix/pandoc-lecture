@@ -121,12 +121,25 @@ local function _is_relative (target)
     return pandoc.path.is_relative(target)
 end
 
+local function _is_url (target)
+    return target:match('https?://.*')
+end
+
 local function _is_markdown (target)
     return target:match('.*%.md')
 end
 
-local function _is_url (target)
-    return target:match('https?://.*')
+local function _is_local_path (path)
+    return _is_relative(path) and
+           not _is_url(path)
+end
+
+local function _is_local_markdown_file_link (inline)
+    return inline and
+           inline.t and
+           inline.t == "Link" and
+           _is_markdown(inline.target) and
+           _is_local_path(inline.target)
 end
 
 local function _old_path (include_path, file)
@@ -219,13 +232,13 @@ local function _process_doc (blocks, md_file, include_path)
         -- collect and enqueue all new images and links in this file 'include_path/md_file'
         local collect_images_links = {
             Image = function (image)
-                if _is_relative(image.src) and not _is_url(image.src) then
+                if _is_local_path(image.src) then
                     -- remember this image
                     _remember_image(include_path, md_file, image.src, newl)
                 end
             end,
             Link = function (link)
-                if _is_markdown(link.target) and _is_relative(link.target) and not _is_url(link.target) then
+                if _is_local_markdown_file_link(link) then
                     -- enqueue "include_path/link.target" for later processing
                     _enqueue(_old_path(include_path, link.target))
                 end
@@ -235,26 +248,20 @@ local function _process_doc (blocks, md_file, include_path)
     end
 end
 
-local function _read_file (fname)
-    local fh = io.open(fname, "r")
-    if not fh then
-        io.stderr:write("\t (_read_file) WARNING: cannot open file '" .. fname .. "' ... skipping ... \n")
-    else
-        local content = fh:read "*all"
-        fh:close()
-        return pandoc.read(content, "markdown", PANDOC_READER_OPTIONS).blocks
-    end
-end
-
 local function _handle_file (oldl)
-    local blocks = _read_file(oldl)
+    local fh = io.open(oldl, "r")
+    if not fh then
+        io.stderr:write("\t (_handle_file) WARNING: cannot open file '" .. oldl .. "' ... skipping ... \n")
+    else
+        local blocks = pandoc.read(fh:read "*all", "markdown", PANDOC_READER_OPTIONS).blocks
+        fh:close()
 
-    if blocks then
         pandoc.system.with_working_directory(
             pandoc.path.directory(oldl),    -- may still contain '../'
             function ()
-                local wrkdir = pandoc.system.get_working_directory()    -- same as 'pandoc.path.directory(oldl)' but w/o '../' since Pandoc cd'ed here
-                _process_doc(blocks, _filename_woext(oldl), pandoc.path.make_relative(wrkdir, ROOT))
+                -- same as 'pandoc.path.directory(oldl)' but w/o '../' since Pandoc cd'ed here
+                local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
+                _process_doc(blocks, _filename_woext(oldl), include_path)
             end)
     end
 end
@@ -282,7 +289,6 @@ local function _emit_links ()
     end
     return inlines
 end
-
 
 
 -- main filter function
