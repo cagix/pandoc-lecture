@@ -189,31 +189,29 @@ end
 
 -- processing of markdown files, links and images
 local function _remember_file (target)
-    -- new link: PREFIX/include_path/(md_file?)/_index.md
-    local new_target = _new_path_idx(target)
+    local old_target = target                   -- old link: include_path/target
+    local new_target = _new_path_idx(target)    -- new link: PREFIX/include_path/(md_file?)/_index.md
 
     -- safe as PREFIX/include_path/(md_file?)/_index.md: include_path/target
-    if not links[target] then
-        weights[#weights + 1] = target
-        links[target] = new_target
+    if not links[old_target] then
+        weights[#weights + 1] = old_target
+        links[old_target] = new_target
     else
-        io.stderr:write("\t (_remember_file) WARNING: new path '" .. new_target .. "' (from '" .. target .. "') has been already processed ... THIS SHOULD NOT HAPPEN ... \n")
+        io.stderr:write("\t (_remember_file) WARNING: new path '" .. new_target .. "' (from '" .. old_target .. "') has been already processed ... THIS SHOULD NOT HAPPEN ... \n")
     end
 end
 
-local function _remember_image (md_file, image_src, newl)
-    local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
+local function _remember_image (image_src, target)
+    local old_image = _prepend_include_path(image_src)                      -- old src: include_path/image_src
+    local new_image = _new_path(target, pandoc.path.filename(image_src))    -- new src: PREFIX/include_path/(md_file?)/file(image_src)
 
     -- safe as PREFIX/include_path/(md_file?)/file(image_src): include_path/image_src
-    local oldi = _prepend_include_path(image_src)
-    local newi = _new_path(md_file, pandoc.path.filename(image_src))
-
-    if not images[newi] then
-        img[#img + 1] = newi    -- list: we want the same sequence for each run
-        images[newi] = oldi     -- set: do not store images twice
+    if not images[new_image] then
+        img[#img + 1] = new_image       -- list: we want the same sequence for each run
+        images[new_image] = old_image   -- store new image src as key because the same image can be referenced by different markdown files and needs to be copied in all cases to the new locations (1 old_image : n new_image)
 
         -- create a dependency for corresponding '_index.md'
-        link_img[newl] = link_img[newl] and (link_img[newl] .. " " .. newi) or (newi)
+        link_img[target] = link_img[target] and (link_img[target] .. " " .. new_image) or (new_image)
     end
 end
 
@@ -238,15 +236,8 @@ local function _filter_blocks_in_dir (blocks, target)
                     local collect_images_links = {
                         Image = function (image)
                             if _is_local_path(image.src) then
-
-                                -- TODO
-                                local md_file = _filename_woext(target)
-
-                                -- new link: PREFIX/include_path/(md_file?)/_index.md
-                                local newl = _new_path_idx(md_file)
-
                                 -- remember this image
-                                _remember_image(md_file, image.src, newl)
+                                _remember_image(image.src, target)
                             end
                         end,
                         Link = function (link)
@@ -278,9 +269,11 @@ end
 -- emit structures for make.deps
 local function _emit_images ()
     local inlines = pandoc.List:new()
-    for _, newi in ipairs(img) do
-        inlines:insert(pandoc.RawInline("markdown", newi .. ": " .. images[newi] .. "\n"))
-        inlines:insert(pandoc.RawInline("markdown", "WEB_IMAGE_TARGETS += " .. newi .. "\n\n"))
+    for _, new_image in ipairs(img) do
+        local old_image = images[new_image]
+
+        inlines:insert(pandoc.RawInline("markdown", new_image .. ": " .. old_image .. "\n"))
+        inlines:insert(pandoc.RawInline("markdown", "WEB_IMAGE_TARGETS += " .. new_image .. "\n\n"))
     end
     return inlines
 end
@@ -289,9 +282,10 @@ local function _emit_links ()
     local inlines = pandoc.List:new()
     for weight, old_target in ipairs(weights) do
         local new_target = links[old_target]
+
         inlines:insert(pandoc.RawInline("markdown", new_target .. ": " .. old_target .. "\n"))
-        if link_img[new_target] then
-            inlines:insert(pandoc.RawInline("markdown", new_target .. ": " .. link_img[new_target] .. "\n"))
+        if link_img[old_target] then
+            inlines:insert(pandoc.RawInline("markdown", new_target .. ": " .. link_img[old_target] .. "\n"))
         end
         inlines:insert(pandoc.RawInline("markdown", new_target .. ": WEIGHT=" .. weight .. "\n"))
         inlines:insert(pandoc.RawInline("markdown", "WEB_MARKDOWN_TARGETS += " .. new_target .. "\n\n"))
