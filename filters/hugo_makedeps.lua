@@ -142,18 +142,9 @@ local function _is_local_markdown_file_link (inline)
            _is_local_path(inline.target)        -- is relative & not http(s)
 end
 
-local function _old_path (include_path, file)
-    return pandoc.path.normalize(pandoc.path.join({include_path, file}))
-end
-
-local function _new_path (parent_file, file)
+local function _prepend_include_path (path)
     local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
-    local parent = (parent_file == INDEX_MD) and "." or parent_file
-    return pandoc.path.normalize(pandoc.path.join({PREFIX, include_path, parent, file}))
-end
-
-local function _new_path_idx (parent_file)
-    return _new_path(parent_file, "_index.md")
+    return pandoc.path.normalize(pandoc.path.join({include_path, path}))
 end
 
 local function _filename_woext (target)
@@ -161,9 +152,15 @@ local function _filename_woext (target)
     return name
 end
 
-local function _prepend_include_path (path)
-    local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
-    return pandoc.path.normalize(pandoc.path.join({include_path, path}))
+local function _new_path (parent, file)
+    local parent = _filename_woext(parent)
+    local name = (parent == INDEX_MD) and "." or parent
+    local path = _prepend_include_path(name)
+    return pandoc.path.normalize(pandoc.path.join({PREFIX, path, file}))
+end
+
+local function _new_path_idx (target)
+    return _new_path(target, "_index.md")
 end
 
 
@@ -191,17 +188,16 @@ end
 
 
 -- processing of markdown files, links and images
-local function _remember_file (md_file, newl)
-    local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
+local function _remember_file (target)
+    -- new link: PREFIX/include_path/(md_file?)/_index.md
+    local new_target = _new_path_idx(target)
 
-    -- safe as PREFIX/include_path/(md_file?)/_index.md: include_path/(md_file .. ".md")
-    local oldl = _old_path(include_path, md_file .. ".md")
-
-    if not links[newl] then
-        weights[#weights + 1] = newl
-        links[newl] = oldl
+    -- safe as PREFIX/include_path/(md_file?)/_index.md: include_path/target
+    if not links[target] then
+        weights[#weights + 1] = target
+        links[target] = new_target
     else
-        io.stderr:write("\t (_remember_file) WARNING: new path '" .. newl .. "' (from '" .. oldl .. "') has been already processed ... THIS SHOULD NOT HAPPEN ... \n")
+        io.stderr:write("\t (_remember_file) WARNING: new path '" .. new_target .. "' (from '" .. target .. "') has been already processed ... THIS SHOULD NOT HAPPEN ... \n")
     end
 end
 
@@ -209,7 +205,7 @@ local function _remember_image (md_file, image_src, newl)
     local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
 
     -- safe as PREFIX/include_path/(md_file?)/file(image_src): include_path/image_src
-    local oldi = _old_path(include_path, image_src)
+    local oldi = _prepend_include_path(image_src)
     local newi = _new_path(md_file, pandoc.path.filename(image_src))
 
     if not images[newi] then
@@ -230,17 +226,10 @@ local function _filter_blocks_in_dir (blocks, target)
                 -- same as 'pandoc.path.directory(target)' but w/o '../' since Pandoc cd'ed here
                 local target = _prepend_include_path(pandoc.path.filename(target))
 
-
-                -- TODO
-                local md_file = _filename_woext(target)
-
-                -- new link: PREFIX/include_path/(md_file?)/_index.md
-                local newl = _new_path_idx(md_file)
-
                 -- if not already processed:
-                if not links[newl] then
-                    -- remember this file
-                    _remember_file(md_file, newl)
+                if not links[target] then
+                    -- remember this file (path w/o '../')
+                    _remember_file(target)
 
                     -- enqueue local landing page "include_path/readme.md" for later processing
                     _enqueue(_prepend_include_path(INDEX_MD .. ".md"))
@@ -249,6 +238,13 @@ local function _filter_blocks_in_dir (blocks, target)
                     local collect_images_links = {
                         Image = function (image)
                             if _is_local_path(image.src) then
+
+                                -- TODO
+                                local md_file = _filename_woext(target)
+
+                                -- new link: PREFIX/include_path/(md_file?)/_index.md
+                                local newl = _new_path_idx(md_file)
+
                                 -- remember this image
                                 _remember_image(md_file, image.src, newl)
                             end
@@ -291,13 +287,14 @@ end
 
 local function _emit_links ()
     local inlines = pandoc.List:new()
-    for weight, newl in ipairs(weights) do
-        inlines:insert(pandoc.RawInline("markdown", newl .. ": " .. links[newl] .. "\n"))
-        if link_img[newl] then
-            inlines:insert(pandoc.RawInline("markdown", newl .. ": " .. link_img[newl] .. "\n"))
+    for weight, old_target in ipairs(weights) do
+        local new_target = links[old_target]
+        inlines:insert(pandoc.RawInline("markdown", new_target .. ": " .. old_target .. "\n"))
+        if link_img[new_target] then
+            inlines:insert(pandoc.RawInline("markdown", new_target .. ": " .. link_img[new_target] .. "\n"))
         end
-        inlines:insert(pandoc.RawInline("markdown", newl .. ": WEIGHT=" .. weight .. "\n"))
-        inlines:insert(pandoc.RawInline("markdown", "WEB_MARKDOWN_TARGETS += " .. newl .. "\n\n"))
+        inlines:insert(pandoc.RawInline("markdown", new_target .. ": WEIGHT=" .. weight .. "\n"))
+        inlines:insert(pandoc.RawInline("markdown", "WEB_MARKDOWN_TARGETS += " .. new_target .. "\n\n"))
     end
     return inlines
 end
