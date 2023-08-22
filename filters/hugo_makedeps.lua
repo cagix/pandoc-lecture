@@ -117,7 +117,6 @@ local ROOT = "."                -- absolute path to working directory when start
 
 
 -- helper
--- helper
 local function _is_relative (target)
     return pandoc.path.is_relative(target)
 end
