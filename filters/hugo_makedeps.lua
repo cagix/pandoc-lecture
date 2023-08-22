@@ -239,7 +239,7 @@ local function _filter_blocks_in_dir (blocks, target)
                     _remember_file(include_path, md_file, newl)
 
                     -- enqueue local landing page "include_path/readme.md" for later processing
-                    _enqueue(_old_path(include_path, INDEX_MD .. ".md"))
+                    _enqueue(_prepend_include_path(INDEX_MD .. ".md"))
 
                     -- collect and enqueue all new images and links in this file 'include_path/md_file'
                     local collect_images_links = {
@@ -252,7 +252,7 @@ local function _filter_blocks_in_dir (blocks, target)
                         Link = function (link)
                             if _is_local_markdown_file_link(link) then
                                 -- enqueue "include_path/link.target" for later processing
-                                _enqueue(_old_path(include_path, link.target))
+                                _enqueue(_prepend_include_path(link.target))
                             end
                         end
                     }
