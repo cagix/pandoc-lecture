@@ -15,6 +15,13 @@ for each link to local Markdown file in start document:
             - return block list to replace current Para
 
 
+Usage: This filter is intended to be used with individual files that are placed directly in
+the working directory.
+Examples:
+    pandoc -L include-mdfiles.lua -t markdown readme.md
+    pandoc -L include-mdfiles.lua -t markdown summary.md
+
+
 Caveats:
 The same file cannot be included more than once to avoid potential endless recursion.
 ]]--
