@@ -92,6 +92,12 @@ images and local links to Markdown files. For each such link, this process will 
 (recursively, via breadth-first search).
 
 
+Usage: This filter is intended to be used with individual files that are placed directly in
+the working directory.
+Examples:
+    pandoc -L hugo_makedeps.lua -t markdown readme.md
+
+
 Caveats:
 (a) All referenced Markdown files must have UNIQUE NAMES.
 (b) References to the top index page (landing page) are (presumably) not working.

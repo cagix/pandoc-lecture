@@ -31,6 +31,14 @@ Thus this filter needs to perform for any link in any Markdown file:
 -   replace  `[Y](readme.md)`         with  `[Y]({{< ref "/" >}})` (might work with Hugo)
 
 
+Usage: This filter is intended to be used with individual files that are placed either directly in
+the working directory or in a subdirectory.
+Examples:
+    pandoc -L hugo_rewritelinks.lua -t markdown readme.md
+    pandoc -L hugo_rewritelinks.lua -t markdown test/readme.md
+    pandoc -L hugo_rewritelinks.lua -t markdown test/subdir/leaf/foo.md
+
+
 Caveats:
 (a) All referenced Markdown files must have UNIQUE NAMES.
 (b) References to the top index page (landing page) are (presumably) not working.
