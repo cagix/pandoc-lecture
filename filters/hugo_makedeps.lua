@@ -160,6 +160,11 @@ local function _filename_woext (target)
     return name
 end
 
+local function _prepend_include_path (path)
+    local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
+    return pandoc.path.normalize(pandoc.path.join({include_path, path}))
+end
+
 
 -- queue
 local function _enqueue (path)
@@ -211,44 +216,53 @@ local function _remember_image (include_path, md_file, image_src, newl)
     end
 end
 
---[[
-process Pandoc document (list of blocks):
+-- process all blocks in context of target's directory
+local function _filter_blocks_in_dir (blocks, target)
+    -- change into directory of 'target' to resolve potential '../' in path
+    return pandoc.system.with_working_directory(
+            pandoc.path.directory(target),    -- may still contain '../'
+            function ()
+                -- same as 'pandoc.path.directory(target)' but w/o '../' since Pandoc cd'ed here
+                local target = _prepend_include_path(pandoc.path.filename(target))
 
-(1) "save" link to current document, i.e. do not process this document again
-(2) collect all images and all links in this document (local, relative, not HTTP, links to Markdown files)
-]]--
-local function _process_doc (blocks, md_file, include_path)
-    -- new link: PREFIX/include_path/(md_file?)/_index.md
-    local newl = _new_path_idx(include_path, md_file)
 
-    -- if not already processed:
-    if not links[newl] then
-        -- remember this file
-        _remember_file(include_path, md_file, newl)
+                -- TODO
+                local md_file = _filename_woext(target)
+                local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
 
-        -- enqueue local landing page "include_path/readme.md" for later processing
-        _enqueue(_old_path(include_path, INDEX_MD .. ".md"))
+                -- new link: PREFIX/include_path/(md_file?)/_index.md
+                local newl = _new_path_idx(include_path, md_file)
 
-        -- collect and enqueue all new images and links in this file 'include_path/md_file'
-        local collect_images_links = {
-            Image = function (image)
-                if _is_local_path(image.src) then
-                    -- remember this image
-                    _remember_image(include_path, md_file, image.src, newl)
+                -- if not already processed:
+                if not links[newl] then
+                    -- remember this file
+                    _remember_file(include_path, md_file, newl)
+
+                    -- enqueue local landing page "include_path/readme.md" for later processing
+                    _enqueue(_old_path(include_path, INDEX_MD .. ".md"))
+
+                    -- collect and enqueue all new images and links in this file 'include_path/md_file'
+                    local collect_images_links = {
+                        Image = function (image)
+                            if _is_local_path(image.src) then
+                                -- remember this image
+                                _remember_image(include_path, md_file, image.src, newl)
+                            end
+                        end,
+                        Link = function (link)
+                            if _is_local_markdown_file_link(link) then
+                                -- enqueue "include_path/link.target" for later processing
+                                _enqueue(_old_path(include_path, link.target))
+                            end
+                        end
+                    }
+                    blocks:walk(collect_images_links)
                 end
-            end,
-            Link = function (link)
-                if _is_local_markdown_file_link(link) then
-                    -- enqueue "include_path/link.target" for later processing
-                    _enqueue(_old_path(include_path, link.target))
-                end
-            end
-        }
-        blocks:walk(collect_images_links)
-    end
+            end)
 end
 
-local function _handle_file (target)
+-- open file and read content (and parse recursively and return list of blocks via '_filter_blocks_in_dir')
+function _handle_file (target)
     local fh = io.open(target, "r")
     if not fh then
         io.stderr:write("\t (_handle_file) WARNING: cannot open file '" .. target .. "' ... skipping ... \n")
@@ -256,13 +270,7 @@ local function _handle_file (target)
         local blocks = pandoc.read(fh:read "*all", "markdown", PANDOC_READER_OPTIONS).blocks
         fh:close()
 
-        pandoc.system.with_working_directory(
-            pandoc.path.directory(target),  -- may still contain '../'
-            function ()
-                -- same as 'pandoc.path.directory(target)' but w/o '../' since Pandoc cd'ed here
-                local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
-                _process_doc(blocks, _filename_woext(target), include_path)
-            end)
+        _filter_blocks_in_dir(blocks, target)
     end
 end
 
