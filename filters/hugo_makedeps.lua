@@ -111,12 +111,12 @@ Caveats:
 
 
 -- vars
-local img = {}                  -- list of collected images to ensure deterministic order in generated list (for testing)
-local images = {}               -- set of collected images to avoid processing the same file/image several times
-local link_img = {}             -- dependencies for _index.md: all referenced images
+local img = {}                  -- list of collected images (new_image) to ensure deterministic order in generated list (for testing)
+local images = {}               -- set of collected images (new_image:old_image) to avoid processing the same file/image several times
+local link_img = {}             -- dependencies for _index.md: all referenced images (old_target:new_image)
 
-local links = {}                -- set of collected links to avoid processing the same file/link several times
-local weights = {}              -- list of collected links to calculate the "weight" property for a page
+local links = {}                -- set of collected links (old_target:new_target) to avoid processing the same file/link several times
+local weights = {}              -- list of collected links (old_target) to calculate the "weight" property for a page
 
 local frontier = {}             -- queue to implement breadth-first search for visiting links
 local frontier_first = 0        -- first element in queue
@@ -144,23 +144,14 @@ end
 
 local function _prepend_include_path (path)
     local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
-    return pandoc.path.normalize(pandoc.path.join({include_path, path}))
-end
-
-local function _filename_woext (target)
-    local name, _ = pandoc.path.split_extension(pandoc.path.filename(target))
-    return name
+    return pandoc.path.normalize(pandoc.path.join({ include_path, path }))
 end
 
 local function _new_path (parent, file)
-    local parent = _filename_woext(parent)
+    local parent, _ = pandoc.path.split_extension(pandoc.path.filename(parent))
     local name = (parent == INDEX_MD) and "." or parent
     local path = _prepend_include_path(name)
-    return pandoc.path.normalize(pandoc.path.join({PREFIX, path, file}))
-end
-
-local function _new_path_idx (target)
-    return _new_path(target, "_index.md")
+    return pandoc.path.normalize(pandoc.path.join({ PREFIX, path, file }))
 end
 
 
@@ -187,20 +178,21 @@ local function _dequeue ()
 end
 
 
--- processing of markdown files, links and images
+-- store for each processed file the old and the new path
 local function _remember_file (target)
-    local old_target = target                   -- old link: include_path/target
-    local new_target = _new_path_idx(target)    -- new link: PREFIX/include_path/(md_file?)/_index.md
+    local old_target = target                           -- old link: include_path/target
+    local new_target = _new_path(target, "_index.md")   -- new link: PREFIX/include_path/(md_file?)/_index.md
 
     -- safe as PREFIX/include_path/(md_file?)/_index.md: include_path/target
     if not links[old_target] then
         weights[#weights + 1] = old_target
-        links[old_target] = new_target
+        links[old_target] = new_target      -- store old target as key for convenience, otherwise we would need to calculate the new target already in '_filter_blocks_in_dir' ... (1 old_target : 1 new_target)
     else
         io.stderr:write("\t (_remember_file) WARNING: new path '" .. new_target .. "' (from '" .. old_target .. "') has been already processed ... THIS SHOULD NOT HAPPEN ... \n")
     end
 end
 
+-- store for each processed file the old and new image source
 local function _remember_image (image_src, target)
     local old_image = _prepend_include_path(image_src)                      -- old src: include_path/image_src
     local new_image = _new_path(target, pandoc.path.filename(image_src))    -- new src: PREFIX/include_path/(md_file?)/file(image_src)
@@ -218,7 +210,7 @@ end
 -- process all blocks in context of target's directory
 local function _filter_blocks_in_dir (blocks, target)
     -- change into directory of 'target' to resolve potential '../' in path
-    return pandoc.system.with_working_directory(
+    pandoc.system.with_working_directory(
             pandoc.path.directory(target),    -- may still contain '../'
             function ()
                 -- same as 'pandoc.path.directory(target)' but w/o '../' since Pandoc cd'ed here
@@ -229,25 +221,22 @@ local function _filter_blocks_in_dir (blocks, target)
                     -- remember this file (path w/o '../')
                     _remember_file(target)
 
-                    -- enqueue local landing page "include_path/readme.md" for later processing
+                    -- enqueue local landing page of current path for later processing ("include_path/readme.md")
                     _enqueue(_prepend_include_path(INDEX_MD .. ".md"))
 
-                    -- collect and enqueue all new images and links in this file 'include_path/md_file'
-                    local collect_images_links = {
+                    -- collect and enqueue all new images and links in current file 'include_path/target'
+                    blocks:walk({
                         Image = function (image)
                             if _is_local_path(image.src) then
-                                -- remember this image
                                 _remember_image(image.src, target)
                             end
                         end,
                         Link = function (link)
                             if _is_local_markdown_file_link(link) then
-                                -- enqueue "include_path/link.target" for later processing
                                 _enqueue(_prepend_include_path(link.target))
                             end
                         end
-                    }
-                    blocks:walk(collect_images_links)
+                    })
                 end
             end)
 end
@@ -316,5 +305,5 @@ function Pandoc (doc)
     end
 
     -- emit dependency makefile
-    return pandoc.Pandoc({pandoc.Plain(_emit_images()), pandoc.Plain(_emit_links())}, doc.meta)
+    return pandoc.Pandoc({ pandoc.Plain(_emit_images()), pandoc.Plain(_emit_links()) }, doc.meta)
 end

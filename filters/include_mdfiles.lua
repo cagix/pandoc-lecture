@@ -54,7 +54,7 @@ end
 
 local function _prepend_include_path (path)
     local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
-    return pandoc.path.normalize(pandoc.path.join({include_path, path}))
+    return pandoc.path.normalize(pandoc.path.join({ include_path, path }))
 end
 
 
