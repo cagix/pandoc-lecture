@@ -105,17 +105,17 @@ end
 -- to be used as a filter function for pandoc.Para: check each inline in a pandoc.Para block and
 -- split this block into a list of blocks (before and after the links) and splice a list of blocks
 -- for each link to a local Markdown file
-function _include_md (bl)
+function _include_md (para)
     local block_list = pandoc.List:new()
     local current_block = pandoc.Para({})
     block_list:insert(current_block)
 
-    for _,i in ipairs(bl.content) do
+    for _,i in ipairs(para.content) do
         if _is_local_markdown_file_link(i) then
             -- process link target
             block_list:extend(_handle_file(i.target))
 
-            -- "close" current block and open new one for any remaining inlines in current block 'bl'
+            -- "close" current block and open new one for any remaining inlines in current block 'para'
             current_block = pandoc.Para({})
             block_list:insert(current_block)
         else
