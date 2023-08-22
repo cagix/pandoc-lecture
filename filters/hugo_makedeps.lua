@@ -298,8 +298,12 @@ function Pandoc (doc)
     INDEX_MD = doc.meta.indexMD or "readme"             -- we do need the name w/o extension
     ROOT = pandoc.system.get_working_directory()        -- remember our project root
 
+    -- get filename (input file)
+    local input_files = PANDOC_STATE.input_files
+    local file = #input_files >= 1 and input_files[#input_files] or "."
+
     -- landing page: process all images and links
-    _process_doc(doc.blocks, INDEX_MD, ".")
+    _handle_file(file)
 
     -- process files recursively: breadth-first search
     local target = _dequeue()
