@@ -248,8 +248,8 @@ $(WEB_IMAGE_TARGETS):
 ## Hugo: Process markdown with pandoc (preprocessing for hugo)
 $(WEB_MARKDOWN_TARGETS):
 	$(create-folder)
-	$(PANDOC) $(PANDOC_ARGS)  -L hugo_rewritelinks.lua -s  -d hugo -M weight=$(WEIGHT) -M indexMD=$(INDEX_MD) $< -o $@
-#	$(PANDOC) $(PANDOC_ARGS) -d hugo -M weight=$(WEIGHT) -M indexMD=$(INDEX_MD) $< -o $@
+	$(PANDOC) $(PANDOC_ARGS)  -L hugo_rewritelinks.lua -s  -d hugo -M weight=$(WEIGHT) -M indexMD=$(INDEX_MD) -M warp=$(WARP_DIR) $< -o $@
+#	$(PANDOC) $(PANDOC_ARGS) -d hugo -M weight=$(WEIGHT) -M indexMD=$(INDEX_MD) -M warp=$(WARP_DIR) $< -o $@
 
 ## Slides: Generate pdf slides
 ## Folder structure and names: path/name.md, path/<images>/, path_name.pdf
