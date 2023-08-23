@@ -92,6 +92,50 @@ images and local links to Markdown files. For each such link, this process will 
 (recursively, via breadth-first search).
 
 
+Warping: When using the metadata field 'warp', the given part of the target path will be
+removed (if present).
+Given the example above, `pandoc -L hugo_makedeps.lua -M warp="subdir" -t markdown readme.md`
+would produce instead:
+
+```makefile
+## (1) all referenced files
+
+## not referenced anywhere, but must exist as root entry
+PREFIX/_index.md: readme.md
+PREFIX/_index.md: WEIGHT=1
+WEB_MARKDOWN_TARGETS += PREFIX/_index.md
+
+## referenced in 'readme.md': "`[see File A](subdir/file-a.md)`"
+PREFIX/file-a/_index.md: subdir/file-a.md
+PREFIX/file-a/_index.md: PREFIX/file-a/b.png PREFIX/file-a/c.png
+PREFIX/file-a/_index.md: WEIGHT=2
+WEB_MARKDOWN_TARGETS += PREFIX/file-a/_index.md
+
+
+## (2) all folders containing referenced files
+
+## nothing in this case, as 'subdir/readme.md' would translate to 'PREFIX/_index.md', which
+## would overwrite the original 'readme.md' in the parent folder ('PREFIX/_index.md') ...
+
+
+## (3) all referenced figures
+
+PREFIX/a.png: img/a.png
+WEB_IMAGE_TARGETS += PREFIX/a.png
+
+PREFIX/file-a/b.png: subdir/img/b.png
+WEB_IMAGE_TARGETS += PREFIX/file-a/b.png
+
+PREFIX/file-a/c.png: subdir/img/c.png
+WEB_IMAGE_TARGETS += PREFIX/file-a/c.png
+```
+
+In this example we "remove" the subfolder 'subfolder' from the target hierarchy. Since the readme
+in this level would now overwrite the readme in the parent level, it will be skipped - as will all
+files in 'subfolder' with the same name as those in the parent level! Also potential links in
+'subfolder/readme.md' will not be analysed and considered!
+
+
 Usage: This filter is intended to be used with individual files that are placed either directly
 in the working directory or in a subdirectory.
 Examples:
@@ -108,6 +152,7 @@ from scratch and is neither based on nor contains any third-party code.
 Caveats (see 'hugo_rewritelinks.lua'):
 (a) All referenced Markdown files must have UNIQUE NAMES.
 (b) References to the top index page (landing page) are (presumably) not working.
+(c) When warping, links in skipped files will not be analysed/considered.
 ]]--
 
 
