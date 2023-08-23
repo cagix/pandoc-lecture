@@ -92,6 +92,51 @@ images and local links to Markdown files. For each such link, this process will 
 (recursively, via breadth-first search).
 
 
+Warping: When using the metadata field 'warp', the given part of the target path will be
+removed (if present).
+Given the example above, `pandoc -L hugo_makedeps.lua -M warp="subdir" -t markdown readme.md`
+would produce instead:
+
+```makefile
+## (1) all referenced files
+
+## not referenced anywhere, but must exist as root entry
+PREFIX/_index.md: readme.md
+PREFIX/_index.md: WEIGHT=1
+WEB_MARKDOWN_TARGETS += PREFIX/_index.md
+
+## referenced in 'readme.md': "`[see File A](subdir/file-a.md)`"
+PREFIX/file-a/_index.md: subdir/file-a.md
+PREFIX/file-a/_index.md: PREFIX/file-a/b.png PREFIX/file-a/c.png
+PREFIX/file-a/_index.md: WEIGHT=2
+WEB_MARKDOWN_TARGETS += PREFIX/file-a/_index.md
+
+
+## (2) all folders containing referenced files
+
+## nothing in this case, as 'subdir/readme.md' would translate to 'PREFIX/_index.md', which
+## would overwrite the original 'readme.md' in the parent folder ('PREFIX/_index.md') ...
+
+
+## (3) all referenced figures
+
+PREFIX/a.png: img/a.png
+WEB_IMAGE_TARGETS += PREFIX/a.png
+
+PREFIX/file-a/b.png: subdir/img/b.png
+WEB_IMAGE_TARGETS += PREFIX/file-a/b.png
+
+PREFIX/file-a/c.png: subdir/img/c.png
+WEB_IMAGE_TARGETS += PREFIX/file-a/c.png
+```
+
+In this example we "remove" the subfolder 'subfolder' from the target hierarchy. Since the readme
+in this level would now overwrite the readme in the parent level, it will be skipped - as will all
+files in 'subfolder' with the same name as those in the parent level! Also potential links in
+'subfolder/readme.md' and other skipped files will not be analysed and considered! Subsequently,
+the build with Hugo can fail as the links are still in the files but the linked-to files are missing.
+
+
 Usage: This filter is intended to be used with individual files that are placed either directly
 in the working directory or in a subdirectory.
 Examples:
@@ -108,6 +153,7 @@ from scratch and is neither based on nor contains any third-party code.
 Caveats (see 'hugo_rewritelinks.lua'):
 (a) All referenced Markdown files must have UNIQUE NAMES.
 (b) References to the top index page (landing page) are (presumably) not working.
+(c) When warping, links in skipped files will not be analysed/considered.
 ]]--
 
 
@@ -124,8 +170,9 @@ local frontier_first = 0        -- first element in queue
 local frontier_last = -1        -- last element in queue
 local frontier_mem = {}         -- remember all enqueued links to reduce processing time
 
-local PREFIX = "."              -- string to prepend to the new locations, e.g. temporary folder (will be set from metadata)
 local INDEX_MD = "readme"       -- name of readme.md (will be set from metadata)
+local PREFIX = "."              -- string to prepend to the new locations, e.g. temporary folder (will be set from metadata)
+local WARP = nil                -- string to be removed from path, e.g. 'markdown'
 local ROOT = "."                -- absolute path to working directory when starting
 
 
@@ -144,14 +191,27 @@ local function _is_local_markdown_file_link (inline)
 end
 
 local function _prepend_include_path (path)
+    -- include path: current working directory, relative to project root
     local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
+    -- put everything together: include path and the given path
     return pandoc.path.normalize(pandoc.path.join({ include_path, path }))
 end
 
 local function _new_path (parent, file)
+    -- append the file name of path 'parent' as last folder to the current include path
+    -- when handling 'readme.md', we just get the current include path
     local parent, _ = pandoc.path.split_extension(pandoc.path.filename(parent))
     local name = (parent == INDEX_MD) and "." or parent
     local path = _prepend_include_path(name)
+
+    -- remove folder names if requested, e.g. remove 'markdown/' from the path 'include_path/(md_file?)'
+    if WARP and WARP ~= "" then
+        path = path:gsub(WARP.."/", "")
+    end
+
+    -- put everything together: PREFIX, current version of 'path' and the given file name
+    -- typically: 'PREFIX/include_path/(md_file?)/_index.md' for links
+    -- typically: 'PREFIX/include_path/(md_file?)/file(image_src)' for images
     return pandoc.path.normalize(pandoc.path.join({ PREFIX, path, file }))
 end
 
@@ -180,31 +240,26 @@ end
 
 
 -- store for each processed file the old and the new path
-local function _remember_file (target)
-    local old_target = target                           -- old link: include_path/target
-    local new_target = _new_path(target, "_index.md")   -- new link: PREFIX/include_path/(md_file?)/_index.md
-
+local function _remember_file (old_target, new_target)
     -- safe as PREFIX/include_path/(md_file?)/_index.md: include_path/target
-    if not links[old_target] then
-        weights[#weights + 1] = old_target
-        links[old_target] = new_target      -- store old target as key for convenience, otherwise we would need to calculate the new target already in '_filter_blocks_in_dir' ... (1 old_target : 1 new_target)
-    else
-        io.stderr:write("\t (_remember_file) WARNING: new path '" .. new_target .. "' (from '" .. old_target .. "') has been already processed ... THIS SHOULD NOT HAPPEN ... \n")
+    if not links[new_target] then
+        weights[#weights + 1] = new_target
+        links[new_target] = old_target      -- store new target as key because due to the "remove path parts" functionality the same resulting new file name can be constructed from different markdown files - we just keep the FIRST occurrence (n old_target => 1 new_target)
     end
 end
 
 -- store for each processed file the old and new image source
-local function _remember_image (image_src, target)
-    local old_image = _prepend_include_path(image_src)                      -- old src: include_path/image_src
-    local new_image = _new_path(target, pandoc.path.filename(image_src))    -- new src: PREFIX/include_path/(md_file?)/file(image_src)
+local function _remember_image (image_src, old_target, new_target)
+    local old_image = _prepend_include_path(image_src)                          -- old src: include_path/image_src
+    local new_image = _new_path(old_target, pandoc.path.filename(image_src))    -- new src: PREFIX/include_path/(md_file?)/file(image_src)
 
     -- safe as PREFIX/include_path/(md_file?)/file(image_src): include_path/image_src
     if not images[new_image] then
         img[#img + 1] = new_image       -- list: we want the same sequence for each run
-        images[new_image] = old_image   -- store new image src as key because the same image can be referenced by different markdown files and needs to be copied in all cases to the new locations (1 old_image : n new_image)
+        images[new_image] = old_image   -- store new image src as key because the same image can be referenced by different markdown files and needs to be copied in all cases to the new locations (1 old_image => n new_image)
 
         -- create a dependency for corresponding '_index.md'
-        link_img[target] = link_img[target] and (link_img[target] .. " " .. new_image) or (new_image)
+        link_img[new_target] = link_img[new_target] and (link_img[new_target] .. " " .. new_image) or (new_image)
     end
 end
 
@@ -215,12 +270,13 @@ local function _filter_blocks_in_dir (blocks, target)
             pandoc.path.directory(target),    -- may still contain '../'
             function ()
                 -- same as 'pandoc.path.directory(target)' but w/o '../' since Pandoc cd'ed here
-                local target = _prepend_include_path(pandoc.path.filename(target))
+                local old_target = _prepend_include_path(pandoc.path.filename(target))  -- old link: include_path/target
+                local new_target = _new_path(target, "_index.md")                       -- new link: PREFIX/include_path/(md_file?)/_index.md
 
                 -- if not already processed:
-                if not links[target] then
+                if not links[new_target] then
                     -- remember this file (path w/o '../')
-                    _remember_file(target)
+                    _remember_file(old_target, new_target)
 
                     -- enqueue local landing page of current path for later processing ("include_path/readme.md")
                     _enqueue(_prepend_include_path(INDEX_MD .. ".md"))
@@ -229,7 +285,7 @@ local function _filter_blocks_in_dir (blocks, target)
                     blocks:walk({
                         Image = function (image)
                             if _is_local_path(image.src) then
-                                _remember_image(image.src, target)
+                                _remember_image(image.src, old_target, new_target)
                             end
                         end,
                         Link = function (link)
@@ -270,12 +326,12 @@ end
 
 local function _emit_links ()
     local inlines = pandoc.List:new()
-    for weight, old_target in ipairs(weights) do
-        local new_target = links[old_target]
+    for weight, new_target in ipairs(weights) do
+        local old_target = links[new_target]
 
         inlines:insert(pandoc.RawInline("markdown", new_target .. ": " .. old_target .. "\n"))
-        if link_img[old_target] then
-            inlines:insert(pandoc.RawInline("markdown", new_target .. ": " .. link_img[old_target] .. "\n"))
+        if link_img[new_target] then
+            inlines:insert(pandoc.RawInline("markdown", new_target .. ": " .. link_img[new_target] .. "\n"))
         end
         inlines:insert(pandoc.RawInline("markdown", new_target .. ": WEIGHT=" .. weight .. "\n"))
         inlines:insert(pandoc.RawInline("markdown", "WEB_MARKDOWN_TARGETS += " .. new_target .. "\n\n"))
@@ -287,8 +343,9 @@ end
 -- main filter function
 function Pandoc (doc)
     -- init global vars using metadata: meta.prefix and meta.indexMD
-    PREFIX = doc.meta.prefix or "."                     -- if not set, use "." and do no harm
     INDEX_MD = doc.meta.indexMD or "readme"             -- we do need the name w/o extension
+    PREFIX = doc.meta.prefix or "."                     -- if not set, use "." and do no harm
+    WARP = doc.meta.warp or nil                         -- string to be removed from path, e.g. 'markdown'
     ROOT = pandoc.system.get_working_directory()        -- remember our project root
 
     -- get filename (input file)
