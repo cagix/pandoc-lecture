@@ -152,6 +152,12 @@ local function _new_path (parent, file)
     local parent, _ = pandoc.path.split_extension(pandoc.path.filename(parent))
     local name = (parent == INDEX_MD) and "." or parent
     local path = _prepend_include_path(name)
+
+
+--    local reduce = "leaf"
+--    local path = path:gsub(reduce.."/", "")
+
+
     return pandoc.path.normalize(pandoc.path.join({ PREFIX, path, file }))
 end
 
@@ -180,31 +186,28 @@ end
 
 
 -- store for each processed file the old and the new path
-local function _remember_file (target)
-    local old_target = target                           -- old link: include_path/target
-    local new_target = _new_path(target, "_index.md")   -- new link: PREFIX/include_path/(md_file?)/_index.md
-
+local function _remember_file (old_target, new_target)
     -- safe as PREFIX/include_path/(md_file?)/_index.md: include_path/target
-    if not links[old_target] then
-        weights[#weights + 1] = old_target
-        links[old_target] = new_target      -- store old target as key for convenience, otherwise we would need to calculate the new target already in '_filter_blocks_in_dir' ... (1 old_target : 1 new_target)
+    if not links[new_target] then
+        weights[#weights + 1] = new_target
+        links[new_target] = old_target      -- store new target as key because due to the "remove path parts" functionality the same resulting new file name can be constructed from different markdown files - we just keep the FIRST occurrence (n old_target => 1 new_target)
     else
         io.stderr:write("\t (_remember_file) WARNING: new path '" .. new_target .. "' (from '" .. old_target .. "') has been already processed ... THIS SHOULD NOT HAPPEN ... \n")
     end
 end
 
 -- store for each processed file the old and new image source
-local function _remember_image (image_src, target)
-    local old_image = _prepend_include_path(image_src)                      -- old src: include_path/image_src
-    local new_image = _new_path(target, pandoc.path.filename(image_src))    -- new src: PREFIX/include_path/(md_file?)/file(image_src)
+local function _remember_image (image_src, old_target, new_target)
+    local old_image = _prepend_include_path(image_src)                          -- old src: include_path/image_src
+    local new_image = _new_path(old_target, pandoc.path.filename(image_src))    -- new src: PREFIX/include_path/(md_file?)/file(image_src)
 
     -- safe as PREFIX/include_path/(md_file?)/file(image_src): include_path/image_src
     if not images[new_image] then
         img[#img + 1] = new_image       -- list: we want the same sequence for each run
-        images[new_image] = old_image   -- store new image src as key because the same image can be referenced by different markdown files and needs to be copied in all cases to the new locations (1 old_image : n new_image)
+        images[new_image] = old_image   -- store new image src as key because the same image can be referenced by different markdown files and needs to be copied in all cases to the new locations (1 old_image => n new_image)
 
         -- create a dependency for corresponding '_index.md'
-        link_img[target] = link_img[target] and (link_img[target] .. " " .. new_image) or (new_image)
+        link_img[new_target] = link_img[new_target] and (link_img[new_target] .. " " .. new_image) or (new_image)
     end
 end
 
@@ -215,12 +218,13 @@ local function _filter_blocks_in_dir (blocks, target)
             pandoc.path.directory(target),    -- may still contain '../'
             function ()
                 -- same as 'pandoc.path.directory(target)' but w/o '../' since Pandoc cd'ed here
-                local target = _prepend_include_path(pandoc.path.filename(target))
+                local old_target = _prepend_include_path(pandoc.path.filename(target))  -- old link: include_path/target
+                local new_target = _new_path(target, "_index.md")                       -- new link: PREFIX/include_path/(md_file?)/_index.md
 
                 -- if not already processed:
-                if not links[target] then
+                if not links[new_target] then
                     -- remember this file (path w/o '../')
-                    _remember_file(target)
+                    _remember_file(old_target, new_target)
 
                     -- enqueue local landing page of current path for later processing ("include_path/readme.md")
                     _enqueue(_prepend_include_path(INDEX_MD .. ".md"))
@@ -229,7 +233,7 @@ local function _filter_blocks_in_dir (blocks, target)
                     blocks:walk({
                         Image = function (image)
                             if _is_local_path(image.src) then
-                                _remember_image(image.src, target)
+                                _remember_image(image.src, old_target, new_target)
                             end
                         end,
                         Link = function (link)
@@ -270,12 +274,12 @@ end
 
 local function _emit_links ()
     local inlines = pandoc.List:new()
-    for weight, old_target in ipairs(weights) do
-        local new_target = links[old_target]
+    for weight, new_target in ipairs(weights) do
+        local old_target = links[new_target]
 
         inlines:insert(pandoc.RawInline("markdown", new_target .. ": " .. old_target .. "\n"))
-        if link_img[old_target] then
-            inlines:insert(pandoc.RawInline("markdown", new_target .. ": " .. link_img[old_target] .. "\n"))
+        if link_img[new_target] then
+            inlines:insert(pandoc.RawInline("markdown", new_target .. ": " .. link_img[new_target] .. "\n"))
         end
         inlines:insert(pandoc.RawInline("markdown", new_target .. ": WEIGHT=" .. weight .. "\n"))
         inlines:insert(pandoc.RawInline("markdown", "WEB_MARKDOWN_TARGETS += " .. new_target .. "\n\n"))
