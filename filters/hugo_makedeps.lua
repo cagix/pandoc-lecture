@@ -158,7 +158,7 @@ local function _new_path (parent, file)
     local name = (parent == INDEX_MD) and "." or parent
     local path = _prepend_include_path(name)
 
-    -- remove folder names if requested, e.g. remove 'markdown/' from the path
+    -- remove folder names if requested, e.g. remove 'markdown/' from the path 'include_path/(md_file?)'
     if WARP then
         path = path:gsub(WARP.."/", "")
     end
