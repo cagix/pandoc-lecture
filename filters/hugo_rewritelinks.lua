@@ -44,7 +44,8 @@ Caveats (see 'hugo_makedeps.lua'):
 
 
 -- vars
-INDEX_MD = "readme"     -- name of the readme.md files (w/o extension)
+local INDEX_MD = "readme"   -- name of the readme.md files (w/o extension)
+local WARP = nil            -- string to be removed from path, e.g. 'markdown'
 
 
 -- helper
@@ -77,15 +78,23 @@ local function _process_links (link)
     local content = pandoc.utils.stringify(link.content)
 
     if _is_local_markdown_file_link(link) then
+        -- remove folder names if requested, e.g. remove 'subdir/' from the target path
+        if WARP and WARP ~= "" then
+            target = target:gsub(WARP.."/", "")
+        end
+
+        -- get file name (w/o extension) and all parts of the path
         local dir = pandoc.path.split(pandoc.path.directory(target))        -- 'foo.md' => {'.'}; 'sub/foo.md' => {'sub'}; './sub/foo.md' => {'.', 'sub'};
         local name, _ = pandoc.path.split_extension(pandoc.path.filename(target))
 
+        -- resolve 'readme' to name of parent folder or "/"; use file name otherwise
         if name == INDEX_MD then
             target = (#dir >= 1 and dir[#dir] ~= ".") and dir[#dir] or "/"  -- readme.md: use parent folder or '/'
         else
             target = name                                                   -- ordinary file: use it's name w/o extension
         end
 
+        -- emit corresponding Hugo shortcode 'ref'
         return pandoc.RawInline('markdown', '[' .. content .. ']({{< ref "' .. target .. '" >}})')
     end
 end
@@ -93,8 +102,8 @@ end
 
 -- main filter function
 function Pandoc (doc)
-    -- name of the readme.md files (w/o extension): meta.indexMD
-    INDEX_MD = doc.meta.indexMD or "readme"
+    INDEX_MD = doc.meta.indexMD or "readme"     -- name of the readme.md files (w/o extension): meta.indexMD
+    WARP = doc.meta.warp or nil                 -- string to be removed from path, e.g. 'markdown'
 
     -- process all images and links
     return pandoc.Pandoc(doc.blocks:walk({ Image = _fix_img_src, Link = _process_links }), doc.meta)
