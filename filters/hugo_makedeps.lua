@@ -124,8 +124,9 @@ local frontier_first = 0        -- first element in queue
 local frontier_last = -1        -- last element in queue
 local frontier_mem = {}         -- remember all enqueued links to reduce processing time
 
-local PREFIX = "."              -- string to prepend to the new locations, e.g. temporary folder (will be set from metadata)
 local INDEX_MD = "readme"       -- name of readme.md (will be set from metadata)
+local PREFIX = "."              -- string to prepend to the new locations, e.g. temporary folder (will be set from metadata)
+local WARP = nil                -- string to be removed from path, e.g. 'markdown'
 local ROOT = "."                -- absolute path to working directory when starting
 
 
@@ -144,20 +145,27 @@ local function _is_local_markdown_file_link (inline)
 end
 
 local function _prepend_include_path (path)
+    -- include path: current working directory, relative to project root
     local include_path = pandoc.path.make_relative(pandoc.system.get_working_directory(), ROOT)
+    -- put everything together: include path and the given path
     return pandoc.path.normalize(pandoc.path.join({ include_path, path }))
 end
 
 local function _new_path (parent, file)
+    -- append the file name of path 'parent' as last folder to the current include path
+    -- when handling 'readme.md', we just get the current include path
     local parent, _ = pandoc.path.split_extension(pandoc.path.filename(parent))
     local name = (parent == INDEX_MD) and "." or parent
     local path = _prepend_include_path(name)
 
+    -- remove folder names if requested, e.g. remove 'markdown/' from the path
+    if WARP then
+        path = path:gsub(WARP.."/", "")
+    end
 
---    local reduce = "leaf"
---    local path = path:gsub(reduce.."/", "")
-
-
+    -- put everything together: PREFIX, current version of 'path' and the given file name
+    -- typically: 'PREFIX/include_path/(md_file?)/_index.md' for links
+    -- typically: 'PREFIX/include_path/(md_file?)/file(image_src)' for images
     return pandoc.path.normalize(pandoc.path.join({ PREFIX, path, file }))
 end
 
@@ -289,8 +297,9 @@ end
 -- main filter function
 function Pandoc (doc)
     -- init global vars using metadata: meta.prefix and meta.indexMD
-    PREFIX = doc.meta.prefix or "."                     -- if not set, use "." and do no harm
     INDEX_MD = doc.meta.indexMD or "readme"             -- we do need the name w/o extension
+    PREFIX = doc.meta.prefix or "."                     -- if not set, use "." and do no harm
+    WARP = doc.meta.warp or nil                         -- string to be removed from path, e.g. 'markdown'
     ROOT = pandoc.system.get_working_directory()        -- remember our project root
 
     -- get filename (input file)
