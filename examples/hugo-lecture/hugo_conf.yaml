@@ -31,6 +31,8 @@ params:
   disableMermaid: true
   themeVariant:
     - "auto"
+    - "zen-light"
+    - "zen-dark"
     - "relearn-light"
     - "relearn-dark"
     - "green"
