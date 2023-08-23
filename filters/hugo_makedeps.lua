@@ -204,7 +204,7 @@ local function _new_path (parent, file)
     local path = _prepend_include_path(name)
 
     -- remove folder names if requested, e.g. remove 'markdown/' from the path 'include_path/(md_file?)'
-    if WARP then
+    if WARP and WARP ~= "" then
         path = path:gsub(WARP.."/", "")
     end
 
