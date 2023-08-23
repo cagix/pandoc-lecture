@@ -26,6 +26,8 @@ test_rewritelinks: $(FILES_TRANSFORM)
 	    | $(DIFF) expected_rewritelinks3.native -
 	@$(PANDOC) -L $(LUA_REWRITELINKS) -M weight=42 -M indexMD="readme" -t native $^                    \
 	    | $(DIFF) expected_rewritelinks4.native -
+	@$(PANDOC) -L $(LUA_REWRITELINKS) -M warp="subdir" -t native $^                                    \
+	    | $(DIFF) expected_rewritelinks5.native -
 
 test_makedeps: $(FILES_MAKEDEPS1) $(FILES_MAKEDEPS2) $(FILES_MAKEDEPS3)
 	@$(PANDOC) -L $(LUA_MAKEDEPS) -t native $(FILES_MAKEDEPS1)                                         \
@@ -56,7 +58,7 @@ test_includemd: $(FILES_INCLUDEMD1) $(FILES_INCLUDEMD2) $(FILES_INCLUDEMD3) $(FI
 	    | $(DIFF) expected_inludemd4.native -
 
 
-expected: expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native
+expected: expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native expected_rewritelinks5.native
 expected_rewritelinks1.native: $(FILES_TRANSFORM)
 	$(PANDOC) -L $(LUA_REWRITELINKS) -t native -o $@ $^
 expected_rewritelinks2.native: $(FILES_TRANSFORM)
@@ -65,6 +67,8 @@ expected_rewritelinks3.native: $(FILES_TRANSFORM)
 	$(PANDOC) -L $(LUA_REWRITELINKS) -M indexMD="readme" -t native -o $@ $^
 expected_rewritelinks4.native: $(FILES_TRANSFORM)
 	$(PANDOC) -L $(LUA_REWRITELINKS) -M weight=42 -M indexMD="readme" -t native -o $@ $^
+expected_rewritelinks5.native: $(FILES_TRANSFORM)
+	$(PANDOC) -L $(LUA_REWRITELINKS) -M warp="subdir" -t native -o $@ $^
 
 expected: expected_makedeps1.native expected_makedeps2.native expected_makedeps3.native expected_makedeps4.native expected_makedeps5.native expected_makedeps6.native expected_makedeps7.native expected_makedeps8.native
 expected_makedeps1.native: $(FILES_MAKEDEPS1)
@@ -96,7 +100,7 @@ expected_inludemd4.native: $(FILES_INCLUDEMD4)
 
 
 clean:
-	rm -rf expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native
+	rm -rf expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native expected_rewritelinks5.native
 	rm -rf expected_makedeps1.native expected_makedeps2.native expected_makedeps3.native expected_makedeps4.native expected_makedeps5.native expected_makedeps6.native expected_makedeps7.native expected_makedeps8.native
 	rm -rf expected_inludemd1.native expected_inludemd2.native expected_inludemd3.native expected_inludemd4.native
 
