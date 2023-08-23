@@ -191,8 +191,6 @@ local function _remember_file (old_target, new_target)
     if not links[new_target] then
         weights[#weights + 1] = new_target
         links[new_target] = old_target      -- store new target as key because due to the "remove path parts" functionality the same resulting new file name can be constructed from different markdown files - we just keep the FIRST occurrence (n old_target => 1 new_target)
-    else
-        io.stderr:write("\t (_remember_file) WARNING: new path '" .. new_target .. "' (from '" .. old_target .. "') has been already processed ... THIS SHOULD NOT HAPPEN ... \n")
     end
 end
 
