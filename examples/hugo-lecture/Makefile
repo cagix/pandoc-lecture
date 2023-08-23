@@ -54,6 +54,9 @@ HUGO_LOCAL = $(wildcard local.yaml)
 INDEX_MD   = readme
 ROOT_DOC   = $(INDEX_MD).md
 
+## String to be removed from target path, e.g. 'markdown'
+WARP_DIR   =
+
 #--------------------------------------------------------------------------------
 # Tools
 #--------------------------------------------------------------------------------
@@ -139,7 +142,7 @@ WEIGHT                  =
 WEB_IMAGE_TARGETS       =
 
 $(ROOT_DEPS): $(ROOT_DOC)
-	@$(PANDOC) $(PANDOC_ARGS) -L hugo_makedeps.lua -M prefix=$(TEMP_DIR) -M indexMD=$(INDEX_MD) -f markdown -t markdown $< -o $@
+	@$(PANDOC) $(PANDOC_ARGS) -L hugo_makedeps.lua -M indexMD=$(INDEX_MD) -M prefix=$(TEMP_DIR) -M warp=$(WARP_DIR) -f markdown -t markdown $< -o $@
 -include $(ROOT_DEPS)
 
 #--------------------------------------------------------------------------------
@@ -245,8 +248,8 @@ $(WEB_IMAGE_TARGETS):
 ## Hugo: Process markdown with pandoc (preprocessing for hugo)
 $(WEB_MARKDOWN_TARGETS):
 	$(create-folder)
-	$(PANDOC) $(PANDOC_ARGS)  -L hugo_rewritelinks.lua -s  -d hugo -M weight=$(WEIGHT) -M indexMD=$(INDEX_MD) -M prefix=$(TEMP_DIR) $< -o $@
-#	$(PANDOC) $(PANDOC_ARGS) -d hugo -M weight=$(WEIGHT) -M indexMD=$(INDEX_MD) -M prefix=$(TEMP_DIR) $< -o $@
+	$(PANDOC) $(PANDOC_ARGS)  -L hugo_rewritelinks.lua -s  -d hugo -M weight=$(WEIGHT) -M indexMD=$(INDEX_MD) $< -o $@
+#	$(PANDOC) $(PANDOC_ARGS) -d hugo -M weight=$(WEIGHT) -M indexMD=$(INDEX_MD) $< -o $@
 
 ## Slides: Generate pdf slides
 ## Folder structure and names: path/name.md, path/<images>/, path_name.pdf
