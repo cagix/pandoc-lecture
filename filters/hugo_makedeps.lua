@@ -133,7 +133,7 @@ WEB_IMAGE_TARGETS += PREFIX/file-a/c.png
 In this example we "remove" the subfolder 'subfolder' from the target hierarchy. Since the readme
 in this level would now overwrite the readme in the parent level, it will be skipped - as will all
 files in 'subfolder' with the same name as those in the parent level! Also potential links in
-'subfolder/readme.md' will not be analysed and considered!
+'subfolder/readme.md' and other skipped files will not be analysed and considered!
 
 
 Usage: This filter is intended to be used with individual files that are placed either directly
