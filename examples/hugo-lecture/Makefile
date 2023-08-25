@@ -234,12 +234,14 @@ $(READINGS): $(BIBTEX)
 	$(PANDOC) -s -f biblatex -t markdown $< -o $@
 
 ## Aux: Create images from tex files
-$(TEX_TARGETS): %.png: %.tex
-	$(LATEX) $(LATEX_ARGS) $(notdir $<)
+## uncomment to convert .tex to .png
+#$(TEX_TARGETS): %.png: %.tex
+#	$(LATEX) $(LATEX_ARGS) $(notdir $<)
 
 ## Aux: Create images from dot files
-$(DOT_TARGETS): %.png: %.dot
-	$(DOT) $(DOT_ARGS) $< -o $@
+## uncomment to convert .dot to .png
+#$(DOT_TARGETS): %.png: %.dot
+#	$(DOT) $(DOT_ARGS) $< -o $@
 
 ## Hugo: Copy image files to $(TEMP_DIR)
 $(WEB_IMAGE_TARGETS):
