@@ -352,8 +352,8 @@ function Pandoc (doc)
     local input_files = PANDOC_STATE.input_files
     local file = #input_files >= 1 and input_files[#input_files] or "."
 
-    -- landing page: process all images and links
-    _handle_file(file)
+    -- enqueue landing page for processing
+    _enqueue(_prepend_include_path(file))
 
     -- process files recursively: breadth-first search
     local target = _dequeue()
