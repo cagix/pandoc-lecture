@@ -284,7 +284,7 @@ local function _filter_blocks_in_dir (blocks, target)
             pandoc.path.directory(target),    -- may still contain '../'
             function ()
                 -- when processing the start file: remember the level of it's subdir(s) relative to project root
-                -- "a/b/readme.md" => remember "a/b" to avoid trying to include 'readme.md' files above this level (except directly linked)
+                -- "a/b/readme.md" => remember "a/b" to avoid trying to include 'readme.md' files above this level (except when directly linked to)
                 if LEVEL_STARTFILE == nil then
                     LEVEL_STARTFILE = _prepend_include_path(".")
                 end
