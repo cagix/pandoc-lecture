@@ -176,6 +176,7 @@ local WARP = nil                -- string to be removed from path, e.g. 'markdow
 local ROOT = "."                -- absolute path to working directory when starting
 local LEVEL_STARTFILE = nil     -- remember subdir(s) of landing page/start file
 
+
 -- helper
 local function _is_local_path (path)
     return pandoc.path.is_relative(path) and    -- is relative path
