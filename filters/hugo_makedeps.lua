@@ -201,7 +201,7 @@ local function _new_path (parent, file)
     -- append the file name of path 'parent' as last folder to the current include path
     -- when handling 'readme.md', we just get the current include path
     local parent, _ = pandoc.path.split_extension(pandoc.path.filename(parent))
-    local name = (parent == INDEX_MD) and "." or parent
+    local name = (parent == INDEX_MD) and "" or parent
     local path = _prepend_include_path(name)
 
     -- remove folder names if requested, e.g. remove 'markdown/' from the path 'include_path/(md_file?)'
@@ -350,7 +350,7 @@ function Pandoc (doc)
 
     -- get filename (input file)
     local input_files = PANDOC_STATE.input_files
-    local file = #input_files >= 1 and input_files[#input_files] or "."
+    local file = #input_files >= 1 and input_files[#input_files] or ""
 
     -- enqueue landing page for processing
     _enqueue(_prepend_include_path(file))
