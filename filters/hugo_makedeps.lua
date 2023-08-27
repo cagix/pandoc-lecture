@@ -174,6 +174,7 @@ local INDEX_MD = "readme"       -- name of readme.md (will be set from metadata)
 local PREFIX = "."              -- string to prepend to the new locations, e.g. temporary folder (will be set from metadata)
 local WARP = nil                -- string to be removed from path, e.g. 'markdown'
 local ROOT = "."                -- absolute path to working directory when starting
+local LEVEL_STARTFILE = nil     -- remember subdir(s) of landing page/start file
 
 
 -- helper
@@ -238,6 +239,19 @@ local function _dequeue ()
     return path
 end
 
+-- enqueue local landing page(s) of current target for later processing ("include_path/readme.md")
+local function _enqueue_landingpages (target)
+    -- if target = 'a/b/c/d/foo.md' and the start file was 'a/b/readme.md', we should consider only the 'c/d/' part here
+    local path = pandoc.path.directory(pandoc.path.make_relative(target, LEVEL_STARTFILE))
+
+    -- do this for all sub-folders in path, i.e. for a path 'a/b/c' enqueue 'a/b/c/readme.md', 'a/b/readme.md',
+    -- and 'a/readme.md'; do not enqueue 'readme.md' to save time: the start file has been processed already
+    while path ~= "." do
+        _enqueue(pandoc.path.normalize(pandoc.path.join({ LEVEL_STARTFILE, path, INDEX_MD .. ".md" })))
+        path = pandoc.path.directory(path)      -- removes the last directory separator and everything after
+    end
+end
+
 
 -- store for each processed file the old and the new path
 local function _remember_file (old_target, new_target)
@@ -269,6 +283,12 @@ local function _filter_blocks_in_dir (blocks, target)
     pandoc.system.with_working_directory(
             pandoc.path.directory(target),    -- may still contain '../'
             function ()
+                -- when processing the start file: remember the level of its subdir(s) relative to project root
+                -- "a/b/readme.md" => remember "a/b" to avoid trying to include 'readme.md' files above this level (except when directly linked to)
+                if LEVEL_STARTFILE == nil then
+                    LEVEL_STARTFILE = _prepend_include_path(".")
+                end
+
                 -- same as 'pandoc.path.directory(target)' but w/o '../' since Pandoc cd'ed here
                 local old_target = _prepend_include_path(pandoc.path.filename(target))  -- old link: include_path/target
                 local new_target = _new_path(target, "_index.md")                       -- new link: PREFIX/include_path/(md_file?)/_index.md
@@ -277,9 +297,6 @@ local function _filter_blocks_in_dir (blocks, target)
                 if not links[new_target] then
                     -- remember this file (path w/o '../')
                     _remember_file(old_target, new_target)
-
-                    -- enqueue local landing page of current path for later processing ("include_path/readme.md")
-                    _enqueue(_prepend_include_path(INDEX_MD .. ".md"))
 
                     -- collect and enqueue all new images and links in current file 'include_path/target'
                     blocks:walk({
@@ -290,7 +307,9 @@ local function _filter_blocks_in_dir (blocks, target)
                         end,
                         Link = function (link)
                             if _is_local_markdown_file_link(link) then
-                                _enqueue(_prepend_include_path(link.target))
+                                local target = _prepend_include_path(link.target)
+                                _enqueue_landingpages(target)
+                                _enqueue(target)
                             end
                         end
                     })
@@ -352,8 +371,8 @@ function Pandoc (doc)
     local input_files = PANDOC_STATE.input_files
     local file = #input_files >= 1 and input_files[#input_files] or "."
 
-    -- landing page: process all images and links
-    _handle_file(file)
+    -- enqueue landing page for processing
+    _enqueue(_prepend_include_path(file))
 
     -- process files recursively: breadth-first search
     local target = _dequeue()
