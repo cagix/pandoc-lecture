@@ -2,6 +2,7 @@
 archetype: lecture-cg
 title: "Problemlösen"
 author: "Carsten Gips (HSBI)"
+notes: "this is a copy from https://github.com/Artificial-Intelligence-HSBI-TDU/KI-Vorlesung/blob/master/lecture/intro/problems.md"
 readings:
   - key: "Russell2020"
     comment: "Problemlösen: Kapitel 3.1 - 3.3"
