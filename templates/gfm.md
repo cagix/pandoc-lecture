@@ -1,5 +1,7 @@
 $-- custom template to structure the GFM exports
 
+$-- pandoc --template=templates/gfm.md -t gfm examples/gfm/problems.md
+
 $if(title)$
 # $title$
 $endif$
@@ -116,6 +118,15 @@ $if(challenges)$
 $challenges$
 
 </details>
+$endif$
+
+
+$if(challenges)$
+`{{% notice style="info" title="Challenges" icon="fas fa-book-reader" %}}`{=markdown}
+
+$challenges$
+
+`{{% /notice %}}`{=markdown}
 $endif$
 
 
