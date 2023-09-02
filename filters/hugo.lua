@@ -62,6 +62,20 @@ function Image(el)
 end
 
 
+-- remove attributes from code blocks as hugo won't do syntax highlighting if attributes are present
+function CodeBlock(el)
+    el.attributes = {}
+    return el
+end
+
+
+-- remove classes and other attributes from inline code as hugo won't do syntax highlighting if attributes are present
+function Code(el)
+    el.attr = {}
+    return el
+end
+
+
 -- Replace native Divs with "real" Divs or Shortcodes
 function Div(el)
     -- Replace "showme" Div with "expand" Shortcode

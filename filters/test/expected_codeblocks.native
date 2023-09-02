@@ -1,0 +1,29 @@
+[ Para [ Str "wuppie" , Space , Str "fluppie" ]
+, CodeBlock ( "" , [ "java" ] , [] ) "class Foo {}"
+, Para [ Str "foo" , Space , Str "bar" ]
+, CodeBlock
+    ( "" , [ "haskell" ] , [] )
+    "class Monad m where\n    (>>=) :: m a -> (a -> m b) -> m b\n    return :: a -> m a"
+, Para [ Str "lorem" , Space , Str "ipsum" ]
+, Para
+    [ Code ( "" , [] , [] ) "void"
+    , Space
+    , Str "is"
+    , Space
+    , Str "to"
+    , Space
+    , Str "be"
+    , Space
+    , Str "expected."
+    ]
+, Para
+    [ Code ( "" , [] , [] ) "void"
+    , Str ":"
+    , Space
+    , Str "same"
+    , Space
+    , Str "but"
+    , Space
+    , Str "highlighting."
+    ]
+]
