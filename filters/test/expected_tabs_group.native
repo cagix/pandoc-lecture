@@ -1,0 +1,242 @@
+[ Header
+    3
+    ( "vorlesung-2-sws" , [] , [] )
+    [ Str "Vorlesung:" , Space , Str "2" , Space , Str "SWS" ]
+, RawBlock
+    (Format "markdown") "{{< tabs groupid=\"hochschule\" >}}"
+, RawBlock (Format "markdown") "{{% tab  %}}"
+, Table
+    ( "" , [] , [] )
+    (Caption Nothing [])
+    [ ( AlignLeft , ColWidthDefault )
+    , ( AlignLeft , ColWidthDefault )
+    ]
+    (TableHead
+       ( "" , [] , [] )
+       [ Row
+           ( "" , [] , [] )
+           [ Cell
+               ( "" , [] , [] )
+               AlignDefault
+               (RowSpan 1)
+               (ColSpan 1)
+               [ Plain
+                   [ Str "09.10.23"
+                   , Space
+                   , Str "-"
+                   , Space
+                   , Str "27.10.23"
+                   ]
+               ]
+           , Cell
+               ( "" , [] , [] )
+               AlignDefault
+               (RowSpan 1)
+               (ColSpan 1)
+               [ Plain
+                   [ Str "30.10.23"
+                   , Space
+                   , Str "-"
+                   , Space
+                   , Str "26.01.24"
+                   ]
+               ]
+           ]
+       ])
+    [ TableBody
+        ( "" , [] , [] )
+        (RowHeadColumns 0)
+        []
+        [ Row
+            ( "" , [] , [] )
+            [ Cell
+                ( "" , [] , [] )
+                AlignDefault
+                (RowSpan 1)
+                (ColSpan 1)
+                [ Plain
+                    [ Str "Mo,"
+                    , Space
+                    , Str "10:00"
+                    , Space
+                    , Str "-"
+                    , Space
+                    , Str "11:30"
+                    , Space
+                    , Str "Uhr"
+                    , Space
+                    , Str "(DE)"
+                    ]
+                ]
+            , Cell
+                ( "" , [] , [] )
+                AlignDefault
+                (RowSpan 1)
+                (ColSpan 1)
+                [ Plain
+                    [ Str "Mo,"
+                    , Space
+                    , Str "09:00"
+                    , Space
+                    , Str "-"
+                    , Space
+                    , Str "10:30"
+                    , Space
+                    , Str "Uhr"
+                    , Space
+                    , Str "(DE)"
+                    ]
+                ]
+            ]
+        , Row
+            ( "" , [] , [] )
+            [ Cell
+                ( "" , [] , [] )
+                AlignDefault
+                (RowSpan 1)
+                (ColSpan 1)
+                [ Plain [ Str "online/XXXX" ] ]
+            , Cell
+                ( "" , [] , [] )
+                AlignDefault
+                (RowSpan 1)
+                (ColSpan 1)
+                [ Plain [ Str "online/XXXX" ] ]
+            ]
+        ]
+    ]
+    (TableFoot ( "" , [] , [] ) [])
+, Para
+    [ Str "Durchf\252hrung"
+    , Space
+    , Str "als"
+    , Space
+    , Strong [ Str "Flipped" , Space , Str "Classroom" ]
+    , Str ":"
+    , Space
+    , Str "Sitzungen"
+    , Space
+    , Str "per"
+    , Space
+    , Str "Zoom"
+    , Space
+    , Str "("
+    , Strong
+        [ Str "Zugangsdaten"
+        , Space
+        , Str "siehe"
+        , Space
+        , Str "[ILIAS]"
+        ]
+    , Str ")"
+    ]
+, RawBlock (Format "markdown") "{{% /tab %}}"
+, RawBlock (Format "markdown") "{{% tab  %}}"
+, Table
+    ( "" , [] , [] )
+    (Caption Nothing [])
+    [ ( AlignLeft , ColWidthDefault ) ]
+    (TableHead
+       ( "" , [] , [] )
+       [ Row
+           ( "" , [] , [] )
+           [ Cell
+               ( "" , [] , [] )
+               AlignDefault
+               (RowSpan 1)
+               (ColSpan 1)
+               [ Plain
+                   [ Str "18.09.23"
+                   , Space
+                   , Str "-"
+                   , Space
+                   , Str "22.12.23"
+                   ]
+               ]
+           ]
+       ])
+    [ TableBody
+        ( "" , [] , [] )
+        (RowHeadColumns 0)
+        []
+        [ Row
+            ( "" , [] , [] )
+            [ Cell
+                ( "" , [] , [] )
+                AlignDefault
+                (RowSpan 1)
+                (ColSpan 1)
+                [ Plain
+                    [ Str "Mo,"
+                    , Space
+                    , Str "11:00"
+                    , Space
+                    , Str "-"
+                    , Space
+                    , Str "12:30"
+                    , Space
+                    , Str "Uhr"
+                    , Space
+                    , Str "(TR)"
+                    ]
+                ]
+            ]
+        , Row
+            ( "" , [] , [] )
+            [ Cell
+                ( "" , [] , [] )
+                AlignDefault
+                (RowSpan 1)
+                (ColSpan 1)
+                [ Plain [ Str "online" ] ]
+            ]
+        ]
+    ]
+    (TableFoot ( "" , [] , [] ) [])
+, Para
+    [ Str "Durchf\252hrung"
+    , Space
+    , Str "als"
+    , Space
+    , Strong [ Str "Flipped" , Space , Str "Classroom" ]
+    , Str ":"
+    , Space
+    , Str "Sitzungen"
+    , Space
+    , Str "per"
+    , Space
+    , Str "Zoom"
+    , Space
+    , Str "("
+    , Strong
+        [ Str "Zugangsdaten"
+        , Space
+        , Str "siehe"
+        , Space
+        , Str "[Moodle]"
+        ]
+    , Str ")"
+    ]
+, RawBlock (Format "markdown") "{{% /tab %}}"
+, RawBlock (Format "markdown") "{{< /tabs >}}"
+, Header
+    3
+    ( "praktikum\252bung-2-sws" , [] , [] )
+    [ Str "Praktikum/\220bung:"
+    , Space
+    , Str "2"
+    , Space
+    , Str "SWS"
+    ]
+, Para
+    [ Str "foo"
+    , Space
+    , Str "bar"
+    , Space
+    , Str "wuppie"
+    , Space
+    , Str "fluppie"
+    , Space
+    , Str "42"
+    ]
+]
