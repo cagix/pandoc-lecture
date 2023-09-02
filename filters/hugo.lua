@@ -80,6 +80,24 @@ function Div(el)
             { pandoc.RawBlock("markdown", "{{% /button %}}"), pandoc.RawBlock("markdown", "</div>") }
     end
 
+    -- Replace "tabs" Div with "tabs" Shortcode (may have a 'groupid')
+    if el.classes[1] == "tabs" then
+        local groupid = el.attributes["groupid"] and ('groupid="' .. el.attributes["groupid"] .. '"') or ""
+        return
+            { pandoc.RawBlock("markdown", '{{< tabs ' .. groupid .. ' >}}') } ..
+            el.content ..
+            { pandoc.RawBlock("markdown", "{{< /tabs >}}") }
+    end
+
+    -- Replace "tab" Div with "tab" Shortcode (may have a 'title')
+    if el.classes[1] == "tab" then
+        local title = el.attributes["title"] and ('title="' .. el.attributes["title"] .. '"') or ""
+        return
+            { pandoc.RawBlock("markdown", '{{% tab ' .. title .. ' %}}'), pandoc.Para() } ..
+            el.content ..
+            { pandoc.Para(), pandoc.RawBlock("markdown", "{{% /tab %}}") }
+    end
+
     -- Transform all other native Divs to "real" Divs digestible to Hugo
     return
         { pandoc.RawBlock("markdown", "<div class='" .. el.classes[1] .. "'>") } ..
