@@ -15,7 +15,7 @@ LUA_MAKEDEPS     = ../hugo_makedeps.lua
 LUA_INCLUDEMD    = ../include_mdfiles.lua
 
 
-test: test_rewritelinks test_makedeps test_includemd test_tabs
+test: test_rewritelinks test_makedeps test_includemd test_tabs test_code
 
 test_rewritelinks: $(FILES_TRANSFORM)
 	@$(PANDOC) -L $(LUA_REWRITELINKS) -t native $^                                                     \
@@ -64,6 +64,10 @@ test_tabs: tabs_plain.md tabs_group.md tabs_title.md
 	    | $(DIFF) expected_tabs_group.native -
 	@$(PANDOC) -L ../hugo.lua -t native tabs_title.md                                                  \
 	    | $(DIFF) expected_tabs_title.native -
+
+test_code: codeblocks.md
+	@$(PANDOC) -L ../hugo.lua -t native codeblocks.md                                                  \
+	    | $(DIFF) expected_codeblocks.native -
 
 
 expected: expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native expected_rewritelinks5.native
@@ -114,11 +118,16 @@ expected_tabs_group.native: tabs_group.md
 expected_tabs_title.native: tabs_title.md
 	$(PANDOC) -L ../hugo.lua -t native -o $@ $^
 
+expected: expected_codeblocks.native
+expected_codeblocks.native: codeblocks.md
+	$(PANDOC) -L ../hugo.lua -t native -o $@ $^
+
 
 clean:
 	rm -rf expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native expected_rewritelinks5.native
 	rm -rf expected_makedeps1.native expected_makedeps2.native expected_makedeps3.native expected_makedeps4.native expected_makedeps5.native expected_makedeps6.native expected_makedeps7.native expected_makedeps8.native
 	rm -rf expected_inludemd1.native expected_inludemd2.native expected_inludemd3.native expected_inludemd4.native
 	rm -rf expected_tabs_plain.native expected_tabs_group.native expected_tabs_title.native
+	rm -rf expected_codeblocks.native
 
-.PHONY: test test_rewritelinks test_makedeps test_includemd test_tabs expected clean
+.PHONY: test test_rewritelinks test_makedeps test_includemd test_tabs test_code expected clean
