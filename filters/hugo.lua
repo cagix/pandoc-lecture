@@ -93,9 +93,9 @@ function Div(el)
     if el.classes[1] == "tab" then
         local title = el.attributes["title"] and ('title="' .. el.attributes["title"] .. '"') or ""
         return
-            { pandoc.RawBlock("markdown", '{{% tab ' .. title .. ' %}}'), pandoc.Para() } ..
+            { pandoc.RawBlock("markdown", '{{% tab ' .. title .. ' %}}') } ..
             el.content ..
-            { pandoc.Para(), pandoc.RawBlock("markdown", "{{% /tab %}}") }
+            { pandoc.RawBlock("markdown", "{{% /tab %}}") }
     end
 
     -- Transform all other native Divs to "real" Divs digestible to Hugo
