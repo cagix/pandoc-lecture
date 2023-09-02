@@ -62,7 +62,7 @@ function Image(el)
 end
 
 
--- remove attributes from code block as hugo won't do syntax highlighting if attributes are present
+-- remove attributes from code blocks as hugo won't do syntax highlighting if attributes are present
 function CodeBlock(el)
     el.attributes = {}
     return el
