@@ -148,7 +148,7 @@ jobs:
   slides:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: cagix/pandoc-lecture@master
         with:
@@ -166,7 +166,7 @@ jobs:
   hugo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: cagix/pandoc-lecture@master
         with:
