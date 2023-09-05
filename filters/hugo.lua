@@ -121,16 +121,28 @@ end
 
 -- Replace native Spans with "real" Spans or Shortcodes
 function Span(el)
-    -- Replace "bsp" span with "button" shortcode
+    -- Replace "bsp" span with "button" shortcode (if URL) or "badge" shortcode (if no URL)
     -- Use key/value pair "href=..." in span as href parameter in shortcode
     if el.classes[1] == "bsp" then
-        return {
-            pandoc.RawInline('markdown', '<div style="text-align: right;">'),
-            pandoc.RawInline('markdown', '{{% button style="btn-crossreference" href="' .. (el.attributes["href"] or "") .. '" %}}')
-        } .. el.content .. {
-            pandoc.RawInline('markdown', '{{% /button %}}'),
-            pandoc.RawInline('markdown', '</div>')
-        }
+        if el.attributes["href"] then
+            -- we've got an URL - make it a button (interactive)
+            return {
+                pandoc.RawInline('markdown', '<div style="text-align: right;">'),
+                pandoc.RawInline('markdown', '{{% button style="default" href="' .. el.attributes["href"] .. '" %}}')
+            } .. el.content .. {
+                pandoc.RawInline('markdown', '{{% /button %}}'),
+                pandoc.RawInline('markdown', '</div>')
+            }
+        else
+            -- no URL - make it a badge (non-interactive)
+            return {
+                pandoc.RawInline('markdown', '<div style="text-align: right;">'),
+                pandoc.RawInline('markdown', '{{% badge style="default" %}}')
+            } .. el.content .. {
+                pandoc.RawInline('markdown', '{{% /badge %}}'),
+                pandoc.RawInline('markdown', '</div>')
+            }
+        end
     end
 
     -- Transform all other native Spans to "real" Spans digestible to Hugo

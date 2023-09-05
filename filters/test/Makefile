@@ -15,7 +15,7 @@ LUA_MAKEDEPS     = ../hugo_makedeps.lua
 LUA_INCLUDEMD    = ../include_mdfiles.lua
 
 
-test: test_rewritelinks test_makedeps test_includemd test_tabs test_code
+test: test_rewritelinks test_makedeps test_includemd test_tabs test_code test_bsp
 
 test_rewritelinks: $(FILES_TRANSFORM)
 	@$(PANDOC) -L $(LUA_REWRITELINKS) -t native $^                                                     \
@@ -68,6 +68,10 @@ test_tabs: tabs_plain.md tabs_group.md tabs_title.md
 test_code: codeblocks.md
 	@$(PANDOC) -L ../hugo.lua -t native codeblocks.md                                                  \
 	    | $(DIFF) expected_codeblocks.native -
+
+test_bsp: bsp_span.md
+	@$(PANDOC) -L ../hugo.lua -t native bsp_span.md                                                    \
+	    | $(DIFF) expected_bsp_span.native -
 
 
 expected: expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native expected_rewritelinks5.native
@@ -122,6 +126,10 @@ expected: expected_codeblocks.native
 expected_codeblocks.native: codeblocks.md
 	$(PANDOC) -L ../hugo.lua -t native -o $@ $^
 
+expected: expected_bsp_span.native
+expected_bsp_span.native: bsp_span.md
+	$(PANDOC) -L ../hugo.lua -t native -o $@ $^
+
 
 clean:
 	rm -rf expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native expected_rewritelinks5.native
@@ -129,5 +137,6 @@ clean:
 	rm -rf expected_inludemd1.native expected_inludemd2.native expected_inludemd3.native expected_inludemd4.native
 	rm -rf expected_tabs_plain.native expected_tabs_group.native expected_tabs_title.native
 	rm -rf expected_codeblocks.native
+	rm -rf expected_bsp_span.native
 
-.PHONY: test test_rewritelinks test_makedeps test_includemd test_tabs test_code expected clean
+.PHONY: test test_rewritelinks test_makedeps test_includemd test_tabs test_code test_bsp expected clean

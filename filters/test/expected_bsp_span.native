@@ -1,0 +1,100 @@
+[ Header 2 ( "vorlesung" , [] , [] ) [ Str "Vorlesung" ]
+, Para
+    [ RawInline
+        (Format "markdown") "<div style=\"text-align: right;\">"
+    , RawInline
+        (Format "markdown") "{{% badge style=\"default\" %}}"
+    , Str "Badge"
+    , Space
+    , Str "(non-interactive)"
+    , RawInline (Format "markdown") "{{% /badge %}}"
+    , RawInline (Format "markdown") "</div>"
+    ]
+, Para
+    [ RawInline
+        (Format "markdown") "<div style=\"text-align: right;\">"
+    , RawInline
+        (Format "markdown")
+        "{{% button style=\"default\" href=\"https://github.com/cagix/pandoc-lecture/pull/171\" %}}"
+    , Str "Button"
+    , Space
+    , Str "(interactive)"
+    , RawInline (Format "markdown") "{{% /button %}}"
+    , RawInline (Format "markdown") "</div>"
+    ]
+, Para
+    [ Str "Durchf\252hrung"
+    , Space
+    , Str "als"
+    , Space
+    , Strong [ Str "Flipped" , Space , Str "Classroom" ]
+    , Str ":"
+    , Space
+    , Str "Sitzungen"
+    , Space
+    , Str "per"
+    , Space
+    , Str "Zoom"
+    , Space
+    , Str "("
+    , Strong
+        [ Str "Zugangsdaten"
+        , Space
+        , Str "siehe"
+        , Space
+        , Str "[ILIAS]"
+        ]
+    , Str ")"
+    ]
+, Para
+    [ RawInline
+        (Format "markdown") "<div style=\"text-align: right;\">"
+    , RawInline
+        (Format "markdown") "{{% badge style=\"default\" %}}"
+    , Strong [ Str "Badge" ]
+    , Space
+    , Str "("
+    , Emph [ Str "non-interactive" ]
+    , Str ")"
+    , RawInline (Format "markdown") "{{% /badge %}}"
+    , RawInline (Format "markdown") "</div>"
+    ]
+, Para
+    [ RawInline
+        (Format "markdown") "<div style=\"text-align: right;\">"
+    , RawInline
+        (Format "markdown")
+        "{{% button style=\"default\" href=\"https://github.com/cagix/pandoc-lecture/pull/171\" %}}"
+    , Strong [ Str "Button" ]
+    , Space
+    , Str "("
+    , Emph [ Str "interactive" ]
+    , Str ")"
+    , RawInline (Format "markdown") "{{% /button %}}"
+    , RawInline (Format "markdown") "</div>"
+    ]
+, Para
+    [ Str "Durchf\252hrung"
+    , Space
+    , Str "als"
+    , Space
+    , Strong [ Str "Flipped" , Space , Str "Classroom" ]
+    , Str ":"
+    , Space
+    , Str "Sitzungen"
+    , Space
+    , Str "per"
+    , Space
+    , Str "Zoom"
+    , Space
+    , Str "("
+    , Strong
+        [ Str "Zugangsdaten"
+        , Space
+        , Str "siehe"
+        , Space
+        , Str "[Moodle]"
+        ]
+    , Str ")"
+    ]
+]
