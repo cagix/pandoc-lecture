@@ -86,12 +86,12 @@ function Div(el)
             { pandoc.RawBlock("markdown", "{{% /expand %}}") }
     end
 
-    -- Replace "cbox" Div with centered "button" Shortcode
+    -- Replace "cbox" Div with centered "badge" Shortcode (non-interactive)
     if el.classes[1] == "cbox" then
         return
-            { pandoc.RawBlock("markdown", '<div style="text-align:center;">'), pandoc.RawBlock("markdown", '{{% button style="primary" %}}') } ..
+            { pandoc.RawBlock("markdown", '<div style="text-align:center;">'), pandoc.RawBlock("markdown", '{{% badge style="primary" %}}') } ..
             el.content ..
-            { pandoc.RawBlock("markdown", "{{% /button %}}"), pandoc.RawBlock("markdown", "</div>") }
+            { pandoc.RawBlock("markdown", "{{% /badge %}}"), pandoc.RawBlock("markdown", "</div>") }
     end
 
     -- Replace "tabs" Div with "tabs" Shortcode (may have a 'groupid')
