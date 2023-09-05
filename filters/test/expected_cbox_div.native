@@ -1,0 +1,98 @@
+[ Header 2 ( "vorlesung" , [] , [] ) [ Str "Vorlesung" ]
+, RawBlock
+    (Format "markdown") "<div style=\"text-align:center;\">"
+, RawBlock
+    (Format "markdown") "{{% badge style=\"primary\" %}}"
+, Para
+    [ Str "A"
+    , Space
+    , Str "simple"
+    , Space
+    , Str "text"
+    , Space
+    , Str "to"
+    , Space
+    , Str "be"
+    , Space
+    , Str "centred"
+    , Space
+    , Str "and"
+    , Space
+    , Str "accentuated"
+    ]
+, RawBlock (Format "markdown") "{{% /badge %}}"
+, RawBlock (Format "markdown") "</div>"
+, Para
+    [ Str "Durchf\252hrung"
+    , Space
+    , Str "als"
+    , Space
+    , Strong [ Str "Flipped" , Space , Str "Classroom" ]
+    , Str ":"
+    , Space
+    , Str "Sitzungen"
+    , Space
+    , Str "per"
+    , Space
+    , Str "Zoom"
+    , Space
+    , Str "("
+    , Strong
+        [ Str "Zugangsdaten"
+        , Space
+        , Str "siehe"
+        , Space
+        , Str "[ILIAS]"
+        ]
+    , Str ")"
+    ]
+, RawBlock
+    (Format "markdown") "<div style=\"text-align:center;\">"
+, RawBlock
+    (Format "markdown") "{{% badge style=\"primary\" %}}"
+, Para
+    [ Str "A"
+    , Space
+    , Strong [ Str "simple" ]
+    , Space
+    , Str "text"
+    , Space
+    , Str "to"
+    , Space
+    , Str "be"
+    , Space
+    , Emph [ Str "centred" ]
+    , Space
+    , Str "and"
+    , Space
+    , RawInline (Format "markdown") "<span class='alert'>"
+    , Str "accentuated"
+    , RawInline (Format "markdown") "</span>"
+    ]
+, RawBlock (Format "markdown") "{{% /badge %}}"
+, RawBlock (Format "markdown") "</div>"
+, Para
+    [ Str "Durchf\252hrung"
+    , Space
+    , Str "als"
+    , Space
+    , Strong [ Str "Flipped" , Space , Str "Classroom" ]
+    , Str ":"
+    , Space
+    , Str "Sitzungen"
+    , Space
+    , Str "per"
+    , Space
+    , Str "Zoom"
+    , Space
+    , Str "("
+    , Strong
+        [ Str "Zugangsdaten"
+        , Space
+        , Str "siehe"
+        , Space
+        , Str "[Moodle]"
+        ]
+    , Str ")"
+    ]
+]
