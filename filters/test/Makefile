@@ -2,7 +2,7 @@ DIFF ?= diff --strip-trailing-cr -u
 PANDOC ?= pandoc
 
 
-test: test_rewritelinks test_makedeps test_includemd test_tabs test_code test_bsp test_cbox
+test: test_rewritelinks test_makedeps test_includemd test_tabs test_code test_bsp test_cbox test_showme
 
 test_rewritelinks: readme.md   expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native expected_rewritelinks5.native
 	@$(PANDOC) -L ../hugo_rewritelinks.lua -t native readme.md                                         \
@@ -63,6 +63,10 @@ test_bsp: bsp_span.md   expected_bsp_span.native
 test_cbox: cbox_div.md   expected_cbox_div.native
 	@$(PANDOC) -L ../hugo.lua -t native cbox_div.md                                                    \
 	    | $(DIFF) expected_cbox_div.native -
+
+test_showme: showme_div.md   expected_showme_div.native
+	@$(PANDOC) -L ../hugo.lua -t native showme_div.md                                                    \
+	    | $(DIFF) expected_showme_div.native -
 
 
 expected: expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native expected_rewritelinks5.native
@@ -125,6 +129,10 @@ expected: expected_cbox_div.native
 expected_cbox_div.native: cbox_div.md
 	$(PANDOC) -L ../hugo.lua -t native -o $@ $^
 
+expected: expected_showme_div.native
+expected_showme_div.native: showme_div.md
+	$(PANDOC) -L ../hugo.lua -t native -o $@ $^
+
 
 clean:
 	rm -rf expected_rewritelinks1.native expected_rewritelinks2.native expected_rewritelinks3.native expected_rewritelinks4.native expected_rewritelinks5.native
@@ -134,5 +142,6 @@ clean:
 	rm -rf expected_codeblocks.native
 	rm -rf expected_bsp_span.native
 	rm -rf expected_cbox_div.native
+	rm -rf expected_showme_div.native
 
-.PHONY: test test_rewritelinks test_makedeps test_includemd test_tabs test_code test_bsp test_cbox expected clean
+.PHONY: test test_rewritelinks test_makedeps test_includemd test_tabs test_code test_bsp test_cbox test_showme expected clean
