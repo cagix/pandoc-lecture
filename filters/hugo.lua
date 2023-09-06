@@ -80,8 +80,9 @@ end
 function Div(el)
     -- Replace "showme" Div with "expand" Shortcode
     if el.classes[1] == "showme" then
+        local title = el.attributes["title"] and el.attributes["title"] or "Show Me"
         return
-            { pandoc.RawBlock("markdown", '{{% expand "Show Me" %}}') } ..
+            { pandoc.RawBlock("markdown", '{{% expand title="' .. title .. '" %}}') } ..
             el.content ..
             { pandoc.RawBlock("markdown", "{{% /expand %}}") }
     end
