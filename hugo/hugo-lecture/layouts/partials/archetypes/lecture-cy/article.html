@@ -21,9 +21,7 @@
     </div>
 
     {{ partial "assignments.html" . }}
-    {{ if .Params.outcomes }}
-        {{ partial "outcomes.html" . }}
-    {{ end }}
+    {{ partial "outcomes.html" . }}
     {{ partial "quizzes.html" . }}
     {{ partial "challenges.html" . }}
     {{ partial "bib.html" . }}
