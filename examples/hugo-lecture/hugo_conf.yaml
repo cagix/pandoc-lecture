@@ -16,7 +16,6 @@ theme:
 #publishDir: "docs"  ## set via Makefile: $(WEB_OUTPUT_DIR)
 
 params:
-  editURL: "https://github.com/Programmiermethoden/PM-Lecture/edit/master/markdown/"
   author: "cagix"
   titleSeparator: " "
   alwaysopen: false
@@ -24,7 +23,8 @@ params:
   disableBreadcrumb: true
   disableInlineCopyToClipBoard: true
   disableNextPrev: true
-  disableSearch: true
+  disableSearch: false
+  disableSearchHiddenPages: false
   disableLandingPageButton: true
   disableLanguageSwitchingButton: true
   disableMathJax: false
@@ -33,9 +33,9 @@ params:
     - "auto"
     - "zen-light"
     - "zen-dark"
+    - "relearn-bright"
     - "relearn-light"
     - "relearn-dark"
-    - "green"
 
 menu:
   shortcuts:
@@ -59,6 +59,8 @@ outputs:
   home:
     - HTML
     - PRINT
+    - SEARCH
+    - SEARCHPAGE
   section:
     - HTML
     - PRINT
