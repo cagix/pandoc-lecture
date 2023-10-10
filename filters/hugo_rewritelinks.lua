@@ -95,7 +95,7 @@ local function _process_links (link)
         end
 
         -- emit corresponding Hugo shortcode 'ref'
-        return pandoc.RawInline('markdown', '[' .. content .. ']({{< ref "' .. target .. '" >}})')
+        return pandoc.RawInline('markdown', '[' .. content .. ']({{% relref "' .. target .. '" %}})')
     end
 end
 

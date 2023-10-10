@@ -6,11 +6,11 @@
 , Para [ Str "Thanks" , Space , Str "everyone!" ]
 , Para
     [ RawInline
-        (Format "markdown") "[File A]({{< ref \"file-a\" >}})"
+        (Format "markdown") "[File A]({{% relref \"file-a\" %}})"
     ]
 , Para
     [ RawInline
-        (Format "markdown") "[File A]({{< ref \"file-a\" >}})"
+        (Format "markdown") "[File A]({{% relref \"file-a\" %}})"
     ]
 , Figure
     ( "" , [] , [] )
@@ -82,7 +82,7 @@
     , [ Plain
           [ RawInline
               (Format "markdown")
-              "[not there and not here]({{< ref \"wuppie\" >}})"
+              "[not there and not here]({{% relref \"wuppie\" %}})"
           ]
       ]
     ]
@@ -92,19 +92,19 @@
     [ Str "Recursive" , Space , Str "inclusion" ]
 , Para
     [ RawInline
-        (Format "markdown") "[File B]({{< ref \"file-b\" >}})"
+        (Format "markdown") "[File B]({{% relref \"file-b\" %}})"
     ]
 , Header
     2 ( "subdirectories" , [] , [] ) [ Str "Subdirectories" ]
 , Para
     [ RawInline
         (Format "markdown")
-        "[Subdir: File D]({{< ref \"file-d\" >}})"
+        "[Subdir: File D]({{% relref \"file-d\" %}})"
     ]
 , Para
     [ RawInline
         (Format "markdown")
-        "[Subdir: File D]({{< ref \"file-d\" >}})"
+        "[Subdir: File D]({{% relref \"file-d\" %}})"
     ]
 , Header
     2
@@ -113,7 +113,7 @@
 , Para
     [ RawInline
         (Format "markdown")
-        "[Subdir: File E]({{< ref \"file-e\" >}})"
+        "[Subdir: File E]({{% relref \"file-e\" %}})"
     ]
 , Header
     2
@@ -129,7 +129,7 @@
 , Para
     [ RawInline
         (Format "markdown")
-        "[Subdir/Leaf: Foo]({{< ref \"foo\" >}})"
+        "[Subdir/Leaf: Foo]({{% relref \"foo\" %}})"
     ]
 , Header
     2
@@ -145,11 +145,11 @@
 , Para
     [ RawInline
         (Format "markdown")
-        "[subdir/readme]({{< ref \"subdir\" >}})"
+        "[subdir/readme]({{% relref \"subdir\" %}})"
     ]
 , Para
     [ RawInline
-        (Format "markdown") "[readme]({{< ref \"/\" >}})"
+        (Format "markdown") "[readme]({{% relref \"/\" %}})"
     ]
 , Div
     ( "" , [ "slides" ] , [] )
@@ -387,19 +387,19 @@
         [ [ Plain
               [ RawInline
                   (Format "markdown")
-                  "[Syllabus]({{< ref \"syllabus\" >}})"
+                  "[Syllabus]({{% relref \"syllabus\" %}})"
               ]
           ]
         , [ Plain
               [ RawInline
                   (Format "markdown")
-                  "[Ressourcen]({{< ref \"resources\" >}})"
+                  "[Ressourcen]({{% relref \"resources\" %}})"
               ]
           ]
         , [ Plain
               [ RawInline
                   (Format "markdown")
-                  "[Pr\252fungsvorbereitung]({{< ref \"exams\" >}})"
+                  "[Pr\252fungsvorbereitung]({{% relref \"exams\" %}})"
               ]
           ]
         ]
