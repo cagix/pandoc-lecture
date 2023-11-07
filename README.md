@@ -100,13 +100,13 @@ All required tools are specified in the various installation scripts in the fold
 
 There are three ways to use the toolchain defined by the [Pandoc-Lecture project](https://github.com/cagix/pandoc-lecture):
 
--   Online via GitHub action
--   Locally via Docker container
--   Locally via native installation
+-   [Option A](#option-a-online-via-github-action): Online via GitHub action
+-   [Option B](#option-b-locally-via-docker-container): Locally via Docker container
+-   [Option C](#option-c-locally-via-native-installation): Locally via native installation
 
 Installation and usage in these scenarios is described in the following sections.
 
-## Using Online: GitHub action
+## Option A: Online via GitHub action
 
 You need a suitable build script, e.g. a Makefile, to apply Pandoc and the other tools to your Markdown files. Additionally, you need a GitHub workflow that utilises this Makefile and the [_composite_ GitHub-Action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action) defined in the Pandoc-Lecture project ([action.yaml](https://github.com/cagix/pandoc-lecture/blob/master/action.yaml)).
 
@@ -185,7 +185,7 @@ Usually, this workflow has to be saved as a YAML file "`WORKFLOWNAME.yaml`" in t
 
 Depending on your settings, the ["cagix/pandoc-lecture"](https://github.com/cagix/pandoc-lecture) GitHub action must be enabled for your repository: `Settings > Actions > General > Action permissions`.
 
-## Using locally: Docker container
+## Option B: Locally via Docker container
 
 For local use, the [Docker image](https://github.com/cagix/pandoc-lecture/blob/master/docker/Dockerfile) defined in the project can be used. You'll need to build this Docker image, also you'll need a suitable build script, e.g. a Makefile.
 
@@ -243,7 +243,7 @@ web: ...
 
 _Note_: Since Hugo version 0.110.0, the configuration file for Hugo is supposed to be named `hugo.yaml` (see also https://gohugo.io/getting-started/configuration/#hugotoml-vs-configtoml). However, since this name is also already being used for the Pandoc default file for pre-processing Markdown files (`defaults/hugo.yaml`), there would be a naming conflict. Therefore, in the example [Programming Methods/PM Lecture/Makefile](https://github.com/Programmiermethoden/PM-Lecture/blob/master/Makefile), another file name is used for the Hugo configuration (`hugo_conf.yaml`) and then explicitly set as a parameter for Hugo in the Makefile (`--config hugo_conf.yaml`).
 
-## Using locally: Native installation
+## Option C: Locally via native installation
 
 Local use without Docker is also an option for Unix-like operating systems like Linux or macOS (_but is not recommended_). For this purpose, the specified tools have to be installed manually using the correct versions. The files linked below provide both the download URLs for the respective binaries and the required version numbers:
 
