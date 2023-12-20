@@ -10,12 +10,25 @@ on:
 
 jobs:
   # run all test scripts
-  tests:
+  test_filter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cagix/pandoc-lecture@master
+      - run: cd filters/test && make test
+  test_hugo_lecture:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: cagix/pandoc-lecture@master
         with:
           hugo: 'true'
-      - run: cd filters/test && make test
       - run: cd examples/hugo-lecture && make web
+  test_lecture_slides:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cagix/pandoc-lecture@master
+        with:
+          texlive: 'true'
+      - run: cd examples/hugo-lecture && make slides
