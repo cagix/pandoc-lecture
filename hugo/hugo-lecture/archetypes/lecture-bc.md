@@ -1,7 +1,7 @@
 ---
 archetype: lecture-bc
 title: "{{ replace .Name '-' ' ' | title }}"
-menuTitle: "{{ replace .Name '-' ' ' | title }}"
+linkTitle: "{{ replace .Name '-' ' ' | title }}"
 author: "BC George (HSBI)"
 weight: 5
 readings:

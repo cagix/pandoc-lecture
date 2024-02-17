@@ -1,7 +1,7 @@
 ---
 archetype: default
 title: "{{ replace .Name '-' ' ' | title }}"
-menuTitle: "{{ replace .Name '-' ' ' | title }}"
+linkTitle: "{{ replace .Name '-' ' ' | title }}"
 weight: 5
 #hidden: true
 ---

@@ -1,7 +1,7 @@
 ---
 archetype: lecture-cy
 title: "{{ replace .Name '-' ' ' | title }}"
-menuTitle: "{{ replace .Name '-' ' ' | title }}"
+linkTitle: "{{ replace .Name '-' ' ' | title }}"
 author: "Canan Yıldız (Türkisch-Deutsche Universität)"
 weight: 5
 readings:

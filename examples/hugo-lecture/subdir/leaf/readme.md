@@ -1,7 +1,7 @@
 ---
 archetype: "chapter"
 title: "Thema SubDir/Leaf"
-menuTitle: "SubDir/Leaf"
+linkTitle: "SubDir/Leaf"
 ---
 
 

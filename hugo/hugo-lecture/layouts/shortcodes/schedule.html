@@ -42,7 +42,7 @@
                         {{ $path := .File.Dir | path.Clean }}
                         {{ $path = replace ($path | path.Clean) "/" " > " | upper }}
                         {{if gt (len $path) 1}}{{ printf "%s > " $path }}{{end}}
-                        {{ $title := .Params.menutitle | default .Title }}
+                        {{ $title := .Params.linkTitle | default .Title }}
                         <a href="{{- .Permalink | safeURL -}}"><strong>{{- $title -}}</strong></a>
                         {{ if $leader }}{{ printf " (%s)" $leader }}{{ end }}
                         {{ if $notes }}<br><em>{{ printf "Hinweis: %s" $notes }}</em>{{ end }}
@@ -64,7 +64,7 @@
                 {{ if $topic }}
                     {{ with $.Site.GetPage $topic }}
                     <li>
-                        {{ $title := .Params.menutitle | default .Title }}
+                        {{ $title := .Params.linkTitle | default .Title }}
                         <a href="{{- .Permalink | safeURL -}}"><strong>{{- $title -}}</strong></a>
                         {{ if $due }}<br>{{ printf "(%s)" $due }}{{ end }}
                     </li>
