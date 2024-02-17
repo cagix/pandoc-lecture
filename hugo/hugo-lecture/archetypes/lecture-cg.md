@@ -1,7 +1,7 @@
 ---
 archetype: lecture-cg
 title: "{{ replace .Name '-' ' ' | title }}"
-menuTitle: "{{ replace .Name '-' ' ' | title }}"
+linkTitle: "{{ replace .Name '-' ' ' | title }}"
 author: "Carsten Gips (HSBI)"
 weight: 5
 readings:
