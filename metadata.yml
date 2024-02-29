@@ -1,0 +1,39 @@
+'@context': https://schema.org/
+creativeWorkStatus: Published
+type: LearningResource
+name: Pandoc Markdown Lecture Template
+description: >-
+  This project defines a skeleton repo for creating lecture material, i.e.
+  slides and handouts including lecture notes, homework sheets plus the
+  corresponding evaluation sheets and exams plus solution sheets out of Pandoc
+  Markdown using a single source approach.
+license: https://choosealicense.com/licenses/mit/
+id: https://github.com/cagix/pandoc-lecture
+creator:
+  - givenName: Carsten
+    familyName: Gips
+    id: https://orcid.org/0000-0002-4230-9060
+    type: Person
+    affiliation:
+      name: Hochschule Bielefeld
+      type: Organization
+keywords:
+  - markdown
+  - pandoc
+  - lecture material
+  - teaching material
+  - slides
+  - handouts
+  - lecture website
+  - oer
+inLanguage:
+  - de
+about:
+  - https://w3id.org/kim/hochschulfaechersystematik/n079
+learningResourceType:
+  - https://w3id.org/kim/hcrt/application
+educationalLevel:
+  - https://w3id.org/kim/educationalLevel/level_A
+  - https://w3id.org/kim/educationalLevel/level_6
+  - https://w3id.org/kim/educationalLevel/level_7
+datePublished: '2024-02-28'
