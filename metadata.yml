@@ -7,7 +7,7 @@ description: >-
   slides and handouts including lecture notes, homework sheets plus the
   corresponding evaluation sheets and exams plus solution sheets out of Pandoc
   Markdown using a single source approach.
-license: https://choosealicense.com/licenses/mit/
+license: https://opensource.org/license/mit
 id: https://github.com/cagix/pandoc-lecture
 creator:
   - givenName: Carsten
