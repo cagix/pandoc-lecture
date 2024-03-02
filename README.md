@@ -92,17 +92,17 @@ Since LaTeX is still used as back end, all TeX macros could be used.
 
 The project [Pandoc-Lecture](https://github.com/cagix/pandoc-lecture) defines a toolchain to generate slides (in PDF format) as well as a website for teaching material from a set of Markdown files. For each unit, the PDF and the HTML page are generated from the same Markdown file:
 
--   The slide sets (as PDF slide sets) are produced from the Markdown sources with [Pandoc](https://pandoc.org/) plus the [filters](https://github.com/cagix/pandoc-lecture/tree/master/filters), [definitions](https://github.com/cagix/pandoc-lecture/tree/master/resources) and [defaults](https://github.com/cagix/pandoc-lecture/tree/master/defaults) defined in [Pandoc-Lecture](https://github.com/cagix/pandoc-lecture) and with [TexLive](https://tug.org/texlive/).
+*   The slide sets (as PDF slide sets) are produced from the Markdown sources with [Pandoc](https://pandoc.org/) plus the [filters](https://github.com/cagix/pandoc-lecture/tree/master/filters), [definitions](https://github.com/cagix/pandoc-lecture/tree/master/resources) and [defaults](https://github.com/cagix/pandoc-lecture/tree/master/defaults) defined in [Pandoc-Lecture](https://github.com/cagix/pandoc-lecture) and with [TexLive](https://tug.org/texlive/).
 
--   The teaching material (as a website) is produced from the Markdown sources using [Pandoc](https://pandoc.org/) and the [filters](https://github.com/cagix/pandoc-lecture/tree/master/filters), [definitions](https://github.com/cagix/pandoc-lecture/tree/master/resources) and [defaults](https://github.com/cagix/pandoc-lecture/tree/master/defaults) defined in [Pandoc-Lecture](https://github.com/cagix/pandoc-lecture) as well as with [Hugo](https://gohugo.io/) and the [Hugo Relearn-Theme](https://github.com/McShelby/hugo-theme-relearn). The generated website can, e.g., be deployed as a _HTML Learning Module_ in the LMS _ILIAS_.
+*   The teaching material (as a website) is produced from the Markdown sources using [Pandoc](https://pandoc.org/) and the [filters](https://github.com/cagix/pandoc-lecture/tree/master/filters), [definitions](https://github.com/cagix/pandoc-lecture/tree/master/resources) and [defaults](https://github.com/cagix/pandoc-lecture/tree/master/defaults) defined in [Pandoc-Lecture](https://github.com/cagix/pandoc-lecture) as well as with [Hugo](https://gohugo.io/) and the [Hugo Relearn-Theme](https://github.com/McShelby/hugo-theme-relearn). The generated website can be deployed e.g. as a _HTML Learning Module_ in the LMS _ILIAS_.
 
 All required tools are specified in the various installation scripts in the folder [cagix/pandoc-lecture/docker/](https://github.com/cagix/pandoc-lecture/tree/master/docker).
 
 There are three ways to use the toolchain defined by the [Pandoc-Lecture project](https://github.com/cagix/pandoc-lecture):
 
--   [Option A](#option-a-online-via-github-action): Online via GitHub action
--   [Option B](#option-b-locally-via-docker-container): Locally via Docker container
--   [Option C](#option-c-locally-via-native-installation): Locally via native installation
+*   [Option A](#option-a-online-via-github-action): Online via GitHub action
+*   [Option B](#option-b-locally-via-docker-container): Locally via Docker container
+*   [Option C](#option-c-locally-via-native-installation): Locally via native installation
 
 Installation and usage in these scenarios is described in the following sections.
 
@@ -112,7 +112,7 @@ You need a suitable build script, e.g. a Makefile, to apply Pandoc and the other
 
 ### Build Script
 
-You can use your favourite build script technology. In this example we will demonstrate how to use a Makefile. The following code snippet shows two targets `web` and `slides` for calling Hugo and Pandoc, respectively. This example is quite abbreviated, you will find the complete (and working) text in [Programming Methods/PM Lecture/Makefile](https://github.com/Programmiermethoden/PM-Lecture/blob/master/Makefile).
+You can use your favourite build script technology. In this example we will demonstrate how to use a Makefile. The following code snippet shows two targets `web` and `slides` for calling Hugo and Pandoc, respectively. This example is quite abbreviated, you will find the complete (and working) text in [Programmiermethoden-CampusMinden/Prog2-Lecture/Makefile](https://github.com/Programmiermethoden-CampusMinden/Prog2-Lecture/blob/master/Makefile).
 
 To produce the teaching material as a website, invoke `make web`; and to produce the PDF slide sets, use `make slides`:
 
@@ -123,7 +123,7 @@ web: ...
 
 ## Create all slides
 slides: ...
-	pandoc -d slides $< -o $@
+	pandoc -d beamer $< -o $@
 ```
 
 ### GitHub Workflow
@@ -198,7 +198,7 @@ git clone https://github.com/cagix/pandoc-lecture.git
 cd pandoc-lecture/
 # Use either of the following steps
 make amd64  # Intel
-make arm64  # Apple M1/M2, ARM
+make arm64  # Apple M1/M2/M3, ARM
 ```
 
 Once the image has been created, the `pandoc-lecture/` folder can be deleted. To renew the image, e.g. after updating the definitions, the above steps have to be repeated.
@@ -207,7 +207,7 @@ Once the image has been created, the `pandoc-lecture/` folder can be deleted. To
 
 The entire toolchain is available in the Docker image named `pandoc-lecture`. To work with the toolchain, the Docker image needs to be launched and the local working directory has to be mounted into the container. An interactive shell inside the container can be used to access the mounted files and the toolchain in the container from there.
 
-Here is an example of a Makefile for your local project (excerpt from [Programming Methods/PM Lecture/Makefile](https://github.com/Programmiermethoden/PM-Lecture/blob/master/Makefile), shortened):
+Here is an example of a Makefile for your local project (excerpt from [Programmiermethoden-CampusMinden/Prog2-Lecture/Makefile](https://github.com/Programmiermethoden-CampusMinden/Prog2-Lecture/blob/master/Makefile), shortened):
 
 ```makefile
 ## Start Docker container "pandoc-lecture" into interactive shell
@@ -216,7 +216,7 @@ runlocal:
 
 ## Create all slides
 slides: ...
-	pandoc -d slides $< -o $@
+	pandoc -d beamer $< -o $@
 ```
 
 With `make runlocal`, issued in your local shell, the container will be launched and an interactive shell (Bash) inside the container will be started. Your local working directory will be mounted into the container, so all files in your local working directory are accessible inside the container. With the above Makefile, you can then produce the PDF slide sets in the interactive shell within the container using `make slides`. The generated PDF files are automatically available in the local working directory via the mount.
@@ -229,7 +229,7 @@ However, this prevents the generated web pages from being displayed correctly wh
 
 As an alternative, you can add an additional local file `local.yaml` to the project root, which will _not be versioned_ (create a corresponding entry in the `.gitignore`!). This file contains a single line `baseURL: "file://<path_to_project>/docs/"`, specifying the actual path in the local file system to your project. If this file is present, its definition of the `baseURL` overwrites the original configuration and you can view the generated web pages locally. For the deployment to the LMS, you just need to comment out the single line in the file, so the `baseURL` from the versioned global configuration will be used again.
 
-Here is an excerpt from a suitable Makefile (see again [Programming Methods/PM Lecture/Makefile](https://github.com/Programmiermethoden/PM-Lecture/blob/master/Makefile)):
+Here is an excerpt from a suitable Makefile (see again [Programmiermethoden-CampusMinden/Prog2-Lecture/Makefile](https://github.com/Programmiermethoden-CampusMinden/Prog2-Lecture/blob/master/Makefile)):
 
 ```makefile
 ## Define options to be used by Hugo
@@ -241,19 +241,17 @@ web: ...
 	hugo $(HUGO_ARGS)
 ```
 
-_Note_: Since Hugo version 0.110.0, the configuration file for Hugo is supposed to be named `hugo.yaml` (see also https://gohugo.io/getting-started/configuration/#hugotoml-vs-configtoml). However, since this name is also already being used for the Pandoc default file for pre-processing Markdown files (`defaults/hugo.yaml`), there would be a naming conflict. Therefore, in the example [Programming Methods/PM Lecture/Makefile](https://github.com/Programmiermethoden/PM-Lecture/blob/master/Makefile), another file name is used for the Hugo configuration (`hugo_conf.yaml`) and then explicitly set as a parameter for Hugo in the Makefile (`--config hugo_conf.yaml`).
-
 ## Option C: Locally via native installation
 
 Local use without Docker is also an option for Unix-like operating systems like Linux or macOS (_but is not recommended_). For this purpose, the specified tools have to be installed manually using the correct versions. The files linked below provide both the download URLs for the respective binaries and the required version numbers:
 
--   [Pandoc](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-pandoc.sh) and [Pandoc-Lecture](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-pandoc-lecture.sh)
--   For the web page:
-    -   [Hugo](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-hugo.sh)
-    -   [Hugo Relearn-Theme](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-relearn.sh)
--   For the PDF slide sets:
-    -   [TeX-Live](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-texlive.sh)
--   If required, [GraphViz and Dot](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-packages-ubuntu.sh)
+*   [Pandoc](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-pandoc.sh) and [Pandoc-Lecture](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-pandoc-lecture.sh)
+*   For the web page:
+    *   [Hugo](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-hugo.sh)
+    *   [Hugo Relearn-Theme](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-relearn.sh)
+*   For the PDF slide sets:
+    *   [TeX-Live](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-texlive.sh)
+*   If required, [GraphViz and Dot](https://github.com/cagix/pandoc-lecture/blob/master/docker/install-packages-ubuntu.sh)
 
 The content of [Pandoc Lecture](https://github.com/cagix/pandoc-lecture) has to be copied into your local user folder `${HOME}/.local/share/pandoc/`. The content of [Hugo Relearn-Theme](https://github.com/McShelby/hugo-theme-relearn) is expected in `${HOME}/.local/share/pandoc/hugo/hugo-theme-relearn/`. Both steps can be achieved using the [Makefile in Pandoc Lecture](https://github.com/cagix/pandoc-lecture/blob/master/Makefile):
 
@@ -263,7 +261,7 @@ cd pandoc-lecture/
 make install_scripts_locally
 ```
 
-You can now work with your build script, e.g. a Makefile, in your local project. In the following example, you see a shortened excerpt from [Programming Methods/PM Lecture/Makefile](https://github.com/Programmiermethoden/PM-Lecture/blob/master/Makefile) to produce the teaching material as a website with `make web` or the PDF slide sets with `make slides`:
+You can now work with your build script, e.g. a Makefile, in your local project. In the following example, you see a shortened excerpt from [Programmiermethoden-CampusMinden/Prog2-Lecture/Makefile](https://github.com/Programmiermethoden-CampusMinden/Prog2-Lecture/blob/master/Makefile) to produce the teaching material as a website with `make web` or the PDF slide sets with `make slides`:
 
 ```makefile
 ## Create website
@@ -272,7 +270,7 @@ web: ...
 
 ## Create all slides
 slides: ...
-	pandoc -d slides $< -o $@
+	pandoc -d beamer $< -o $@
 ```
 
 The downside of this option would be that you need to manually maintain the installed tools (Pandoc, Hugo, TexLive) as well as the scripts from Pandoc-Lecture and Hugo Relearn-Theme. The versions must always match the specifications in [cagix/pandoc-lecture/docker/](https://github.com/cagix/pandoc-lecture/tree/master/docker)!
