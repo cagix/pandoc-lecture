@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## Versions
-export RELEARN="5.26.0"
+export RELEARN="5.26.1"
 # set XDG_DATA_HOME externally
 
 ## Hugo Relearn Theme: https://github.com/McShelby/hugo-theme-relearn/releases/latest/
