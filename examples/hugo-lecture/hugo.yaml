@@ -17,6 +17,7 @@ params:
   titleSeparator: " "
   alwaysopen: false
   showVisitedLinks: true
+  externalLinkTarget: "_blank"
   disableBreadcrumb: true
   disableInlineCopyToClipBoard: true
   disableNextPrev: true
