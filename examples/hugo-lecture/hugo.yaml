@@ -1,7 +1,5 @@
 baseURL: "file://<PATH_TO_YOUR_PROJECT_SOURCES>/docs/"
-canonifyURLs: true   # prepend all relative URLs w/ baseURL
-relativeURLs: false  # do NOT rewrite relative URLs to be relative to current content
-uglyurls: true       # use foo.de/bar.html instead of foo.de/bar/ (our new ILIAS 7.x HTML-Lernmodul won't find landing pages else)
+uglyurls: true       ## use foo.de/bar.html instead of foo.de/bar/ (our new ILIAS 7.x HTML-Lernmodul won't find landing pages else)
 
 languageCode: "de-DE"
 metaDataFormat: "yaml"
