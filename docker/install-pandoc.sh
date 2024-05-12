@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## Versions
-export PANDOC="3.1.13"
+export PANDOC="3.2"
 # set ARCH="amd64" or ARCH="arm64" externally
 export ARCH="${ARCH:-amd64}"  # if not set, use 'amd64' as default
 
