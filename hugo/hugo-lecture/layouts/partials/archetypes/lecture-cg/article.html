@@ -20,6 +20,11 @@
     {{ .Scratch.Set "videos_linktext" "Direkt-Link HSBI-Medienportal" }}
     {{ partial "videos.html" . }}
 
+    {{ .Scratch.Set "videos_params" .Params.tibav }}
+    {{ .Scratch.Set "videos_title" "Videos (TIB AV-Portal)" }}
+    {{ .Scratch.Set "videos_linktext" "Direkt-Link TIB AV-Portal" }}
+    {{ partial "videos.html" . }}
+
     {{ .Scratch.Set "attachments_title" "Slides" }}
     {{ partial "attachments.html" . }}
 

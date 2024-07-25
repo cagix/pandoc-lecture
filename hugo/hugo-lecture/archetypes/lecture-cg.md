@@ -23,9 +23,12 @@ assignments:
     -   topic: sheet02
 youtube:
     -   link: "https://youtu.be/XYZ"
-        name: "Use This As Link Text"
+        name: "Use This As Link Text (Direkt-Link)"
 fhmedia:
     -   link: "https://www.hsbi.de/medienportal/m/XYZ"
+        name: "Use This As Link Text (Direkt-Link)"
+tibav:
+    -   link: "https://av.tib.eu/media/XYZ"
         name: "Use This As Link Text (Direkt-Link)"
 sketch: true
 ---
