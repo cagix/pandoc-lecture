@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## Versions
-export HUGO="0.129.0"
+export HUGO="0.130.0"
 # set ARCH="amd64" or ARCH="arm64" externally
 export ARCH="${ARCH:-amd64}"  # if not set, use 'amd64' as default
 
