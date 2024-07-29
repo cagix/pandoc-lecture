@@ -8,10 +8,6 @@
 {{ $topic := .Page.File.TranslationBaseName }}
 
 {{ $schedule := .Site.Data.schedule }}
-{{ if .Site.IsMultiLingual }}
-    {{ $data := index .Site.Data .Site.Language.Lang }}
-    {{ $schedule = $data.schedule }}
-{{ end }}
 
 {{ $due := "" }}
 {{ range $schedule }}

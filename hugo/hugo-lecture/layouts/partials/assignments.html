@@ -1,9 +1,5 @@
 {{ $assignments := .Params.assignments }}
 {{ $schedule := .Site.Data.schedule }}
-{{ if .Site.IsMultiLingual }}
-    {{ $data := index .Site.Data .Site.Language.Lang }}
-    {{ $schedule = $data.schedule }}
-{{ end }}
 
 {{ if $assignments }}
 
