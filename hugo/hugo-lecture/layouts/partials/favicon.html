@@ -1,4 +1,5 @@
     {{- $assetBusting := not .Site.Params.disableAssetsBusting }}
+
     {{ $logo := "images/logo.png" }}
 
     <link href="{{ $logo | relURL }}{{ if $assetBusting }}?{{ now.Unix }}{{ end }}" rel="icon" type="image/png">
