@@ -93,7 +93,7 @@ DOT_ARGS       = -Tpng
 PANDOC_ARGS    = --metadata-file=$(METADATA)  $(PANDOC_DIRS)
 
 ## Define options to be used by Hugo
-HUGO_ARGS      = --config hugo.yaml,$(HUGO_LOCAL)  $(HUGO_DIRS)  --contentDir $(TEMP_DIR)  --destination $(WEB_OUTPUT_DIR)  --printPathWarnings --panicOnWarning
+HUGO_ARGS      = --config hugo.yaml,$(HUGO_LOCAL)  $(HUGO_DIRS)  --contentDir $(TEMP_DIR)  --destination $(WEB_OUTPUT_DIR)  --printPathWarnings #--panicOnWarning
 
 #--------------------------------------------------------------------------------
 # I/O Directories
