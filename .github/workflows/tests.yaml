@@ -13,13 +13,13 @@ jobs:
   test_filter:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: cagix/pandoc-lecture@master
       - run: cd filters/test && make test
   test_hugo_lecture:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: cagix/pandoc-lecture@master
         with:
           hugo: 'true'
@@ -27,7 +27,7 @@ jobs:
   test_lecture_slides:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: cagix/pandoc-lecture@master
         with:
           texlive: 'true'
